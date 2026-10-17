@@ -90,4 +90,46 @@ cases:
         subdomain_field: s
     threshold: 100.0
     provenance: {}
+- case_id: refuses_a_value_its_provenance_attributes_to_the_renderer
+  expected_outcome: VIOLATION
+  bindings:
+    design_registers:
+    - id: new_artifacts
+      value:
+      - capability: Reader
+        family: AC
+        code: AC_READER_V0
+        summary: A reader of the catalog
+        owner_subdomain: s
+        status: NEW
+        source_finding:
+          source: human
+    - id: artifact_properties
+      value:
+      - artifact: AC_READER_V0
+        property: type
+        value: human
+        source_finding:
+          source: human
+    - id: interface_fields
+      value:
+      - artifact: AC_READER_V0
+        direction: ATTRIBUTE
+        field: role
+        type: string
+        required: 'YES'
+        default: null
+        meaning: What the reader does
+    mandate_registers:
+    - id: build_order
+      value:
+      - wave: '1'
+        code: AC_READER_V0
+    - id: field_declarations
+      value:
+      - code: AC_READER_V0
+        subdomain_field: s
+    threshold: 100.0
+    provenance:
+      AC_READER_V0.core.type: supplied_by_renderer
 ```

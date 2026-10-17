@@ -16,7 +16,8 @@ from __future__ import annotations
 import re
 from typing import Any
 
-from transformation.build.render import _origin, render_all
+from transformation.build.provenance import origin as _origin
+from transformation.build.render import render_all
 
 # Containers whose keys are names the design gives, by artifact kind. A path pattern, with `[]` for
 # a list position and `<name>` for a key already normalised.

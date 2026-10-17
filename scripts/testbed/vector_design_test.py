@@ -19,6 +19,7 @@ from pathlib import Path
 from jsonschema import Draft202012Validator
 
 import machine
+from transformation.build.provenance import of as provenance_of
 from transformation.build.render import build_manifest, render_all, requirements
 from transformation.design.evaluate import ParsedDocument
 from transformation.design.oracle import evaluate
@@ -131,7 +132,8 @@ def test_every_rendered_vector_is_one_the_platform_admits():
 
 
 def test_every_fact_of_a_vector_is_determined_by_the_design():
-    undetermined = [(c, p) for c, p, ok in requirements(registers(design()), MANDATE)
+    undetermined = [(c, p) for c, p, ok in requirements(registers(design()), MANDATE,
+                                                  provenance_of(render_all(registers(design()), MANDATE)))
                     if not ok and c.startswith("TEST_DATA_")]
     assert undetermined == [], undetermined
 

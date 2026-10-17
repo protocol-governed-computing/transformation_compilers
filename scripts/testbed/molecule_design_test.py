@@ -14,6 +14,7 @@ from __future__ import annotations
 import sys
 
 import machine as probe
+from transformation.build.provenance import of as provenance_of
 from transformation.build.render import render_all, requirements
 from transformation.design.evaluate import ParsedDocument
 from transformation.design.oracle import evaluate
@@ -148,7 +149,8 @@ def test_each_transform_is_governed_by_the_constitution_its_kind_and_purity_plac
 
 
 def test_every_fact_of_a_molecule_is_determined_by_the_design():
-    undetermined = [(c, p) for c, p, ok in requirements(registers(design()), MANDATE)
+    undetermined = [(c, p) for c, p, ok in requirements(registers(design()), MANDATE,
+                                                  provenance_of(render_all(registers(design()), MANDATE)))
                     if not ok and ("atom_stream" in p or "emit" in p)]
     assert undetermined == [], undetermined
 

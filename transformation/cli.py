@@ -27,6 +27,7 @@ from inspector import api as inspector_api
 
 from transformation.build import sameness
 from transformation.build.completeness import carry_forward, measure
+from transformation.build.provenance import of as provenance_of
 from transformation.build.render import (
     bare,
     cell,
@@ -756,7 +757,7 @@ def construction_check(dossier: Path, threshold: float, as_json: bool,
     """
     p7 = _dossier_registers(dossier, "p7")
     p8 = _dossier_registers(dossier, "p8")
-    result = measure(p7, p8)
+    result = measure(p7, p8, provenance_of(render_all(p7, p8)))
     # The agreement gate. A generated artifact's sealed copy is checked against what produced it,
     # and a disagreement refuses the build — a check that exists and is required by nothing is a
     # habit, and a written obligation nobody must meet is indistinguishable from none. This has
@@ -926,7 +927,7 @@ def construction_emit(dossier: Path, domain_root: Path, force: bool, threshold: 
                    f"Nothing written.", err=True)
         sys.exit(1)
 
-    result = measure(p7, p8)
+    result = measure(p7, p8, provenance_of(render_all(p7, p8)))
     if not result.meets(threshold):
         click.echo(f"REFUSED — Construction Completeness {result.percentage:.1f}% is below "
                    f"{threshold:.0f}%; nothing written.", err=True)

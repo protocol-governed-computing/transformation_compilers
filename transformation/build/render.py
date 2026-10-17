@@ -29,6 +29,9 @@ from __future__ import annotations
 import re
 from typing import Any
 
+from transformation.build.provenance import (
+    CARRIED_FROM_PREDECESSOR, GOVERNED_ELSEWHERE, STATED_BY_DESIGN, SUPPLIED_BY_RENDERER, leaves,
+)
 from transformation.design.families import BY_CODE, FAMILIES
 from transformation.design.schema import column_key
 
@@ -129,16 +132,13 @@ def typed_fields(design: dict, code: str, direction: str) -> dict:
     return out
 
 
-# The origins a rendered fact may have. Governed by `transformation::VOCAB_FACT_PROVENANCE_V0`;
-# stated here because the renderer is what reports them and a name it cannot spell is a report
-# nothing can read.
+# The origins a rendered fact may have, governed by `transformation::VOCAB_FACT_PROVENANCE_V0` and
+# spelled once in `transformation.build.provenance`. The renderer records them as it renders.
 #
 # The measure admits the first two and refuses the third. That is the whole of the distinction: a
 # fact the design stated and a fact something else governs are both accounted for, and a fact the
 # renderer put there on its own authority is a second design nobody approved.
-STATED_BY_DESIGN = "stated_by_design"
-GOVERNED_ELSEWHERE = "governed_elsewhere"
-SUPPLIED_BY_RENDERER = "supplied_by_renderer"
+#
 # A value the artifact already carried, which no register of the design can express. Prose
 # descriptions are the case: `typed_fields` deliberately does not render a field's `Meaning`, because
 # the built corpus carries a description on some fields and not others — a sign it is documentation
@@ -149,7 +149,6 @@ SUPPLIED_BY_RENDERER = "supplied_by_renderer"
 # Preserving is not inventing. The renderer authors nothing here; it declines to delete what the
 # design has no way to speak about. The origin is recorded so the measure counts it as accounted for
 # rather than as a fact somebody stated.
-CARRIED_FROM_PREDECESSOR = "carried_from_predecessor"
 
 
 def _stated(design: dict, short: str, column: str) -> bool:
@@ -184,26 +183,7 @@ def _supplied(sink, path: str, governed_by: str = "") -> None:
     sink[path] = (GOVERNED_ELSEWHERE, governed_by) if governed_by else (SUPPLIED_BY_RENDERER, "")
 
 
-def _origin(supplied: dict, path: str) -> tuple[str, str]:
-    """The origin reported for a leaf, and what governs it where anything does.
-
-    A leaf the renderer said nothing about was read from a register, so silence means the design
-    stated it. Recording only departures keeps the report the size of what went wrong rather than
-    the size of the artifact.
-
-    A record on an ancestor covers what hangs beneath it: a builder that supplies a whole field
-    supplies every leaf of it, and making it enumerate them would be asking it to walk a shape it
-    has not finished building.
-    """
-    if path in supplied:
-        return supplied[path]
-    for ancestor, record in supplied.items():
-        if path.startswith(ancestor + "."):
-            return record
-    return (STATED_BY_DESIGN, "")
-
-
-def requirements(p7: dict, p8: dict) -> list[tuple[str, str, bool]]:
+def requirements(p7: dict, p8: dict, provenance: dict) -> list[tuple[str, str, bool]]:
     """Every fact construction needs, and whether the design supplies it.
 
     Derived rather than declared: the requirement list *is* the shape the renderer emits, walked
@@ -215,20 +195,23 @@ def requirements(p7: dict, p8: dict) -> list[tuple[str, str, bool]]:
     An empty policy and an undeclared one look identical in the output, so the difference has to be
     a declaration: a capability with an explicit "no configuration" row is determined, one that is
     simply absent from `runtime_policies` is not.
+
+    Where each leaf came from is read from `provenance`, keyed `<code>.<path>`: the attribution of
+    this render, which `transformation.build.provenance` derives and nothing here derives again. A
+    leaf it does not name was stated by the design, as the renderer's own records read.
     """
     out: list[tuple[str, str, bool]] = []
     for artifact in render_all(p7, p8):
         code = bare(artifact["machine"]["fqdn"])
         declared_empty = set(artifact.get("declared_empty") or ())
-        supplied = artifact.get("supplied") or {}
-        for path, value in _leaves(artifact["machine"]):
+        for path, value in leaves(artifact["machine"]):
             # Presence, then origin. Presence alone cannot tell a value the design stated from one
             # the renderer wrote on its own authority — both are non-empty, and for as long as that
             # was the whole test a renderer that never asked could invent freely and still measure
             # complete. A leaf is determined when the design stated it, or when something else
             # governs it and the renderer said which.
             present = not _empty(value) or path in declared_empty
-            origin, _governed = _origin(supplied, path)
+            origin = provenance.get(f"{code}.{path}", STATED_BY_DESIGN)
             out.append((code, path, present and origin != SUPPLIED_BY_RENDERER))
 
     # An artifact construction has no builder for determines nothing, and must be counted as
@@ -252,18 +235,6 @@ def requirements(p7: dict, p8: dict) -> list[tuple[str, str, bool]]:
     for code, successors in retirements(p7).items():
         out.append((code, "<superseded by>", bool(successors)))
     return out
-
-
-def _leaves(value: Any, path: str = ""):
-    """Every leaf of a rendered machine block, addressed by dotted path."""
-    if isinstance(value, dict) and value:
-        for key, item in value.items():
-            yield from _leaves(item, f"{path}.{key}" if path else key)
-    elif isinstance(value, list) and value:
-        for i, item in enumerate(value):
-            yield from _leaves(item, f"{path}[{i}]")
-    else:
-        yield path, value
 
 
 def _empty(value: Any) -> bool:

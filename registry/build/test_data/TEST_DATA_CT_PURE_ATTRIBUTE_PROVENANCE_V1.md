@@ -53,5 +53,6 @@ cases:
       STRUCTURE_S_STORAGE_V0.core.layer: supplied_by_renderer
       STRUCTURE_S_STORAGE_V0.core.domain: stated_by_design
       STRUCTURE_S_STORAGE_V0.core.subdomain: stated_by_design
+      STRUCTURE_S_STORAGE_V0.core.entity_stores: stated_by_design
     governing_artifacts: {}
 ```

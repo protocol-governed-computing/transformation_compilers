@@ -67,9 +67,13 @@ class Completeness:
         return self.percentage + 1e-9 >= threshold
 
 
-def measure(p7: dict, p8: dict) -> Completeness:
-    """Measure a design against what construction requires of it."""
-    return Completeness(facts=requirements(p7, p8))
+def measure(p7: dict, p8: dict, provenance: dict) -> Completeness:
+    """Measure a design against what construction requires of it.
+
+    `provenance` is where each rendered value came from, as attribution reports it
+    (`transformation.build.provenance`). The measure reads it and derives no origin of its own.
+    """
+    return Completeness(facts=requirements(p7, p8, provenance))
 
 
 # Amendments — what completeness cannot see -----------------------------------------------------
@@ -140,4 +144,6 @@ def carry_forward(rendered: list[dict], existing: dict[str, dict]) -> None:
                 cursor = cursor[key]
             if ok and isinstance(cursor, dict):
                 cursor[rest[-1] if rest else target] = value
-                _carried(supplied, path)
+                # Recorded as provenance addresses a leaf: no leading separator. Recorded with one,
+                # the record matched no leaf, and a carried value read as stated by the design.
+                _carried(supplied, path.lstrip("."))
