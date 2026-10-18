@@ -1,4 +1,4 @@
-"""Molecule design — the design language's half of software_governance/dossiers/molecule_composition (held at the v5 tag).
+"""Molecule design, in the design language.
 
 A molecule is declared in P7 as its steps (`molecule_steps`) and what each step is handed
 (`molecule_step_bindings`). Shown here: a loop over a molecule of two atoms renders to exactly the

@@ -221,8 +221,8 @@ drops it: an approval is against one composition and survives no other.
 
 ## Documents
 
-- `THE_SHAPE_OF_A_CHANGE_V0.md` — when a subject is a new change request and when it is the
-  same one re-authored, and which artifacts a governance change may amend.
+- `THE_SHAPE_OF_A_CHANGE_V0.md` — what a change may write, how it changes what exists, and where
+  the lifecycle's authority over a governance change ends.
 - `doc/DESIGN_LANGUAGE.md` — what a phase document is, and how each phase's rules are declared,
   sealed and evaluated.
 - `doc/CONSTRUCTION_MAPPING.md` — how each register field becomes an artifact field, and under

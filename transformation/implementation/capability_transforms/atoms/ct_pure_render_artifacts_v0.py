@@ -68,7 +68,7 @@ def execute(inputs: Dict[str, Any], context: Any = None) -> Dict[str, Any]:
         "artifact_count": len(artifacts),
         # Only the renderer knows where a value came from, because it put it there. Without this
         # the provenance step read every leaf as stated by the design, and the completeness gate
-        # could not refuse a value the renderer supplied (genesis G-7).
+        # could not refuse a value the renderer supplied.
         "sources": {str(a["machine"].get("fqdn", "")).split("::")[-1]:
                     {path: list(record) for path, record in (a.get("supplied") or {}).items()}
                     for a in artifacts},

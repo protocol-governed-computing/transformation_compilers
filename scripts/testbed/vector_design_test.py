@@ -1,4 +1,4 @@
-"""Vector design — the design language's half of software_governance/dossiers/transform_conformance (held at the v5 tag).
+"""Vector design, in the design language.
 
 A transform's proof is declared in P7 as its cases (`test_cases`) and what each case hands the
 transform and expects back (`test_case_values`). Shown here: construction renders a transform's cases

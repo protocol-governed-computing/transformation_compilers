@@ -20,7 +20,7 @@ def _store_grounded_in_capability(doc: ParsedDocument, rule) -> list[tuple[Locat
     store. What decides whether that is true is the design language's own list of the capabilities
     that keep named stores, the `storage_type` group a store's declaration is already drawn from. A
     capability's `category` cannot decide it: a capability that persists beneath a root its binding
-    declares is `storage` and addresses no named store (genesis G-6). A capability transform keeps
+    declares is `storage` and addresses no named store. A capability transform keeps
     none by being one.
 
     An unknown capability is `COMPOSITION_STEP_UNDECLARED`'s finding and an unknown operation is
