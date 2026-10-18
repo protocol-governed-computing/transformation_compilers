@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pgc-transformation"
-version = "5.0.0"
+version = "6.0.0"
 description = "PGC transformation compiler — the governed change request to authoring mandate pipeline (P0-P8), and the construction compiler that renders artifacts from an approved design (command: tc)"
 readme = "README.md"
 requires-python = ">=3.10"
