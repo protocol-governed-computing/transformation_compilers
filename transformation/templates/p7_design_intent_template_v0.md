@@ -70,6 +70,7 @@ registers:
     field: null
     type: null
     format: null
+    structure: null
     required: null
     default: null
     meaning: null
@@ -458,7 +459,8 @@ attributes are one shape — (artifact, direction, field, type) — and they wer
 the same reason: the language could describe a capability but never a field of one.*
 
 *`direction` ∈ INPUT | OUTPUT | ATTRIBUTE. `required` ∈ YES | NO. `default` is stated only when the
-field has one; a field with no default and `required: NO` is simply absent when not supplied.*
+field has one; a field with no default and `required: NO` is simply absent when not supplied. A field holding a structured value names its shape in `structure`, a STRUCTURE
+the design declares or carries over.*
 
 Register `interface_fields` in the Machine block.
 

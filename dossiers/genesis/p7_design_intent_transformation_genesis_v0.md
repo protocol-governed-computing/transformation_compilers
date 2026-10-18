@@ -2927,6 +2927,7 @@ registers:
     required: 'YES'
     default: null
     meaning: The document's header, as parsed
+    structure: transformation::STRUCTURE_PHASE_HEADER_V0
   - artifact: transformation::CT_PURE_EVALUATE_RULES_V1
     direction: INPUT
     field: sections
@@ -2934,6 +2935,7 @@ registers:
     required: 'YES'
     default: null
     meaning: Parsed document sections
+    structure: transformation::STRUCTURE_PHASE_SECTIONS_V0
   - artifact: transformation::CT_PURE_EVALUATE_RULES_V1
     direction: INPUT
     field: registers
@@ -2941,6 +2943,7 @@ registers:
     required: 'YES'
     default: null
     meaning: Parsed registers, addressed by id — how a rule locates what it governs
+    structure: transformation::STRUCTURE_PHASE_REGISTERS_V0
   - artifact: transformation::CT_PURE_EVALUATE_RULES_V1
     direction: INPUT
     field: document_text
@@ -2976,6 +2979,7 @@ registers:
       the priors the caller handed over. A cross-phase rule whose prior is absent reports that the handoff
       is unchecked rather than passing silently — an unchecked handoff and a preserved one are otherwise
       indistinguishable.
+    structure: transformation::STRUCTURE_PHASE_PRIORS_V0
   - artifact: transformation::CT_PURE_EVALUATE_RULES_V1
     direction: OUTPUT
     field: verdict
@@ -2990,6 +2994,7 @@ registers:
     required: 'YES'
     default: null
     meaning: One entry per failed rule, naming the rule, where it failed, and why it matters
+    structure: transformation::STRUCTURE_PHASE_FINDINGS_V0
   - artifact: transformation::CT_PURE_EVALUATE_RULES_V1
     direction: OUTPUT
     field: rules_evaluated
@@ -3013,6 +3018,7 @@ registers:
     required: 'YES'
     default: null
     meaning: Phase id → parsed document as header, sections and registers
+    structure: transformation::STRUCTURE_PHASE_PRIORS_V0
   - artifact: transformation::CT_PURE_PARSE_REGISTERS_V1
     direction: INPUT
     field: document_text
@@ -3027,6 +3033,7 @@ registers:
     required: 'YES'
     default: null
     meaning: The Machine block's `document` mapping
+    structure: transformation::STRUCTURE_PHASE_HEADER_V0
   - artifact: transformation::CT_PURE_PARSE_REGISTERS_V1
     direction: OUTPUT
     field: sections
@@ -3034,6 +3041,7 @@ registers:
     required: 'YES'
     default: null
     meaning: Ordered prose sections, each with its number, title and text
+    structure: transformation::STRUCTURE_PHASE_SECTIONS_V0
   - artifact: transformation::CT_PURE_PARSE_REGISTERS_V1
     direction: OUTPUT
     field: registers
@@ -3041,6 +3049,7 @@ registers:
     required: 'YES'
     default: null
     meaning: Registers in the order written, each with its id and its value
+    structure: transformation::STRUCTURE_PHASE_REGISTERS_V0
   - artifact: transformation::IN_ANALYSIS_LOOP_SUBMITTED_V0
     direction: INPUT
     field: register_text
@@ -4962,6 +4971,13 @@ registers:
       phase: p6
       register: governance_outcome
       key: Render, measure and attribute the artifacts a mandate schedules
+  - ct_code: transformation::CT_PURE_MEASURE_COMPLETENESS_V0
+    case: refuses_a_value_its_provenance_attributes_to_the_renderer
+    expected_outcome: VIOLATION
+    source_finding:
+      phase: p6
+      register: governance_outcome
+      key: Render, measure and attribute the artifacts a mandate schedules
   - ct_code: transformation::CT_PURE_RENDER_ARTIFACTS_V0
     case: renders_the_actor_a_mandate_schedules
     expected_outcome: SUCCESS
@@ -5064,6 +5080,7 @@ registers:
       STRUCTURE_S_STORAGE_V0.core.layer: supplied_by_renderer
       STRUCTURE_S_STORAGE_V0.core.domain: stated_by_design
       STRUCTURE_S_STORAGE_V0.core.subdomain: stated_by_design
+      STRUCTURE_S_STORAGE_V0.core.entity_stores: stated_by_design
     source_finding:
       phase: p6
       register: governance_outcome
@@ -5235,6 +5252,77 @@ registers:
     role: INPUT
     field: provenance
     value: {}
+    source_finding:
+      phase: p6
+      register: governance_outcome
+      key: Render, measure and attribute the artifacts a mandate schedules
+  - ct_code: transformation::CT_PURE_MEASURE_COMPLETENESS_V0
+    case: refuses_a_value_its_provenance_attributes_to_the_renderer
+    role: INPUT
+    field: design_registers
+    value:
+    - id: new_artifacts
+      value:
+      - capability: Reader
+        family: AC
+        code: AC_READER_V0
+        summary: A reader of the catalog
+        owner_subdomain: s
+        status: NEW
+        source_finding:
+          source: human
+    - id: artifact_properties
+      value:
+      - artifact: AC_READER_V0
+        property: type
+        value: human
+        source_finding:
+          source: human
+    - id: interface_fields
+      value:
+      - artifact: AC_READER_V0
+        direction: ATTRIBUTE
+        field: role
+        type: string
+        required: 'YES'
+        default: null
+        meaning: What the reader does
+    source_finding:
+      phase: p6
+      register: governance_outcome
+      key: Render, measure and attribute the artifacts a mandate schedules
+  - ct_code: transformation::CT_PURE_MEASURE_COMPLETENESS_V0
+    case: refuses_a_value_its_provenance_attributes_to_the_renderer
+    role: INPUT
+    field: mandate_registers
+    value:
+    - id: build_order
+      value:
+      - wave: '1'
+        code: AC_READER_V0
+    - id: field_declarations
+      value:
+      - code: AC_READER_V0
+        subdomain_field: s
+    source_finding:
+      phase: p6
+      register: governance_outcome
+      key: Render, measure and attribute the artifacts a mandate schedules
+  - ct_code: transformation::CT_PURE_MEASURE_COMPLETENESS_V0
+    case: refuses_a_value_its_provenance_attributes_to_the_renderer
+    role: INPUT
+    field: threshold
+    value: 100.0
+    source_finding:
+      phase: p6
+      register: governance_outcome
+      key: Render, measure and attribute the artifacts a mandate schedules
+  - ct_code: transformation::CT_PURE_MEASURE_COMPLETENESS_V0
+    case: refuses_a_value_its_provenance_attributes_to_the_renderer
+    role: INPUT
+    field: provenance
+    value:
+      AC_READER_V0.core.type: supplied_by_renderer
     source_finding:
       phase: p6
       register: governance_outcome

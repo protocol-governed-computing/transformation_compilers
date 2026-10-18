@@ -40,7 +40,7 @@ NAMED: dict[str, tuple[str, ...]] = {
 }
 BUILD_MANIFEST = re.compile(r"^[a-z_]+::STRUCTURE_BUILD_[A-Z_]+_CONFIG_V0$")
 # Fields whose value the design states whole: nothing beneath them is a field of the artifact.
-WHOLE = re.compile(r"(?:^|\.)(?:default|cases\.\[\]\.(?:bindings|expected|assertions)\.<name>|cases\.\[\]\.recorded|"
+WHOLE = re.compile(r"(?:^|\.)(?:default|core\.json_schema|cases\.\[\]\.(?:bindings|expected|assertions)\.<name>|cases\.\[\]\.recorded|"
                    r"core\.nodes\.<name>\.inputs\.<name>|core\.pipeline\.\[\]\.inputs(?:\.fields|\.parameters)?\.<name>|"
                    r"handler\.payload_template\.<name>|core\.response_template\.<name>|"
                    r"machine\.atom_stream\.\[\]\.(?:inputs|accumulator|with|update_accumulator)\.<name>|machine\.emit\.<name>)$")

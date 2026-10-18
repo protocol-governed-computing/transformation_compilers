@@ -100,6 +100,8 @@ def fields(a: dict) -> list[dict]:
                    "meaning": " ".join(str(spec.get("description") or name.replace("_", " ")).split())}
             if spec.get("format"):
                 row["format"] = spec["format"]
+            if spec.get("structure"):
+                row["structure"] = spec["structure"]
             out.append(row)
     return out
 

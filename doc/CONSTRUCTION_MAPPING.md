@@ -91,8 +91,10 @@ pins each form.
 | Field | Class | Governed by | Source |
 |---|---|---|---|
 | `core.inputs.<name>.required` | stated_by_design |  | `interface_fields` rows for the artifact, direction `INPUT`: `Required` `YES` |
+| `core.inputs.<name>.structure` | stated_by_design |  | `interface_fields` rows for the artifact, direction `INPUT`: `Structure` |
 | `core.inputs.<name>.type` | stated_by_design |  | `interface_fields` rows for the artifact, direction `INPUT`: `Type` |
 | `core.outputs.<name>.required` | stated_by_design |  | `interface_fields` rows for the artifact, direction `OUTPUT`: `Required` `YES` |
+| `core.outputs.<name>.structure` | stated_by_design |  | `interface_fields` rows for the artifact, direction `OUTPUT`: `Structure` |
 | `core.outputs.<name>.type` | stated_by_design |  | `interface_fields` rows for the artifact, direction `OUTPUT`: `Type` |
 | `core.refusal` | stated_by_design |  | `implementation_bindings.Refusal` |
 | `machine.atom_stream.[].accumulator.<name>` | stated_by_design |  | `molecule_step_bindings`, role `CARRY` |
@@ -154,10 +156,16 @@ pins each form.
 
 | Field | Class | Governed by | Source |
 |---|---|---|---|
+| `core.deductions.[]` | stated_by_design |  | `artifact_properties` `deductions` |
 | `core.domain` | stated_by_design |  | the namespace of the identity |
+| `core.entity_stores` | stated_by_design |  | declared empty: a design stating no `structure_stores` |
 | `core.entity_stores.<name>.path` | stated_by_design |  | `structure_stores.Proposed Path`, by `Store Name` |
 | `core.layer` | stated_by_design |  | `artifact_properties` `layer`; `DOMAINS` where the design states none |
+| `core.json_schema` | stated_by_design |  | `artifact_properties` `json_schema`, whole: a JSON Schema is data |
 | `core.layer` | supplied_by_renderer |  | `artifact_properties` `layer`; `DOMAINS` where the design states none |
+| `core.maximum` | stated_by_design |  | `artifact_properties` `maximum` |
+| `core.minimum` | stated_by_design |  | `artifact_properties` `minimum` |
+| `core.phases.[]` | stated_by_design |  | `artifact_properties` `phases` |
 | `core.subdomain` | stated_by_design |  | the owning subdomain |
 
 ### Test data

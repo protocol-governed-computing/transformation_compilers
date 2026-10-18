@@ -118,6 +118,9 @@ def typed_fields(design: dict, code: str, direction: str) -> dict:
         spec: dict[str, Any] = {"type": cell(row, "Type") or "string"}
         if cell(row, "Format"):
             spec["format"] = cell(row, "Format")
+        # A field holding a structured value names its shape, and only the design can say which.
+        if cell(row, "Structure"):
+            spec["structure"] = cell(row, "Structure")
         if cell(row, "Required") == "YES":
             spec["required"] = True
         # A default is the value the design states, of whatever type it is. One that states nothing,

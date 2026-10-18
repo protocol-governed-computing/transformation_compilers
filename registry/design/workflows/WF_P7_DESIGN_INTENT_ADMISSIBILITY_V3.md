@@ -3038,6 +3038,20 @@ core:
             detail: '{column!r} declares the question unanswered ({marker}) rather than answering it — ask it
               as a clarification, do not hedge it in a register'
           intent: an unanswered question left in a register reads as decided to every later phase
+        - id: FIELD_STRUCTURE_UNDECLARED
+          identity: transformation.schemas.REGISTER_SCHEMA_P7_V0#/allOf/105
+          check: CELL_RESOLVES_IN_REGISTER
+          register: interface_fields
+          params:
+            column: Structure
+            target_registers:
+            - new_artifacts
+            - existing_inventory
+            target_column: Code
+            target_columns:
+            - Code
+            - FQDN
+          intent: a field's structure names a STRUCTURE this design declares or carries over
       next:
         SUCCESS: EXIT_JUDGED
         VIOLATION: EXIT_REJECTED
