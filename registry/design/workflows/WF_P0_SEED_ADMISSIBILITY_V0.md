@@ -1,4 +1,4 @@
-# WF_P0_SEED_ADMISSIBILITY_V1
+# WF_P0_SEED_ADMISSIBILITY_V0
 
 ## Generated Artifact
 
@@ -41,21 +41,19 @@ implement — a defect in the rule set, not in the seed.
 
 ---
 
-## 3. What V1 changes
+## 3. Beliefs are refused by pattern
 
 A belief asserted as fact is refused by a pattern the register schema declares on the `Belief`
-column, not by a check written for it alone. The rule refuses the same rows. V0 carried it as a
-named procedure and is superseded by this workflow.
+column, not by a check written for it alone. The rule refuses the same rows.
 
 ---
 
 ## Machine
 
 ```yaml
-fqdn: transformation::WF_P0_SEED_ADMISSIBILITY_V1
-supersedes: transformation::WF_P0_SEED_ADMISSIBILITY_V0
+fqdn: transformation::WF_P0_SEED_ADMISSIBILITY_V0
 artifact_kind: WORKFLOW
-version: v1
+version: v0
 governed_by: workflow::CONSTITUTION_WORKFLOW_V0
 authority: pgc.platform
 concern: design

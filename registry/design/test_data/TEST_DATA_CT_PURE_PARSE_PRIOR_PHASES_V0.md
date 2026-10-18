@@ -1,4 +1,4 @@
-# TEST_DATA_CT_PURE_PARSE_PRIOR_PHASES_V1
+# TEST_DATA_CT_PURE_PARSE_PRIOR_PHASES_V0
 
 ## 1. Intent
 
@@ -9,13 +9,13 @@ Each prior handed over is read the way the judged document is, keyed by its phas
 ## Machine
 
 ```yaml
-fqdn: transformation::TEST_DATA_CT_PURE_PARSE_PRIOR_PHASES_V1
+fqdn: transformation::TEST_DATA_CT_PURE_PARSE_PRIOR_PHASES_V0
 artifact_kind: TEST_DATA
 version: V0
-governed_by: conformance::CONSTITUTION_TEST_DATA_V2
+governed_by: conformance::CONSTITUTION_TEST_DATA_V0
 authority: pgc.platform
 concern: design
-target: transformation::CT_PURE_PARSE_PRIOR_PHASES_V1
+target: transformation::CT_PURE_PARSE_PRIOR_PHASES_V0
 cases:
 - case_id: reads_each_prior_by_phase
   expected_outcome: SUCCESS

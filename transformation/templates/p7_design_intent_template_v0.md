@@ -719,7 +719,7 @@ Register `molecule_step_bindings` in the Machine block.
 *The proof each transform this design authors or amends carries: stated inputs, and what the transform
 must produce from them. A transform's implementation lives outside the composition, so the composition
 can vouch for its declaration and never for its code; its cases are run against it exactly as sealed,
-in the build that supplies it, on every build (`conformance::CONSTITUTION_TEST_DATA_V2`). One row per case.*
+in the build that supplies it, on every build (`conformance::CONSTITUTION_TEST_DATA_V0`). One row per case.*
 
 *Every transform in `new_artifacts`, and every transform amended in `existing_inventory`, has at least
 one case — a transform authored without one is refused here, because this is the one place a new

@@ -1,4 +1,4 @@
-# CT_PURE_PARSE_PRIOR_PHASES_V1
+# CT_PURE_PARSE_PRIOR_PHASES_V0
 
 ## 1. Intent
 
@@ -27,7 +27,7 @@ how many priors a phase happens to read.
 ## 3. It parses; it does not judge
 
 Whether a handoff was preserved is declared in the calling phase's rule set and evaluated by
-`CT_PURE_EVALUATE_RULES_V1`. This transform reports what each upstream document contains. An empty
+`CT_PURE_EVALUATE_RULES_V0`. This transform reports what each upstream document contains. An empty
 mapping is a legitimate input meaning no upstream document was supplied — the rules decide whether
 that is a defect, and for a phase that declares a cross-phase rule it is one.
 
@@ -36,10 +36,9 @@ that is a defect, and for a phase that declares a cross-phase rule it is one.
 ## Machine
 
 ```yaml
-fqdn: transformation::CT_PURE_PARSE_PRIOR_PHASES_V1
-supersedes: transformation::CT_PURE_PARSE_PRIOR_PHASES_V0
+fqdn: transformation::CT_PURE_PARSE_PRIOR_PHASES_V0
 artifact_kind: CAPABILITY_TRANSFORM
-version: v1
+version: v0
 governed_by: capability_transforms::CONSTITUTION_DETERMINISTIC_ATOMS_V0
 authority: pgc.platform
 concern: design
@@ -70,6 +69,6 @@ machine:
   ct_purity: ct_pure
   operation: PURE_PARSE_PRIOR_PHASES
   implementation:
-    module: transformation.implementation.capability_transforms.atoms.ct_pure_parse_prior_phases_v1
+    module: transformation.implementation.capability_transforms.atoms.ct_pure_parse_prior_phases_v0
     callable: execute
 ```

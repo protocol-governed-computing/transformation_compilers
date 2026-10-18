@@ -44,7 +44,7 @@ core:
   phases:
   - phase: p0
     schema: transformation.schemas.REGISTER_SCHEMA_P0_V0
-    workflow: transformation::WF_P0_SEED_ADMISSIBILITY_V1
+    workflow: transformation::WF_P0_SEED_ADMISSIBILITY_V0
     template: p0_change_seed_template_v0.md
     rung: business_language
     purpose: change seed
@@ -53,7 +53,7 @@ core:
     gate: Gate 0 — the human confirms the seed says what they meant
   - phase: p1
     schema: transformation.schemas.REGISTER_SCHEMA_P1_V0
-    workflow: transformation::WF_P1_CHANGE_REQUEST_ADMISSIBILITY_V1
+    workflow: transformation::WF_P1_CHANGE_REQUEST_ADMISSIBILITY_V0
     template: p1_change_request_template_v0.md
     rung: business_language
     purpose: change request
@@ -62,7 +62,7 @@ core:
     gate: null
   - phase: p2
     schema: transformation.schemas.REGISTER_SCHEMA_P2_V0
-    workflow: transformation::WF_P2_DOMAIN_MODEL_ADMISSIBILITY_V2
+    workflow: transformation::WF_P2_DOMAIN_MODEL_ADMISSIBILITY_V0
     template: p2_domain_model_template_v0.md
     rung: business_language
     purpose: domain model
@@ -71,7 +71,7 @@ core:
     gate: null
   - phase: p3
     schema: transformation.schemas.REGISTER_SCHEMA_P3_V0
-    workflow: transformation::WF_P3_ANALYSIS_LOOP_ADMISSIBILITY_V2
+    workflow: transformation::WF_P3_ANALYSIS_LOOP_ADMISSIBILITY_V0
     template: p3_analysis_loop_template_v0.md
     rung: business_language
     purpose: analysis loop
@@ -80,7 +80,7 @@ core:
     gate: null
   - phase: p4
     schema: transformation.schemas.REGISTER_SCHEMA_P4_V0
-    workflow: transformation::WF_P4_BUSINESS_MODEL_ADMISSIBILITY_V2
+    workflow: transformation::WF_P4_BUSINESS_MODEL_ADMISSIBILITY_V0
     template: p4_business_model_template_v0.md
     rung: business_language
     purpose: business model
@@ -89,7 +89,7 @@ core:
     gate: null
   - phase: p5
     schema: transformation.schemas.REGISTER_SCHEMA_P5_V0
-    workflow: transformation::WF_P5_BUSINESS_INTENT_ADMISSIBILITY_V2
+    workflow: transformation::WF_P5_BUSINESS_INTENT_ADMISSIBILITY_V0
     template: p5_business_intent_template_v0.md
     rung: provisional_codes
     purpose: business intent
@@ -98,7 +98,7 @@ core:
     gate: null
   - phase: p6
     schema: transformation.schemas.REGISTER_SCHEMA_P6_V0
-    workflow: transformation::WF_P6_GOVERNANCE_INTENT_ADMISSIBILITY_V2
+    workflow: transformation::WF_P6_GOVERNANCE_INTENT_ADMISSIBILITY_V0
     template: p6_governance_intent_template_v0.md
     rung: placement
     purpose: governance intent
@@ -107,7 +107,7 @@ core:
     gate: null
   - phase: p7
     schema: transformation.schemas.REGISTER_SCHEMA_P7_V0
-    workflow: transformation::WF_P7_DESIGN_INTENT_ADMISSIBILITY_V3
+    workflow: transformation::WF_P7_DESIGN_INTENT_ADMISSIBILITY_V0
     template: p7_design_intent_template_v0.md
     rung: binding_fqdns
     purpose: design intent
@@ -116,7 +116,7 @@ core:
     gate: Gate 1 — Design Approval
   - phase: p8
     schema: transformation.schemas.REGISTER_SCHEMA_P8_V0
-    workflow: transformation::WF_P8_AUTHORING_MANDATE_ADMISSIBILITY_V2
+    workflow: transformation::WF_P8_AUTHORING_MANDATE_ADMISSIBILITY_V0
     template: p8_authoring_mandate_template_v0.md
     rung: build_order
     purpose: authoring mandate

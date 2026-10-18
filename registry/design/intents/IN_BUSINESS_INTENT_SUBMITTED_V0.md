@@ -1,4 +1,4 @@
-# IN_BUSINESS_INTENT_SUBMITTED_V1
+# IN_BUSINESS_INTENT_SUBMITTED_V0
 
 ## 1. Intent
 
@@ -14,17 +14,16 @@ against.
 ## Machine
 
 ```yaml
-fqdn: transformation::IN_BUSINESS_INTENT_SUBMITTED_V1
+fqdn: transformation::IN_BUSINESS_INTENT_SUBMITTED_V0
 artifact_kind: INTENT
-version: v1
+version: v0
 governed_by: intent::CONSTITUTION_INTENT_V0
 authority: pgc.platform
 concern: design
-supersedes: transformation::IN_BUSINESS_INTENT_SUBMITTED_V0
 
 core:
   summary: Offer a Business Intent register for admissibility judgement
-  workflow: WF_P5_BUSINESS_INTENT_ADMISSIBILITY_V2
+  workflow: WF_P5_BUSINESS_INTENT_ADMISSIBILITY_V0
 
   inputs:
     register_text:

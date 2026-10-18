@@ -1,4 +1,4 @@
-# WF_P7_DESIGN_INTENT_ADMISSIBILITY_V3
+# WF_P7_DESIGN_INTENT_ADMISSIBILITY_V0
 
 ## Generated Artifact
 
@@ -10,7 +10,7 @@ artifact is stale, and an edit here lasts until whoever next runs the emission.
 - **Generator sources** — one generator together, never separately:
   - `registry/schema/REGISTER_SCHEMA_P7_V0.json`
   - `registry/design/vocabulary/VOCAB_DESIGN_REGISTER_TERMS_V0.md`
-  - `registry/design/capability_contracts/CC_JUDGE_AGAINST_SNAPSHOT_V1.md`
+  - `registry/design/capability_contracts/CC_JUDGE_AGAINST_SNAPSHOT_V0.md`
 
 To change what this phase judges, amend a source and invoke the generator.
 `tc phase emit --check` refuses a build in which the two disagree.
@@ -52,10 +52,9 @@ nobody owns.
 ## Machine
 
 ```yaml
-fqdn: transformation::WF_P7_DESIGN_INTENT_ADMISSIBILITY_V3
-supersedes: transformation::WF_P7_DESIGN_INTENT_ADMISSIBILITY_V2
+fqdn: transformation::WF_P7_DESIGN_INTENT_ADMISSIBILITY_V0
 artifact_kind: WORKFLOW
-version: v3
+version: v0
 governed_by: workflow::CONSTITUTION_WORKFLOW_V0
 authority: pgc.platform
 concern: design
@@ -75,12 +74,12 @@ core:
       type: IN
       code: IN_DESIGN_INTENT_SUBMITTED_V0
       next:
-        ACK: CC_JUDGE_AGAINST_SNAPSHOT_V1
+        ACK: CC_JUDGE_AGAINST_SNAPSHOT_V0
         NACK: EXIT_REJECTED
 
-    CC_JUDGE_AGAINST_SNAPSHOT_V1:
+    CC_JUDGE_AGAINST_SNAPSHOT_V0:
       type: CC
-      code: CC_JUDGE_AGAINST_SNAPSHOT_V1
+      code: CC_JUDGE_AGAINST_SNAPSHOT_V0
       inputs:
         document_text: $.payload.register_text
         prior_texts: $.payload.prior_texts

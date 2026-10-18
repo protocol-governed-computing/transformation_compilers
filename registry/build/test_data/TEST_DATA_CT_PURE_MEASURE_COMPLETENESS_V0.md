@@ -12,7 +12,7 @@ A design determining every fact its artifacts need is admitted; one leaving fact
 fqdn: transformation::TEST_DATA_CT_PURE_MEASURE_COMPLETENESS_V0
 artifact_kind: TEST_DATA
 version: V0
-governed_by: conformance::CONSTITUTION_TEST_DATA_V2
+governed_by: conformance::CONSTITUTION_TEST_DATA_V0
 authority: pgc.platform
 concern: build
 target: transformation::CT_PURE_MEASURE_COMPLETENESS_V0

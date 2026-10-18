@@ -22,7 +22,7 @@ concern: design
 
 core:
   summary: Offer a Change Request register for admissibility judgement
-  workflow: WF_P1_CHANGE_REQUEST_ADMISSIBILITY_V1
+  workflow: WF_P1_CHANGE_REQUEST_ADMISSIBILITY_V0
 
   inputs:
     register_text:

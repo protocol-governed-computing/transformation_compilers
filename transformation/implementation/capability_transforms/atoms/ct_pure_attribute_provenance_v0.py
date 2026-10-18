@@ -1,4 +1,4 @@
-"""CT_PURE_ATTRIBUTE_PROVENANCE_V1 — where each rendered value came from.
+"""CT_PURE_ATTRIBUTE_PROVENANCE_V0 — where each rendered value came from.
 
 A value the renderer wrote from its own text is non-empty, exactly like one the design stated, so
 presence alone cannot tell a design that determines its artifacts from a renderer that invented

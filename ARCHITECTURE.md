@@ -134,7 +134,7 @@ small module each. Every rule cites the platform invariant it realises:
 
 **The invariants live on the platform.** A domain cannot author an invariant or a constitution, so
 the lifecycle's governance is `software_governance/registry/lifecycle/`:
-`CONSTITUTION_CHANGE_MGMT_V1`, `CONSTITUTION_CONSTRUCTION_V1`, and the invariants they name. This
+`CONSTITUTION_CHANGE_MGMT_V0`, `CONSTITUTION_CONSTRUCTION_V0`, and the invariants they name. This
 repository keeps the code that enforces them.
 
 **A rule set is sealed, and a verdict names it.** A phase's rules are expanded from its schema and
@@ -256,7 +256,7 @@ Never a silent drift, because otherwise **a regression is indistinguishable from
 ## 8. One live version, and proof for every transform
 
 **An artefact lives in one version.** Whether a change keeps an artefact's meaning is decided by
-`sameness`, by the rules `artifact::VOCAB_DECLARATION_REPRESENTATION_V1` declares. A change that keeps
+`sameness`, by the rules `artifact::VOCAB_DECLARATION_REPRESENTATION_V0` declares. A change that keeps
 it keeps the identity. A change of meaning takes the next version never used and names its
 predecessor in `supersedes`. The predecessor is deleted, and the deletion is recorded in the
 workspace ledger with who decided it and why. A deleted name is never reused. History is held by the

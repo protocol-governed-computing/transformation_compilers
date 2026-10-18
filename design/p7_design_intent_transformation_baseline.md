@@ -27,7 +27,7 @@ registers:
     owner_subdomain: build
     status: NEW
   - family: CT
-    code: transformation::CT_PURE_ATTRIBUTE_PROVENANCE_V1
+    code: transformation::CT_PURE_ATTRIBUTE_PROVENANCE_V0
     summary: Report, for each leaf of a rendered artifact, whether the design stated it, a constitution
       governs it, or the renderer supplied it
     owner_subdomain: build
@@ -78,13 +78,13 @@ registers:
     owner_subdomain: design
     status: NEW
   - family: CC
-    code: transformation::CC_JUDGE_AGAINST_COMPOSITION_V1
+    code: transformation::CC_JUDGE_AGAINST_COMPOSITION_V0
     summary: Parse a phase document and its priors, observe the composition and its declarations, and
       judge them together
     owner_subdomain: design
     status: NEW
   - family: CC
-    code: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V1
+    code: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V0
     summary: Parse a phase document and its priors, observe the composition, and judge them together
     owner_subdomain: design
     status: NEW
@@ -94,17 +94,17 @@ registers:
     owner_subdomain: design
     status: NEW
   - family: CT
-    code: transformation::CT_PURE_EVALUATE_RULES_V1
+    code: transformation::CT_PURE_EVALUATE_RULES_V0
     summary: Evaluate a declared rule set against parsed registers
     owner_subdomain: design
     status: NEW
   - family: CT
-    code: transformation::CT_PURE_PARSE_PRIOR_PHASES_V1
+    code: transformation::CT_PURE_PARSE_PRIOR_PHASES_V0
     summary: Parse the upstream phase documents a phase is judged against
     owner_subdomain: design
     status: NEW
   - family: CT
-    code: transformation::CT_PURE_PARSE_REGISTERS_V1
+    code: transformation::CT_PURE_PARSE_REGISTERS_V0
     summary: Parse phase document text into structured registers
     owner_subdomain: design
     status: NEW
@@ -119,7 +119,7 @@ registers:
     owner_subdomain: design
     status: NEW
   - family: IN
-    code: transformation::IN_BUSINESS_INTENT_SUBMITTED_V1
+    code: transformation::IN_BUSINESS_INTENT_SUBMITTED_V0
     summary: Offer a Business Intent register for admissibility judgement
     owner_subdomain: design
     status: NEW
@@ -164,52 +164,52 @@ registers:
     owner_subdomain: design
     status: NEW
   - family: WF
-    code: transformation::WF_P0_SEED_ADMISSIBILITY_V1
+    code: transformation::WF_P0_SEED_ADMISSIBILITY_V0
     summary: Decide whether an offered seed is admissible
     owner_subdomain: design
     status: NEW
   - family: WF
-    code: transformation::WF_P1_CHANGE_REQUEST_ADMISSIBILITY_V1
+    code: transformation::WF_P1_CHANGE_REQUEST_ADMISSIBILITY_V0
     summary: Decide whether an offered Change Request register is admissible
     owner_subdomain: design
     status: NEW
   - family: WF
-    code: transformation::WF_P2_DOMAIN_MODEL_ADMISSIBILITY_V2
+    code: transformation::WF_P2_DOMAIN_MODEL_ADMISSIBILITY_V0
     summary: Decide whether an offered Domain Model register is admissible
     owner_subdomain: design
     status: NEW
   - family: WF
-    code: transformation::WF_P3_ANALYSIS_LOOP_ADMISSIBILITY_V2
+    code: transformation::WF_P3_ANALYSIS_LOOP_ADMISSIBILITY_V0
     summary: Decide whether an offered Analysis Loop register is admissible
     owner_subdomain: design
     status: NEW
   - family: WF
-    code: transformation::WF_P4_BUSINESS_MODEL_ADMISSIBILITY_V2
+    code: transformation::WF_P4_BUSINESS_MODEL_ADMISSIBILITY_V0
     summary: Decide whether an offered Business Model register is admissible
     owner_subdomain: design
     status: NEW
   - family: WF
-    code: transformation::WF_P5_BUSINESS_INTENT_ADMISSIBILITY_V2
+    code: transformation::WF_P5_BUSINESS_INTENT_ADMISSIBILITY_V0
     summary: Decide whether an offered Business Intent register is admissible
     owner_subdomain: design
     status: NEW
   - family: WF
-    code: transformation::WF_P6_GOVERNANCE_INTENT_ADMISSIBILITY_V2
+    code: transformation::WF_P6_GOVERNANCE_INTENT_ADMISSIBILITY_V0
     summary: Decide whether an offered Governance Intent register is admissible
     owner_subdomain: design
     status: NEW
   - family: WF
-    code: transformation::WF_P7_DESIGN_INTENT_ADMISSIBILITY_V3
+    code: transformation::WF_P7_DESIGN_INTENT_ADMISSIBILITY_V0
     summary: Decide whether an offered Design Intent register is admissible
     owner_subdomain: design
     status: NEW
   - family: WF
-    code: transformation::WF_P8_AUTHORING_MANDATE_ADMISSIBILITY_V2
+    code: transformation::WF_P8_AUTHORING_MANDATE_ADMISSIBILITY_V0
     summary: Decide whether an offered Authoring Mandate is admissible
     owner_subdomain: design
     status: NEW
   - family: STRUCTURE
-    code: transformation::STRUCTURE_FIGURE_OF_MERIT_POLICY_V1
+    code: transformation::STRUCTURE_FIGURE_OF_MERIT_POLICY_V0
     summary: Deterministic figure of merit for a phase document — deduction-based, 0 to 5
     owner_subdomain: transformation
     status: NEW
@@ -250,47 +250,47 @@ registers:
     - capability_side_effects::CS_TEXT_ARTIFACT_V0
     storage_structure: null
   - rb_code: transformation::RB_TRANSFORMATION_BINDINGS_V0
-    binds_wf: transformation::WF_P0_SEED_ADMISSIBILITY_V1
+    binds_wf: transformation::WF_P0_SEED_ADMISSIBILITY_V0
     cs_bindings:
     - capability_side_effects::CS_SNAPSHOT_QUERY_V0
     storage_structure: null
   - rb_code: transformation::RB_TRANSFORMATION_BINDINGS_V0
-    binds_wf: transformation::WF_P1_CHANGE_REQUEST_ADMISSIBILITY_V1
+    binds_wf: transformation::WF_P1_CHANGE_REQUEST_ADMISSIBILITY_V0
     cs_bindings:
     - capability_side_effects::CS_SNAPSHOT_QUERY_V0
     storage_structure: null
   - rb_code: transformation::RB_TRANSFORMATION_BINDINGS_V0
-    binds_wf: transformation::WF_P2_DOMAIN_MODEL_ADMISSIBILITY_V2
+    binds_wf: transformation::WF_P2_DOMAIN_MODEL_ADMISSIBILITY_V0
     cs_bindings:
     - capability_side_effects::CS_SNAPSHOT_QUERY_V0
     storage_structure: null
   - rb_code: transformation::RB_TRANSFORMATION_BINDINGS_V0
-    binds_wf: transformation::WF_P3_ANALYSIS_LOOP_ADMISSIBILITY_V2
+    binds_wf: transformation::WF_P3_ANALYSIS_LOOP_ADMISSIBILITY_V0
     cs_bindings:
     - capability_side_effects::CS_SNAPSHOT_QUERY_V0
     storage_structure: null
   - rb_code: transformation::RB_TRANSFORMATION_BINDINGS_V0
-    binds_wf: transformation::WF_P4_BUSINESS_MODEL_ADMISSIBILITY_V2
+    binds_wf: transformation::WF_P4_BUSINESS_MODEL_ADMISSIBILITY_V0
     cs_bindings:
     - capability_side_effects::CS_SNAPSHOT_QUERY_V0
     storage_structure: null
   - rb_code: transformation::RB_TRANSFORMATION_BINDINGS_V0
-    binds_wf: transformation::WF_P5_BUSINESS_INTENT_ADMISSIBILITY_V2
+    binds_wf: transformation::WF_P5_BUSINESS_INTENT_ADMISSIBILITY_V0
     cs_bindings:
     - capability_side_effects::CS_SNAPSHOT_QUERY_V0
     storage_structure: null
   - rb_code: transformation::RB_TRANSFORMATION_BINDINGS_V0
-    binds_wf: transformation::WF_P6_GOVERNANCE_INTENT_ADMISSIBILITY_V2
+    binds_wf: transformation::WF_P6_GOVERNANCE_INTENT_ADMISSIBILITY_V0
     cs_bindings:
     - capability_side_effects::CS_SNAPSHOT_QUERY_V0
     storage_structure: null
   - rb_code: transformation::RB_TRANSFORMATION_BINDINGS_V0
-    binds_wf: transformation::WF_P7_DESIGN_INTENT_ADMISSIBILITY_V3
+    binds_wf: transformation::WF_P7_DESIGN_INTENT_ADMISSIBILITY_V0
     cs_bindings:
     - capability_side_effects::CS_SNAPSHOT_QUERY_V0
     storage_structure: null
   - rb_code: transformation::RB_TRANSFORMATION_BINDINGS_V0
-    binds_wf: transformation::WF_P8_AUTHORING_MANDATE_ADMISSIBILITY_V2
+    binds_wf: transformation::WF_P8_AUTHORING_MANDATE_ADMISSIBILITY_V0
     cs_bindings:
     - capability_side_effects::CS_SNAPSHOT_QUERY_V0
     storage_structure: null
@@ -327,197 +327,197 @@ registers:
     node: EXIT_REJECTED
     node_type: EXIT
     routing: null
-  - workflow: transformation::WF_P0_SEED_ADMISSIBILITY_V1
+  - workflow: transformation::WF_P0_SEED_ADMISSIBILITY_V0
     node: IN_SEED_SUBMITTED_V0
     node_type: IN
     routing:
       ACK: CC_JUDGE_DOCUMENT_V0
       NACK: EXIT_REJECTED
-  - workflow: transformation::WF_P0_SEED_ADMISSIBILITY_V1
+  - workflow: transformation::WF_P0_SEED_ADMISSIBILITY_V0
     node: CC_JUDGE_DOCUMENT_V0
     node_type: CC
     routing:
       SUCCESS: EXIT_JUDGED
       VIOLATION: EXIT_REJECTED
-  - workflow: transformation::WF_P0_SEED_ADMISSIBILITY_V1
+  - workflow: transformation::WF_P0_SEED_ADMISSIBILITY_V0
     node: EXIT_JUDGED
     node_type: EXIT
     routing: null
-  - workflow: transformation::WF_P0_SEED_ADMISSIBILITY_V1
+  - workflow: transformation::WF_P0_SEED_ADMISSIBILITY_V0
     node: EXIT_REJECTED
     node_type: EXIT
     routing: null
-  - workflow: transformation::WF_P1_CHANGE_REQUEST_ADMISSIBILITY_V1
+  - workflow: transformation::WF_P1_CHANGE_REQUEST_ADMISSIBILITY_V0
     node: IN_CHANGE_REQUEST_SUBMITTED_V0
     node_type: IN
     routing:
       ACK: CC_JUDGE_DOCUMENT_V0
       NACK: EXIT_REJECTED
-  - workflow: transformation::WF_P1_CHANGE_REQUEST_ADMISSIBILITY_V1
+  - workflow: transformation::WF_P1_CHANGE_REQUEST_ADMISSIBILITY_V0
     node: CC_JUDGE_DOCUMENT_V0
     node_type: CC
     routing:
       SUCCESS: EXIT_JUDGED
       VIOLATION: EXIT_REJECTED
-  - workflow: transformation::WF_P1_CHANGE_REQUEST_ADMISSIBILITY_V1
+  - workflow: transformation::WF_P1_CHANGE_REQUEST_ADMISSIBILITY_V0
     node: EXIT_JUDGED
     node_type: EXIT
     routing: null
-  - workflow: transformation::WF_P1_CHANGE_REQUEST_ADMISSIBILITY_V1
+  - workflow: transformation::WF_P1_CHANGE_REQUEST_ADMISSIBILITY_V0
     node: EXIT_REJECTED
     node_type: EXIT
     routing: null
-  - workflow: transformation::WF_P2_DOMAIN_MODEL_ADMISSIBILITY_V2
+  - workflow: transformation::WF_P2_DOMAIN_MODEL_ADMISSIBILITY_V0
     node: IN_DOMAIN_MODEL_SUBMITTED_V0
     node_type: IN
     routing:
-      ACK: CC_JUDGE_AGAINST_SNAPSHOT_V1
+      ACK: CC_JUDGE_AGAINST_SNAPSHOT_V0
       NACK: EXIT_REJECTED
-  - workflow: transformation::WF_P2_DOMAIN_MODEL_ADMISSIBILITY_V2
-    node: CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - workflow: transformation::WF_P2_DOMAIN_MODEL_ADMISSIBILITY_V0
+    node: CC_JUDGE_AGAINST_SNAPSHOT_V0
     node_type: CC
     routing:
       SUCCESS: EXIT_JUDGED
       VIOLATION: EXIT_REJECTED
       BACKEND_ERROR: EXIT_REJECTED
       NOT_FOUND: EXIT_REJECTED
-  - workflow: transformation::WF_P2_DOMAIN_MODEL_ADMISSIBILITY_V2
+  - workflow: transformation::WF_P2_DOMAIN_MODEL_ADMISSIBILITY_V0
     node: EXIT_JUDGED
     node_type: EXIT
     routing: null
-  - workflow: transformation::WF_P2_DOMAIN_MODEL_ADMISSIBILITY_V2
+  - workflow: transformation::WF_P2_DOMAIN_MODEL_ADMISSIBILITY_V0
     node: EXIT_REJECTED
     node_type: EXIT
     routing: null
-  - workflow: transformation::WF_P3_ANALYSIS_LOOP_ADMISSIBILITY_V2
+  - workflow: transformation::WF_P3_ANALYSIS_LOOP_ADMISSIBILITY_V0
     node: IN_ANALYSIS_LOOP_SUBMITTED_V0
     node_type: IN
     routing:
-      ACK: CC_JUDGE_AGAINST_COMPOSITION_V1
+      ACK: CC_JUDGE_AGAINST_COMPOSITION_V0
       NACK: EXIT_REJECTED
-  - workflow: transformation::WF_P3_ANALYSIS_LOOP_ADMISSIBILITY_V2
-    node: CC_JUDGE_AGAINST_COMPOSITION_V1
+  - workflow: transformation::WF_P3_ANALYSIS_LOOP_ADMISSIBILITY_V0
+    node: CC_JUDGE_AGAINST_COMPOSITION_V0
     node_type: CC
     routing:
       SUCCESS: EXIT_JUDGED
       VIOLATION: EXIT_REJECTED
       BACKEND_ERROR: EXIT_REJECTED
       NOT_FOUND: EXIT_REJECTED
-  - workflow: transformation::WF_P3_ANALYSIS_LOOP_ADMISSIBILITY_V2
+  - workflow: transformation::WF_P3_ANALYSIS_LOOP_ADMISSIBILITY_V0
     node: EXIT_JUDGED
     node_type: EXIT
     routing: null
-  - workflow: transformation::WF_P3_ANALYSIS_LOOP_ADMISSIBILITY_V2
+  - workflow: transformation::WF_P3_ANALYSIS_LOOP_ADMISSIBILITY_V0
     node: EXIT_REJECTED
     node_type: EXIT
     routing: null
-  - workflow: transformation::WF_P4_BUSINESS_MODEL_ADMISSIBILITY_V2
+  - workflow: transformation::WF_P4_BUSINESS_MODEL_ADMISSIBILITY_V0
     node: IN_BUSINESS_MODEL_SUBMITTED_V0
     node_type: IN
     routing:
-      ACK: CC_JUDGE_AGAINST_SNAPSHOT_V1
+      ACK: CC_JUDGE_AGAINST_SNAPSHOT_V0
       NACK: EXIT_REJECTED
-  - workflow: transformation::WF_P4_BUSINESS_MODEL_ADMISSIBILITY_V2
-    node: CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - workflow: transformation::WF_P4_BUSINESS_MODEL_ADMISSIBILITY_V0
+    node: CC_JUDGE_AGAINST_SNAPSHOT_V0
     node_type: CC
     routing:
       SUCCESS: EXIT_JUDGED
       VIOLATION: EXIT_REJECTED
       BACKEND_ERROR: EXIT_REJECTED
       NOT_FOUND: EXIT_REJECTED
-  - workflow: transformation::WF_P4_BUSINESS_MODEL_ADMISSIBILITY_V2
+  - workflow: transformation::WF_P4_BUSINESS_MODEL_ADMISSIBILITY_V0
     node: EXIT_JUDGED
     node_type: EXIT
     routing: null
-  - workflow: transformation::WF_P4_BUSINESS_MODEL_ADMISSIBILITY_V2
+  - workflow: transformation::WF_P4_BUSINESS_MODEL_ADMISSIBILITY_V0
     node: EXIT_REJECTED
     node_type: EXIT
     routing: null
-  - workflow: transformation::WF_P5_BUSINESS_INTENT_ADMISSIBILITY_V2
-    node: IN_BUSINESS_INTENT_SUBMITTED_V1
+  - workflow: transformation::WF_P5_BUSINESS_INTENT_ADMISSIBILITY_V0
+    node: IN_BUSINESS_INTENT_SUBMITTED_V0
     node_type: IN
     routing:
-      ACK: CC_JUDGE_AGAINST_SNAPSHOT_V1
+      ACK: CC_JUDGE_AGAINST_SNAPSHOT_V0
       NACK: EXIT_REJECTED
-  - workflow: transformation::WF_P5_BUSINESS_INTENT_ADMISSIBILITY_V2
-    node: CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - workflow: transformation::WF_P5_BUSINESS_INTENT_ADMISSIBILITY_V0
+    node: CC_JUDGE_AGAINST_SNAPSHOT_V0
     node_type: CC
     routing:
       SUCCESS: EXIT_JUDGED
       VIOLATION: EXIT_REJECTED
       BACKEND_ERROR: EXIT_REJECTED
       NOT_FOUND: EXIT_REJECTED
-  - workflow: transformation::WF_P5_BUSINESS_INTENT_ADMISSIBILITY_V2
+  - workflow: transformation::WF_P5_BUSINESS_INTENT_ADMISSIBILITY_V0
     node: EXIT_JUDGED
     node_type: EXIT
     routing: null
-  - workflow: transformation::WF_P5_BUSINESS_INTENT_ADMISSIBILITY_V2
+  - workflow: transformation::WF_P5_BUSINESS_INTENT_ADMISSIBILITY_V0
     node: EXIT_REJECTED
     node_type: EXIT
     routing: null
-  - workflow: transformation::WF_P6_GOVERNANCE_INTENT_ADMISSIBILITY_V2
+  - workflow: transformation::WF_P6_GOVERNANCE_INTENT_ADMISSIBILITY_V0
     node: IN_GOVERNANCE_INTENT_SUBMITTED_V0
     node_type: IN
     routing:
-      ACK: CC_JUDGE_AGAINST_SNAPSHOT_V1
+      ACK: CC_JUDGE_AGAINST_SNAPSHOT_V0
       NACK: EXIT_REJECTED
-  - workflow: transformation::WF_P6_GOVERNANCE_INTENT_ADMISSIBILITY_V2
-    node: CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - workflow: transformation::WF_P6_GOVERNANCE_INTENT_ADMISSIBILITY_V0
+    node: CC_JUDGE_AGAINST_SNAPSHOT_V0
     node_type: CC
     routing:
       SUCCESS: EXIT_JUDGED
       VIOLATION: EXIT_REJECTED
       BACKEND_ERROR: EXIT_REJECTED
       NOT_FOUND: EXIT_REJECTED
-  - workflow: transformation::WF_P6_GOVERNANCE_INTENT_ADMISSIBILITY_V2
+  - workflow: transformation::WF_P6_GOVERNANCE_INTENT_ADMISSIBILITY_V0
     node: EXIT_JUDGED
     node_type: EXIT
     routing: null
-  - workflow: transformation::WF_P6_GOVERNANCE_INTENT_ADMISSIBILITY_V2
+  - workflow: transformation::WF_P6_GOVERNANCE_INTENT_ADMISSIBILITY_V0
     node: EXIT_REJECTED
     node_type: EXIT
     routing: null
-  - workflow: transformation::WF_P7_DESIGN_INTENT_ADMISSIBILITY_V3
+  - workflow: transformation::WF_P7_DESIGN_INTENT_ADMISSIBILITY_V0
     node: IN_DESIGN_INTENT_SUBMITTED_V0
     node_type: IN
     routing:
-      ACK: CC_JUDGE_AGAINST_SNAPSHOT_V1
+      ACK: CC_JUDGE_AGAINST_SNAPSHOT_V0
       NACK: EXIT_REJECTED
-  - workflow: transformation::WF_P7_DESIGN_INTENT_ADMISSIBILITY_V3
-    node: CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - workflow: transformation::WF_P7_DESIGN_INTENT_ADMISSIBILITY_V0
+    node: CC_JUDGE_AGAINST_SNAPSHOT_V0
     node_type: CC
     routing:
       SUCCESS: EXIT_JUDGED
       VIOLATION: EXIT_REJECTED
       BACKEND_ERROR: EXIT_REJECTED
       NOT_FOUND: EXIT_REJECTED
-  - workflow: transformation::WF_P7_DESIGN_INTENT_ADMISSIBILITY_V3
+  - workflow: transformation::WF_P7_DESIGN_INTENT_ADMISSIBILITY_V0
     node: EXIT_JUDGED
     node_type: EXIT
     routing: null
-  - workflow: transformation::WF_P7_DESIGN_INTENT_ADMISSIBILITY_V3
+  - workflow: transformation::WF_P7_DESIGN_INTENT_ADMISSIBILITY_V0
     node: EXIT_REJECTED
     node_type: EXIT
     routing: null
-  - workflow: transformation::WF_P8_AUTHORING_MANDATE_ADMISSIBILITY_V2
+  - workflow: transformation::WF_P8_AUTHORING_MANDATE_ADMISSIBILITY_V0
     node: IN_AUTHORING_MANDATE_SUBMITTED_V0
     node_type: IN
     routing:
-      ACK: CC_JUDGE_AGAINST_SNAPSHOT_V1
+      ACK: CC_JUDGE_AGAINST_SNAPSHOT_V0
       NACK: EXIT_REJECTED
-  - workflow: transformation::WF_P8_AUTHORING_MANDATE_ADMISSIBILITY_V2
-    node: CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - workflow: transformation::WF_P8_AUTHORING_MANDATE_ADMISSIBILITY_V0
+    node: CC_JUDGE_AGAINST_SNAPSHOT_V0
     node_type: CC
     routing:
       SUCCESS: EXIT_JUDGED
       VIOLATION: EXIT_REJECTED
       BACKEND_ERROR: EXIT_REJECTED
       NOT_FOUND: EXIT_REJECTED
-  - workflow: transformation::WF_P8_AUTHORING_MANDATE_ADMISSIBILITY_V2
+  - workflow: transformation::WF_P8_AUTHORING_MANDATE_ADMISSIBILITY_V0
     node: EXIT_JUDGED
     node_type: EXIT
     routing: null
-  - workflow: transformation::WF_P8_AUTHORING_MANDATE_ADMISSIBILITY_V2
+  - workflow: transformation::WF_P8_AUTHORING_MANDATE_ADMISSIBILITY_V0
     node: EXIT_REJECTED
     node_type: EXIT
     routing: null
@@ -525,7 +525,7 @@ registers:
   - cc_code: transformation::CC_CONSTRUCT_ARTIFACTS_V0
     step: '1'
     step_name: parse_design
-    capability: transformation::CT_PURE_PARSE_REGISTERS_V1
+    capability: transformation::CT_PURE_PARSE_REGISTERS_V0
     kind: CT
     operation: null
     store: null
@@ -544,7 +544,7 @@ registers:
   - cc_code: transformation::CC_CONSTRUCT_ARTIFACTS_V0
     step: '2'
     step_name: parse_mandate
-    capability: transformation::CT_PURE_PARSE_REGISTERS_V1
+    capability: transformation::CT_PURE_PARSE_REGISTERS_V0
     kind: CT
     operation: null
     store: null
@@ -592,7 +592,7 @@ registers:
   - cc_code: transformation::CC_CONSTRUCT_ARTIFACTS_V0
     step: '4'
     step_name: attribute_provenance
-    capability: transformation::CT_PURE_ATTRIBUTE_PROVENANCE_V1
+    capability: transformation::CT_PURE_ATTRIBUTE_PROVENANCE_V0
     kind: CT
     operation: null
     store: null
@@ -665,10 +665,10 @@ registers:
       out:
         written: written
         paths: paths
-  - cc_code: transformation::CC_JUDGE_AGAINST_COMPOSITION_V1
+  - cc_code: transformation::CC_JUDGE_AGAINST_COMPOSITION_V0
     step: '1'
     step_name: parse_registers
-    capability: transformation::CT_PURE_PARSE_REGISTERS_V1
+    capability: transformation::CT_PURE_PARSE_REGISTERS_V0
     kind: CT
     operation: null
     store: null
@@ -684,10 +684,10 @@ registers:
       in:
         document_text: document_text
       out: {}
-  - cc_code: transformation::CC_JUDGE_AGAINST_COMPOSITION_V1
+  - cc_code: transformation::CC_JUDGE_AGAINST_COMPOSITION_V0
     step: '2'
     step_name: parse_priors
-    capability: transformation::CT_PURE_PARSE_PRIOR_PHASES_V1
+    capability: transformation::CT_PURE_PARSE_PRIOR_PHASES_V0
     kind: CT
     operation: null
     store: null
@@ -703,7 +703,7 @@ registers:
       in:
         prior_texts: prior_texts
       out: {}
-  - cc_code: transformation::CC_JUDGE_AGAINST_COMPOSITION_V1
+  - cc_code: transformation::CC_JUDGE_AGAINST_COMPOSITION_V0
     step: '3'
     step_name: observe_composition
     capability: capability_side_effects::CS_SNAPSHOT_QUERY_V0
@@ -726,7 +726,7 @@ registers:
         operation: operation
         params: params
       out: {}
-  - cc_code: transformation::CC_JUDGE_AGAINST_COMPOSITION_V1
+  - cc_code: transformation::CC_JUDGE_AGAINST_COMPOSITION_V0
     step: '4'
     step_name: observe_declarations
     capability: capability_side_effects::CS_SNAPSHOT_QUERY_V0
@@ -749,10 +749,10 @@ registers:
         operation: operation
         params: params
       out: {}
-  - cc_code: transformation::CC_JUDGE_AGAINST_COMPOSITION_V1
+  - cc_code: transformation::CC_JUDGE_AGAINST_COMPOSITION_V0
     step: '5'
     step_name: evaluate_rules
-    capability: transformation::CT_PURE_EVALUATE_RULES_V1
+    capability: transformation::CT_PURE_EVALUATE_RULES_V0
     kind: CT
     operation: null
     store: null
@@ -786,10 +786,10 @@ registers:
         verdict: verdict
         findings: findings
         rules_evaluated: rules_evaluated
-  - cc_code: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - cc_code: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V0
     step: '1'
     step_name: parse_registers
-    capability: transformation::CT_PURE_PARSE_REGISTERS_V1
+    capability: transformation::CT_PURE_PARSE_REGISTERS_V0
     kind: CT
     operation: null
     store: null
@@ -805,10 +805,10 @@ registers:
       in:
         document_text: document_text
       out: {}
-  - cc_code: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - cc_code: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V0
     step: '2'
     step_name: parse_priors
-    capability: transformation::CT_PURE_PARSE_PRIOR_PHASES_V1
+    capability: transformation::CT_PURE_PARSE_PRIOR_PHASES_V0
     kind: CT
     operation: null
     store: null
@@ -824,7 +824,7 @@ registers:
       in:
         prior_texts: prior_texts
       out: {}
-  - cc_code: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - cc_code: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V0
     step: '3'
     step_name: observe_composition
     capability: capability_side_effects::CS_SNAPSHOT_QUERY_V0
@@ -847,7 +847,7 @@ registers:
         operation: operation
         params: params
       out: {}
-  - cc_code: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - cc_code: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V0
     step: '4'
     step_name: observe_capabilities
     capability: capability_side_effects::CS_SNAPSHOT_QUERY_V0
@@ -870,7 +870,7 @@ registers:
         operation: operation
         params: params
       out: {}
-  - cc_code: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - cc_code: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V0
     step: '5'
     step_name: observe_reuse_visibility
     capability: capability_side_effects::CS_SNAPSHOT_QUERY_V0
@@ -893,7 +893,7 @@ registers:
         operation: operation
         params: params
       out: {}
-  - cc_code: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - cc_code: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V0
     step: '6'
     step_name: observe_store_list
     capability: capability_side_effects::CS_SNAPSHOT_QUERY_V0
@@ -916,7 +916,7 @@ registers:
         operation: operation
         params: params
       out: {}
-  - cc_code: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - cc_code: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V0
     step: '7'
     step_name: observe_rule_set_list
     capability: capability_side_effects::CS_SNAPSHOT_QUERY_V0
@@ -939,7 +939,7 @@ registers:
         operation: operation
         params: params
       out: {}
-  - cc_code: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - cc_code: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V0
     step: '8'
     step_name: observe_behavior_logic_list
     capability: capability_side_effects::CS_SNAPSHOT_QUERY_V0
@@ -962,10 +962,10 @@ registers:
         operation: operation
         params: params
       out: {}
-  - cc_code: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - cc_code: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V0
     step: '9'
     step_name: evaluate_rules
-    capability: transformation::CT_PURE_EVALUATE_RULES_V1
+    capability: transformation::CT_PURE_EVALUATE_RULES_V0
     kind: CT
     operation: null
     store: null
@@ -1002,7 +1002,7 @@ registers:
   - cc_code: transformation::CC_JUDGE_DOCUMENT_V0
     step: '1'
     step_name: parse_registers
-    capability: transformation::CT_PURE_PARSE_REGISTERS_V1
+    capability: transformation::CT_PURE_PARSE_REGISTERS_V0
     kind: CT
     operation: null
     store: null
@@ -1021,7 +1021,7 @@ registers:
   - cc_code: transformation::CC_JUDGE_DOCUMENT_V0
     step: '2'
     step_name: parse_priors
-    capability: transformation::CT_PURE_PARSE_PRIOR_PHASES_V1
+    capability: transformation::CT_PURE_PARSE_PRIOR_PHASES_V0
     kind: CT
     operation: null
     store: null
@@ -1040,7 +1040,7 @@ registers:
   - cc_code: transformation::CC_JUDGE_DOCUMENT_V0
     step: '3'
     step_name: evaluate_rules
-    capability: transformation::CT_PURE_EVALUATE_RULES_V1
+    capability: transformation::CT_PURE_EVALUATE_RULES_V0
     kind: CT
     operation: null
     store: null
@@ -1195,66 +1195,66 @@ registers:
     direction: INPUT
     field: documents
     bound_to: results.CC_CONSTRUCT_ARTIFACTS_V0.documents
-  - owner: transformation::CC_JUDGE_AGAINST_COMPOSITION_V1
+  - owner: transformation::CC_JUDGE_AGAINST_COMPOSITION_V0
     step: parse_registers
     direction: INPUT
     field: document_text
     bound_to: inputs.document_text
-  - owner: transformation::CC_JUDGE_AGAINST_COMPOSITION_V1
+  - owner: transformation::CC_JUDGE_AGAINST_COMPOSITION_V0
     step: parse_priors
     direction: INPUT
     field: prior_texts
     bound_to: inputs.prior_texts
-  - owner: transformation::CC_JUDGE_AGAINST_COMPOSITION_V1
+  - owner: transformation::CC_JUDGE_AGAINST_COMPOSITION_V0
     step: observe_composition
     direction: INPUT
     field: operation
     bound_to:
       literal: si.artifact.list
-  - owner: transformation::CC_JUDGE_AGAINST_COMPOSITION_V1
+  - owner: transformation::CC_JUDGE_AGAINST_COMPOSITION_V0
     step: observe_composition
     direction: INPUT
     field: params
     bound_to:
       literal: {}
-  - owner: transformation::CC_JUDGE_AGAINST_COMPOSITION_V1
+  - owner: transformation::CC_JUDGE_AGAINST_COMPOSITION_V0
     step: observe_declarations
     direction: INPUT
     field: operation
     bound_to:
       literal: si.snapshot.summary
-  - owner: transformation::CC_JUDGE_AGAINST_COMPOSITION_V1
+  - owner: transformation::CC_JUDGE_AGAINST_COMPOSITION_V0
     step: observe_declarations
     direction: INPUT
     field: params
     bound_to:
       literal: {}
-  - owner: transformation::CC_JUDGE_AGAINST_COMPOSITION_V1
+  - owner: transformation::CC_JUDGE_AGAINST_COMPOSITION_V0
     step: evaluate_rules
     direction: INPUT
     field: header
     bound_to: results.parse_registers.capability_result.header
-  - owner: transformation::CC_JUDGE_AGAINST_COMPOSITION_V1
+  - owner: transformation::CC_JUDGE_AGAINST_COMPOSITION_V0
     step: evaluate_rules
     direction: INPUT
     field: sections
     bound_to: results.parse_registers.capability_result.sections
-  - owner: transformation::CC_JUDGE_AGAINST_COMPOSITION_V1
+  - owner: transformation::CC_JUDGE_AGAINST_COMPOSITION_V0
     step: evaluate_rules
     direction: INPUT
     field: registers
     bound_to: results.parse_registers.capability_result.registers
-  - owner: transformation::CC_JUDGE_AGAINST_COMPOSITION_V1
+  - owner: transformation::CC_JUDGE_AGAINST_COMPOSITION_V0
     step: evaluate_rules
     direction: INPUT
     field: document_text
     bound_to: inputs.document_text
-  - owner: transformation::CC_JUDGE_AGAINST_COMPOSITION_V1
+  - owner: transformation::CC_JUDGE_AGAINST_COMPOSITION_V0
     step: evaluate_rules
     direction: INPUT
     field: rule_set
     bound_to: inputs.rule_set
-  - owner: transformation::CC_JUDGE_AGAINST_COMPOSITION_V1
+  - owner: transformation::CC_JUDGE_AGAINST_COMPOSITION_V0
     step: evaluate_rules
     direction: INPUT
     field: observed
@@ -1262,134 +1262,134 @@ registers:
       literal:
         si.artifact.list: $.results.observe_composition.capability_result.result.artifacts
         si.snapshot.summary: $.results.observe_declarations.capability_result.result.reuse_visibility
-  - owner: transformation::CC_JUDGE_AGAINST_COMPOSITION_V1
+  - owner: transformation::CC_JUDGE_AGAINST_COMPOSITION_V0
     step: evaluate_rules
     direction: INPUT
     field: priors
     bound_to: results.parse_priors.capability_result.priors
-  - owner: transformation::CC_JUDGE_AGAINST_COMPOSITION_V1
+  - owner: transformation::CC_JUDGE_AGAINST_COMPOSITION_V0
     step: evaluate_rules
     direction: OUTPUT
     field: verdict
     bound_to: capability_result.verdict
-  - owner: transformation::CC_JUDGE_AGAINST_COMPOSITION_V1
+  - owner: transformation::CC_JUDGE_AGAINST_COMPOSITION_V0
     step: evaluate_rules
     direction: OUTPUT
     field: findings
     bound_to: capability_result.findings
-  - owner: transformation::CC_JUDGE_AGAINST_COMPOSITION_V1
+  - owner: transformation::CC_JUDGE_AGAINST_COMPOSITION_V0
     step: evaluate_rules
     direction: OUTPUT
     field: rules_evaluated
     bound_to: capability_result.rules_evaluated
-  - owner: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - owner: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V0
     step: parse_registers
     direction: INPUT
     field: document_text
     bound_to: inputs.document_text
-  - owner: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - owner: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V0
     step: parse_priors
     direction: INPUT
     field: prior_texts
     bound_to: inputs.prior_texts
-  - owner: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - owner: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V0
     step: observe_composition
     direction: INPUT
     field: operation
     bound_to:
       literal: si.artifact.list
-  - owner: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - owner: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V0
     step: observe_composition
     direction: INPUT
     field: params
     bound_to:
       literal: {}
-  - owner: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - owner: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V0
     step: observe_capabilities
     direction: INPUT
     field: operation
     bound_to:
       literal: si.capability.surface
-  - owner: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - owner: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V0
     step: observe_capabilities
     direction: INPUT
     field: params
     bound_to:
       literal: {}
-  - owner: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - owner: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V0
     step: observe_reuse_visibility
     direction: INPUT
     field: operation
     bound_to:
       literal: si.snapshot.summary
-  - owner: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - owner: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V0
     step: observe_reuse_visibility
     direction: INPUT
     field: params
     bound_to:
       literal: {}
-  - owner: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - owner: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V0
     step: observe_store_list
     direction: INPUT
     field: operation
     bound_to:
       literal: si.store.list
-  - owner: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - owner: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V0
     step: observe_store_list
     direction: INPUT
     field: params
     bound_to:
       literal: {}
-  - owner: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - owner: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V0
     step: observe_rule_set_list
     direction: INPUT
     field: operation
     bound_to:
       literal: si.rule_set.list
-  - owner: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - owner: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V0
     step: observe_rule_set_list
     direction: INPUT
     field: params
     bound_to:
       literal: {}
-  - owner: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - owner: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V0
     step: observe_behavior_logic_list
     direction: INPUT
     field: operation
     bound_to:
       literal: si.behavior_logic.list
-  - owner: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - owner: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V0
     step: observe_behavior_logic_list
     direction: INPUT
     field: params
     bound_to:
       literal: {}
-  - owner: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - owner: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V0
     step: evaluate_rules
     direction: INPUT
     field: header
     bound_to: results.parse_registers.capability_result.header
-  - owner: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - owner: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V0
     step: evaluate_rules
     direction: INPUT
     field: sections
     bound_to: results.parse_registers.capability_result.sections
-  - owner: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - owner: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V0
     step: evaluate_rules
     direction: INPUT
     field: registers
     bound_to: results.parse_registers.capability_result.registers
-  - owner: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - owner: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V0
     step: evaluate_rules
     direction: INPUT
     field: document_text
     bound_to: inputs.document_text
-  - owner: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - owner: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V0
     step: evaluate_rules
     direction: INPUT
     field: rule_set
     bound_to: inputs.rule_set
-  - owner: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - owner: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V0
     step: evaluate_rules
     direction: INPUT
     field: observed
@@ -1404,22 +1404,22 @@ registers:
         si.rule_set.list: $.results.observe_rule_set_list.capability_result.result.carriers
         si.snapshot.summary: $.results.observe_reuse_visibility.capability_result.result.reuse_visibility
         si.store.list: $.results.observe_store_list.capability_result.result.stores
-  - owner: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - owner: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V0
     step: evaluate_rules
     direction: INPUT
     field: priors
     bound_to: results.parse_priors.capability_result.priors
-  - owner: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - owner: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V0
     step: evaluate_rules
     direction: OUTPUT
     field: verdict
     bound_to: capability_result.verdict
-  - owner: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - owner: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V0
     step: evaluate_rules
     direction: OUTPUT
     field: findings
     bound_to: capability_result.findings
-  - owner: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - owner: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V0
     step: evaluate_rules
     direction: OUTPUT
     field: rules_evaluated
@@ -1485,18 +1485,18 @@ registers:
     direction: OUTPUT
     field: rules_evaluated
     bound_to: capability_result.rules_evaluated
-  - owner: transformation::WF_P0_SEED_ADMISSIBILITY_V1
+  - owner: transformation::WF_P0_SEED_ADMISSIBILITY_V0
     step: CC_JUDGE_DOCUMENT_V0
     direction: INPUT
     field: document_text
     bound_to: payload.seed_text
-  - owner: transformation::WF_P0_SEED_ADMISSIBILITY_V1
+  - owner: transformation::WF_P0_SEED_ADMISSIBILITY_V0
     step: CC_JUDGE_DOCUMENT_V0
     direction: INPUT
     field: prior_texts
     bound_to:
       literal: {}
-  - owner: transformation::WF_P0_SEED_ADMISSIBILITY_V1
+  - owner: transformation::WF_P0_SEED_ADMISSIBILITY_V0
     step: CC_JUDGE_DOCUMENT_V0
     direction: INPUT
     field: rule_set
@@ -2279,17 +2279,17 @@ registers:
           detail: only the business can answer this — ask it, fold the answer into the problem statement,
             and re-author the seed rather than carrying the question forward
         intent: a business question that outlives the seed is answered downstream by inference
-  - owner: transformation::WF_P1_CHANGE_REQUEST_ADMISSIBILITY_V1
+  - owner: transformation::WF_P1_CHANGE_REQUEST_ADMISSIBILITY_V0
     step: CC_JUDGE_DOCUMENT_V0
     direction: INPUT
     field: document_text
     bound_to: payload.register_text
-  - owner: transformation::WF_P1_CHANGE_REQUEST_ADMISSIBILITY_V1
+  - owner: transformation::WF_P1_CHANGE_REQUEST_ADMISSIBILITY_V0
     step: CC_JUDGE_DOCUMENT_V0
     direction: INPUT
     field: prior_texts
     bound_to: payload.prior_texts
-  - owner: transformation::WF_P1_CHANGE_REQUEST_ADMISSIBILITY_V1
+  - owner: transformation::WF_P1_CHANGE_REQUEST_ADMISSIBILITY_V0
     step: CC_JUDGE_DOCUMENT_V0
     direction: INPUT
     field: rule_set
@@ -7238,18 +7238,18 @@ registers:
           detail: only the business can answer this — ask it, fold the answer into the problem statement,
             and re-author the seed rather than carrying the question forward
         intent: a business question that outlives the seed is answered downstream by inference
-  - owner: transformation::WF_P2_DOMAIN_MODEL_ADMISSIBILITY_V2
-    step: CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - owner: transformation::WF_P2_DOMAIN_MODEL_ADMISSIBILITY_V0
+    step: CC_JUDGE_AGAINST_SNAPSHOT_V0
     direction: INPUT
     field: document_text
     bound_to: payload.register_text
-  - owner: transformation::WF_P2_DOMAIN_MODEL_ADMISSIBILITY_V2
-    step: CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - owner: transformation::WF_P2_DOMAIN_MODEL_ADMISSIBILITY_V0
+    step: CC_JUDGE_AGAINST_SNAPSHOT_V0
     direction: INPUT
     field: prior_texts
     bound_to: payload.prior_texts
-  - owner: transformation::WF_P2_DOMAIN_MODEL_ADMISSIBILITY_V2
-    step: CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - owner: transformation::WF_P2_DOMAIN_MODEL_ADMISSIBILITY_V0
+    step: CC_JUDGE_AGAINST_SNAPSHOT_V0
     direction: INPUT
     field: rule_set
     bound_to:
@@ -9530,18 +9530,18 @@ registers:
           detail: '{column!r} declares the question unanswered ({marker}) rather than answering it — ask
             it as a clarification, do not hedge it in a register'
         intent: an unanswered question left in a register reads as decided to every later phase
-  - owner: transformation::WF_P3_ANALYSIS_LOOP_ADMISSIBILITY_V2
-    step: CC_JUDGE_AGAINST_COMPOSITION_V1
+  - owner: transformation::WF_P3_ANALYSIS_LOOP_ADMISSIBILITY_V0
+    step: CC_JUDGE_AGAINST_COMPOSITION_V0
     direction: INPUT
     field: document_text
     bound_to: payload.register_text
-  - owner: transformation::WF_P3_ANALYSIS_LOOP_ADMISSIBILITY_V2
-    step: CC_JUDGE_AGAINST_COMPOSITION_V1
+  - owner: transformation::WF_P3_ANALYSIS_LOOP_ADMISSIBILITY_V0
+    step: CC_JUDGE_AGAINST_COMPOSITION_V0
     direction: INPUT
     field: prior_texts
     bound_to: payload.prior_texts
-  - owner: transformation::WF_P3_ANALYSIS_LOOP_ADMISSIBILITY_V2
-    step: CC_JUDGE_AGAINST_COMPOSITION_V1
+  - owner: transformation::WF_P3_ANALYSIS_LOOP_ADMISSIBILITY_V0
+    step: CC_JUDGE_AGAINST_COMPOSITION_V0
     direction: INPUT
     field: rule_set
     bound_to:
@@ -10464,18 +10464,18 @@ registers:
           detail: '{column!r} declares the question unanswered ({marker}) rather than answering it — ask
             it as a clarification, do not hedge it in a register'
         intent: an unanswered question left in a register reads as decided to every later phase
-  - owner: transformation::WF_P4_BUSINESS_MODEL_ADMISSIBILITY_V2
-    step: CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - owner: transformation::WF_P4_BUSINESS_MODEL_ADMISSIBILITY_V0
+    step: CC_JUDGE_AGAINST_SNAPSHOT_V0
     direction: INPUT
     field: document_text
     bound_to: payload.register_text
-  - owner: transformation::WF_P4_BUSINESS_MODEL_ADMISSIBILITY_V2
-    step: CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - owner: transformation::WF_P4_BUSINESS_MODEL_ADMISSIBILITY_V0
+    step: CC_JUDGE_AGAINST_SNAPSHOT_V0
     direction: INPUT
     field: prior_texts
     bound_to: payload.prior_texts
-  - owner: transformation::WF_P4_BUSINESS_MODEL_ADMISSIBILITY_V2
-    step: CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - owner: transformation::WF_P4_BUSINESS_MODEL_ADMISSIBILITY_V0
+    step: CC_JUDGE_AGAINST_SNAPSHOT_V0
     direction: INPUT
     field: rule_set
     bound_to:
@@ -12961,18 +12961,18 @@ registers:
           detail: '{column!r} declares the question unanswered ({marker}) rather than answering it — ask
             it as a clarification, do not hedge it in a register'
         intent: an unanswered question left in a register reads as decided to every later phase
-  - owner: transformation::WF_P5_BUSINESS_INTENT_ADMISSIBILITY_V2
-    step: CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - owner: transformation::WF_P5_BUSINESS_INTENT_ADMISSIBILITY_V0
+    step: CC_JUDGE_AGAINST_SNAPSHOT_V0
     direction: INPUT
     field: document_text
     bound_to: payload.register_text
-  - owner: transformation::WF_P5_BUSINESS_INTENT_ADMISSIBILITY_V2
-    step: CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - owner: transformation::WF_P5_BUSINESS_INTENT_ADMISSIBILITY_V0
+    step: CC_JUDGE_AGAINST_SNAPSHOT_V0
     direction: INPUT
     field: prior_texts
     bound_to: payload.prior_texts
-  - owner: transformation::WF_P5_BUSINESS_INTENT_ADMISSIBILITY_V2
-    step: CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - owner: transformation::WF_P5_BUSINESS_INTENT_ADMISSIBILITY_V0
+    step: CC_JUDGE_AGAINST_SNAPSHOT_V0
     direction: INPUT
     field: rule_set
     bound_to:
@@ -15149,18 +15149,18 @@ registers:
           detail: '{column!r} declares the question unanswered ({marker}) rather than answering it — ask
             it as a clarification, do not hedge it in a register'
         intent: an unanswered question left in a register reads as decided to every later phase
-  - owner: transformation::WF_P6_GOVERNANCE_INTENT_ADMISSIBILITY_V2
-    step: CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - owner: transformation::WF_P6_GOVERNANCE_INTENT_ADMISSIBILITY_V0
+    step: CC_JUDGE_AGAINST_SNAPSHOT_V0
     direction: INPUT
     field: document_text
     bound_to: payload.register_text
-  - owner: transformation::WF_P6_GOVERNANCE_INTENT_ADMISSIBILITY_V2
-    step: CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - owner: transformation::WF_P6_GOVERNANCE_INTENT_ADMISSIBILITY_V0
+    step: CC_JUDGE_AGAINST_SNAPSHOT_V0
     direction: INPUT
     field: prior_texts
     bound_to: payload.prior_texts
-  - owner: transformation::WF_P6_GOVERNANCE_INTENT_ADMISSIBILITY_V2
-    step: CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - owner: transformation::WF_P6_GOVERNANCE_INTENT_ADMISSIBILITY_V0
+    step: CC_JUDGE_AGAINST_SNAPSHOT_V0
     direction: INPUT
     field: rule_set
     bound_to:
@@ -16745,18 +16745,18 @@ registers:
           detail: '{column!r} declares the question unanswered ({marker}) rather than answering it — ask
             it as a clarification, do not hedge it in a register'
         intent: an unanswered question left in a register reads as decided to every later phase
-  - owner: transformation::WF_P7_DESIGN_INTENT_ADMISSIBILITY_V3
-    step: CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - owner: transformation::WF_P7_DESIGN_INTENT_ADMISSIBILITY_V0
+    step: CC_JUDGE_AGAINST_SNAPSHOT_V0
     direction: INPUT
     field: document_text
     bound_to: payload.register_text
-  - owner: transformation::WF_P7_DESIGN_INTENT_ADMISSIBILITY_V3
-    step: CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - owner: transformation::WF_P7_DESIGN_INTENT_ADMISSIBILITY_V0
+    step: CC_JUDGE_AGAINST_SNAPSHOT_V0
     direction: INPUT
     field: prior_texts
     bound_to: payload.prior_texts
-  - owner: transformation::WF_P7_DESIGN_INTENT_ADMISSIBILITY_V3
-    step: CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - owner: transformation::WF_P7_DESIGN_INTENT_ADMISSIBILITY_V0
+    step: CC_JUDGE_AGAINST_SNAPSHOT_V0
     direction: INPUT
     field: rule_set
     bound_to:
@@ -23315,18 +23315,18 @@ registers:
           - Code
           - FQDN
         intent: the actor a workflow runs as is one this design declares or carries over
-  - owner: transformation::WF_P8_AUTHORING_MANDATE_ADMISSIBILITY_V2
-    step: CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - owner: transformation::WF_P8_AUTHORING_MANDATE_ADMISSIBILITY_V0
+    step: CC_JUDGE_AGAINST_SNAPSHOT_V0
     direction: INPUT
     field: document_text
     bound_to: payload.register_text
-  - owner: transformation::WF_P8_AUTHORING_MANDATE_ADMISSIBILITY_V2
-    step: CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - owner: transformation::WF_P8_AUTHORING_MANDATE_ADMISSIBILITY_V0
+    step: CC_JUDGE_AGAINST_SNAPSHOT_V0
     direction: INPUT
     field: prior_texts
     bound_to: payload.prior_texts
-  - owner: transformation::WF_P8_AUTHORING_MANDATE_ADMISSIBILITY_V2
-    step: CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - owner: transformation::WF_P8_AUTHORING_MANDATE_ADMISSIBILITY_V0
+    step: CC_JUDGE_AGAINST_SNAPSHOT_V0
     direction: INPUT
     field: rule_set
     bound_to:
@@ -23775,28 +23775,28 @@ registers:
     required: 'NO'
     default: null
     meaning: paths
-  - artifact: transformation::CT_PURE_ATTRIBUTE_PROVENANCE_V1
+  - artifact: transformation::CT_PURE_ATTRIBUTE_PROVENANCE_V0
     direction: INPUT
     field: rendered
     type: array
     required: 'YES'
     default: null
     meaning: rendered
-  - artifact: transformation::CT_PURE_ATTRIBUTE_PROVENANCE_V1
+  - artifact: transformation::CT_PURE_ATTRIBUTE_PROVENANCE_V0
     direction: INPUT
     field: sources
     type: object
     required: 'YES'
     default: null
     meaning: sources
-  - artifact: transformation::CT_PURE_ATTRIBUTE_PROVENANCE_V1
+  - artifact: transformation::CT_PURE_ATTRIBUTE_PROVENANCE_V0
     direction: OUTPUT
     field: provenance
     type: object
     required: 'YES'
     default: null
     meaning: provenance
-  - artifact: transformation::CT_PURE_ATTRIBUTE_PROVENANCE_V1
+  - artifact: transformation::CT_PURE_ATTRIBUTE_PROVENANCE_V0
     direction: OUTPUT
     field: governing_artifacts
     type: object
@@ -23950,14 +23950,14 @@ registers:
     required: 'YES'
     default: null
     meaning: role
-  - artifact: transformation::CC_JUDGE_AGAINST_COMPOSITION_V1
+  - artifact: transformation::CC_JUDGE_AGAINST_COMPOSITION_V0
     direction: INPUT
     field: document_text
     type: string
     required: 'YES'
     default: null
     meaning: document text
-  - artifact: transformation::CC_JUDGE_AGAINST_COMPOSITION_V1
+  - artifact: transformation::CC_JUDGE_AGAINST_COMPOSITION_V0
     direction: INPUT
     field: prior_texts
     type: object
@@ -23965,42 +23965,42 @@ registers:
     default: null
     meaning: Phase id → full text of the upstream document. Empty when the caller handed none over; the
       rule set decides whether that is a defect, and for a phase declaring a cross-phase rule it is one.
-  - artifact: transformation::CC_JUDGE_AGAINST_COMPOSITION_V1
+  - artifact: transformation::CC_JUDGE_AGAINST_COMPOSITION_V0
     direction: INPUT
     field: rule_set
     type: array
     required: 'YES'
     default: null
     meaning: rule set
-  - artifact: transformation::CC_JUDGE_AGAINST_COMPOSITION_V1
+  - artifact: transformation::CC_JUDGE_AGAINST_COMPOSITION_V0
     direction: OUTPUT
     field: verdict
     type: string
     required: 'NO'
     default: null
     meaning: verdict
-  - artifact: transformation::CC_JUDGE_AGAINST_COMPOSITION_V1
+  - artifact: transformation::CC_JUDGE_AGAINST_COMPOSITION_V0
     direction: OUTPUT
     field: findings
     type: array
     required: 'NO'
     default: null
     meaning: findings
-  - artifact: transformation::CC_JUDGE_AGAINST_COMPOSITION_V1
+  - artifact: transformation::CC_JUDGE_AGAINST_COMPOSITION_V0
     direction: OUTPUT
     field: rules_evaluated
     type: integer
     required: 'NO'
     default: null
     meaning: rules evaluated
-  - artifact: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - artifact: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V0
     direction: INPUT
     field: document_text
     type: string
     required: 'YES'
     default: null
     meaning: document text
-  - artifact: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - artifact: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V0
     direction: INPUT
     field: prior_texts
     type: object
@@ -24008,28 +24008,28 @@ registers:
     default: null
     meaning: Phase id → full text of the upstream document. Empty when this phase reads none; the rule
       set decides whether that is a defect, and for a phase declaring a cross-phase rule it is one.
-  - artifact: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - artifact: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V0
     direction: INPUT
     field: rule_set
     type: array
     required: 'YES'
     default: null
     meaning: rule set
-  - artifact: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - artifact: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V0
     direction: OUTPUT
     field: verdict
     type: string
     required: 'NO'
     default: null
     meaning: verdict
-  - artifact: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - artifact: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V0
     direction: OUTPUT
     field: findings
     type: array
     required: 'NO'
     default: null
     meaning: findings
-  - artifact: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - artifact: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V0
     direction: OUTPUT
     field: rules_evaluated
     type: integer
@@ -24080,7 +24080,7 @@ registers:
     required: 'NO'
     default: null
     meaning: rules evaluated
-  - artifact: transformation::CT_PURE_EVALUATE_RULES_V1
+  - artifact: transformation::CT_PURE_EVALUATE_RULES_V0
     direction: INPUT
     field: header
     type: object
@@ -24088,7 +24088,7 @@ registers:
     default: null
     meaning: The document's header, as parsed
     structure: transformation::STRUCTURE_PHASE_HEADER_V0
-  - artifact: transformation::CT_PURE_EVALUATE_RULES_V1
+  - artifact: transformation::CT_PURE_EVALUATE_RULES_V0
     direction: INPUT
     field: sections
     type: array
@@ -24096,7 +24096,7 @@ registers:
     default: null
     meaning: Parsed document sections
     structure: transformation::STRUCTURE_PHASE_SECTIONS_V0
-  - artifact: transformation::CT_PURE_EVALUATE_RULES_V1
+  - artifact: transformation::CT_PURE_EVALUATE_RULES_V0
     direction: INPUT
     field: registers
     type: array
@@ -24104,21 +24104,21 @@ registers:
     default: null
     meaning: Parsed registers, addressed by id — how a rule locates what it governs
     structure: transformation::STRUCTURE_PHASE_REGISTERS_V0
-  - artifact: transformation::CT_PURE_EVALUATE_RULES_V1
+  - artifact: transformation::CT_PURE_EVALUATE_RULES_V0
     direction: INPUT
     field: document_text
     type: string
     required: 'YES'
     default: null
     meaning: The original document text, for whole-document rules
-  - artifact: transformation::CT_PURE_EVALUATE_RULES_V1
+  - artifact: transformation::CT_PURE_EVALUATE_RULES_V0
     direction: INPUT
     field: rule_set
     type: array
     required: 'YES'
     default: null
     meaning: The declared rules deciding admissibility — supplied by the calling workflow
-  - artifact: transformation::CT_PURE_EVALUATE_RULES_V1
+  - artifact: transformation::CT_PURE_EVALUATE_RULES_V0
     direction: INPUT
     field: observed
     type: object
@@ -24128,7 +24128,7 @@ registers:
       Empty for a phase that judges a document alone; a phase that grounds claims fills it from a governed
       inspection capability. A rule needing an observation that is absent reports that it could not be
       checked rather than passing silently.
-  - artifact: transformation::CT_PURE_EVALUATE_RULES_V1
+  - artifact: transformation::CT_PURE_EVALUATE_RULES_V0
     direction: INPUT
     field: priors
     type: object
@@ -24140,14 +24140,14 @@ registers:
       is unchecked rather than passing silently — an unchecked handoff and a preserved one are otherwise
       indistinguishable.
     structure: transformation::STRUCTURE_PHASE_PRIORS_V0
-  - artifact: transformation::CT_PURE_EVALUATE_RULES_V1
+  - artifact: transformation::CT_PURE_EVALUATE_RULES_V0
     direction: OUTPUT
     field: verdict
     type: string
     required: 'YES'
     default: null
     meaning: ADMISSIBLE when no rule failed, INADMISSIBLE otherwise
-  - artifact: transformation::CT_PURE_EVALUATE_RULES_V1
+  - artifact: transformation::CT_PURE_EVALUATE_RULES_V0
     direction: OUTPUT
     field: findings
     type: array
@@ -24155,14 +24155,14 @@ registers:
     default: null
     meaning: One entry per failed rule, naming the rule, where it failed, and why it matters
     structure: transformation::STRUCTURE_PHASE_FINDINGS_V0
-  - artifact: transformation::CT_PURE_EVALUATE_RULES_V1
+  - artifact: transformation::CT_PURE_EVALUATE_RULES_V0
     direction: OUTPUT
     field: rules_evaluated
     type: integer
     required: 'YES'
     default: null
     meaning: How many rules were applied — every rule in the set, always
-  - artifact: transformation::CT_PURE_PARSE_PRIOR_PHASES_V1
+  - artifact: transformation::CT_PURE_PARSE_PRIOR_PHASES_V0
     direction: INPUT
     field: prior_texts
     type: object
@@ -24171,7 +24171,7 @@ registers:
     meaning: Phase id → full text of that phase's document, supplied by the calling workflow. Empty when
       the caller handed over no upstream document; a rule that needs one then reports that it could not
       be checked rather than passing silently.
-  - artifact: transformation::CT_PURE_PARSE_PRIOR_PHASES_V1
+  - artifact: transformation::CT_PURE_PARSE_PRIOR_PHASES_V0
     direction: OUTPUT
     field: priors
     type: object
@@ -24179,14 +24179,14 @@ registers:
     default: null
     meaning: Phase id → parsed document as header, sections and registers
     structure: transformation::STRUCTURE_PHASE_PRIORS_V0
-  - artifact: transformation::CT_PURE_PARSE_REGISTERS_V1
+  - artifact: transformation::CT_PURE_PARSE_REGISTERS_V0
     direction: INPUT
     field: document_text
     type: string
     required: 'YES'
     default: null
     meaning: The full text of the phase document — never a path, never read from disk
-  - artifact: transformation::CT_PURE_PARSE_REGISTERS_V1
+  - artifact: transformation::CT_PURE_PARSE_REGISTERS_V0
     direction: OUTPUT
     field: header
     type: object
@@ -24194,7 +24194,7 @@ registers:
     default: null
     meaning: The Machine block's `document` mapping
     structure: transformation::STRUCTURE_PHASE_HEADER_V0
-  - artifact: transformation::CT_PURE_PARSE_REGISTERS_V1
+  - artifact: transformation::CT_PURE_PARSE_REGISTERS_V0
     direction: OUTPUT
     field: sections
     type: array
@@ -24202,7 +24202,7 @@ registers:
     default: null
     meaning: Ordered prose sections, each with its number, title and text
     structure: transformation::STRUCTURE_PHASE_SECTIONS_V0
-  - artifact: transformation::CT_PURE_PARSE_REGISTERS_V1
+  - artifact: transformation::CT_PURE_PARSE_REGISTERS_V0
     direction: OUTPUT
     field: registers
     type: array
@@ -24257,14 +24257,14 @@ registers:
     required: 'YES'
     default: null
     meaning: Identity of the person accountable for the register's content
-  - artifact: transformation::IN_BUSINESS_INTENT_SUBMITTED_V1
+  - artifact: transformation::IN_BUSINESS_INTENT_SUBMITTED_V0
     direction: INPUT
     field: register_text
     type: string
     required: 'YES'
     default: null
     meaning: Full text of the P5 register — supplied by the driver, never read downstream
-  - artifact: transformation::IN_BUSINESS_INTENT_SUBMITTED_V1
+  - artifact: transformation::IN_BUSINESS_INTENT_SUBMITTED_V0
     direction: INPUT
     field: prior_texts
     type: object
@@ -24273,7 +24273,7 @@ registers:
     meaning: 'Phase id → full text of the upstream document — p0 carries the subdomain purpose this register
       restates. Supplied by the driver alongside the register itself: a handoff is checked by reading
       both documents, and an absent prior is reported as an unchecked handoff rather than passed over.'
-  - artifact: transformation::IN_BUSINESS_INTENT_SUBMITTED_V1
+  - artifact: transformation::IN_BUSINESS_INTENT_SUBMITTED_V0
     direction: INPUT
     field: author_of_record
     type: string
@@ -24414,7 +24414,7 @@ registers:
     default: null
     meaning: Identity of the person accountable for the seed's content
   implementation_bindings:
-  - ct_code: transformation::CT_PURE_ATTRIBUTE_PROVENANCE_V1
+  - ct_code: transformation::CT_PURE_ATTRIBUTE_PROVENANCE_V0
     callable: execute
     operation: ATTRIBUTE_PROVENANCE
     kind: atom
@@ -24432,19 +24432,19 @@ registers:
     kind: atom
     purity: ct_pure
     refusal: raises
-  - ct_code: transformation::CT_PURE_EVALUATE_RULES_V1
+  - ct_code: transformation::CT_PURE_EVALUATE_RULES_V0
     callable: execute
     operation: PURE_EVALUATE_RULES
     kind: atom
     purity: ct_pure
     refusal: returns
-  - ct_code: transformation::CT_PURE_PARSE_PRIOR_PHASES_V1
+  - ct_code: transformation::CT_PURE_PARSE_PRIOR_PHASES_V0
     callable: execute
     operation: PURE_PARSE_PRIOR_PHASES
     kind: atom
     purity: ct_pure
     refusal: never
-  - ct_code: transformation::CT_PURE_PARSE_REGISTERS_V1
+  - ct_code: transformation::CT_PURE_PARSE_REGISTERS_V0
     callable: execute
     operation: PURE_PARSE_REGISTERS
     kind: atom
@@ -25133,10 +25133,6 @@ registers:
     key: snapshot_root
     value: '{{snapshot_root}}'
   artifact_properties:
-  - artifact: transformation::CT_PURE_ATTRIBUTE_PROVENANCE_V1
-    property: supersedes
-    value:
-    - transformation::CT_PURE_ATTRIBUTE_PROVENANCE_V0
   - artifact: transformation::RB_CONSTRUCTION_BINDINGS_V0
     property: parameters
     value:
@@ -25162,108 +25158,44 @@ registers:
   - artifact: transformation::AC_SEED_AUTHOR_V0
     property: type
     value: human
-  - artifact: transformation::CC_JUDGE_AGAINST_COMPOSITION_V1
-    property: supersedes
-    value:
-    - transformation::CC_JUDGE_AGAINST_COMPOSITION_V0
-  - artifact: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V1
-    property: supersedes
-    value:
-    - transformation::CC_JUDGE_AGAINST_SNAPSHOT_V0
-  - artifact: transformation::CT_PURE_EVALUATE_RULES_V1
-    property: supersedes
-    value:
-    - transformation::CT_PURE_EVALUATE_RULES_V0
-  - artifact: transformation::CT_PURE_PARSE_PRIOR_PHASES_V1
-    property: supersedes
-    value:
-    - transformation::CT_PURE_PARSE_PRIOR_PHASES_V0
-  - artifact: transformation::CT_PURE_PARSE_REGISTERS_V1
-    property: supersedes
-    value:
-    - transformation::CT_PURE_PARSE_REGISTERS_V0
-  - artifact: transformation::IN_BUSINESS_INTENT_SUBMITTED_V1
-    property: supersedes
-    value:
-    - transformation::IN_BUSINESS_INTENT_SUBMITTED_V0
   - artifact: transformation::RB_TRANSFORMATION_BINDINGS_V0
     property: parameters
     value:
     - snapshot_root
-  - artifact: transformation::WF_P0_SEED_ADMISSIBILITY_V1
-    property: supersedes
-    value:
-    - transformation::WF_P0_SEED_ADMISSIBILITY_V0
-  - artifact: transformation::WF_P0_SEED_ADMISSIBILITY_V1
+  - artifact: transformation::WF_P0_SEED_ADMISSIBILITY_V0
     property: actor_context
     value: transformation::AC_SEED_AUTHOR_V0
-  - artifact: transformation::WF_P1_CHANGE_REQUEST_ADMISSIBILITY_V1
-    property: supersedes
-    value:
-    - transformation::WF_P1_CHANGE_REQUEST_ADMISSIBILITY_V0
-  - artifact: transformation::WF_P1_CHANGE_REQUEST_ADMISSIBILITY_V1
+  - artifact: transformation::WF_P1_CHANGE_REQUEST_ADMISSIBILITY_V0
     property: actor_context
     value: transformation::AC_REGISTER_AUTHOR_V0
-  - artifact: transformation::WF_P2_DOMAIN_MODEL_ADMISSIBILITY_V2
-    property: supersedes
-    value:
-    - transformation::WF_P2_DOMAIN_MODEL_ADMISSIBILITY_V1
-  - artifact: transformation::WF_P2_DOMAIN_MODEL_ADMISSIBILITY_V2
+  - artifact: transformation::WF_P2_DOMAIN_MODEL_ADMISSIBILITY_V0
     property: actor_context
     value: transformation::AC_REGISTER_AUTHOR_V0
-  - artifact: transformation::WF_P3_ANALYSIS_LOOP_ADMISSIBILITY_V2
-    property: supersedes
-    value:
-    - transformation::WF_P3_ANALYSIS_LOOP_ADMISSIBILITY_V1
-  - artifact: transformation::WF_P3_ANALYSIS_LOOP_ADMISSIBILITY_V2
+  - artifact: transformation::WF_P3_ANALYSIS_LOOP_ADMISSIBILITY_V0
     property: actor_context
     value: transformation::AC_REGISTER_AUTHOR_V0
-  - artifact: transformation::WF_P4_BUSINESS_MODEL_ADMISSIBILITY_V2
-    property: supersedes
-    value:
-    - transformation::WF_P4_BUSINESS_MODEL_ADMISSIBILITY_V1
-  - artifact: transformation::WF_P4_BUSINESS_MODEL_ADMISSIBILITY_V2
+  - artifact: transformation::WF_P4_BUSINESS_MODEL_ADMISSIBILITY_V0
     property: actor_context
     value: transformation::AC_REGISTER_AUTHOR_V0
-  - artifact: transformation::WF_P5_BUSINESS_INTENT_ADMISSIBILITY_V2
-    property: supersedes
-    value:
-    - transformation::WF_P5_BUSINESS_INTENT_ADMISSIBILITY_V1
-  - artifact: transformation::WF_P5_BUSINESS_INTENT_ADMISSIBILITY_V2
+  - artifact: transformation::WF_P5_BUSINESS_INTENT_ADMISSIBILITY_V0
     property: actor_context
     value: transformation::AC_REGISTER_AUTHOR_V0
-  - artifact: transformation::WF_P6_GOVERNANCE_INTENT_ADMISSIBILITY_V2
-    property: supersedes
-    value:
-    - transformation::WF_P6_GOVERNANCE_INTENT_ADMISSIBILITY_V1
-  - artifact: transformation::WF_P6_GOVERNANCE_INTENT_ADMISSIBILITY_V2
+  - artifact: transformation::WF_P6_GOVERNANCE_INTENT_ADMISSIBILITY_V0
     property: actor_context
     value: transformation::AC_REGISTER_AUTHOR_V0
-  - artifact: transformation::WF_P7_DESIGN_INTENT_ADMISSIBILITY_V3
-    property: supersedes
-    value:
-    - transformation::WF_P7_DESIGN_INTENT_ADMISSIBILITY_V2
-  - artifact: transformation::WF_P7_DESIGN_INTENT_ADMISSIBILITY_V3
+  - artifact: transformation::WF_P7_DESIGN_INTENT_ADMISSIBILITY_V0
     property: actor_context
     value: transformation::AC_REGISTER_AUTHOR_V0
-  - artifact: transformation::WF_P8_AUTHORING_MANDATE_ADMISSIBILITY_V2
-    property: supersedes
-    value:
-    - transformation::WF_P8_AUTHORING_MANDATE_ADMISSIBILITY_V1
-  - artifact: transformation::WF_P8_AUTHORING_MANDATE_ADMISSIBILITY_V2
+  - artifact: transformation::WF_P8_AUTHORING_MANDATE_ADMISSIBILITY_V0
     property: actor_context
     value: transformation::AC_REGISTER_AUTHOR_V0
-  - artifact: transformation::STRUCTURE_FIGURE_OF_MERIT_POLICY_V1
-    property: supersedes
-    value:
-    - transformation::STRUCTURE_FIGURE_OF_MERIT_POLICY_V0
-  - artifact: transformation::STRUCTURE_FIGURE_OF_MERIT_POLICY_V1
+  - artifact: transformation::STRUCTURE_FIGURE_OF_MERIT_POLICY_V0
     property: maximum
     value: 5
-  - artifact: transformation::STRUCTURE_FIGURE_OF_MERIT_POLICY_V1
+  - artifact: transformation::STRUCTURE_FIGURE_OF_MERIT_POLICY_V0
     property: minimum
     value: 0
-  - artifact: transformation::STRUCTURE_FIGURE_OF_MERIT_POLICY_V1
+  - artifact: transformation::STRUCTURE_FIGURE_OF_MERIT_POLICY_V0
     property: deductions
     value:
     - id: identity_unresolved
@@ -25457,7 +25389,7 @@ registers:
     value:
     - phase: p0
       schema: transformation.schemas.REGISTER_SCHEMA_P0_V0
-      workflow: transformation::WF_P0_SEED_ADMISSIBILITY_V1
+      workflow: transformation::WF_P0_SEED_ADMISSIBILITY_V0
       template: p0_change_seed_template_v0.md
       rung: business_language
       purpose: change seed
@@ -25466,7 +25398,7 @@ registers:
       gate: Gate 0 — the human confirms the seed says what they meant
     - phase: p1
       schema: transformation.schemas.REGISTER_SCHEMA_P1_V0
-      workflow: transformation::WF_P1_CHANGE_REQUEST_ADMISSIBILITY_V1
+      workflow: transformation::WF_P1_CHANGE_REQUEST_ADMISSIBILITY_V0
       template: p1_change_request_template_v0.md
       rung: business_language
       purpose: change request
@@ -25475,7 +25407,7 @@ registers:
       gate: null
     - phase: p2
       schema: transformation.schemas.REGISTER_SCHEMA_P2_V0
-      workflow: transformation::WF_P2_DOMAIN_MODEL_ADMISSIBILITY_V2
+      workflow: transformation::WF_P2_DOMAIN_MODEL_ADMISSIBILITY_V0
       template: p2_domain_model_template_v0.md
       rung: business_language
       purpose: domain model
@@ -25484,7 +25416,7 @@ registers:
       gate: null
     - phase: p3
       schema: transformation.schemas.REGISTER_SCHEMA_P3_V0
-      workflow: transformation::WF_P3_ANALYSIS_LOOP_ADMISSIBILITY_V2
+      workflow: transformation::WF_P3_ANALYSIS_LOOP_ADMISSIBILITY_V0
       template: p3_analysis_loop_template_v0.md
       rung: business_language
       purpose: analysis loop
@@ -25493,7 +25425,7 @@ registers:
       gate: null
     - phase: p4
       schema: transformation.schemas.REGISTER_SCHEMA_P4_V0
-      workflow: transformation::WF_P4_BUSINESS_MODEL_ADMISSIBILITY_V2
+      workflow: transformation::WF_P4_BUSINESS_MODEL_ADMISSIBILITY_V0
       template: p4_business_model_template_v0.md
       rung: business_language
       purpose: business model
@@ -25502,7 +25434,7 @@ registers:
       gate: null
     - phase: p5
       schema: transformation.schemas.REGISTER_SCHEMA_P5_V0
-      workflow: transformation::WF_P5_BUSINESS_INTENT_ADMISSIBILITY_V2
+      workflow: transformation::WF_P5_BUSINESS_INTENT_ADMISSIBILITY_V0
       template: p5_business_intent_template_v0.md
       rung: provisional_codes
       purpose: business intent
@@ -25511,7 +25443,7 @@ registers:
       gate: null
     - phase: p6
       schema: transformation.schemas.REGISTER_SCHEMA_P6_V0
-      workflow: transformation::WF_P6_GOVERNANCE_INTENT_ADMISSIBILITY_V2
+      workflow: transformation::WF_P6_GOVERNANCE_INTENT_ADMISSIBILITY_V0
       template: p6_governance_intent_template_v0.md
       rung: placement
       purpose: governance intent
@@ -25520,7 +25452,7 @@ registers:
       gate: null
     - phase: p7
       schema: transformation.schemas.REGISTER_SCHEMA_P7_V0
-      workflow: transformation::WF_P7_DESIGN_INTENT_ADMISSIBILITY_V3
+      workflow: transformation::WF_P7_DESIGN_INTENT_ADMISSIBILITY_V0
       template: p7_design_intent_template_v0.md
       rung: binding_fqdns
       purpose: design intent
@@ -25529,7 +25461,7 @@ registers:
       gate: Gate 1 — Design Approval
     - phase: p8
       schema: transformation.schemas.REGISTER_SCHEMA_P8_V0
-      workflow: transformation::WF_P8_AUTHORING_MANDATE_ADMISSIBILITY_V2
+      workflow: transformation::WF_P8_AUTHORING_MANDATE_ADMISSIBILITY_V0
       template: p8_authoring_mandate_template_v0.md
       rung: build_order
       purpose: authoring mandate
@@ -25542,7 +25474,7 @@ registers:
   molecule_steps: []
   molecule_step_bindings: []
   test_cases:
-  - ct_code: transformation::CT_PURE_ATTRIBUTE_PROVENANCE_V1
+  - ct_code: transformation::CT_PURE_ATTRIBUTE_PROVENANCE_V0
     case: attributes_a_supplied_layer_to_the_renderer
     expected_outcome: SUCCESS
   - ct_code: transformation::CT_PURE_MEASURE_COMPLETENESS_V0
@@ -25560,23 +25492,23 @@ registers:
   - ct_code: transformation::CT_PURE_RENDER_ARTIFACTS_V0
     case: refuses_a_mandate_scheduling_nothing
     expected_outcome: VIOLATION
-  - ct_code: transformation::CT_PURE_EVALUATE_RULES_V1
+  - ct_code: transformation::CT_PURE_EVALUATE_RULES_V0
     case: finds_an_absent_register
     expected_outcome: SUCCESS
-  - ct_code: transformation::CT_PURE_EVALUATE_RULES_V1
+  - ct_code: transformation::CT_PURE_EVALUATE_RULES_V0
     case: admits_a_present_register
     expected_outcome: SUCCESS
-  - ct_code: transformation::CT_PURE_PARSE_PRIOR_PHASES_V1
+  - ct_code: transformation::CT_PURE_PARSE_PRIOR_PHASES_V0
     case: reads_each_prior_by_phase
     expected_outcome: SUCCESS
-  - ct_code: transformation::CT_PURE_PARSE_PRIOR_PHASES_V1
+  - ct_code: transformation::CT_PURE_PARSE_PRIOR_PHASES_V0
     case: reads_no_prior_when_none_is_handed_over
     expected_outcome: SUCCESS
-  - ct_code: transformation::CT_PURE_PARSE_REGISTERS_V1
+  - ct_code: transformation::CT_PURE_PARSE_REGISTERS_V0
     case: reads_header_registers_and_sections
     expected_outcome: SUCCESS
   test_case_values:
-  - ct_code: transformation::CT_PURE_ATTRIBUTE_PROVENANCE_V1
+  - ct_code: transformation::CT_PURE_ATTRIBUTE_PROVENANCE_V0
     case: attributes_a_supplied_layer_to_the_renderer
     role: INPUT
     field: rendered
@@ -25596,7 +25528,7 @@ registers:
           domain: STRUCTURE_S_STORAGE_V0
           subdomain: s
           entity_stores: {}
-  - ct_code: transformation::CT_PURE_ATTRIBUTE_PROVENANCE_V1
+  - ct_code: transformation::CT_PURE_ATTRIBUTE_PROVENANCE_V0
     case: attributes_a_supplied_layer_to_the_renderer
     role: INPUT
     field: sources
@@ -25605,7 +25537,7 @@ registers:
         core.layer:
         - supplied_by_renderer
         - ''
-  - ct_code: transformation::CT_PURE_ATTRIBUTE_PROVENANCE_V1
+  - ct_code: transformation::CT_PURE_ATTRIBUTE_PROVENANCE_V0
     case: attributes_a_supplied_layer_to_the_renderer
     role: EXPECTED
     field: provenance
@@ -25621,7 +25553,7 @@ registers:
       STRUCTURE_S_STORAGE_V0.core.domain: stated_by_design
       STRUCTURE_S_STORAGE_V0.core.subdomain: stated_by_design
       STRUCTURE_S_STORAGE_V0.core.entity_stores: stated_by_design
-  - ct_code: transformation::CT_PURE_ATTRIBUTE_PROVENANCE_V1
+  - ct_code: transformation::CT_PURE_ATTRIBUTE_PROVENANCE_V0
     case: attributes_a_supplied_layer_to_the_renderer
     role: EXPECTED
     field: governing_artifacts
@@ -25926,7 +25858,7 @@ registers:
       value: []
     - id: field_declarations
       value: []
-  - ct_code: transformation::CT_PURE_EVALUATE_RULES_V1
+  - ct_code: transformation::CT_PURE_EVALUATE_RULES_V0
     case: finds_an_absent_register
     role: INPUT
     field: header
@@ -25936,7 +25868,7 @@ registers:
       subdomain: s
       cr: c
       rule_set: transformation.schemas.REGISTER_SCHEMA_P0_V0
-  - ct_code: transformation::CT_PURE_EVALUATE_RULES_V1
+  - ct_code: transformation::CT_PURE_EVALUATE_RULES_V0
     case: finds_an_absent_register
     role: INPUT
     field: sections
@@ -25946,7 +25878,7 @@ registers:
       text: '
 
         Nothing else.'
-  - ct_code: transformation::CT_PURE_EVALUATE_RULES_V1
+  - ct_code: transformation::CT_PURE_EVALUATE_RULES_V0
     case: finds_an_absent_register
     role: INPUT
     field: registers
@@ -25957,7 +25889,7 @@ registers:
         reason: Not in this release.
     - id: clarification_requests
       value: null
-  - ct_code: transformation::CT_PURE_EVALUATE_RULES_V1
+  - ct_code: transformation::CT_PURE_EVALUATE_RULES_V0
     case: finds_an_absent_register
     role: INPUT
     field: document_text
@@ -25965,7 +25897,7 @@ registers:
       \ s\n  cr: c\n  rule_set: transformation.schemas.REGISTER_SCHEMA_P0_V0\nregisters:\n  out_of_scope:\n\
       \  - item: Fines\n    reason: Not in this release.\n  clarification_requests: null\n```\n\n## 12.\
       \ Out of Scope\n\nNothing else.\n"
-  - ct_code: transformation::CT_PURE_EVALUATE_RULES_V1
+  - ct_code: transformation::CT_PURE_EVALUATE_RULES_V0
     case: finds_an_absent_register
     role: INPUT
     field: rule_set
@@ -25975,22 +25907,22 @@ registers:
       check: TABLE_PRESENT
       register: cr_type
       intent: a declared register must be present and readable as rows
-  - ct_code: transformation::CT_PURE_EVALUATE_RULES_V1
+  - ct_code: transformation::CT_PURE_EVALUATE_RULES_V0
     case: finds_an_absent_register
     role: INPUT
     field: observed
     value: {}
-  - ct_code: transformation::CT_PURE_EVALUATE_RULES_V1
+  - ct_code: transformation::CT_PURE_EVALUATE_RULES_V0
     case: finds_an_absent_register
     role: INPUT
     field: priors
     value: {}
-  - ct_code: transformation::CT_PURE_EVALUATE_RULES_V1
+  - ct_code: transformation::CT_PURE_EVALUATE_RULES_V0
     case: finds_an_absent_register
     role: EXPECTED
     field: verdict
     value: INADMISSIBLE
-  - ct_code: transformation::CT_PURE_EVALUATE_RULES_V1
+  - ct_code: transformation::CT_PURE_EVALUATE_RULES_V0
     case: finds_an_absent_register
     role: EXPECTED
     field: findings
@@ -26003,12 +25935,12 @@ registers:
         field: null
       detail: declared register is absent from the document
       intent: a declared register must be present and readable as rows
-  - ct_code: transformation::CT_PURE_EVALUATE_RULES_V1
+  - ct_code: transformation::CT_PURE_EVALUATE_RULES_V0
     case: finds_an_absent_register
     role: EXPECTED
     field: rules_evaluated
     value: 1
-  - ct_code: transformation::CT_PURE_EVALUATE_RULES_V1
+  - ct_code: transformation::CT_PURE_EVALUATE_RULES_V0
     case: admits_a_present_register
     role: INPUT
     field: header
@@ -26018,7 +25950,7 @@ registers:
       subdomain: s
       cr: c
       rule_set: transformation.schemas.REGISTER_SCHEMA_P0_V0
-  - ct_code: transformation::CT_PURE_EVALUATE_RULES_V1
+  - ct_code: transformation::CT_PURE_EVALUATE_RULES_V0
     case: admits_a_present_register
     role: INPUT
     field: sections
@@ -26028,7 +25960,7 @@ registers:
       text: '
 
         Nothing else.'
-  - ct_code: transformation::CT_PURE_EVALUATE_RULES_V1
+  - ct_code: transformation::CT_PURE_EVALUATE_RULES_V0
     case: admits_a_present_register
     role: INPUT
     field: registers
@@ -26039,7 +25971,7 @@ registers:
         reason: Not in this release.
     - id: clarification_requests
       value: null
-  - ct_code: transformation::CT_PURE_EVALUATE_RULES_V1
+  - ct_code: transformation::CT_PURE_EVALUATE_RULES_V0
     case: admits_a_present_register
     role: INPUT
     field: document_text
@@ -26047,7 +25979,7 @@ registers:
       \ s\n  cr: c\n  rule_set: transformation.schemas.REGISTER_SCHEMA_P0_V0\nregisters:\n  out_of_scope:\n\
       \  - item: Fines\n    reason: Not in this release.\n  clarification_requests: null\n```\n\n## 12.\
       \ Out of Scope\n\nNothing else.\n"
-  - ct_code: transformation::CT_PURE_EVALUATE_RULES_V1
+  - ct_code: transformation::CT_PURE_EVALUATE_RULES_V0
     case: admits_a_present_register
     role: INPUT
     field: rule_set
@@ -26057,32 +25989,32 @@ registers:
       check: TABLE_PRESENT
       register: out_of_scope
       intent: a declared register must be present and readable as rows
-  - ct_code: transformation::CT_PURE_EVALUATE_RULES_V1
+  - ct_code: transformation::CT_PURE_EVALUATE_RULES_V0
     case: admits_a_present_register
     role: INPUT
     field: observed
     value: {}
-  - ct_code: transformation::CT_PURE_EVALUATE_RULES_V1
+  - ct_code: transformation::CT_PURE_EVALUATE_RULES_V0
     case: admits_a_present_register
     role: INPUT
     field: priors
     value: {}
-  - ct_code: transformation::CT_PURE_EVALUATE_RULES_V1
+  - ct_code: transformation::CT_PURE_EVALUATE_RULES_V0
     case: admits_a_present_register
     role: EXPECTED
     field: verdict
     value: ADMISSIBLE
-  - ct_code: transformation::CT_PURE_EVALUATE_RULES_V1
+  - ct_code: transformation::CT_PURE_EVALUATE_RULES_V0
     case: admits_a_present_register
     role: EXPECTED
     field: findings
     value: []
-  - ct_code: transformation::CT_PURE_EVALUATE_RULES_V1
+  - ct_code: transformation::CT_PURE_EVALUATE_RULES_V0
     case: admits_a_present_register
     role: EXPECTED
     field: rules_evaluated
     value: 1
-  - ct_code: transformation::CT_PURE_PARSE_PRIOR_PHASES_V1
+  - ct_code: transformation::CT_PURE_PARSE_PRIOR_PHASES_V0
     case: reads_each_prior_by_phase
     role: INPUT
     field: prior_texts
@@ -26091,7 +26023,7 @@ registers:
         \ s\n  cr: c\n  rule_set: transformation.schemas.REGISTER_SCHEMA_P0_V0\nregisters:\n  out_of_scope:\n\
         \  - item: Fines\n    reason: Not in this release.\n  clarification_requests: null\n```\n\n##\
         \ 12. Out of Scope\n\nNothing else.\n"
-  - ct_code: transformation::CT_PURE_PARSE_PRIOR_PHASES_V1
+  - ct_code: transformation::CT_PURE_PARSE_PRIOR_PHASES_V0
     case: reads_each_prior_by_phase
     role: EXPECTED
     field: priors
@@ -26116,17 +26048,17 @@ registers:
             reason: Not in this release.
         - id: clarification_requests
           value: null
-  - ct_code: transformation::CT_PURE_PARSE_PRIOR_PHASES_V1
+  - ct_code: transformation::CT_PURE_PARSE_PRIOR_PHASES_V0
     case: reads_no_prior_when_none_is_handed_over
     role: INPUT
     field: prior_texts
     value: {}
-  - ct_code: transformation::CT_PURE_PARSE_PRIOR_PHASES_V1
+  - ct_code: transformation::CT_PURE_PARSE_PRIOR_PHASES_V0
     case: reads_no_prior_when_none_is_handed_over
     role: EXPECTED
     field: priors
     value: {}
-  - ct_code: transformation::CT_PURE_PARSE_REGISTERS_V1
+  - ct_code: transformation::CT_PURE_PARSE_REGISTERS_V0
     case: reads_header_registers_and_sections
     role: INPUT
     field: document_text
@@ -26134,7 +26066,7 @@ registers:
       \ s\n  cr: c\n  rule_set: transformation.schemas.REGISTER_SCHEMA_P0_V0\nregisters:\n  out_of_scope:\n\
       \  - item: Fines\n    reason: Not in this release.\n  clarification_requests: null\n```\n\n## 12.\
       \ Out of Scope\n\nNothing else.\n"
-  - ct_code: transformation::CT_PURE_PARSE_REGISTERS_V1
+  - ct_code: transformation::CT_PURE_PARSE_REGISTERS_V0
     case: reads_header_registers_and_sections
     role: EXPECTED
     field: header
@@ -26144,7 +26076,7 @@ registers:
       subdomain: s
       cr: c
       rule_set: transformation.schemas.REGISTER_SCHEMA_P0_V0
-  - ct_code: transformation::CT_PURE_PARSE_REGISTERS_V1
+  - ct_code: transformation::CT_PURE_PARSE_REGISTERS_V0
     case: reads_header_registers_and_sections
     role: EXPECTED
     field: sections
@@ -26154,7 +26086,7 @@ registers:
       text: '
 
         Nothing else.'
-  - ct_code: transformation::CT_PURE_PARSE_REGISTERS_V1
+  - ct_code: transformation::CT_PURE_PARSE_REGISTERS_V0
     case: reads_header_registers_and_sections
     role: EXPECTED
     field: registers
@@ -26166,47 +26098,47 @@ registers:
     - id: clarification_requests
       value: null
   generation_provenance:
-  - artifact: transformation::CC_JUDGE_AGAINST_COMPOSITION_V1
+  - artifact: transformation::CC_JUDGE_AGAINST_COMPOSITION_V0
     generator: transformation.design.emit:emit_rule_sets
     generator_sources:
     - registry
-  - artifact: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - artifact: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V0
     generator: transformation.design.emit:emit_rule_sets
     generator_sources:
     - registry
-  - artifact: transformation::WF_P0_SEED_ADMISSIBILITY_V1
+  - artifact: transformation::WF_P0_SEED_ADMISSIBILITY_V0
     generator: transformation.design.emit:emit_rule_sets
     generator_sources:
     - registry
-  - artifact: transformation::WF_P1_CHANGE_REQUEST_ADMISSIBILITY_V1
+  - artifact: transformation::WF_P1_CHANGE_REQUEST_ADMISSIBILITY_V0
     generator: transformation.design.emit:emit_rule_sets
     generator_sources:
     - registry
-  - artifact: transformation::WF_P2_DOMAIN_MODEL_ADMISSIBILITY_V2
+  - artifact: transformation::WF_P2_DOMAIN_MODEL_ADMISSIBILITY_V0
     generator: transformation.design.emit:emit_rule_sets
     generator_sources:
     - registry
-  - artifact: transformation::WF_P3_ANALYSIS_LOOP_ADMISSIBILITY_V2
+  - artifact: transformation::WF_P3_ANALYSIS_LOOP_ADMISSIBILITY_V0
     generator: transformation.design.emit:emit_rule_sets
     generator_sources:
     - registry
-  - artifact: transformation::WF_P4_BUSINESS_MODEL_ADMISSIBILITY_V2
+  - artifact: transformation::WF_P4_BUSINESS_MODEL_ADMISSIBILITY_V0
     generator: transformation.design.emit:emit_rule_sets
     generator_sources:
     - registry
-  - artifact: transformation::WF_P5_BUSINESS_INTENT_ADMISSIBILITY_V2
+  - artifact: transformation::WF_P5_BUSINESS_INTENT_ADMISSIBILITY_V0
     generator: transformation.design.emit:emit_rule_sets
     generator_sources:
     - registry
-  - artifact: transformation::WF_P6_GOVERNANCE_INTENT_ADMISSIBILITY_V2
+  - artifact: transformation::WF_P6_GOVERNANCE_INTENT_ADMISSIBILITY_V0
     generator: transformation.design.emit:emit_rule_sets
     generator_sources:
     - registry
-  - artifact: transformation::WF_P7_DESIGN_INTENT_ADMISSIBILITY_V3
+  - artifact: transformation::WF_P7_DESIGN_INTENT_ADMISSIBILITY_V0
     generator: transformation.design.emit:emit_rule_sets
     generator_sources:
     - registry
-  - artifact: transformation::WF_P8_AUTHORING_MANDATE_ADMISSIBILITY_V2
+  - artifact: transformation::WF_P8_AUTHORING_MANDATE_ADMISSIBILITY_V0
     generator: transformation.design.emit:emit_rule_sets
     generator_sources:
     - registry
@@ -26214,28 +26146,28 @@ registers:
   - action: NEW
     subdomain: build
     count: '9'
-    artifacts: transformation::CC_CONSTRUCT_ARTIFACTS_V0, transformation::CC_PERSIST_ARTIFACTS_V0, transformation::CT_PURE_ATTRIBUTE_PROVENANCE_V1,
+    artifacts: transformation::CC_CONSTRUCT_ARTIFACTS_V0, transformation::CC_PERSIST_ARTIFACTS_V0, transformation::CT_PURE_ATTRIBUTE_PROVENANCE_V0,
       transformation::CT_PURE_MEASURE_COMPLETENESS_V0, transformation::CT_PURE_RENDER_ARTIFACTS_V0, transformation::IN_CONSTRUCTION_REQUESTED_V0,
       transformation::RB_CONSTRUCTION_BINDINGS_V0, transformation::VOCAB_FACT_PROVENANCE_V0, transformation::WF_CONSTRUCT_ARTIFACTS_V0
   - action: NEW
     subdomain: design
     count: '29'
     artifacts: transformation::AC_GATE_REVIEWER_V0, transformation::AC_REGISTER_AUTHOR_V0, transformation::AC_SEED_AUTHOR_V0,
-      transformation::CC_JUDGE_AGAINST_COMPOSITION_V1, transformation::CC_JUDGE_AGAINST_SNAPSHOT_V1, transformation::CC_JUDGE_DOCUMENT_V0,
-      transformation::CT_PURE_EVALUATE_RULES_V1, transformation::CT_PURE_PARSE_PRIOR_PHASES_V1, transformation::CT_PURE_PARSE_REGISTERS_V1,
+      transformation::CC_JUDGE_AGAINST_COMPOSITION_V0, transformation::CC_JUDGE_AGAINST_SNAPSHOT_V0, transformation::CC_JUDGE_DOCUMENT_V0,
+      transformation::CT_PURE_EVALUATE_RULES_V0, transformation::CT_PURE_PARSE_PRIOR_PHASES_V0, transformation::CT_PURE_PARSE_REGISTERS_V0,
       transformation::IN_ANALYSIS_LOOP_SUBMITTED_V0, transformation::IN_AUTHORING_MANDATE_SUBMITTED_V0,
-      transformation::IN_BUSINESS_INTENT_SUBMITTED_V1, transformation::IN_BUSINESS_MODEL_SUBMITTED_V0,
+      transformation::IN_BUSINESS_INTENT_SUBMITTED_V0, transformation::IN_BUSINESS_MODEL_SUBMITTED_V0,
       transformation::IN_CHANGE_REQUEST_SUBMITTED_V0, transformation::IN_DESIGN_INTENT_SUBMITTED_V0, transformation::IN_DOMAIN_MODEL_SUBMITTED_V0,
       transformation::IN_GOVERNANCE_INTENT_SUBMITTED_V0, transformation::IN_SEED_SUBMITTED_V0, transformation::RB_TRANSFORMATION_BINDINGS_V0,
-      transformation::VOCAB_DESIGN_REGISTER_TERMS_V0, transformation::WF_P0_SEED_ADMISSIBILITY_V1, transformation::WF_P1_CHANGE_REQUEST_ADMISSIBILITY_V1,
-      transformation::WF_P2_DOMAIN_MODEL_ADMISSIBILITY_V2, transformation::WF_P3_ANALYSIS_LOOP_ADMISSIBILITY_V2,
-      transformation::WF_P4_BUSINESS_MODEL_ADMISSIBILITY_V2, transformation::WF_P5_BUSINESS_INTENT_ADMISSIBILITY_V2,
-      transformation::WF_P6_GOVERNANCE_INTENT_ADMISSIBILITY_V2, transformation::WF_P7_DESIGN_INTENT_ADMISSIBILITY_V3,
-      transformation::WF_P8_AUTHORING_MANDATE_ADMISSIBILITY_V2
+      transformation::VOCAB_DESIGN_REGISTER_TERMS_V0, transformation::WF_P0_SEED_ADMISSIBILITY_V0, transformation::WF_P1_CHANGE_REQUEST_ADMISSIBILITY_V0,
+      transformation::WF_P2_DOMAIN_MODEL_ADMISSIBILITY_V0, transformation::WF_P3_ANALYSIS_LOOP_ADMISSIBILITY_V0,
+      transformation::WF_P4_BUSINESS_MODEL_ADMISSIBILITY_V0, transformation::WF_P5_BUSINESS_INTENT_ADMISSIBILITY_V0,
+      transformation::WF_P6_GOVERNANCE_INTENT_ADMISSIBILITY_V0, transformation::WF_P7_DESIGN_INTENT_ADMISSIBILITY_V0,
+      transformation::WF_P8_AUTHORING_MANDATE_ADMISSIBILITY_V0
   - action: NEW
     subdomain: transformation
     count: '7'
-    artifacts: transformation::STRUCTURE_FIGURE_OF_MERIT_POLICY_V1, transformation::STRUCTURE_PHASE_FINDINGS_V0,
+    artifacts: transformation::STRUCTURE_FIGURE_OF_MERIT_POLICY_V0, transformation::STRUCTURE_PHASE_FINDINGS_V0,
       transformation::STRUCTURE_PHASE_HEADER_V0, transformation::STRUCTURE_PHASE_PRIORS_V0, transformation::STRUCTURE_PHASE_REGISTERS_V0,
       transformation::STRUCTURE_PHASE_SECTIONS_V0, transformation::STRUCTURE_REGISTER_SCHEMA_DISPATCH_V0
   refusal_discharge: []

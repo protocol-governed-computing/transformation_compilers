@@ -44,7 +44,6 @@ pins each form.
 | `governed_by` | every | stated_by_design | constant per family (`design.families`); a transform's by its kind and purity |
 | `authority` | every | stated_by_design | constant `pgc.platform` |
 | `concern` | every | stated_by_design | the subdomain `new_artifacts.Owner Subdomain` places it in |
-| `supersedes` | CAPABILITY_CONTRACT, CAPABILITY_TRANSFORM, INTENT, STRUCTURE, TRANSPORT_INGRESS, WORKFLOW | stated_by_design | `existing_inventory` rows the artifact replaces |
 | `subdomain` | WORKFLOW | stated_by_design | the owning subdomain |
 | `core.summary` | ACTOR, CAPABILITY_CONTRACT, CAPABILITY_TRANSFORM, EVENT, INTENT, RUNTIME_BINDING, STRUCTURE, TRANSPORT_EGRESS, TRANSPORT_INGRESS, WORKFLOW | stated_by_design | `new_artifacts.Summary`; an intent falls back to `new_intents.Purpose` |
 
@@ -241,7 +240,7 @@ structure is a shape: it carries its summary and its properties, and none of the
 
 ## 3. The construction invariants
 
-`lifecycle::CONSTITUTION_CONSTRUCTION_V1` names four invariants. Each is realised here.
+`lifecycle::CONSTITUTION_CONSTRUCTION_V0` names four invariants. Each is realised here.
 
 #### DESIGN_UNIQUELY_DETERMINES_ARTIFACT
 

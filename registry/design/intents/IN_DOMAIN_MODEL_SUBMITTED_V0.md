@@ -23,7 +23,7 @@ concern: design
 
 core:
   summary: Offer a Domain Model register for admissibility judgement
-  workflow: WF_P2_DOMAIN_MODEL_ADMISSIBILITY_V2
+  workflow: WF_P2_DOMAIN_MODEL_ADMISSIBILITY_V0
 
   inputs:
     register_text:

@@ -16,7 +16,7 @@ registers:
   build_order:
   - wave: '1'
     step: '1'
-    code: transformation::STRUCTURE_FIGURE_OF_MERIT_POLICY_V1
+    code: transformation::STRUCTURE_FIGURE_OF_MERIT_POLICY_V0
     action: NEW
     subdomain: transformation
     depends_on: null
@@ -82,7 +82,7 @@ registers:
     depends_on: null
   - wave: '1'
     step: '12'
-    code: transformation::CT_PURE_ATTRIBUTE_PROVENANCE_V1
+    code: transformation::CT_PURE_ATTRIBUTE_PROVENANCE_V0
     action: NEW
     subdomain: build
     depends_on: null
@@ -124,7 +124,7 @@ registers:
     depends_on: null
   - wave: '1'
     step: '19'
-    code: transformation::IN_BUSINESS_INTENT_SUBMITTED_V1
+    code: transformation::IN_BUSINESS_INTENT_SUBMITTED_V0
     action: NEW
     subdomain: design
     depends_on: null
@@ -178,7 +178,7 @@ registers:
     depends_on: null
   - wave: '2'
     step: '28'
-    code: transformation::CT_PURE_EVALUATE_RULES_V1
+    code: transformation::CT_PURE_EVALUATE_RULES_V0
     action: NEW
     subdomain: design
     depends_on:
@@ -189,14 +189,14 @@ registers:
     - transformation::STRUCTURE_PHASE_FINDINGS_V0
   - wave: '2'
     step: '29'
-    code: transformation::CT_PURE_PARSE_PRIOR_PHASES_V1
+    code: transformation::CT_PURE_PARSE_PRIOR_PHASES_V0
     action: NEW
     subdomain: design
     depends_on:
     - transformation::STRUCTURE_PHASE_PRIORS_V0
   - wave: '2'
     step: '30'
-    code: transformation::CT_PURE_PARSE_REGISTERS_V1
+    code: transformation::CT_PURE_PARSE_REGISTERS_V0
     action: NEW
     subdomain: design
     depends_on:
@@ -209,37 +209,37 @@ registers:
     action: NEW
     subdomain: build
     depends_on:
-    - transformation::CT_PURE_PARSE_REGISTERS_V1
+    - transformation::CT_PURE_PARSE_REGISTERS_V0
     - transformation::CT_PURE_RENDER_ARTIFACTS_V0
-    - transformation::CT_PURE_ATTRIBUTE_PROVENANCE_V1
+    - transformation::CT_PURE_ATTRIBUTE_PROVENANCE_V0
     - transformation::CT_PURE_MEASURE_COMPLETENESS_V0
   - wave: '3'
     step: '32'
-    code: transformation::CC_JUDGE_AGAINST_COMPOSITION_V1
+    code: transformation::CC_JUDGE_AGAINST_COMPOSITION_V0
     action: NEW
     subdomain: design
     depends_on:
-    - transformation::CT_PURE_PARSE_REGISTERS_V1
-    - transformation::CT_PURE_PARSE_PRIOR_PHASES_V1
-    - transformation::CT_PURE_EVALUATE_RULES_V1
+    - transformation::CT_PURE_PARSE_REGISTERS_V0
+    - transformation::CT_PURE_PARSE_PRIOR_PHASES_V0
+    - transformation::CT_PURE_EVALUATE_RULES_V0
   - wave: '3'
     step: '33'
-    code: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V1
+    code: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V0
     action: NEW
     subdomain: design
     depends_on:
-    - transformation::CT_PURE_PARSE_REGISTERS_V1
-    - transformation::CT_PURE_PARSE_PRIOR_PHASES_V1
-    - transformation::CT_PURE_EVALUATE_RULES_V1
+    - transformation::CT_PURE_PARSE_REGISTERS_V0
+    - transformation::CT_PURE_PARSE_PRIOR_PHASES_V0
+    - transformation::CT_PURE_EVALUATE_RULES_V0
   - wave: '3'
     step: '34'
     code: transformation::CC_JUDGE_DOCUMENT_V0
     action: NEW
     subdomain: design
     depends_on:
-    - transformation::CT_PURE_PARSE_REGISTERS_V1
-    - transformation::CT_PURE_PARSE_PRIOR_PHASES_V1
-    - transformation::CT_PURE_EVALUATE_RULES_V1
+    - transformation::CT_PURE_PARSE_REGISTERS_V0
+    - transformation::CT_PURE_PARSE_PRIOR_PHASES_V0
+    - transformation::CT_PURE_EVALUATE_RULES_V0
   - wave: '4'
     step: '35'
     code: transformation::WF_CONSTRUCT_ARTIFACTS_V0
@@ -253,7 +253,7 @@ registers:
     - transformation::CC_PERSIST_ARTIFACTS_V0
   - wave: '4'
     step: '36'
-    code: transformation::WF_P0_SEED_ADMISSIBILITY_V1
+    code: transformation::WF_P0_SEED_ADMISSIBILITY_V0
     action: NEW
     subdomain: design
     depends_on:
@@ -263,7 +263,7 @@ registers:
     - transformation::CC_JUDGE_DOCUMENT_V0
   - wave: '4'
     step: '37'
-    code: transformation::WF_P1_CHANGE_REQUEST_ADMISSIBILITY_V1
+    code: transformation::WF_P1_CHANGE_REQUEST_ADMISSIBILITY_V0
     action: NEW
     subdomain: design
     depends_on:
@@ -273,98 +273,98 @@ registers:
     - transformation::CC_JUDGE_DOCUMENT_V0
   - wave: '4'
     step: '38'
-    code: transformation::WF_P2_DOMAIN_MODEL_ADMISSIBILITY_V2
+    code: transformation::WF_P2_DOMAIN_MODEL_ADMISSIBILITY_V0
     action: NEW
     subdomain: design
     depends_on:
     - transformation::RB_TRANSFORMATION_BINDINGS_V0
     - transformation::AC_REGISTER_AUTHOR_V0
     - transformation::IN_DOMAIN_MODEL_SUBMITTED_V0
-    - transformation::CC_JUDGE_AGAINST_SNAPSHOT_V1
+    - transformation::CC_JUDGE_AGAINST_SNAPSHOT_V0
   - wave: '4'
     step: '39'
-    code: transformation::WF_P3_ANALYSIS_LOOP_ADMISSIBILITY_V2
+    code: transformation::WF_P3_ANALYSIS_LOOP_ADMISSIBILITY_V0
     action: NEW
     subdomain: design
     depends_on:
     - transformation::RB_TRANSFORMATION_BINDINGS_V0
     - transformation::AC_REGISTER_AUTHOR_V0
     - transformation::IN_ANALYSIS_LOOP_SUBMITTED_V0
-    - transformation::CC_JUDGE_AGAINST_COMPOSITION_V1
+    - transformation::CC_JUDGE_AGAINST_COMPOSITION_V0
   - wave: '4'
     step: '40'
-    code: transformation::WF_P4_BUSINESS_MODEL_ADMISSIBILITY_V2
+    code: transformation::WF_P4_BUSINESS_MODEL_ADMISSIBILITY_V0
     action: NEW
     subdomain: design
     depends_on:
     - transformation::RB_TRANSFORMATION_BINDINGS_V0
     - transformation::AC_REGISTER_AUTHOR_V0
     - transformation::IN_BUSINESS_MODEL_SUBMITTED_V0
-    - transformation::CC_JUDGE_AGAINST_SNAPSHOT_V1
+    - transformation::CC_JUDGE_AGAINST_SNAPSHOT_V0
   - wave: '4'
     step: '41'
-    code: transformation::WF_P5_BUSINESS_INTENT_ADMISSIBILITY_V2
+    code: transformation::WF_P5_BUSINESS_INTENT_ADMISSIBILITY_V0
     action: NEW
     subdomain: design
     depends_on:
     - transformation::RB_TRANSFORMATION_BINDINGS_V0
     - transformation::AC_REGISTER_AUTHOR_V0
-    - transformation::IN_BUSINESS_INTENT_SUBMITTED_V1
-    - transformation::CC_JUDGE_AGAINST_SNAPSHOT_V1
+    - transformation::IN_BUSINESS_INTENT_SUBMITTED_V0
+    - transformation::CC_JUDGE_AGAINST_SNAPSHOT_V0
   - wave: '4'
     step: '42'
-    code: transformation::WF_P6_GOVERNANCE_INTENT_ADMISSIBILITY_V2
+    code: transformation::WF_P6_GOVERNANCE_INTENT_ADMISSIBILITY_V0
     action: NEW
     subdomain: design
     depends_on:
     - transformation::RB_TRANSFORMATION_BINDINGS_V0
     - transformation::AC_REGISTER_AUTHOR_V0
     - transformation::IN_GOVERNANCE_INTENT_SUBMITTED_V0
-    - transformation::CC_JUDGE_AGAINST_SNAPSHOT_V1
+    - transformation::CC_JUDGE_AGAINST_SNAPSHOT_V0
   - wave: '4'
     step: '43'
-    code: transformation::WF_P7_DESIGN_INTENT_ADMISSIBILITY_V3
+    code: transformation::WF_P7_DESIGN_INTENT_ADMISSIBILITY_V0
     action: NEW
     subdomain: design
     depends_on:
     - transformation::RB_TRANSFORMATION_BINDINGS_V0
     - transformation::AC_REGISTER_AUTHOR_V0
     - transformation::IN_DESIGN_INTENT_SUBMITTED_V0
-    - transformation::CC_JUDGE_AGAINST_SNAPSHOT_V1
+    - transformation::CC_JUDGE_AGAINST_SNAPSHOT_V0
   - wave: '4'
     step: '44'
-    code: transformation::WF_P8_AUTHORING_MANDATE_ADMISSIBILITY_V2
+    code: transformation::WF_P8_AUTHORING_MANDATE_ADMISSIBILITY_V0
     action: NEW
     subdomain: design
     depends_on:
     - transformation::RB_TRANSFORMATION_BINDINGS_V0
     - transformation::AC_REGISTER_AUTHOR_V0
     - transformation::IN_AUTHORING_MANDATE_SUBMITTED_V0
-    - transformation::CC_JUDGE_AGAINST_SNAPSHOT_V1
+    - transformation::CC_JUDGE_AGAINST_SNAPSHOT_V0
   - wave: '5'
     step: '45'
     code: transformation::STRUCTURE_REGISTER_SCHEMA_DISPATCH_V0
     action: NEW
     subdomain: transformation
     depends_on:
-    - transformation::WF_P0_SEED_ADMISSIBILITY_V1
-    - transformation::WF_P1_CHANGE_REQUEST_ADMISSIBILITY_V1
-    - transformation::WF_P2_DOMAIN_MODEL_ADMISSIBILITY_V2
-    - transformation::WF_P3_ANALYSIS_LOOP_ADMISSIBILITY_V2
-    - transformation::WF_P4_BUSINESS_MODEL_ADMISSIBILITY_V2
-    - transformation::WF_P5_BUSINESS_INTENT_ADMISSIBILITY_V2
-    - transformation::WF_P6_GOVERNANCE_INTENT_ADMISSIBILITY_V2
-    - transformation::WF_P7_DESIGN_INTENT_ADMISSIBILITY_V3
-    - transformation::WF_P8_AUTHORING_MANDATE_ADMISSIBILITY_V2
+    - transformation::WF_P0_SEED_ADMISSIBILITY_V0
+    - transformation::WF_P1_CHANGE_REQUEST_ADMISSIBILITY_V0
+    - transformation::WF_P2_DOMAIN_MODEL_ADMISSIBILITY_V0
+    - transformation::WF_P3_ANALYSIS_LOOP_ADMISSIBILITY_V0
+    - transformation::WF_P4_BUSINESS_MODEL_ADMISSIBILITY_V0
+    - transformation::WF_P5_BUSINESS_INTENT_ADMISSIBILITY_V0
+    - transformation::WF_P6_GOVERNANCE_INTENT_ADMISSIBILITY_V0
+    - transformation::WF_P7_DESIGN_INTENT_ADMISSIBILITY_V0
+    - transformation::WF_P8_AUTHORING_MANDATE_ADMISSIBILITY_V0
   critical_path:
   - position: '1'
     code: transformation::STRUCTURE_PHASE_FINDINGS_V0
   - position: '2'
-    code: transformation::CT_PURE_EVALUATE_RULES_V1
+    code: transformation::CT_PURE_EVALUATE_RULES_V0
   - position: '3'
     code: transformation::CC_JUDGE_DOCUMENT_V0
   - position: '4'
-    code: transformation::WF_P0_SEED_ADMISSIBILITY_V1
+    code: transformation::WF_P0_SEED_ADMISSIBILITY_V0
   - position: '5'
     code: transformation::STRUCTURE_REGISTER_SCHEMA_DISPATCH_V0
   mandate_artifact_summary:
@@ -372,7 +372,7 @@ registers:
     count: '45'
     description: 7 STRUCTURE, 2 VOCAB, 3 AC, 6 CT, 5 CC, 10 IN, 10 WF, 2 RB
   field_declarations:
-  - code: transformation::STRUCTURE_FIGURE_OF_MERIT_POLICY_V1
+  - code: transformation::STRUCTURE_FIGURE_OF_MERIT_POLICY_V0
     subdomain_field: transformation
   - code: transformation::STRUCTURE_PHASE_FINDINGS_V0
     subdomain_field: transformation
@@ -394,7 +394,7 @@ registers:
     subdomain_field: design
   - code: transformation::AC_SEED_AUTHOR_V0
     subdomain_field: design
-  - code: transformation::CT_PURE_ATTRIBUTE_PROVENANCE_V1
+  - code: transformation::CT_PURE_ATTRIBUTE_PROVENANCE_V0
     subdomain_field: build
   - code: transformation::CT_PURE_MEASURE_COMPLETENESS_V0
     subdomain_field: build
@@ -408,7 +408,7 @@ registers:
     subdomain_field: design
   - code: transformation::IN_AUTHORING_MANDATE_SUBMITTED_V0
     subdomain_field: design
-  - code: transformation::IN_BUSINESS_INTENT_SUBMITTED_V1
+  - code: transformation::IN_BUSINESS_INTENT_SUBMITTED_V0
     subdomain_field: design
   - code: transformation::IN_BUSINESS_MODEL_SUBMITTED_V0
     subdomain_field: design
@@ -426,44 +426,44 @@ registers:
     subdomain_field: build
   - code: transformation::RB_TRANSFORMATION_BINDINGS_V0
     subdomain_field: design
-  - code: transformation::CT_PURE_EVALUATE_RULES_V1
+  - code: transformation::CT_PURE_EVALUATE_RULES_V0
     subdomain_field: design
-  - code: transformation::CT_PURE_PARSE_PRIOR_PHASES_V1
+  - code: transformation::CT_PURE_PARSE_PRIOR_PHASES_V0
     subdomain_field: design
-  - code: transformation::CT_PURE_PARSE_REGISTERS_V1
+  - code: transformation::CT_PURE_PARSE_REGISTERS_V0
     subdomain_field: design
   - code: transformation::CC_CONSTRUCT_ARTIFACTS_V0
     subdomain_field: build
-  - code: transformation::CC_JUDGE_AGAINST_COMPOSITION_V1
+  - code: transformation::CC_JUDGE_AGAINST_COMPOSITION_V0
     subdomain_field: design
-  - code: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V1
+  - code: transformation::CC_JUDGE_AGAINST_SNAPSHOT_V0
     subdomain_field: design
   - code: transformation::CC_JUDGE_DOCUMENT_V0
     subdomain_field: design
   - code: transformation::WF_CONSTRUCT_ARTIFACTS_V0
     subdomain_field: build
-  - code: transformation::WF_P0_SEED_ADMISSIBILITY_V1
+  - code: transformation::WF_P0_SEED_ADMISSIBILITY_V0
     subdomain_field: design
-  - code: transformation::WF_P1_CHANGE_REQUEST_ADMISSIBILITY_V1
+  - code: transformation::WF_P1_CHANGE_REQUEST_ADMISSIBILITY_V0
     subdomain_field: design
-  - code: transformation::WF_P2_DOMAIN_MODEL_ADMISSIBILITY_V2
+  - code: transformation::WF_P2_DOMAIN_MODEL_ADMISSIBILITY_V0
     subdomain_field: design
-  - code: transformation::WF_P3_ANALYSIS_LOOP_ADMISSIBILITY_V2
+  - code: transformation::WF_P3_ANALYSIS_LOOP_ADMISSIBILITY_V0
     subdomain_field: design
-  - code: transformation::WF_P4_BUSINESS_MODEL_ADMISSIBILITY_V2
+  - code: transformation::WF_P4_BUSINESS_MODEL_ADMISSIBILITY_V0
     subdomain_field: design
-  - code: transformation::WF_P5_BUSINESS_INTENT_ADMISSIBILITY_V2
+  - code: transformation::WF_P5_BUSINESS_INTENT_ADMISSIBILITY_V0
     subdomain_field: design
-  - code: transformation::WF_P6_GOVERNANCE_INTENT_ADMISSIBILITY_V2
+  - code: transformation::WF_P6_GOVERNANCE_INTENT_ADMISSIBILITY_V0
     subdomain_field: design
-  - code: transformation::WF_P7_DESIGN_INTENT_ADMISSIBILITY_V3
+  - code: transformation::WF_P7_DESIGN_INTENT_ADMISSIBILITY_V0
     subdomain_field: design
-  - code: transformation::WF_P8_AUTHORING_MANDATE_ADMISSIBILITY_V2
+  - code: transformation::WF_P8_AUTHORING_MANDATE_ADMISSIBILITY_V0
     subdomain_field: design
   - code: transformation::STRUCTURE_REGISTER_SCHEMA_DISPATCH_V0
     subdomain_field: transformation
   new_capabilities:
-  - code: transformation::CT_PURE_ATTRIBUTE_PROVENANCE_V1
+  - code: transformation::CT_PURE_ATTRIBUTE_PROVENANCE_V0
     purpose: Report, for each leaf of a rendered artifact, whether the design stated it, a constitution
       governs it, or the renderer supplied it
     inputs: rendered:array, sources:object
@@ -476,16 +476,16 @@ registers:
     purpose: Render every artifact a mandate schedules from the design that determines it
     inputs: design_registers:array, mandate_registers:array
     outputs: artifacts:array, documents:array, artifact_count:integer, sources:object
-  - code: transformation::CT_PURE_EVALUATE_RULES_V1
+  - code: transformation::CT_PURE_EVALUATE_RULES_V0
     purpose: Evaluate a declared rule set against parsed registers
     inputs: header:object, sections:array, registers:array, document_text:string, rule_set:array, observed:object,
       priors:object
     outputs: verdict:string, findings:array, rules_evaluated:integer
-  - code: transformation::CT_PURE_PARSE_PRIOR_PHASES_V1
+  - code: transformation::CT_PURE_PARSE_PRIOR_PHASES_V0
     purpose: Parse the upstream phase documents a phase is judged against
     inputs: prior_texts:object
     outputs: priors:object
-  - code: transformation::CT_PURE_PARSE_REGISTERS_V1
+  - code: transformation::CT_PURE_PARSE_REGISTERS_V0
     purpose: Parse phase document text into structured registers
     inputs: document_text:string
     outputs: header:object, sections:array, registers:array
@@ -496,39 +496,39 @@ registers:
     inputs: design_text:string, mandate_text:string, threshold:number, author_of_record:string
   - code: transformation::IN_ANALYSIS_LOOP_SUBMITTED_V0
     purpose: Offer an Analysis Loop register for admissibility judgement
-    workflow: WF_P3_ANALYSIS_LOOP_ADMISSIBILITY_V2
+    workflow: WF_P3_ANALYSIS_LOOP_ADMISSIBILITY_V0
     inputs: register_text:string, prior_texts:object, author_of_record:string
   - code: transformation::IN_AUTHORING_MANDATE_SUBMITTED_V0
     purpose: Offer an Authoring Mandate for admissibility judgement
-    workflow: WF_P8_AUTHORING_MANDATE_ADMISSIBILITY_V2
+    workflow: WF_P8_AUTHORING_MANDATE_ADMISSIBILITY_V0
     inputs: register_text:string, prior_texts:object, author_of_record:string
-  - code: transformation::IN_BUSINESS_INTENT_SUBMITTED_V1
+  - code: transformation::IN_BUSINESS_INTENT_SUBMITTED_V0
     purpose: Offer a Business Intent register for admissibility judgement
-    workflow: WF_P5_BUSINESS_INTENT_ADMISSIBILITY_V2
+    workflow: WF_P5_BUSINESS_INTENT_ADMISSIBILITY_V0
     inputs: register_text:string, prior_texts:object, author_of_record:string
   - code: transformation::IN_BUSINESS_MODEL_SUBMITTED_V0
     purpose: Offer a Business Model register for admissibility judgement
-    workflow: WF_P4_BUSINESS_MODEL_ADMISSIBILITY_V2
+    workflow: WF_P4_BUSINESS_MODEL_ADMISSIBILITY_V0
     inputs: register_text:string, prior_texts:object, author_of_record:string
   - code: transformation::IN_CHANGE_REQUEST_SUBMITTED_V0
     purpose: Offer a Change Request register for admissibility judgement
-    workflow: WF_P1_CHANGE_REQUEST_ADMISSIBILITY_V1
+    workflow: WF_P1_CHANGE_REQUEST_ADMISSIBILITY_V0
     inputs: register_text:string, prior_texts:object, author_of_record:string
   - code: transformation::IN_DESIGN_INTENT_SUBMITTED_V0
     purpose: Offer a Design Intent register for admissibility judgement
-    workflow: WF_P7_DESIGN_INTENT_ADMISSIBILITY_V3
+    workflow: WF_P7_DESIGN_INTENT_ADMISSIBILITY_V0
     inputs: register_text:string, prior_texts:object, author_of_record:string
   - code: transformation::IN_DOMAIN_MODEL_SUBMITTED_V0
     purpose: Offer a Domain Model register for admissibility judgement
-    workflow: WF_P2_DOMAIN_MODEL_ADMISSIBILITY_V2
+    workflow: WF_P2_DOMAIN_MODEL_ADMISSIBILITY_V0
     inputs: register_text:string, prior_texts:object, author_of_record:string
   - code: transformation::IN_GOVERNANCE_INTENT_SUBMITTED_V0
     purpose: Offer a Governance Intent register for admissibility judgement
-    workflow: WF_P6_GOVERNANCE_INTENT_ADMISSIBILITY_V2
+    workflow: WF_P6_GOVERNANCE_INTENT_ADMISSIBILITY_V0
     inputs: register_text:string, prior_texts:object, author_of_record:string
   - code: transformation::IN_SEED_SUBMITTED_V0
     purpose: Offer a seed document for admissibility judgement
-    workflow: WF_P0_SEED_ADMISSIBILITY_V1
+    workflow: WF_P0_SEED_ADMISSIBILITY_V0
     inputs: seed_text:string, author_of_record:string
   cross_subdomain_notes: []
 ```

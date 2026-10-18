@@ -21,9 +21,9 @@ from pathlib import Path
 from inspector import api
 
 from transformation.implementation.capability_transforms.atoms import (
-    ct_pure_evaluate_rules_v1,
-    ct_pure_parse_prior_phases_v1,
-    ct_pure_parse_registers_v1,
+    ct_pure_evaluate_rules_v0,
+    ct_pure_parse_prior_phases_v0,
+    ct_pure_parse_registers_v0,
 )
 from transformation.design.oracle import evaluate
 from transformation.design.read import read_seed
@@ -187,9 +187,9 @@ def compiled_verdict(
     priors: dict | None = None,
 ) -> tuple[str, list[tuple[str, ...]]]:
     """Drive the compiled phase's atoms exactly as the workflow composes them."""
-    parsed = ct_pure_parse_registers_v1.execute({"document_text": seed_text})
-    parsed_priors = ct_pure_parse_prior_phases_v1.execute({"prior_texts": priors or {}})
-    result = ct_pure_evaluate_rules_v1.execute(
+    parsed = ct_pure_parse_registers_v0.execute({"document_text": seed_text})
+    parsed_priors = ct_pure_parse_prior_phases_v0.execute({"prior_texts": priors or {}})
+    result = ct_pure_evaluate_rules_v0.execute(
         {
             "header": parsed["header"],
             "sections": parsed["sections"],
@@ -214,7 +214,7 @@ def genesis_verdict(
     doc.observed = observed or {}
     # The genesis path parses its priors with the same reader the transform uses, so a divergence
     # is a difference in rule evaluation rather than in how the two paths read a document.
-    doc.priors = ct_pure_parse_prior_phases_v1.execute({"prior_texts": priors or {}})["priors"]
+    doc.priors = ct_pure_parse_prior_phases_v0.execute({"prior_texts": priors or {}})["priors"]
     verdict = evaluate(doc, rules)
     return verdict.verdict, [(f.code, f.rule, *map(str, f.locator.values())) for f in verdict.findings]
 

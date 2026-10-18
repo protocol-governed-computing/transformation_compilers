@@ -1,5 +1,5 @@
 """
-CT_PURE_EVALUATE_RULES_V1
+CT_PURE_EVALUATE_RULES_V0
 
 Pure Capability Transform (Atom)
 
@@ -32,7 +32,7 @@ INADMISSIBLE = "INADMISSIBLE"
 
 def execute(inputs: Dict[str, Any], context: Any = None) -> Dict[str, Any]:
     """
-    Execute CT_PURE_EVALUATE_RULES_V1.
+    Execute CT_PURE_EVALUATE_RULES_V0.
 
     Inputs:
         header (dict): parsed header fields
@@ -51,13 +51,13 @@ def execute(inputs: Dict[str, Any], context: Any = None) -> Dict[str, Any]:
                      "priors"):
         if required not in inputs:
             raise CTExecutionError(
-                f"CT_PURE_EVALUATE_RULES_V1: missing required input {required!r}"
+                f"CT_PURE_EVALUATE_RULES_V0: missing required input {required!r}"
             )
 
     rule_set = inputs["rule_set"]
     if not isinstance(rule_set, list):
         raise CTExecutionError(
-            "CT_PURE_EVALUATE_RULES_V1: 'rule_set' must be a list, "
+            "CT_PURE_EVALUATE_RULES_V0: 'rule_set' must be a list, "
             f"got {type(rule_set).__name__}"
         )
 
@@ -78,7 +78,7 @@ def execute(inputs: Dict[str, Any], context: Any = None) -> Dict[str, Any]:
             check = dispatch(rule.check)
         except KeyError:
             raise CTExecutionError(
-                f"CT_PURE_EVALUATE_RULES_V1: rule {rule.id!r} names unknown check kind "
+                f"CT_PURE_EVALUATE_RULES_V0: rule {rule.id!r} names unknown check kind "
                 f"{rule.check!r}; declared kinds are {kinds()}"
             )
         for at, detail in check(doc, rule):

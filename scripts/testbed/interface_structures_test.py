@@ -1,6 +1,6 @@
 """Interface structures — what the readers and the evaluator return is what they declare.
 
-`CT_PURE_PARSE_REGISTERS_V1`, `CT_PURE_PARSE_PRIOR_PHASES_V1` and `CT_PURE_EVALUATE_RULES_V1` name, on
+`CT_PURE_PARSE_REGISTERS_V0`, `CT_PURE_PARSE_PRIOR_PHASES_V0` and `CT_PURE_EVALUATE_RULES_V0` name, on
 each structured field, the STRUCTURE whose `core.json_schema` its value conforms to. This holds the
 declaration and the code together:
 
@@ -25,9 +25,9 @@ from jsonschema import Draft202012Validator
 
 from transformation.design import emit
 from transformation.implementation.capability_transforms.atoms import (
-    ct_pure_evaluate_rules_v1 as evaluate,
-    ct_pure_parse_prior_phases_v1 as parse_priors,
-    ct_pure_parse_registers_v1 as parse,
+    ct_pure_evaluate_rules_v0 as evaluate,
+    ct_pure_parse_prior_phases_v0 as parse_priors,
+    ct_pure_parse_registers_v0 as parse,
 )
 
 REPO = Path(__file__).resolve().parents[2]
@@ -48,9 +48,9 @@ def schemas() -> dict[str, dict]:
 
 
 def declared_fields() -> dict[str, dict[str, str]]:
-    """Transform → field → the structure it names, over the live V1 readers and evaluator."""
+    """Transform → field → the structure it names, over the readers and the evaluator."""
     out: dict[str, dict[str, str]] = {}
-    for path in sorted(TRANSFORMS.glob("CT_PURE_*_V1.md")):
+    for path in sorted(TRANSFORMS.glob("CT_PURE_*_V0.md")):
         core = machine(path)["core"]
         out[path.stem] = {name: spec["structure"].split("::", 1)[1]
                           for side in ("inputs", "outputs") for name, spec in (core.get(side) or {}).items()
@@ -98,7 +98,7 @@ def test_every_named_structure_exists():
 def test_outputs_conform_over_the_corpus():
     s = {code: Draft202012Validator(schema) for code, schema in schemas().items()}
     fields = declared_fields()
-    reads, judge = fields["CT_PURE_PARSE_REGISTERS_V1"], fields["CT_PURE_EVALUATE_RULES_V1"]
+    reads, judge = fields["CT_PURE_PARSE_REGISTERS_V0"], fields["CT_PURE_EVALUATE_RULES_V0"]
     rule_sets: dict[str, list[dict]] = {}
     docs, judged, failures = corpus(), 0, []
 
@@ -121,7 +121,7 @@ def test_outputs_conform_over_the_corpus():
         judged += 1
 
     priors = parse_priors.execute({"prior_texts": {f"p{i}": text for i, (_, text) in enumerate(docs[:12])}})
-    check(fields["CT_PURE_PARSE_PRIOR_PHASES_V1"]["priors"], priors["priors"], "priors")
+    check(fields["CT_PURE_PARSE_PRIOR_PHASES_V0"]["priors"], priors["priors"], "priors")
 
     assert not failures, "\n".join(failures[:10])
     assert judged, "no corpus document was judged"

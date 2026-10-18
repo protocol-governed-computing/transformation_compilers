@@ -1,4 +1,4 @@
-# WF_P3_ANALYSIS_LOOP_ADMISSIBILITY_V2
+# WF_P3_ANALYSIS_LOOP_ADMISSIBILITY_V0
 
 ## Generated Artifact
 
@@ -10,7 +10,7 @@ artifact is stale, and an edit here lasts until whoever next runs the emission.
 - **Generator sources** — one generator together, never separately:
   - `registry/schema/REGISTER_SCHEMA_P3_V0.json`
   - `registry/design/vocabulary/VOCAB_DESIGN_REGISTER_TERMS_V0.md`
-  - `registry/design/capability_contracts/CC_JUDGE_AGAINST_COMPOSITION_V1.md`
+  - `registry/design/capability_contracts/CC_JUDGE_AGAINST_COMPOSITION_V0.md`
 
 To change what this phase judges, amend a source and invoke the generator.
 `tc phase emit --check` refuses a build in which the two disagree.
@@ -33,7 +33,7 @@ P2 asks whether a cited identity exists, and the artifact list answers it. A pha
 asks a further question — may this artifact be offered to this change request at all — and that is
 a property of the domain that owns it, declared by that domain.
 
-So this workflow composes `CC_JUDGE_AGAINST_COMPOSITION_V1`: the artifact list resolves identities,
+So this workflow composes `CC_JUDGE_AGAINST_COMPOSITION_V0`: the artifact list resolves identities,
 the composition summary carries each domain's declared reuse visibility, and the two answer
 different questions. A domain declaring no visibility is a hard failure, not a permissive default —
 absence would otherwise mean "search everything", which is the inference the declaration exists to
@@ -59,10 +59,9 @@ citation would otherwise lend a substitution provenance it does not have.
 ## Machine
 
 ```yaml
-fqdn: transformation::WF_P3_ANALYSIS_LOOP_ADMISSIBILITY_V2
-supersedes: transformation::WF_P3_ANALYSIS_LOOP_ADMISSIBILITY_V1
+fqdn: transformation::WF_P3_ANALYSIS_LOOP_ADMISSIBILITY_V0
 artifact_kind: WORKFLOW
-version: v2
+version: v0
 governed_by: workflow::CONSTITUTION_WORKFLOW_V0
 authority: pgc.platform
 concern: design
@@ -82,12 +81,12 @@ core:
       type: IN
       code: IN_ANALYSIS_LOOP_SUBMITTED_V0
       next:
-        ACK: CC_JUDGE_AGAINST_COMPOSITION_V1
+        ACK: CC_JUDGE_AGAINST_COMPOSITION_V0
         NACK: EXIT_REJECTED
 
-    CC_JUDGE_AGAINST_COMPOSITION_V1:
+    CC_JUDGE_AGAINST_COMPOSITION_V0:
       type: CC
-      code: CC_JUDGE_AGAINST_COMPOSITION_V1
+      code: CC_JUDGE_AGAINST_COMPOSITION_V0
       inputs:
         document_text: $.payload.register_text
         prior_texts: $.payload.prior_texts

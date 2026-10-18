@@ -1,5 +1,5 @@
 """
-CT_PURE_PARSE_REGISTERS_V1
+CT_PURE_PARSE_REGISTERS_V0
 
 Pure Capability Transform (Atom)
 
@@ -25,7 +25,7 @@ from transformation.design.read import parse_text
 
 def execute(inputs: Dict[str, Any], context: Any = None) -> Dict[str, Any]:
     """
-    Execute CT_PURE_PARSE_REGISTERS_V1.
+    Execute CT_PURE_PARSE_REGISTERS_V0.
 
     Inputs:
         document_text (str): full text of the phase document
@@ -37,14 +37,14 @@ def execute(inputs: Dict[str, Any], context: Any = None) -> Dict[str, Any]:
     """
     if "document_text" not in inputs:
         raise CTExecutionError(
-            "CT_PURE_PARSE_REGISTERS_V1: missing required input 'document_text'"
+            "CT_PURE_PARSE_REGISTERS_V0: missing required input 'document_text'"
         )
 
     document_text = inputs["document_text"]
 
     if not isinstance(document_text, str):
         raise CTExecutionError(
-            "CT_PURE_PARSE_REGISTERS_V1: 'document_text' must be a string, "
+            "CT_PURE_PARSE_REGISTERS_V0: 'document_text' must be a string, "
             f"got {type(document_text).__name__}"
         )
 

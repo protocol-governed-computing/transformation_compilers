@@ -67,7 +67,7 @@ RULE_SET_INDENT = 8
 # Python, and the two drifted exactly as two copies of one truth do: the map passed two keys where
 # four were declared, so a rule reading the transform surface found nothing and returned nothing, and
 # had been doing so through the compiled path since it was written.
-JUDGE_CONTRACT = "registry/design/capability_contracts/CC_JUDGE_AGAINST_SNAPSHOT_V1.md"
+JUDGE_CONTRACT = "registry/design/capability_contracts/CC_JUDGE_AGAINST_SNAPSHOT_V0.md"
 CONTRACTS = REPO / "registry" / "design" / "capability_contracts"
 
 OBSERVED_INDENT = 6
@@ -82,7 +82,7 @@ OBSERVATION_CONSUMER = "evaluate_rules"
 # into agreement, because an observing step written by hand is the copy that falls behind.
 JUDGE_CONTRACTS = (
     JUDGE_CONTRACT,
-    "registry/design/capability_contracts/CC_JUDGE_AGAINST_COMPOSITION_V1.md",
+    "registry/design/capability_contracts/CC_JUDGE_AGAINST_COMPOSITION_V0.md",
 )
 
 # The capability every observing step asks, and every outcome its QUERY operation declares — the

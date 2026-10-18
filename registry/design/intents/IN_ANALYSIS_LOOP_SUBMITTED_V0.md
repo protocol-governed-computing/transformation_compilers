@@ -23,7 +23,7 @@ concern: design
 
 core:
   summary: Offer an Analysis Loop register for admissibility judgement
-  workflow: WF_P3_ANALYSIS_LOOP_ADMISSIBILITY_V2
+  workflow: WF_P3_ANALYSIS_LOOP_ADMISSIBILITY_V0
 
   inputs:
     register_text:

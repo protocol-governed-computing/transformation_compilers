@@ -23,7 +23,7 @@ concern: design
 
 core:
   summary: Offer an Authoring Mandate for admissibility judgement
-  workflow: WF_P8_AUTHORING_MANDATE_ADMISSIBILITY_V2
+  workflow: WF_P8_AUTHORING_MANDATE_ADMISSIBILITY_V0
 
   inputs:
     register_text:

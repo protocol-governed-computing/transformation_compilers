@@ -3,7 +3,7 @@
 Construction asks one question of every leaf it renders: did the design state it? The renderer is
 the only thing that knows, because it is the thing that put the value there, so it records each
 departure as it renders. This module turns those records into the provenance of every leaf, and it
-is the only place that does. `CT_PURE_ATTRIBUTE_PROVENANCE_V1` attributes with it, and the
+is the only place that does. `CT_PURE_ATTRIBUTE_PROVENANCE_V0` attributes with it, and the
 completeness measure reads the provenance it is handed rather than deriving its own.
 
   stated_by_design           a register of the design carries it

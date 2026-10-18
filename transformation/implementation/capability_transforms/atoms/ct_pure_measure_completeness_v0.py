@@ -41,7 +41,7 @@ def execute(inputs: Dict[str, Any], context: Any = None) -> Dict[str, Any]:
         mandate_registers (list): parsed P8 registers
         threshold (number): minimum Construction Completeness, 0-100
         provenance (dict): where each rendered value came from, keyed `<code>.<path>`, as
-            CT_PURE_ATTRIBUTE_PROVENANCE_V1 reports it. A leaf it does not name was stated by the
+            CT_PURE_ATTRIBUTE_PROVENANCE_V0 reports it. A leaf it does not name was stated by the
             design. The measure reads it and derives no origin of its own.
 
     Outputs:

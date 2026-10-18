@@ -1,4 +1,4 @@
-# STRUCTURE_BUILD_TRANSFORMATION_CONFIG_V1
+# STRUCTURE_BUILD_TRANSFORMATION_CONFIG_V0
 
 ## 1. Intent
 
@@ -9,10 +9,9 @@ Build-time manifest for the `transformation` domain — the governed change pipe
 ## Machine
 
 ```yaml
-fqdn: transformation::STRUCTURE_BUILD_TRANSFORMATION_CONFIG_V1
-supersedes: transformation::STRUCTURE_BUILD_TRANSFORMATION_CONFIG_V0
+fqdn: transformation::STRUCTURE_BUILD_TRANSFORMATION_CONFIG_V0
 artifact_kind: STRUCTURE
-version: V1
+version: V0
 governed_by: structure::CONSTITUTION_STRUCTURE_V0
 authority: pgc.platform
 concern: transformation

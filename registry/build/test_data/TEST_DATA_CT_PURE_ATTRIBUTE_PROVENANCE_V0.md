@@ -1,4 +1,4 @@
-# TEST_DATA_CT_PURE_ATTRIBUTE_PROVENANCE_V1
+# TEST_DATA_CT_PURE_ATTRIBUTE_PROVENANCE_V0
 
 ## 1. Intent
 
@@ -9,13 +9,13 @@ A leaf the renderer supplied is attributed to the renderer, and every other leaf
 ## Machine
 
 ```yaml
-fqdn: transformation::TEST_DATA_CT_PURE_ATTRIBUTE_PROVENANCE_V1
+fqdn: transformation::TEST_DATA_CT_PURE_ATTRIBUTE_PROVENANCE_V0
 artifact_kind: TEST_DATA
 version: V0
-governed_by: conformance::CONSTITUTION_TEST_DATA_V2
+governed_by: conformance::CONSTITUTION_TEST_DATA_V0
 authority: pgc.platform
 concern: build
-target: transformation::CT_PURE_ATTRIBUTE_PROVENANCE_V1
+target: transformation::CT_PURE_ATTRIBUTE_PROVENANCE_V0
 cases:
 - case_id: attributes_a_supplied_layer_to_the_renderer
   expected_outcome: SUCCESS

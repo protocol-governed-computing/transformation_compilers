@@ -123,7 +123,7 @@ def p3_ineligible_reuse(t: Rows) -> Rows:
     return t.set("authoring_decisions",
                  {"alternatives_checked": "capability_side_effects::CS_REGISTRY_V0 satisfies it as-is.",
                   "source_finding": {"phase": "p3", "register": "analysis_findings", "row": 2}},
-                 alternatives_checked="transformation::CT_PURE_PARSE_REGISTERS_V1 and "
+                 alternatives_checked="transformation::CT_PURE_PARSE_REGISTERS_V0 and "
                                       "workload::EV_CONJECTURE_EVALUATED_V0 were offered as candidates.")
 
 

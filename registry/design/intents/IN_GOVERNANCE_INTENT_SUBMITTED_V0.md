@@ -23,7 +23,7 @@ concern: design
 
 core:
   summary: Offer a Governance Intent register for admissibility judgement
-  workflow: WF_P6_GOVERNANCE_INTENT_ADMISSIBILITY_V2
+  workflow: WF_P6_GOVERNANCE_INTENT_ADMISSIBILITY_V0
 
   inputs:
     register_text:

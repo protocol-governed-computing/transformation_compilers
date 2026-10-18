@@ -12,7 +12,7 @@ The artifacts a mandate schedules are rendered from the design, with the rendere
 fqdn: transformation::TEST_DATA_CT_PURE_RENDER_ARTIFACTS_V0
 artifact_kind: TEST_DATA
 version: V0
-governed_by: conformance::CONSTITUTION_TEST_DATA_V2
+governed_by: conformance::CONSTITUTION_TEST_DATA_V0
 authority: pgc.platform
 concern: build
 target: transformation::CT_PURE_RENDER_ARTIFACTS_V0

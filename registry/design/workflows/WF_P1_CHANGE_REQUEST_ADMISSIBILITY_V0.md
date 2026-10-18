@@ -1,4 +1,4 @@
-# WF_P1_CHANGE_REQUEST_ADMISSIBILITY_V1
+# WF_P1_CHANGE_REQUEST_ADMISSIBILITY_V0
 
 ## Generated Artifact
 
@@ -45,22 +45,20 @@ is traced automatically rather than left as a hole where invention is silently p
 
 ---
 
-## 3. What V1 changes
+## 3. Citations are mappings
 
 A citation is a mapping naming what it cites — `{phase: p0, register: known_facts, row: 14}` — not
 a string read by pattern. A citation that is not one is refused by its type, a row that cites nothing
-says `null` and is refused for it, and the rules that resolve a citation read the mapping. V0 read
-the same citations as text and is superseded by this workflow.
+says `null` and is refused for it, and the rules that resolve a citation read the mapping.
 
 ---
 
 ## Machine
 
 ```yaml
-fqdn: transformation::WF_P1_CHANGE_REQUEST_ADMISSIBILITY_V1
-supersedes: transformation::WF_P1_CHANGE_REQUEST_ADMISSIBILITY_V0
+fqdn: transformation::WF_P1_CHANGE_REQUEST_ADMISSIBILITY_V0
 artifact_kind: WORKFLOW
-version: v1
+version: v0
 governed_by: workflow::CONSTITUTION_WORKFLOW_V0
 authority: pgc.platform
 concern: design

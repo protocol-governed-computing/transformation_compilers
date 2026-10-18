@@ -127,7 +127,7 @@ python $W/transformation_compilers/scripts/testbed/construction_acceptance.py
 `--snapshot` is required whenever a design amends, replaces or re-points anything; without it
 `check` and `emit` refuse. **A change of meaning is a new identity.** Each amendment — rendered, or
 generated and previewed before it is written — is compared with the artifact the composition holds,
-by the platform's declaration in `artifact::VOCAB_DECLARATION_REPRESENTATION_V1`: explanation is
+by the platform's declaration in `artifact::VOCAB_DECLARATION_REPRESENTATION_V0`: explanation is
 ignored where it is text, a list declared unordered is a set, and a reference re-pointed to the
 declared successor of what it named is the same reference. Any other difference is refused, and the
 design authors a successor and `REPLACE`s the artifact instead. P7 refuses a withdrawal for the same

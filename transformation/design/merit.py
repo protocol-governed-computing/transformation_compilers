@@ -4,7 +4,7 @@ Begin at the maximum, subtract for named defects, clamp, and report the reasons 
 number.
 
 **This module holds no policy.** What is deducted and by how much is declared in
-`transformation::STRUCTURE_FIGURE_OF_MERIT_POLICY_V1` and read from the composition. That split is
+`transformation::STRUCTURE_FIGURE_OF_MERIT_POLICY_V0` and read from the composition. That split is
 the same one the phases themselves obey — a rule set is governance and lives in the snapshot, a
 check kind is a mechanism and may live in code. Weights in Python would make the quality bar a
 property of a build tool: unversioned, unreadable from the composition, changeable without a
@@ -30,7 +30,7 @@ from transformation.design.schema import column_key
 from transformation.design.evaluate import ParsedDocument
 from transformation.design.oracle import Verdict
 
-POLICY_ARTIFACT = "transformation::STRUCTURE_FIGURE_OF_MERIT_POLICY_V1"
+POLICY_ARTIFACT = "transformation::STRUCTURE_FIGURE_OF_MERIT_POLICY_V0"
 
 
 class PolicyUnavailable(RuntimeError):

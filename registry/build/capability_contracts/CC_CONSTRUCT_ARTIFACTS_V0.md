@@ -37,8 +37,8 @@ a register contains.
 
 | Step | Capability | Type | Operation |
 |------|------------|------|-----------|
-| 1 | CT_PURE_PARSE_REGISTERS_V1 | CT | Parse the design |
-| 2 | CT_PURE_PARSE_REGISTERS_V1 | CT | Parse the mandate |
+| 1 | CT_PURE_PARSE_REGISTERS_V0 | CT | Parse the design |
+| 2 | CT_PURE_PARSE_REGISTERS_V0 | CT | Parse the mandate |
 | 3 | CT_PURE_MEASURE_COMPLETENESS_V0 | CT | Gate |
 | 4 | CT_PURE_RENDER_ARTIFACTS_V0 | CT | Render |
 
@@ -81,7 +81,7 @@ core:
     on_input_failure: VIOLATION
   pipeline:
   - step: parse_design
-    transform: transformation::CT_PURE_PARSE_REGISTERS_V1
+    transform: transformation::CT_PURE_PARSE_REGISTERS_V0
     inputs:
       document_text: $.inputs.design_text
     outputs: {}
@@ -93,7 +93,7 @@ core:
       VIOLATION: exit
 
   - step: parse_mandate
-    transform: transformation::CT_PURE_PARSE_REGISTERS_V1
+    transform: transformation::CT_PURE_PARSE_REGISTERS_V0
     inputs:
       document_text: $.inputs.mandate_text
     outputs: {}
@@ -131,7 +131,7 @@ core:
   # One origin per leaf: stated by the design, governed elsewhere, carried from the predecessor, or
   # supplied by the renderer. Only the last is a fact nobody accounted for.
   - step: attribute_provenance
-    transform: transformation::CT_PURE_ATTRIBUTE_PROVENANCE_V1
+    transform: transformation::CT_PURE_ATTRIBUTE_PROVENANCE_V0
     inputs:
       rendered: $.results.render_artifacts.capability_result.artifacts
       sources: $.results.render_artifacts.capability_result.sources

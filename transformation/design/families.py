@@ -62,7 +62,7 @@ FAMILIES: tuple[Family, ...] = (
            "transport::CONSTITUTION_TRANSPORT_INGRESS_V0", "transport"),
     Family("TE", "TRANSPORT_EGRESS",
            "transport::CONSTITUTION_TRANSPORT_EGRESS_V0", "transport/egress"),
-    Family("TEST_DATA", "TEST_DATA", "conformance::CONSTITUTION_TEST_DATA_V2", "test_data",
+    Family("TEST_DATA", "TEST_DATA", "conformance::CONSTITUTION_TEST_DATA_V0", "test_data",
            authorable=False, companion=True),
 )
 

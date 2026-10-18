@@ -2,7 +2,7 @@
 
 A transform's proof is declared in P7 as its cases (`test_cases`) and what each case hands the
 transform and expects back (`test_case_values`). Shown here: construction renders a transform's cases
-as its vector, beside it, in the shape `SCHEMA_TEST_DATA_V1` admits — including a molecule's recorded
+as its vector, beside it, in the shape `SCHEMA_TEST_DATA_V0` admits — including a molecule's recorded
 results and a shape assertion — with every fact of it determined by the design; a design without cases
 declares no vector layer; and each rule that holds a design to proving its transforms fires on a design
 built to trip it and stays silent on the one that keeps it.
@@ -91,7 +91,7 @@ HELD = {"AMENDED_TRANSFORM_WITHOUT_VECTOR", "TEST_CASE_NAME_MALFORMED",
 # The declaration the compiler validates a vector against, read as a file: this repo never imports the
 # compiler, and the schema is the platform's declaration rather than the compiler's code.
 SCHEMA = json.loads((Path(__file__).resolve().parents[3]
-                     / "software_governance/registry/schema/SCHEMA_TEST_DATA_V1.json").read_text())
+                     / "software_governance/registry/schema/SCHEMA_TEST_DATA_V0.json").read_text())
 RULES = [r for r in rule_set() if r.id in HELD or (
     r.id == "CELL_NOT_IN_VOCABULARY" and r.register in ("test_cases", "test_case_values"))]
 
@@ -110,7 +110,7 @@ def test_a_transform_s_cases_render_as_its_vector_beside_it():
     assert rendered["path"] == "registry/words/test_data/TEST_DATA_CT_WRITE_RESPONSE_V0.md"
     m = rendered["machine"]
     assert (m["artifact_kind"], m["version"], m["target"]) == ("TEST_DATA", "V0", WRITE)
-    assert m["governed_by"] == "conformance::CONSTITUTION_TEST_DATA_V2"
+    assert m["governed_by"] == "conformance::CONSTITUTION_TEST_DATA_V0"
     written, refused = m["cases"]
     assert written == {
         "case_id": "writes_three_words", "expected_outcome": "SUCCESS",

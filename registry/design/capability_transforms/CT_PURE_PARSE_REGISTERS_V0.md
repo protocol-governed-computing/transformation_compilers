@@ -1,4 +1,4 @@
-# CT_PURE_PARSE_REGISTERS_V1
+# CT_PURE_PARSE_REGISTERS_V0
 
 ## 1. Intent
 
@@ -10,9 +10,8 @@ phase parses the same way and differs only in which rule set it then applies. Ev
 construction reuse this transform.
 
 **What it returns is declared.** Each output names the structure its value conforms to:
-`STRUCTURE_PHASE_HEADER_V0`, `STRUCTURE_PHASE_SECTIONS_V0` and `STRUCTURE_PHASE_REGISTERS_V0`. The
-V0 read pipe tables into columns and rows; this version reads the Machine block, so its outputs have
-a different form, and the declaration says so.
+`STRUCTURE_PHASE_HEADER_V0`, `STRUCTURE_PHASE_SECTIONS_V0` and `STRUCTURE_PHASE_REGISTERS_V0`. It
+reads the Machine block, not the pipe tables.
 
 `document_text` is the **document itself**, never a location to read. A pure CT may not touch the
 filesystem — doing so would make the transform non-deterministic and unreplayable, and would put
@@ -28,10 +27,9 @@ where the author needs a governance finding. Deciding admissibility belongs to t
 ## Machine
 
 ```yaml
-fqdn: transformation::CT_PURE_PARSE_REGISTERS_V1
-supersedes: transformation::CT_PURE_PARSE_REGISTERS_V0
+fqdn: transformation::CT_PURE_PARSE_REGISTERS_V0
 artifact_kind: CAPABILITY_TRANSFORM
-version: v1
+version: v0
 governed_by: capability_transforms::CONSTITUTION_DETERMINISTIC_ATOMS_V0
 authority: pgc.platform
 concern: design
@@ -70,6 +68,6 @@ machine:
   ct_purity: ct_pure
   operation: PURE_PARSE_REGISTERS
   implementation:
-    module: transformation.implementation.capability_transforms.atoms.ct_pure_parse_registers_v1
+    module: transformation.implementation.capability_transforms.atoms.ct_pure_parse_registers_v0
     callable: execute
 ```

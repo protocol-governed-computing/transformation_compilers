@@ -307,10 +307,10 @@ def verify(rule_sets: dict[str, PhaseRules]) -> list[MetaFinding]:
 DESIGN_LANGUAGE = Path(__file__).resolve().parents[2] / "doc" / "DESIGN_LANGUAGE.md"
 # The constitution naming the invariants a phase's rules must realise. The construction invariants
 # are realised by construction, not by a register schema, and are not asked of it.
-DESIGN_CONSTITUTION = "lifecycle::CONSTITUTION_CHANGE_MGMT_V1"
+DESIGN_CONSTITUTION = "lifecycle::CONSTITUTION_CHANGE_MGMT_V0"
 # The constitution naming the invariants construction realises, each specified by a section of the
 # construction mapping standard.
-CONSTRUCTION_CONSTITUTION = "lifecycle::CONSTITUTION_CONSTRUCTION_V1"
+CONSTRUCTION_CONSTITUTION = "lifecycle::CONSTITUTION_CONSTRUCTION_V0"
 CONSTRUCTION_MAPPING = DESIGN_LANGUAGE.parent / "CONSTRUCTION_MAPPING.md"
 TEMPLATES = Path(__file__).resolve().parents[1] / "templates"
 STATEMENT = "DESIGN_LANGUAGE.md#"

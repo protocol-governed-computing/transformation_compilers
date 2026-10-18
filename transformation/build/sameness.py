@@ -7,7 +7,7 @@ facts it would lose, so an amendment that added or altered a fact was built unde
 and every change of the last cycle was. This compares the whole declaration.
 
 What carries no meaning is not decided here. The platform declares it in
-`artifact::VOCAB_DECLARATION_REPRESENTATION_V1`: the parts that only explain, the lists read as
+`artifact::VOCAB_DECLARATION_REPRESENTATION_V0`: the parts that only explain, the lists read as
 sets, the parts that name another artifact, and the rules a comparison applies. This module applies
 exactly those rules, and refuses to compare when the declaration names one it does not apply — a
 comparison that skipped a declared rule would call a change of wording a change of meaning, or the
@@ -26,7 +26,7 @@ import yaml
 
 from inspector import api as inspector_api
 
-DECLARATION = "artifact::VOCAB_DECLARATION_REPRESENTATION_V1"
+DECLARATION = "artifact::VOCAB_DECLARATION_REPRESENTATION_V0"
 
 # The rules this module applies. The declaration must name exactly these.
 APPLIED = frozenset({"explanation_only_as_text", "reference_to_declared_successor"})

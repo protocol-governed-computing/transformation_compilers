@@ -193,7 +193,7 @@ registers:
   - capability: Enforce that one physical copy exists per barcode
     decision: REUSE
     rationale: A barcode is a single value, so the registry's own key is the business key with no convention added.
-    alternatives_checked: transformation::CT_PURE_PARSE_REGISTERS_V1 and workload::EV_CONJECTURE_EVALUATED_V0 were offered as candidates.
+    alternatives_checked: transformation::CT_PURE_PARSE_REGISTERS_V0 and workload::EV_CONJECTURE_EVALUATED_V0 were offered as candidates.
     source_finding: {phase: p3, register: analysis_findings, row: 2}
   - capability: Assemble a catalog record from supplied values
     decision: REUSE

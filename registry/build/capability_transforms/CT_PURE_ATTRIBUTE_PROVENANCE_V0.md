@@ -1,4 +1,4 @@
-# CT_PURE_ATTRIBUTE_PROVENANCE_V1
+# CT_PURE_ATTRIBUTE_PROVENANCE_V0
 
 ## 1. Intent
 
@@ -8,18 +8,16 @@ supplied it. Only the renderer knows, because it put the value there, so this re
 own record of what it supplied and attributes every other leaf to the design.
 
 `rendered` is the list of artifacts the renderer produced, which is what the construction contract
-hands it. V0 declared it an object, and addressed each leaf with a separator the renderer's record
-does not use, so no record ever matched and every leaf read as stated by the design.
+hands it.
 
 ---
 
 ## Machine
 
 ```yaml
-fqdn: transformation::CT_PURE_ATTRIBUTE_PROVENANCE_V1
-supersedes: transformation::CT_PURE_ATTRIBUTE_PROVENANCE_V0
+fqdn: transformation::CT_PURE_ATTRIBUTE_PROVENANCE_V0
 artifact_kind: CAPABILITY_TRANSFORM
-version: v1
+version: v0
 governed_by: capability_transforms::CONSTITUTION_DETERMINISTIC_ATOMS_V0
 authority: pgc.platform
 concern: build
@@ -46,7 +44,7 @@ machine:
   ct_purity: ct_pure
   operation: ATTRIBUTE_PROVENANCE
   implementation:
-    module: transformation.implementation.capability_transforms.atoms.ct_pure_attribute_provenance_v1
+    module: transformation.implementation.capability_transforms.atoms.ct_pure_attribute_provenance_v0
     callable: execute
 ```
 

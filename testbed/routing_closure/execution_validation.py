@@ -35,7 +35,7 @@ WORKSPACE = REPO.parent
 PAYLOADS = REPO / "testbed" / "phases" / "test_payloads"
 # The capability the judging step runs. A step record names the capability it ran, not the step, so
 # this is how a trace shows that a phase judged.
-JUDGING_CAPABILITY = "transformation::CT_PURE_EVALUATE_RULES_V1"
+JUDGING_CAPABILITY = "transformation::CT_PURE_EVALUATE_RULES_V0"
 
 
 def trace(result) -> list[dict]:
@@ -101,9 +101,9 @@ def main() -> int:
 
     # 1 and 2 — a phase whose observation finds nothing rejects, and judges nothing
     for phase, wf, payload, op in (
-        ("P2", "transformation::WF_P2_DOMAIN_MODEL_ADMISSIBILITY_V2",
+        ("P2", "transformation::WF_P2_DOMAIN_MODEL_ADMISSIBILITY_V0",
          "08_p2_admissible_register.json", "si.store.list"),
-        ("P3", "transformation::WF_P3_ANALYSIS_LOOP_ADMISSIBILITY_V2",
+        ("P3", "transformation::WF_P3_ANALYSIS_LOOP_ADMISSIBILITY_V0",
          "14_p3_admissible_catalog_register.json", "si.artifact.list"),
     ):
         control = dispatch(wf, payload, snapshot, None)

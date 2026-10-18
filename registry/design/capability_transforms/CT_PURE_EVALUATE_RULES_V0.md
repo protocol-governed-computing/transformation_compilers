@@ -1,4 +1,4 @@
-# CT_PURE_EVALUATE_RULES_V1
+# CT_PURE_EVALUATE_RULES_V0
 
 ## 1. Intent
 
@@ -34,10 +34,9 @@ this version returns the structured finding, and the declaration says so.
 ## Machine
 
 ```yaml
-fqdn: transformation::CT_PURE_EVALUATE_RULES_V1
-supersedes: transformation::CT_PURE_EVALUATE_RULES_V0
+fqdn: transformation::CT_PURE_EVALUATE_RULES_V0
 artifact_kind: CAPABILITY_TRANSFORM
-version: v1
+version: v0
 governed_by: capability_transforms::CONSTITUTION_DETERMINISTIC_ATOMS_V0
 authority: pgc.platform
 concern: design
@@ -110,6 +109,6 @@ machine:
   ct_purity: ct_pure
   operation: PURE_EVALUATE_RULES
   implementation:
-    module: transformation.implementation.capability_transforms.atoms.ct_pure_evaluate_rules_v1
+    module: transformation.implementation.capability_transforms.atoms.ct_pure_evaluate_rules_v0
     callable: execute
 ```

@@ -102,7 +102,7 @@ registers:
     source_finding: {phase: p1, register: system_beliefs, row: 3}
   - belief: A workflow form already exists that composes governed calls as a fixed graph without iteration.
     result: VERIFIED
-    evidence: transformation::WF_P0_SEED_ADMISSIBILITY_V1, transformation::WF_P9_IMAGINARY_V0
+    evidence: transformation::WF_P0_SEED_ADMISSIBILITY_V0, transformation::WF_P9_IMAGINARY_V0
     source_finding: {phase: p1, register: system_beliefs, row: 4}
   - belief: An actor form already exists for recording accountability.
     result: VERIFIED

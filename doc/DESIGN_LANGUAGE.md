@@ -6,7 +6,7 @@ An evaluator that implements what is written here judges a phase document as the
 does, without reading the compiler's code.
 
 What the rules realise is declared in the platform's governance surface: the lifecycle invariants
-under `lifecycle::CONSTITUTION_CHANGE_MGMT_V1`. A named procedure that realises a property of the
+under `lifecycle::CONSTITUTION_CHANGE_MGMT_V0`. A named procedure that realises a property of the
 composition rather than of design is specified here, by a statement (§6.2).
 
 ---
@@ -136,7 +136,7 @@ declared. No two rules of a rule set share one.
 The rule sets close over the governance they realise:
 
 - every `x-realises` names an invariant the design constitution,
-  `lifecycle::CONSTITUTION_CHANGE_MGMT_V1`, names, or a statement in §6.2;
+  `lifecycle::CONSTITUTION_CHANGE_MGMT_V0`, names, or a statement in §6.2;
 - every invariant that constitution names is realised by some rule. A derived rule realises what its
   check states: the citation checks realise `ROW_PROVENANCE_CITED`, and the business-language check
   `PHASE_SPEAKS_ITS_RUNG`;

@@ -21,7 +21,7 @@ concern: design
 
 core:
   summary: Offer a seed document for admissibility judgement
-  workflow: WF_P0_SEED_ADMISSIBILITY_V1
+  workflow: WF_P0_SEED_ADMISSIBILITY_V0
 
   inputs:
     seed_text:

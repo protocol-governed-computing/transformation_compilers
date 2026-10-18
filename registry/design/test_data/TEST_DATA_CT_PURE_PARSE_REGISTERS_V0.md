@@ -1,4 +1,4 @@
-# TEST_DATA_CT_PURE_PARSE_REGISTERS_V1
+# TEST_DATA_CT_PURE_PARSE_REGISTERS_V0
 
 ## 1. Intent
 
@@ -9,13 +9,13 @@ A phase document is read into its header, its prose sections and its registers, 
 ## Machine
 
 ```yaml
-fqdn: transformation::TEST_DATA_CT_PURE_PARSE_REGISTERS_V1
+fqdn: transformation::TEST_DATA_CT_PURE_PARSE_REGISTERS_V0
 artifact_kind: TEST_DATA
 version: V0
-governed_by: conformance::CONSTITUTION_TEST_DATA_V2
+governed_by: conformance::CONSTITUTION_TEST_DATA_V0
 authority: pgc.platform
 concern: design
-target: transformation::CT_PURE_PARSE_REGISTERS_V1
+target: transformation::CT_PURE_PARSE_REGISTERS_V0
 cases:
 - case_id: reads_header_registers_and_sections
   expected_outcome: SUCCESS

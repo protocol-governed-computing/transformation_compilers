@@ -1,4 +1,4 @@
-# TEST_DATA_CT_PURE_EVALUATE_RULES_V1
+# TEST_DATA_CT_PURE_EVALUATE_RULES_V0
 
 ## 1. Intent
 
@@ -9,13 +9,13 @@ A rule set is applied whole: a failed rule is reported with its identity, place,
 ## Machine
 
 ```yaml
-fqdn: transformation::TEST_DATA_CT_PURE_EVALUATE_RULES_V1
+fqdn: transformation::TEST_DATA_CT_PURE_EVALUATE_RULES_V0
 artifact_kind: TEST_DATA
 version: V0
-governed_by: conformance::CONSTITUTION_TEST_DATA_V2
+governed_by: conformance::CONSTITUTION_TEST_DATA_V0
 authority: pgc.platform
 concern: design
-target: transformation::CT_PURE_EVALUATE_RULES_V1
+target: transformation::CT_PURE_EVALUATE_RULES_V0
 cases:
 - case_id: finds_an_absent_register
   expected_outcome: SUCCESS

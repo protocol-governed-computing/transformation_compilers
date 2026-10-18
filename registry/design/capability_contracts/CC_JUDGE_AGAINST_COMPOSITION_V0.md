@@ -1,4 +1,4 @@
-# CC_JUDGE_AGAINST_COMPOSITION_V1
+# CC_JUDGE_AGAINST_COMPOSITION_V0
 
 ## 1. Intent
 
@@ -9,7 +9,7 @@ each domain declares about itself, **and the upstream phase documents it was han
 
 ## 2. Why a second observation
 
-`CC_JUDGE_AGAINST_SNAPSHOT_V1` observes the artifact list, which answers *does this identity
+`CC_JUDGE_AGAINST_SNAPSHOT_V0` observes the artifact list, which answers *does this identity
 exist*. That is the whole question while a phase is discovering what is there.
 
 A phase that **decides** asks a further one: *may this artifact be offered to this change request
@@ -39,21 +39,20 @@ so the number of upstream documents a phase reads must not change the contract's
 
 | Step | Capability | Type | Operation |
 |------|------------|------|-----------|
-| 1 | CT_PURE_PARSE_REGISTERS_V1 | CT | Parse |
-| 2 | CT_PURE_PARSE_PRIOR_PHASES_V1 | CT | Parse priors |
+| 1 | CT_PURE_PARSE_REGISTERS_V0 | CT | Parse |
+| 2 | CT_PURE_PARSE_PRIOR_PHASES_V0 | CT | Parse priors |
 | 3 | CS_SNAPSHOT_QUERY_V0 | CS | QUERY (si.artifact.list) |
 | 4 | CS_SNAPSHOT_QUERY_V0 | CS | QUERY (si.snapshot.summary) |
-| 5 | CT_PURE_EVALUATE_RULES_V1 | CT | Evaluate |
+| 5 | CT_PURE_EVALUATE_RULES_V0 | CT | Evaluate |
 
 ---
 
 ## Machine
 
 ```yaml
-fqdn: transformation::CC_JUDGE_AGAINST_COMPOSITION_V1
-supersedes: transformation::CC_JUDGE_AGAINST_COMPOSITION_V0
+fqdn: transformation::CC_JUDGE_AGAINST_COMPOSITION_V0
 artifact_kind: CAPABILITY_CONTRACT
-version: v1
+version: v0
 governed_by: capability_contracts::CONSTITUTION_CAPABILITY_CONTRACT_V0
 authority: pgc.platform
 concern: design
@@ -89,7 +88,7 @@ core:
     on_input_failure: VIOLATION
   pipeline:
   - step: parse_registers
-    transform: transformation::CT_PURE_PARSE_REGISTERS_V1
+    transform: transformation::CT_PURE_PARSE_REGISTERS_V0
     inputs:
       document_text: $.inputs.document_text
     outputs: {}
@@ -101,7 +100,7 @@ core:
       VIOLATION: exit
 
   - step: parse_priors
-    transform: transformation::CT_PURE_PARSE_PRIOR_PHASES_V1
+    transform: transformation::CT_PURE_PARSE_PRIOR_PHASES_V0
     inputs:
       prior_texts: $.inputs.prior_texts
     outputs: {}
@@ -151,7 +150,7 @@ core:
       BACKEND_ERROR: exit
 
   - step: evaluate_rules
-    transform: transformation::CT_PURE_EVALUATE_RULES_V1
+    transform: transformation::CT_PURE_EVALUATE_RULES_V0
     inputs:
       header: $.results.parse_registers.capability_result.header
       sections: $.results.parse_registers.capability_result.sections

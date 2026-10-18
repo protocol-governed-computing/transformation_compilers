@@ -1,4 +1,4 @@
-# STRUCTURE_FIGURE_OF_MERIT_POLICY_V1
+# STRUCTURE_FIGURE_OF_MERIT_POLICY_V0
 
 ## 1. Intent
 
@@ -67,13 +67,12 @@ one case it can still appear — the inadmissible document that is rated anyway.
 ## Machine
 
 ```yaml
-fqdn: transformation::STRUCTURE_FIGURE_OF_MERIT_POLICY_V1
+fqdn: transformation::STRUCTURE_FIGURE_OF_MERIT_POLICY_V0
 artifact_kind: STRUCTURE
-version: v1
+version: v0
 governed_by: structure::CONSTITUTION_STRUCTURE_V0
 authority: pgc.platform
 concern: transformation
-supersedes: transformation::STRUCTURE_FIGURE_OF_MERIT_POLICY_V0
 
 core:
   summary: Deterministic figure of merit for a phase document — deduction-based, 0 to 5

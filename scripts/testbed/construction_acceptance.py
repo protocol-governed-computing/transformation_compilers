@@ -91,17 +91,13 @@ def built(registry: Path) -> dict[str, dict]:
 # binding is a list of names an assertion checks, so it stays in.
 DOCUMENTATION = {"description", "isolation", "resolution", "storage_roots", "extensions"}
 
-# `superseded_by` is written when an artifact is stood down, which is a separate act from rendering
-# it, so a design states it nowhere.
-STOOD_DOWN = {"superseded_by"}
-
 
 def diff(expected, actual, path: str = "") -> list[str]:
     """Every leaf where two Machine blocks disagree, addressed by dotted path."""
     if isinstance(expected, dict) and isinstance(actual, dict):
         out = []
         for key in sorted(set(expected) | set(actual)):
-            if key in DOCUMENTATION or key in STOOD_DOWN:
+            if key in DOCUMENTATION:
                 continue
             here = f"{path}.{key}" if path else key
             if key not in actual:

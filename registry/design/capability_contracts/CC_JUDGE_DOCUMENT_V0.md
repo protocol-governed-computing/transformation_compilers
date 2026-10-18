@@ -30,8 +30,8 @@ be read from the composition without reading any code.
 
 | Step | Capability | Type | Operation |
 |------|------------|------|-----------|
-| 1 | CT_PURE_PARSE_REGISTERS_V1 | CT | Parse |
-| 2 | CT_PURE_EVALUATE_RULES_V1 | CT | Evaluate |
+| 1 | CT_PURE_PARSE_REGISTERS_V0 | CT | Parse |
+| 2 | CT_PURE_EVALUATE_RULES_V0 | CT | Evaluate |
 
 ---
 
@@ -107,7 +107,7 @@ core:
   # raw result directly instead, which the dispatcher addresses as
   # $.results.<step_id>.capability_result.<field>.
   - step: parse_registers
-    transform: transformation::CT_PURE_PARSE_REGISTERS_V1
+    transform: transformation::CT_PURE_PARSE_REGISTERS_V0
     inputs:
       document_text: $.inputs.document_text
     outputs: {}
@@ -119,7 +119,7 @@ core:
       VIOLATION: exit
 
   - step: parse_priors
-    transform: transformation::CT_PURE_PARSE_PRIOR_PHASES_V1
+    transform: transformation::CT_PURE_PARSE_PRIOR_PHASES_V0
     inputs:
       prior_texts: $.inputs.prior_texts
     outputs: {}
@@ -131,7 +131,7 @@ core:
       VIOLATION: exit
 
   - step: evaluate_rules
-    transform: transformation::CT_PURE_EVALUATE_RULES_V1
+    transform: transformation::CT_PURE_EVALUATE_RULES_V0
     inputs:
       header: $.results.parse_registers.capability_result.header
       sections: $.results.parse_registers.capability_result.sections

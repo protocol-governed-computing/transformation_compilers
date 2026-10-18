@@ -1,5 +1,5 @@
 """
-CT_PURE_PARSE_PRIOR_PHASES_V1
+CT_PURE_PARSE_PRIOR_PHASES_V0
 
 Pure Capability Transform (Atom)
 
@@ -26,7 +26,7 @@ from transformation.design.read import parse_text
 
 def execute(inputs: Dict[str, Any], context: Any = None) -> Dict[str, Any]:
     """
-    Execute CT_PURE_PARSE_PRIOR_PHASES_V1.
+    Execute CT_PURE_PARSE_PRIOR_PHASES_V0.
 
     Inputs:
         prior_texts (dict): phase id → full text of that phase's document
@@ -36,14 +36,14 @@ def execute(inputs: Dict[str, Any], context: Any = None) -> Dict[str, Any]:
     """
     if "prior_texts" not in inputs:
         raise CTExecutionError(
-            "CT_PURE_PARSE_PRIOR_PHASES_V1: missing required input 'prior_texts'"
+            "CT_PURE_PARSE_PRIOR_PHASES_V0: missing required input 'prior_texts'"
         )
 
     prior_texts = inputs["prior_texts"]
 
     if not isinstance(prior_texts, dict):
         raise CTExecutionError(
-            "CT_PURE_PARSE_PRIOR_PHASES_V1: 'prior_texts' must be an object keyed by phase id, "
+            "CT_PURE_PARSE_PRIOR_PHASES_V0: 'prior_texts' must be an object keyed by phase id, "
             f"got {type(prior_texts).__name__}"
         )
 
@@ -51,7 +51,7 @@ def execute(inputs: Dict[str, Any], context: Any = None) -> Dict[str, Any]:
     for phase_id, text in prior_texts.items():
         if not isinstance(text, str):
             raise CTExecutionError(
-                f"CT_PURE_PARSE_PRIOR_PHASES_V1: prior {phase_id!r} must be document text, "
+                f"CT_PURE_PARSE_PRIOR_PHASES_V0: prior {phase_id!r} must be document text, "
                 f"got {type(text).__name__}"
             )
         header, sections, registers = parse_text(text)

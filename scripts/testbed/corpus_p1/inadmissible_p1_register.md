@@ -165,7 +165,7 @@ registers:
     source: Business policy
     source_finding: {phase: p0, register: constraints}
   business_invariants:
-  - invariant: A seed has exactly one verdict, enforced by CT_PURE_EVALUATE_RULES_V1.
+  - invariant: A seed has exactly one verdict, enforced by CT_PURE_EVALUATE_RULES_V0.
     source_finding: {phase: p0, register: business_invariants, row: 1}
   - invariant: Every rule in the rule set is applied to every seed offered to the phase.
     source_finding: {phase: p0, register: business_invariants, row: 2}
