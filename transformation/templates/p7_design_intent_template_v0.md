@@ -114,6 +114,7 @@ registers:
     handler_target: null
     field: null
     bound_to: null
+    required: null
     source_finding: null
   artifact_summary:
   - action: null
@@ -541,7 +542,8 @@ Register `structure_stores` in the Machine block.
 *What a boundary contract publishes and how it maps across the boundary. An ingress declares the
 operation identity a caller names, what dispatches it, and how the canonical input becomes the
 workflow payload; an egress declares how a result surface becomes the fields a caller reads. One row
-per mapped field, so a mapping is checkable rather than a blob.*
+per mapped field, so a mapping is checkable rather than a blob. An egress field is owed; `required:
+false` declares one the response omits when the result carries nothing for it.*
 
 Register `transport_bindings` in the Machine block.
 

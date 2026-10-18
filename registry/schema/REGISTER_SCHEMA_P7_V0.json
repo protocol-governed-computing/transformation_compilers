@@ -8,6 +8,12 @@
       "retroactive": false,
       "change": "The rule set as rebuilt: declared in this schema, each rule named by its identity, the header stated under document.",
       "digest": "sha256:71d872642905b893c4bcfba18b1a3d02b12d67cea7e05faea2e8c5a98c796930"
+    },
+    {
+      "revision": 2,
+      "retroactive": false,
+      "change": "transport_bindings states whether an egress field is owed: a row stating Required false declares an output field the response omits when its source carries nothing.",
+      "digest": "sha256:55a9c9f816f5aa821ae5fbed263e600e5c87d61437c1c58baeaefdc94cad012c"
     }
   ],
   "type": "object",
@@ -1076,6 +1082,13 @@
                       }
                     }
                   }
+                ]
+              },
+              "required": {
+                "title": "Required",
+                "type": [
+                  "boolean",
+                  "null"
                 ]
               },
               "source_finding": {

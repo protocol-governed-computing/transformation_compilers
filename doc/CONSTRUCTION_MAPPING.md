@@ -185,6 +185,7 @@ pins each form.
 | `operation` | stated_by_design |  | `transport_bindings.Operation` of the first egress row |
 | `output_contract.[].field` | stated_by_design |  | `transport_bindings.Field`, direction `EGRESS`, in order |
 | `output_contract.[].from` | stated_by_design |  | `transport_bindings.Bound To` |
+| `output_contract.[].required` | stated_by_design |  | `transport_bindings.Required`, written only when `false`: an owed field carries no flag |
 | `result_classification.<name>` | stated_by_design |  | `artifact_properties` `result_class.<status>` |
 
 ### Transport ingress (TI)

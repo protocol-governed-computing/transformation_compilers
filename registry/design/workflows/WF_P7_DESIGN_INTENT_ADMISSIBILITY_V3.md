@@ -1225,6 +1225,17 @@ core:
                     const: true
           intent: Bound To carries structure, and its value must take the declared form
         - id: CELL_NOT_OF_TYPE
+          identity: transformation.schemas.REGISTER_SCHEMA_P7_V0#/properties/registers/properties/transport_bindings/items/properties/required/x-derived/CELL_OF_TYPE
+          check: CELL_OF_TYPE
+          register: transport_bindings
+          params:
+            column: Required
+            type:
+              type:
+              - boolean
+              - 'null'
+          intent: Required carries structure, and its value must take the declared form
+        - id: CELL_NOT_OF_TYPE
           identity: transformation.schemas.REGISTER_SCHEMA_P7_V0#/properties/registers/properties/transport_bindings/items/properties/source_finding/x-derived/CELL_OF_TYPE
           check: CELL_OF_TYPE
           register: transport_bindings

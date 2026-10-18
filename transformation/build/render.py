@@ -1119,13 +1119,15 @@ def _transport_egress(m, code, short, summary, sub, p7, p8):
     """A boundary contract shaping what a caller is told, and how a result status is classified.
 
     The output contract is a list rather than a mapping because order is part of it: a client reads
-    the fields in the order the contract declares them.
+    the fields in the order the contract declares them. A field is owed unless its row states
+    `Required: false`, and only that statement is written: an owed field carries no flag.
     """
     first = next(iter(_transport_rows(p7, code, "EGRESS")), {})
     m["operation"] = cell(first, "Operation")
     m["core"] = {"summary": summary}
     m["output_contract"] = [
-        {"field": cell(r, "Field"), "from": cell(r, "Bound To")}
+        {"field": cell(r, "Field"), "from": cell(r, "Bound To"),
+         **({"required": False} if value(r, "Required") is False else {})}
         for r in _transport_rows(p7, code, "EGRESS") if cell(r, "Field")
     ]
     classification = {cell(r, "Property").removeprefix("result_class."): cell(r, "Value")
@@ -1135,9 +1137,8 @@ def _transport_egress(m, code, short, summary, sub, p7, p8):
     if classification:
         m["result_classification"] = classification
     for key in ("default_result_class", "evidence_policy"):
-        value = next((cell(r, "Value") for r in rows(p7, "artifact_properties")
-                      if bare(cell(r, "Artifact")) == bare(code) and cell(r, "Property") == key), "")
-        m[key] = value
+        m[key] = next((cell(r, "Value") for r in rows(p7, "artifact_properties")
+                       if bare(cell(r, "Artifact")) == bare(code) and cell(r, "Property") == key), "")
 
 
 _BUILDERS = {
