@@ -300,15 +300,15 @@ DESIGN_RESOLUTION = [
 REFUSAL_DEFERRALS = [
     {"operation": "Continue past a gate", "refused_when": "The document is inadmissible or not approved.",
      "deferred_to": "The reviewer at each gate",
-     "until": "A governed approval step is designed. Today an approval is recorded on the document and reported by every check, and nothing in the composition refuses to continue without it.",
+     "until": "Never: outside the module's scope. Approval is a person's act. The module records it on the document and reports it in every check, and the reviewer refuses to continue without it.",
      "source_finding": {"phase": "p0", "register": "operation_refusals", "row": 1}},
     {"operation": "Build a mandate", "refused_when": "The mandate has not been approved.",
      "deferred_to": "The person driving the change",
-     "until": "Construction reads the mandate's approval. Today it refuses a mandate that does not determine its artifacts, and not one that is unapproved.",
+     "until": "Never: outside the module's scope. Construction refuses a mandate that does not determine its artifacts. Whether an approved mandate is built is the decision of the person driving the change.",
      "source_finding": {"phase": "p0", "register": "operation_refusals", "row": 2}},
     {"operation": "Judge a document", "refused_when": "The composition it is designed against is not the one it names.",
      "deferred_to": "The person driving the change, through the baseline check",
-     "until": "The pin is checked inside the composition. Today `tc baseline verify` checks it before a phase is run, outside any governed workflow.",
+     "until": "Never: outside the module's scope. `tc baseline verify` checks the pin before a phase is run, and a composition cannot judge whether it is itself the one a document names.",
      "source_finding": {"phase": "p0", "register": "operation_refusals", "row": 3}},
 ]
 
@@ -317,7 +317,8 @@ PROSE = """
 HOW the change is built — identities, topology, compositions, bindings and interfaces. Every register
 that describes an artifact was read from the live registry by
 `scripts/genesis/p7_design_intent.py`; the design decisions and the refusal
-deferrals are stated by hand.
+deferrals are stated by hand. The three deferrals are the module's scope, not open work: approving a
+gate, approving a mandate and confirming a pin are acts of the people driving a change.
 
 ---
 
