@@ -177,6 +177,9 @@ def properties(a: dict) -> list[dict]:
     if a["family"] == "AC":
         out.append({"artifact": full(a["code"]), "property": "type", "value": core.get("type"),
                     "source_finding": cite_new(a["code"])})
+    if a["family"] == "WF" and core.get("actor_context"):
+        out.append({"artifact": full(a["code"]), "property": "actor_context",
+                    "value": core["actor_context"], "source_finding": cite_new(a["code"])})
     return out
 
 

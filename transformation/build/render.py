@@ -494,8 +494,10 @@ def _render(fam, code, short, summary, sub, p7, p8, declared_empty=None,
     # The two extra channels are threaded the same way and for the same reason: a builder knows
     # things about what it wrote that the shape it returns cannot express. `declared_empty` carries
     # an emptiness the design chose; `supplied` carries a value the design never stated.
-    if fam in ("RB", "CC", "TI", "WF"):
+    if fam in ("RB", "CC", "TI"):
         builder(machine, code, short, summary, sub, p7, p8, declared_empty)
+    elif fam == "WF":
+        builder(machine, code, short, summary, sub, p7, p8, declared_empty, supplied)
     elif fam == "VOCAB":
         builder(machine, code, short, summary, sub, p7, p8, declared_empty, supplied)
     elif fam == "CT":
@@ -517,20 +519,24 @@ def _intent(m, code, short, summary, sub, p7, p8):
     }
 
 
-def _workflow(m, code, short, summary, sub, p7, p8, declared_empty=None):
+def _workflow(m, code, short, summary, sub, p7, p8, declared_empty=None, supplied=None):
     binding = next((cell(r, "RB Code") for r in rows(p7, "rb_declarations")
                     if bare(cell(r, "Binds WF")) == short), "")
     topo = [r for r in rows(p7, "execution_topology") if bare(cell(r, "Workflow")) == short]
-    # The actor a workflow runs as is the one the change authored — or, when the change extends a
-    # subdomain that already has one, the one it carries over. Reading `new_artifacts` alone was
-    # correct for exactly as long as every change request authored its own actor: the first
-    # extension change reused the actor its predecessor built, and its workflows resolved to no
-    # actor context at all while every design rule passed.
-    actor = next((cell(r, "Code") for r in rows(p7, "new_artifacts")
-                  if cell(r, "Family") == "AC"), "")
+    # The actor a workflow runs as is the one its `actor_context` property states. Where the design
+    # states none, the actor is determined only when there is one to choose: the one the change
+    # authored, or, when it authors none, the one it carries over. Among several, the renderer's
+    # choice is its own, and recorded so the measure refuses it.
+    actor = cell(next((r for r in rows(p7, "artifact_properties")
+                       if bare(cell(r, "Artifact")) == short
+                       and cell(r, "Property") == "actor_context"), {}), "Value")
     if not actor:
-        actor = next((cell(r, "FQDN") for r in rows(p7, "existing_inventory")
-                      if bare(cell(r, "FQDN")).startswith("AC_")), "")
+        candidates = [cell(r, "Code") for r in rows(p7, "new_artifacts") if cell(r, "Family") == "AC"] \
+            or [cell(r, "FQDN") for r in rows(p7, "existing_inventory")
+                if bare(cell(r, "FQDN")).startswith("AC_")]
+        actor = candidates[0] if candidates else ""
+        if len(candidates) > 1:
+            _supplied(supplied, "core.actor_context")
 
     nodes: dict[str, Any] = {}
     start = ""

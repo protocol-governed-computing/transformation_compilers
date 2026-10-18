@@ -3052,6 +3052,22 @@ core:
             - Code
             - FQDN
           intent: a field's structure names a STRUCTURE this design declares or carries over
+        - id: WORKFLOW_ACTOR_UNDECLARED
+          identity: transformation.schemas.REGISTER_SCHEMA_P7_V0#/allOf/106
+          check: CELL_RESOLVES_IN_REGISTER
+          register: artifact_properties
+          params:
+            column: Value
+            only_when_column: Property
+            only_when_value: actor_context
+            target_registers:
+            - new_artifacts
+            - existing_inventory
+            target_column: Code
+            target_columns:
+            - Code
+            - FQDN
+          intent: the actor a workflow runs as is one this design declares or carries over
       next:
         SUCCESS: EXIT_JUDGED
         VIOLATION: EXIT_REJECTED

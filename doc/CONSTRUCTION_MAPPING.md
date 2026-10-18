@@ -228,7 +228,7 @@ pins each form.
 | Field | Class | Governed by | Source |
 |---|---|---|---|
 | `consults.[]` | stated_by_design |  | `declared_reach.Consults` for the workflow |
-| `core.actor_context` | stated_by_design |  | the actor among `new_artifacts`, else in `existing_inventory` |
+| `core.actor_context` | stated_by_design |  | `artifact_properties` `actor_context`; where none is stated, the one actor among `new_artifacts`, else in `existing_inventory` |
 | `core.nodes.<name>.code` | stated_by_design |  | `execution_topology.Runs`, else the node |
 | `core.nodes.<name>.emit` | stated_by_design |  | `artifact_properties` `emit.<exit>`, one event |
 | `core.nodes.<name>.emit.[]` | stated_by_design |  | `artifact_properties` `emit.<exit>`, several events |

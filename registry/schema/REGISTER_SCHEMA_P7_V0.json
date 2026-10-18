@@ -20,6 +20,12 @@
       "retroactive": false,
       "change": "interface_fields states the shape of a structured field in a Structure column, and the structure it names must be one the design declares or carries over (FIELD_STRUCTURE_UNDECLARED).",
       "digest": "sha256:0e24ee91ea463192ddc3764efcc0360b0a3426c63e70ef855e5932b29536b5fa"
+    },
+    {
+      "revision": 4,
+      "retroactive": false,
+      "change": "artifact_properties states the actor a workflow runs as (actor_context), and the actor it names must be one the design declares or carries over (WORKFLOW_ACTOR_UNDECLARED).",
+      "digest": "sha256:b7b88c26d7900524b288837c383784e16dd98e3c126d2d6eee9d7ef6354a52ce"
     }
   ],
   "type": "object",
@@ -3782,6 +3788,31 @@
         "mode": "resolves",
         "params": {
           "column": "Structure",
+          "target_registers": [
+            "new_artifacts",
+            "existing_inventory"
+          ],
+          "target_column": "Code",
+          "target_columns": [
+            "Code",
+            "FQDN"
+          ]
+        }
+      }
+    },
+    {
+      "x-register": "artifact_properties",
+      "x-finding": {
+        "code": "WORKFLOW_ACTOR_UNDECLARED",
+        "intent": "the actor a workflow runs as is one this design declares or carries over"
+      },
+      "x-realises": "lifecycle::INVARIANT_DESIGN_NAMES_RESOLVE_V0",
+      "x-reference": {
+        "mode": "resolves",
+        "params": {
+          "column": "Value",
+          "only_when_column": "Property",
+          "only_when_value": "actor_context",
           "target_registers": [
             "new_artifacts",
             "existing_inventory"

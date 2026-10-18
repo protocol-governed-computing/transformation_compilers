@@ -4453,6 +4453,13 @@ registers:
       register: new_artifacts
       key: RB_TRANSFORMATION_BINDINGS_V0
   artifact_properties:
+  - artifact: transformation::WF_CONSTRUCT_ARTIFACTS_V0
+    property: actor_context
+    value: transformation::AC_REGISTER_AUTHOR_V0
+    source_finding:
+      phase: p7
+      register: new_artifacts
+      key: WF_CONSTRUCT_ARTIFACTS_V0
   - artifact: transformation::AC_GATE_REVIEWER_V0
     property: type
     value: human
@@ -4474,6 +4481,69 @@ registers:
       phase: p7
       register: new_artifacts
       key: AC_SEED_AUTHOR_V0
+  - artifact: transformation::WF_P0_SEED_ADMISSIBILITY_V1
+    property: actor_context
+    value: transformation::AC_SEED_AUTHOR_V0
+    source_finding:
+      phase: p7
+      register: new_artifacts
+      key: WF_P0_SEED_ADMISSIBILITY_V1
+  - artifact: transformation::WF_P1_CHANGE_REQUEST_ADMISSIBILITY_V1
+    property: actor_context
+    value: transformation::AC_REGISTER_AUTHOR_V0
+    source_finding:
+      phase: p7
+      register: new_artifacts
+      key: WF_P1_CHANGE_REQUEST_ADMISSIBILITY_V1
+  - artifact: transformation::WF_P2_DOMAIN_MODEL_ADMISSIBILITY_V2
+    property: actor_context
+    value: transformation::AC_REGISTER_AUTHOR_V0
+    source_finding:
+      phase: p7
+      register: new_artifacts
+      key: WF_P2_DOMAIN_MODEL_ADMISSIBILITY_V2
+  - artifact: transformation::WF_P3_ANALYSIS_LOOP_ADMISSIBILITY_V2
+    property: actor_context
+    value: transformation::AC_REGISTER_AUTHOR_V0
+    source_finding:
+      phase: p7
+      register: new_artifacts
+      key: WF_P3_ANALYSIS_LOOP_ADMISSIBILITY_V2
+  - artifact: transformation::WF_P4_BUSINESS_MODEL_ADMISSIBILITY_V2
+    property: actor_context
+    value: transformation::AC_REGISTER_AUTHOR_V0
+    source_finding:
+      phase: p7
+      register: new_artifacts
+      key: WF_P4_BUSINESS_MODEL_ADMISSIBILITY_V2
+  - artifact: transformation::WF_P5_BUSINESS_INTENT_ADMISSIBILITY_V2
+    property: actor_context
+    value: transformation::AC_REGISTER_AUTHOR_V0
+    source_finding:
+      phase: p7
+      register: new_artifacts
+      key: WF_P5_BUSINESS_INTENT_ADMISSIBILITY_V2
+  - artifact: transformation::WF_P6_GOVERNANCE_INTENT_ADMISSIBILITY_V2
+    property: actor_context
+    value: transformation::AC_REGISTER_AUTHOR_V0
+    source_finding:
+      phase: p7
+      register: new_artifacts
+      key: WF_P6_GOVERNANCE_INTENT_ADMISSIBILITY_V2
+  - artifact: transformation::WF_P7_DESIGN_INTENT_ADMISSIBILITY_V3
+    property: actor_context
+    value: transformation::AC_REGISTER_AUTHOR_V0
+    source_finding:
+      phase: p7
+      register: new_artifacts
+      key: WF_P7_DESIGN_INTENT_ADMISSIBILITY_V3
+  - artifact: transformation::WF_P8_AUTHORING_MANDATE_ADMISSIBILITY_V2
+    property: actor_context
+    value: transformation::AC_REGISTER_AUTHOR_V0
+    source_finding:
+      phase: p7
+      register: new_artifacts
+      key: WF_P8_AUTHORING_MANDATE_ADMISSIBILITY_V2
   - artifact: transformation::STRUCTURE_FIGURE_OF_MERIT_POLICY_V1
     property: maximum
     value: 5
