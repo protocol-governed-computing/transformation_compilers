@@ -1388,7 +1388,7 @@ def mark_superseded(text: str, successors: list[str]) -> str:
         lines[anchors[0] + 1:anchors[0] + 1] = block
 
     # Standing an artifact down writes `superseded_by` into the Machine block above and nothing
-    # else. There was a prose `- **Status:**` line kept in step with it; it is gone, because two
-    # records of one governed fact can disagree and supersession is a declared relation (`4e` SU-1,
-    # SU-3). A reader asking whether an artifact is superseded reads the declaration.
+    # else. No prose line restates it: two records of one governed fact can disagree, and
+    # supersession is a declared relation (`4e` SU-1, SU-3). A reader asking whether an artifact is
+    # superseded reads the declaration.
     return "".join(lines)
