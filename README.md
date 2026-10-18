@@ -109,18 +109,19 @@ generator choosing a value it was not given is a generator inventing one.
 
 `$W` is the workspace root holding the sibling repos.
 
-**After editing a dossier's P7 or P8** — skipping a step leaves the snapshot describing a design that
-no longer exists:
+**After editing a change dossier's P7 or P8** — skipping a step leaves the snapshot describing a
+design that no longer exists:
 
 ```bash
-D=$W/business_domains/book_library_mgmt/cr_dossiers/cr_01_catalog
+D=$W/business_domains/<domain>/cr_dossiers/cr_NN_<subject>
 
 tc construction check $D --snapshot $W/snapshot
-tc construction emit  $D --root $W/business_domains/book_library_mgmt
+tc construction emit  $D --root $W/business_domains/<domain> --snapshot $W/snapshot
 
-python $W/transformation_compilers/scripts/testbed/construction_acceptance.py
-$W/protocol_compiler/compile_domain.sh $W/business_domains/book_library_mgmt
+$W/protocol_compiler/compile_domain.sh $W/business_domains/<domain>
 PGC_SNAPSHOT_PROFILE=GOVERNANCE_SURFACE_PROFILE_V0 $W/snapshot_assembler/assemble.sh
+python $W/transformation_compilers/scripts/write_baseline_designs.py      # the design of record follows the registry
+python $W/transformation_compilers/scripts/testbed/construction_acceptance.py
 ```
 
 `--snapshot` is required whenever a design amends, replaces or re-points anything; without it

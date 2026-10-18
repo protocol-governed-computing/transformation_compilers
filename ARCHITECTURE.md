@@ -102,7 +102,7 @@ lists of typed rows. Prose sits around the block and explains it; nothing reads 
 document:
   phase: p3
   domain: transformation
-  cr: genesis
+  cr: new_subdomain
   rule_set: transformation.schemas.REGISTER_SCHEMA_P3_V0
 registers:
   analysis_findings:
@@ -166,8 +166,7 @@ re-confirms it.
 - **put a dossier in a snapshot.** A dossier describes a change to a composition; it is not part of
   one.
 - **own the dossiers it judges.** A dossier lives with the domain it changes, in that domain's
-  repository. The pipeline judges; it does not collect. The one dossier here, `dossiers/genesis/`,
-  describes this module itself.
+  repository. The pipeline judges; it does not collect.
 - **let a decision be non-deterministic.** A worker may *draft* prose into a register. The schema,
   the evaluator, the gates and the mandate *decide*, and they are deterministic. No phase may depend
   on a worker existing.
@@ -182,17 +181,17 @@ tc phase list
 ```
 
 Every phase prints what it is for, how many rules it declares, what vocabulary it admits, its one
-governing rule, and its gate. Now judge a real document — the change request that describes this
-module — against phase 1's 193 rules:
+governing rule, and its gate. Now judge a real document — the book catalog's change request, kept
+as a test fixture — against phase 1's 193 rules:
 
 ```bash
-tc phase check --phase p1 --snapshot ../snapshot \
-    dossiers/genesis/p1_change_request_transformation_genesis_v0.md
+F=scripts/testbed/fixtures/catalog/cr_01_catalog
+tc phase check --phase p1 --snapshot ../snapshot $F/p1_change_request_book_library_mgmt_catalog_v0.md
 ```
 
 ```
 INADMISSIBLE  [p1]
-  [SEED_ROW_NOT_CARRIED] known_facts: p0 was not supplied — this handoff is unchecked, and an
+  [SEED_ROW_NOT_CARRIED] system_beliefs: p0 was not supplied — this handoff is unchecked, and an
   unchecked handoff looks identical to a preserved one
   …
   34 finding(s) over 193 rules
@@ -203,7 +202,7 @@ phase it descends from and run it again:
 
 ```bash
 tc phase check --phase p1 --snapshot ../snapshot \
-    --prior p0=dossiers/genesis/p0_seed_transformation_genesis_v0.md <same document>
+    --prior p0=$F/p0_seed_book_library_mgmt_catalog_v0.md <same document>
 ```
 
 ```
@@ -300,7 +299,7 @@ transformation/
 
 registry/                 this repo's own artefacts — design/ and build/ are compiled
                           subdomains, like any domain's; schema/ holds the register schemas
-dossiers/genesis/         the dossier describing this module as it stands
+design/                   this module's design of record: P7 and P8, generated from registry/
 doc/                      the design language and the construction mapping
 scripts/testbed/          the phase corpus, fixtures and the harnesses the regression runs
 testbed/                  the payloads the runtime executes, and the routing closure
@@ -355,7 +354,8 @@ phase, both directly and through the runtime, and compares each verdict and find
 case expects. It pins **the register rows and the verdict — never authored prose.** Prose from a
 drafter is not byte-reproducible, and a fixture that diffs it is deleted within a week.
 
-The genesis dossier is the last check. It describes this module, P0 to P8, and the module admits it.
+The design of record is the last check. It states every artifact of this module in the design
+language, and construction renders it back into the registry.
 
 ## 13. Where the architecture is explained
 

@@ -34,12 +34,11 @@ AUTHOR = "bachipeachy"
 # The phase a payload exercises, read from its own name. `NN_pX_...` is the form every payload uses.
 PHASE_IN_NAME = re.compile(r"^\d+_(p\d)_")
 
-# Payload → the document it is cut from. The fixture dossiers, not the approved ones: a closed change
-# request is evidence and is never amended to satisfy a rule written after it was gated, while a
-# fixture is maintained against the current rule set on purpose.
+# Payload → the fixture document it is cut from. The fixtures are maintained against the current rule
+# set; see `fixtures/README.md`.
 PAYLOADS = {
     "01_admissible_seed.json":
-        "scripts/testbed/delivered_copies/transformation/dossiers/founding_design_bootstrap/p0_seed_transformation_phases_v0.md",
+        "scripts/testbed/fixtures/transformation/founding_design_bootstrap/p0_seed_transformation_phases_v0.md",
     "02_admissible_reference.json":
         "scripts/testbed/corpus/admissible_blockchain_reference.md",
     "03_inadmissible_seven_violations.json":
@@ -49,43 +48,43 @@ PAYLOADS = {
     "05_inadmissible_truncated.json":
         "scripts/testbed/corpus/inadmissible_truncated.md",
     "06_p1_admissible_register.json":
-        "scripts/testbed/delivered_copies/transformation/dossiers/founding_design_bootstrap/p1_change_request_transformation_phases_v0.md",
+        "scripts/testbed/fixtures/transformation/founding_design_bootstrap/p1_change_request_transformation_phases_v0.md",
     "07_p1_inadmissible_register.json":
         "scripts/testbed/corpus_p1/inadmissible_p1_register.md",
     "08_p2_admissible_register.json":
-        "scripts/testbed/delivered_copies/transformation/dossiers/founding_design_bootstrap/p2_domain_model_transformation_phases_v0.md",
+        "scripts/testbed/fixtures/transformation/founding_design_bootstrap/p2_domain_model_transformation_phases_v0.md",
     "09_p2_inadmissible_register.json":
         "scripts/testbed/corpus_p2/inadmissible_p2_register.md",
     "10_p0_admissible_catalog_seed.json":
-        "scripts/testbed/fixture_dossiers/cr_01_catalog/p0_seed_book_library_mgmt_catalog_v0.md",
+        "scripts/testbed/fixtures/catalog/cr_01_catalog/p0_seed_book_library_mgmt_catalog_v0.md",
     "11_p1_admissible_catalog_register.json":
-        "scripts/testbed/fixture_dossiers/cr_01_catalog/p1_change_request_book_library_mgmt_catalog_v0.md",
+        "scripts/testbed/fixtures/catalog/cr_01_catalog/p1_change_request_book_library_mgmt_catalog_v0.md",
     "12_p2_admissible_catalog_register.json":
-        "scripts/testbed/fixture_dossiers/cr_01_catalog/p2_domain_model_book_library_mgmt_catalog_v0.md",
+        "scripts/testbed/fixtures/catalog/cr_01_catalog/p2_domain_model_book_library_mgmt_catalog_v0.md",
     "13_p2_inadmissible_catalog_register.json":
         "scripts/testbed/corpus_p2/inadmissible_p2_catalog_register.md",
     "14_p3_admissible_catalog_register.json":
-        "scripts/testbed/fixture_dossiers/cr_01_catalog/p3_analysis_loop_book_library_mgmt_catalog_v0.md",
+        "scripts/testbed/fixtures/catalog/cr_01_catalog/p3_analysis_loop_book_library_mgmt_catalog_v0.md",
     "15_p3_inadmissible_catalog_register.json":
         "scripts/testbed/corpus_p3/inadmissible_p3_ineligible_reuse.md",
     "16_p4_admissible_catalog_register.json":
-        "scripts/testbed/fixture_dossiers/cr_01_catalog/p4_business_model_book_library_mgmt_catalog_v0.md",
+        "scripts/testbed/fixtures/catalog/cr_01_catalog/p4_business_model_book_library_mgmt_catalog_v0.md",
     "17_p4_inadmissible_catalog_register.json":
         "scripts/testbed/corpus_p4/inadmissible_p4_broken_consolidation.md",
     "18_p5_admissible_catalog_register.json":
-        "scripts/testbed/fixture_dossiers/cr_01_catalog/p5_business_intent_book_library_mgmt_catalog_v0.md",
+        "scripts/testbed/fixtures/catalog/cr_01_catalog/p5_business_intent_book_library_mgmt_catalog_v0.md",
     "19_p5_inadmissible_catalog_register.json":
         "scripts/testbed/corpus_p5/inadmissible_p5_binding_leak.md",
     "20_p6_admissible_catalog_register.json":
-        "scripts/testbed/fixture_dossiers/cr_01_catalog/p6_governance_intent_book_library_mgmt_catalog_v0.md",
+        "scripts/testbed/fixtures/catalog/cr_01_catalog/p6_governance_intent_book_library_mgmt_catalog_v0.md",
     "21_p6_inadmissible_catalog_register.json":
         "scripts/testbed/corpus_p6/inadmissible_p6_unplaced.md",
     "22_p7_admissible_catalog_register.json":
-        "scripts/testbed/fixture_dossiers/cr_01_catalog/p7_design_intent_book_library_mgmt_catalog_v0.md",
+        "scripts/testbed/fixtures/catalog/cr_01_catalog/p7_design_intent_book_library_mgmt_catalog_v0.md",
     "23_p7_inadmissible_catalog_register.json":
         "scripts/testbed/corpus_p7/inadmissible_p7_collision.md",
     "24_p8_admissible_catalog_mandate.json":
-        "scripts/testbed/fixture_dossiers/cr_01_catalog/p8_authoring_mandate_book_library_mgmt_catalog_v0.md",
+        "scripts/testbed/fixtures/catalog/cr_01_catalog/p8_authoring_mandate_book_library_mgmt_catalog_v0.md",
     "25_p8_inadmissible_catalog_mandate.json":
         "scripts/testbed/corpus_p8/inadmissible_p8_broken_order.md",
     "26_p2_inadmissible_dropped_belief.json":

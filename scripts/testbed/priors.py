@@ -24,13 +24,11 @@ from transformation.design.read import parse_text
 
 REPO = Path(__file__).resolve().parents[2]
 
-# Where a dossier that can supply priors may live. A directory is one if it carries a seed — the
-# document P0 produces — rather than because it was listed here. Delivered dossiers stay in the form
-# they were approved in, so a prior from one is read from its test copy, converted once by the
-# oracle's reader.
+# Where a fixture dossier that can supply priors may live. A directory is one if it carries a seed —
+# the document P0 produces — rather than because it was listed here.
 DOSSIER_ROOTS = (
-    REPO / "scripts/testbed/fixture_dossiers",
-    REPO / "scripts/testbed/delivered_copies/transformation/dossiers",
+    REPO / "scripts/testbed/fixtures/catalog",
+    REPO / "scripts/testbed/fixtures/transformation",
 )
 
 
@@ -43,7 +41,7 @@ def dossiers_by_cr() -> dict[str, Path]:
     """`cr` value → the dossier that declares it, read from each dossier's own seed.
 
     The seed is the authority for what a dossier is called, and it is not always the directory name:
-    `dossiers/founding_design_bootstrap` declares `new_subdomain`. Reading the header rather than
+    `fixtures/transformation/founding_design_bootstrap` declares `new_subdomain`. Reading the header rather than
     mapping the two keeps the one place a rename has to happen inside the dossier.
     """
     out: dict[str, Path] = {}

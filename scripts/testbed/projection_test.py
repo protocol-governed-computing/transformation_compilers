@@ -30,10 +30,8 @@ from transformation.design.rule_sets import RULE_SETS  # noqa: E402
 from transformation.design.project import PROJECTIONS  # noqa: E402
 from transformation.design.read import parse_text, read_seed  # noqa: E402
 
-# The fixture dossiers, not the approved ones. A closed change request is evidence and is never
-# amended to satisfy a rule written after it was gated; a fixture is maintained against the
-# current rule set on purpose. See `fixture_dossiers/README.md`.
-DOSSIERS = REPO / "scripts/testbed/fixture_dossiers"
+# Fixtures maintained against the current rule set. See `fixtures/README.md`.
+DOSSIERS = REPO / "scripts/testbed/fixtures/catalog"
 CR_01 = DOSSIERS / "cr_01_catalog"
 CR_02 = DOSSIERS / "cr_02_catalog"
 CORPUS = REPO / "scripts/testbed/corpus"

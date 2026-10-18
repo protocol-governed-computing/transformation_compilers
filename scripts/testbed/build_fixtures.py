@@ -28,10 +28,8 @@ import machine
 
 REPO = Path(__file__).resolve().parents[2]
 WORKSPACE = REPO.parent
-# The fixture dossiers, not the approved ones. A closed change request is evidence and is never
-# amended to satisfy a rule written after it was gated; a fixture is maintained against the
-# current rule set on purpose. See `fixture_dossiers/README.md`.
-CR_01 = REPO / "scripts/testbed/fixture_dossiers/cr_01_catalog"
+# Fixtures maintained against the current rule set. See `fixtures/README.md`.
+CR_01 = REPO / "scripts/testbed/fixtures/catalog/cr_01_catalog"
 MACHINE = re.compile(r"## Machine\s*\n+```yaml\n(.*?)\n```", re.S)
 CORPUS = REPO / "scripts/testbed"
 

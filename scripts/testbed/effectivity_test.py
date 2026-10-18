@@ -22,7 +22,7 @@ from transformation.design.read import read_seed
 from transformation.design.rule_sets import RULE_SETS
 
 REPO = Path(__file__).resolve().parents[2]
-DOCUMENT = REPO / "scripts/testbed/fixture_dossiers/cr_01_catalog/p7_design_intent_book_library_mgmt_catalog_v0.md"
+DOCUMENT = REPO / "scripts/testbed/fixtures/catalog/cr_01_catalog/p7_design_intent_book_library_mgmt_catalog_v0.md"
 P7 = RULE_SETS["p7"]
 CURRENT = P7.shape.schema_id
 APPROVAL = {"gate": "Gate 1 — Design Approval", "rule_set": CURRENT, "state": "APPROVED"}

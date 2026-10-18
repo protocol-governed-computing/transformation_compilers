@@ -36,13 +36,11 @@ from transformation.design.emit import workflow_fqdn
 REPO = Path(__file__).resolve().parents[2]
 WORKSPACE = REPO.parent
 
-# The fixture dossiers, not the approved ones. A closed change request is evidence and is never
-# amended to satisfy a rule written after it was gated; a fixture is maintained against the
-# current rule set on purpose. See `fixture_dossiers/README.md`.
-CR_01 = REPO / "scripts/testbed/fixture_dossiers/cr_01_catalog"
+# Fixtures maintained against the current rule set. See `fixtures/README.md`.
+CR_01 = REPO / "scripts/testbed/fixtures/catalog/cr_01_catalog"
 # CR-3 is the only design in the corpus that announces anything, so it is the only one the
 # emission guard and the governance-surface discharge can be probed against.
-CR_03 = REPO / "scripts/testbed/fixture_dossiers/cr_03_catalog"
+CR_03 = REPO / "scripts/testbed/fixtures/catalog/cr_03_catalog"
 
 # A CR's dossier grounds against the composition it was designed against; judged against the live
 # one, the P7/P8 documents report collisions with their own output — true, and uninformative about
@@ -60,7 +58,7 @@ PHASES = {
         "wf": workflow_fqdn("p0"),
         "rules": RULE_SETS["p0"].rule_set,
         "corpus": [
-            REPO / "scripts/testbed/delivered_copies/transformation/dossiers/founding_design_bootstrap/p0_seed_transformation_phases_v0.md",
+            REPO / "scripts/testbed/fixtures/transformation/founding_design_bootstrap/p0_seed_transformation_phases_v0.md",
             CR_01 / "p0_seed_book_library_mgmt_catalog_v0.md",
             *sorted((REPO / "scripts/testbed/corpus").glob("*.md")),
         ],
@@ -69,7 +67,7 @@ PHASES = {
         "wf": workflow_fqdn("p1"),
         "rules": RULE_SETS["p1"].rule_set,
         "corpus": [
-            REPO / "scripts/testbed/delivered_copies/transformation/dossiers/founding_design_bootstrap/p1_change_request_transformation_phases_v0.md",
+            REPO / "scripts/testbed/fixtures/transformation/founding_design_bootstrap/p1_change_request_transformation_phases_v0.md",
             CR_01 / "p1_change_request_book_library_mgmt_catalog_v0.md",
             *sorted((REPO / "scripts/testbed/corpus_p1").glob("*.md")),
         ],
@@ -83,7 +81,7 @@ PHASES = {
         "observes": {"si.artifact.list": "artifacts"},
         # Cross-phase rules read an upstream document, and which one is a property of the
         "corpus": [
-            REPO / "scripts/testbed/delivered_copies/transformation/dossiers/founding_design_bootstrap/p2_domain_model_transformation_phases_v0.md",
+            REPO / "scripts/testbed/fixtures/transformation/founding_design_bootstrap/p2_domain_model_transformation_phases_v0.md",
             CR_01 / "p2_domain_model_book_library_mgmt_catalog_v0.md",
             *sorted((REPO / "scripts/testbed/corpus_p2").glob("*.md")),
         ],
