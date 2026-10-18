@@ -344,8 +344,7 @@ remains the reviewer's act: a dossier that has reached P6 is approvable, not app
 
 **Identity assignment is ungoverned for these artifacts.** P7 assigns a binding FQDN and
 collision-checks it against the composition; a new invariant authored under a P6-terminal dossier is
-named by whoever writes it. That was equally true before this ruling and is not a regression, but the
-ruling is the moment it became a deliberate arrangement rather than an oversight.
+named by whoever writes it. This is a deliberate arrangement, not an oversight.
 
 **Nothing re-renders and compares.** Construction acceptance can render a domain artifact from its
 design and diff it against what the registry holds; a governance artifact has no such check, so drift

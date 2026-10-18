@@ -17,8 +17,8 @@ from transformation.design.emit import emit
 
 def main() -> int:
     # The default action writes, so an argument this script does not understand must stop it rather
-    # than fall through to the default. `--help` used to re-emit every workflow and report it as
-    # work done, which is the wrong way round for a flag whose whole meaning is "do nothing yet".
+    # than fall through to the default. Falling through, `--help` would re-emit every workflow and
+    # report it as work done, the wrong way round for a flag whose whole meaning is "do nothing yet".
     args = sys.argv[1:]
     snapshot = None
     if "--snapshot" in args:

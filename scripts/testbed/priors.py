@@ -2,8 +2,7 @@
 
 Two harnesses need this answer and neither should hold its own copy of it. The differential judges
 corpus documents against their priors; the payload builder embeds those priors into the runtime
-payloads. A hand-kept table in either one is a table that goes stale the first time a probe is added,
-which is what happened before this module existed.
+payloads. A hand-kept table in either one is a table that goes stale the first time a probe is added.
 
 Two facts already exist and this reads them rather than duplicating them:
 

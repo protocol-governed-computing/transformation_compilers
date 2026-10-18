@@ -962,14 +962,13 @@ def construction_emit(dossier: Path, domain_root: Path, force: bool, threshold: 
     # open rather than filled by inference: who founds a domain is a ruling, and a wrong manifest
     # written confidently is worse than an absent one that says so.
 
-    # `--root` takes a *domain* root, and a wrong one used to succeed. Passing the repository
-    # (`business_domains`) rather than the domain (`business_domains/book_library_mgmt`) wrote a
-    # complete registry tree at the repository root, reported every file emitted and exited 0. The
-    # artifacts were correct and in a place nothing in the composition would ever read, and only
-    # `git status` showed it. What identifies a domain root is the build config the compiler
-    # discovers it by — so that is what is asked for. There is no longer an exception for a domain
-    # founding itself: construction does not found one, so an absent manifest is an absent domain
-    # root and nothing else.
+    # `--root` takes a *domain* root, and a wrong one must fail. Passing the repository
+    # (`business_domains`) rather than the domain (`business_domains/book_library_mgmt`) would write
+    # a complete registry tree at the repository root, report every file emitted and exit 0, with
+    # the artifacts in a place nothing in the composition reads. What identifies a domain root is
+    # the build config the compiler discovers it by — so that is what is asked for. A domain never
+    # founds itself: construction does not found one, so an absent manifest is an absent domain root
+    # and nothing else.
     # Searched the way the compiler and the release gate discover a domain, not at one fixed path.
     # A business domain puts its build config at `registry/structures/`; the platform organizes one
     # directory per namespace and puts its own at `registry/structure/structures/`. Globbing the

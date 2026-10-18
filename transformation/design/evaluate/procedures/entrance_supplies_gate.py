@@ -12,9 +12,9 @@ def _entrance_supplies_gate(doc: ParsedDocument, rule) -> list[tuple[Locator, st
     """An entrance must supply everything the gate of the workflow it invokes requires.
 
     `NODE_INPUT_BOUND` holds a workflow to its contracts; nothing held an entrance to the gate it
-    reaches. A design stopped an entrance sending a field its workflow no longer read, left the gate
-    that still required the field as it was, and every request through the entrance was refused at
-    admission — admissible over every rule, complete at 100%, found by the first request.
+    reaches. A design that stops an entrance sending a field its workflow does not read, and leaves
+    the gate that still requires the field as it is, has every request through the entrance refused
+    at admission — admissible over every rule, complete at 100%, found by the first request.
 
     The gate is the workflow's `IN` node where the design states the topology, and otherwise the
     intent the composition declares for that workflow. What the gate requires is what the design

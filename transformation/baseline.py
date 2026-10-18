@@ -9,11 +9,10 @@ regression becomes indistinguishable from a rebuild.
 So: a run that observes a different snapshot_id fails before any phase executes. Rebaselining is a
 deliberate, reviewed act — re-pin the id, re-approve the affected registers.
 
-**Re-approval is the half the pin could not previously record.** Verifying the id proves the
-composition is the one named; it proves nothing about whether anyone re-read the registers that
-encode facts about it. A register asserting `impacted_count 58` goes false without anyone editing
-it, and after a re-pin there was no way to tell "re-grounded against this snapshot" from "never
-re-checked since the id changed". `approved_registers` records the second half, and because it
+**Re-approval is the other half of the pin.** Verifying the id proves the composition is the one
+named; it proves nothing about whether anyone re-read the registers that encode facts about it. A
+register asserting `impacted_count 58` goes false without anyone editing it, and an id alone cannot
+tell "re-grounded against this snapshot" from "never re-checked since the id changed". `approved_registers` records the second half, and because it
 lives in the file the id lives in, re-pinning drops it: an approval is against one composition and
 survives no other.
 

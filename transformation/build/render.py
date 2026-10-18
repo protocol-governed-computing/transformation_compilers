@@ -343,10 +343,10 @@ def _scheduled(p7: dict, p8: dict) -> list[tuple[str, str, str]]:
 def unrenderable(p7: dict, p8: dict) -> list[tuple[str, str]]:
     """`(code, family)` the mandate schedules that construction has no builder for.
 
-    A family with no builder was previously skipped in silence. Nothing was emitted, so nothing was
-    measured, and completeness reported a fully determined design over an artifact construction
-    cannot produce at all — the design was graded only on the artifacts it happened to be able to
-    build. An unbuildable artifact is the strongest possible construction failure and it read as no
+    A family with no builder is never skipped in silence. Skipped, nothing is emitted, so nothing is
+    measured, and completeness reports a fully determined design over an artifact construction
+    cannot produce at all — the design graded only on the artifacts it happens to be able to build.
+    An unbuildable artifact is the strongest possible construction failure, and it would read as no
     failure at all.
 
     Reported here rather than raised: the whole point of Construction Completeness is that a design

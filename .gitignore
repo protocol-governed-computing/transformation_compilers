@@ -23,9 +23,8 @@ snapshot/
 # Dossiers are evidence ABOUT a composition, not part of one. Generated dossiers stay local;
 # authored ones are tracked, and they share this directory.
 #
-# This used to be an allowlist of named directories, and an allowlist is a hand-kept copy: a
-# delivered dossier stayed untracked and unbacked for as long as nobody remembered to add its name.
-# `declared_reach` was written, delivered and never committed that way.
+# No allowlist of named directories: an allowlist is a hand-kept copy, and a delivered dossier
+# stays untracked and unbacked for as long as nobody remembers to add its name.
 #
 # The two kinds differ in shape, so the shape is what decides. An authored dossier is
 # `dossiers/<subject>/` and holds documents; a generated one is `dossiers/<domain>/<subdomain>/` and

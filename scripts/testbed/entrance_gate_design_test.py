@@ -1,7 +1,7 @@
 """An entrance supplies what its gate requires — B25.
 
-A design changed an entrance to stop sending a field its workflow no longer read, and reused the
-workflow's gate, which still required it. Every request through the entrance was refused at
+A design that stops an entrance sending a field its workflow does not read, and reuses the
+workflow's gate, which still requires it, has every request through the entrance refused at
 admission, with every phase admitting the design and construction at 100%. Shown here: the rule
 fires on that shape; stays silent once the design redeclares the gate without the field; stays
 silent while the entrance still supplies it; and reads the gate from the design's topology when the

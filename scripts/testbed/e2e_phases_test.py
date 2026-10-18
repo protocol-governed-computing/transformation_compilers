@@ -9,7 +9,7 @@ the differential and failed the moment it ran through `protocol_runtime`: workfl
 intent payload, not a previous node's result. Only executing the compiled workflow catches that
 class of defect.
 
-So this script executes each phase the way the runbook used to, one case per line, and asserts the
+So this script executes each phase through the runtime, one case per line, and asserts the
 expected verdict and finding count. Adding a phase is an entry in `CASES` — the runbook stays one
 line however many phases exist.
 
@@ -207,8 +207,8 @@ CASES = [
          "REUSE_CANDIDATE_NOT_ELIGIBLE",
          "REUSE_CANDIDATE_NOT_ELIGIBLE",
      ], RULES["P3"], 4),
-    # Three documents taking P3 from 2 demonstrated rules to all 21 it declares — the worst ratio in
-    # the corpus before this pass, against the phase that decides what is reused and what is built.
+    # Three documents demonstrating all 21 rules P3 declares, the phase that decides what is reused
+    # and what is built.
     ("P3", WF["P3"],
      "62_p3_inadmissible_uncited_rows.json", "INADMISSIBLE", [
          "CITATION_ORDINAL_UNRESOLVED",
@@ -297,8 +297,8 @@ CASES = [
          "PROVISIONAL_CODE_MALFORMED",
          "PROVISIONAL_FAMILY_MISMATCH",
          "PROVISIONAL_FAMILY_MISMATCH",
-         # The fixture declares an identity Source it cannot derive as `UNRESOLVED`, which the P5
-         # template used to invite. A hole nothing forces closed is how a design whose central
+         # The fixture declares an identity Source it cannot derive as `UNRESOLVED`. A hole nothing
+         # forces closed is how a design whose central
          # identity question was never settled reached execution admissible at every gate.
          "REGISTER_CELL_UNRESOLVED",
      # 4/5, not 3/5, since the merit policy stopped scoring the `UNRESOLVED` identity cell it now
