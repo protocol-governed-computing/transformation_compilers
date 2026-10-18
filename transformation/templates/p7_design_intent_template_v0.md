@@ -106,6 +106,7 @@ registers:
     storage_type: null
     proposed_path: null
     used_by: null
+    structure: null
     source_finding: null
   transport_bindings:
   - artifact: null
@@ -533,7 +534,7 @@ Register `artifact_properties` in the Machine block.
 
 ## 13. STRUCTURE Stores
 
-*New entity stores. `storage_type` selects the CS substrate — a store a capability claims keys in is a registry store, which the composition already carries examples of; `proposed_path` is the declared store path (governance concern — never hardcoded later); `used_by` names the writing CC (its owning subdomain only).*
+*New entity stores. `storage_type` selects the CS substrate — a store a capability claims keys in is a registry store, which the composition already carries examples of; `proposed_path` is the declared store path (governance concern — never hardcoded later); `used_by` names the writing CC (its owning subdomain only); `structure` names the storage structure the store belongs to, which a design with more than one storage structure states.*
 
 Register `structure_stores` in the Machine block.
 

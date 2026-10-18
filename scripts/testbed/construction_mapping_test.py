@@ -1,7 +1,7 @@
 """The construction mapping standard against construction itself.
 
 `doc/CONSTRUCTION_MAPPING.md` states every field construction writes, by kind, with its provenance
-class. This renders every dossier the acceptance harness reads, collects the same from what
+class. This renders every design of record the acceptance harness reads, collects the same from what
 construction emits (`build/mapping.py`), and requires the two to be one set. A field the standard
 does not state, or one it states that construction no longer writes, fails the run.
 
@@ -20,7 +20,6 @@ from transformation.build.mapping import inventory
 
 REPO = Path(__file__).resolve().parents[2]
 STANDARD = REPO / "doc" / "CONSTRUCTION_MAPPING.md"
-GENESIS = REPO / "dossiers" / "genesis"
 CELL = re.compile(r"`([^`]*)`")
 
 
@@ -53,12 +52,12 @@ def stated() -> set[tuple[str, str, str, str]]:
 
 
 def emitted() -> set[tuple[str, str, str, str]]:
-    """What construction writes over the acceptance corpus and the module's own design, genesis."""
+    """What construction writes over every design of record."""
     out: set[tuple[str, str, str, str]] = set()
-    for root, _, _ in ca.DOMAINS:
-        for dossier in ca.sequence(root) + ([GENESIS] if root == ca.DOMAINS[0][0] else []):
-            out |= inventory(ca.registers(next(dossier.glob("p7_*.md"))),
-                             ca.registers(next(dossier.glob("p8_*.md"))))
+    for root, _ in ca.DOMAINS:
+        design = root / "design"
+        out |= inventory(ca.registers(next(design.glob("p7_*.md"))),
+                         ca.registers(next(design.glob("p8_*.md"))))
     return out
 
 

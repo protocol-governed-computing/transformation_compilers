@@ -997,6 +997,13 @@
                   "null"
                 ]
               },
+              "structure": {
+                "title": "Structure",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
               "source_finding": {
                 "title": "Source Finding",
                 "$ref": "#/$defs/citation"

@@ -64,7 +64,7 @@ cases:
         fqdn: AC_READER_V0
         artifact_kind: ACTOR
         version: v0
-        governed_by: governance::CONSTITUTION_GOVERNANCE_V0
+        governed_by: actor::CONSTITUTION_ACTOR_IDENTITY_V0
         authority: pgc.platform
         concern: s
         core:
@@ -77,7 +77,7 @@ cases:
     documents:
     - path: registry/s/actors/AC_READER_V0.md
       text: "# AC_READER_V0\n\n## Machine\n\n```yaml\nfqdn: AC_READER_V0\nartifact_kind: ACTOR\nversion:\
-        \ v0\ngoverned_by: governance::CONSTITUTION_GOVERNANCE_V0\nauthority: pgc.platform\nconcern: s\n\
+        \ v0\ngoverned_by: actor::CONSTITUTION_ACTOR_IDENTITY_V0\nauthority: pgc.platform\nconcern: s\n\
         core:\n  summary: A reader of the catalog\n  type: human\n  attributes:\n    role:\n      type:\
         \ string\n      required: true\n```\n\n---\n\n## Intent\n\nA reader of the catalog\n"
     artifact_count: 1

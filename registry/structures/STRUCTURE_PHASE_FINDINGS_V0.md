@@ -20,7 +20,7 @@ identity.
 ```yaml
 fqdn: transformation::STRUCTURE_PHASE_FINDINGS_V0
 artifact_kind: STRUCTURE
-version: V0
+version: v0
 governed_by: structure::CONSTITUTION_STRUCTURE_V0
 authority: pgc.platform
 concern: transformation

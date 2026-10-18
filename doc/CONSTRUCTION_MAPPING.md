@@ -44,7 +44,7 @@ pins each form.
 | `governed_by` | every | stated_by_design | constant per family (`design.families`); a transform's by its kind and purity |
 | `authority` | every | stated_by_design | constant `pgc.platform` |
 | `concern` | every | stated_by_design | the subdomain `new_artifacts.Owner Subdomain` places it in |
-| `supersedes` | CAPABILITY_CONTRACT, INTENT, TRANSPORT_INGRESS, WORKFLOW | stated_by_design | `existing_inventory` rows the artifact replaces |
+| `supersedes` | CAPABILITY_CONTRACT, CAPABILITY_TRANSFORM, INTENT, STRUCTURE, TRANSPORT_INGRESS, WORKFLOW | stated_by_design | `existing_inventory` rows the artifact replaces |
 | `subdomain` | WORKFLOW | stated_by_design | the owning subdomain |
 | `core.summary` | ACTOR, CAPABILITY_CONTRACT, CAPABILITY_TRANSFORM, EVENT, INTENT, RUNTIME_BINDING, STRUCTURE, TRANSPORT_EGRESS, TRANSPORT_INGRESS, WORKFLOW | stated_by_design | `new_artifacts.Summary`; an intent falls back to `new_intents.Purpose` |
 
@@ -57,7 +57,7 @@ pins each form.
 | `core.attributes.<name>.default` | stated_by_design |  | `interface_fields` rows for the artifact, direction `ATTRIBUTE`: `Default` |
 | `core.attributes.<name>.required` | stated_by_design |  | `interface_fields` rows for the artifact, direction `ATTRIBUTE`: `Required` `YES` |
 | `core.attributes.<name>.type` | stated_by_design |  | `interface_fields` rows for the artifact, direction `ATTRIBUTE`: `Type` |
-| `core.type` | stated_by_design |  | `artifact_properties.Value` where `Property` is `type` |
+| `core.<property>` | stated_by_design |  | `artifact_properties.Value`, whole, by `Property`: every key of `core` but `summary` and `attributes` |
 
 ### Capability contract (CC)
 
@@ -72,6 +72,7 @@ pins each form.
 | `core.outputs.<name>.required` | stated_by_design |  | `interface_fields` rows for the artifact, direction `OUTPUT`: `Required` `YES` |
 | `core.outputs.<name>.type` | stated_by_design |  | `interface_fields` rows for the artifact, direction `OUTPUT`: `Type` |
 | `core.pipeline.[].inputs` | stated_by_design |  | declared empty: a step whose `Consumes` lists nothing |
+| `core.pipeline.[].outputs` | stated_by_design |  | declared empty: a step with no `OUTPUT` row in `step_bindings`; the schema requires the key |
 | `core.pipeline.[].inputs.<name>` | stated_by_design |  | `step_bindings` rows, direction `INPUT`: `Bound To` |
 | `core.pipeline.[].on_result.<name>` | stated_by_design |  | `cc_composition.Routing`; an interpreting step routes its `Semantic Status` |
 | `core.pipeline.[].op` | stated_by_design |  | `cc_composition.Operation` |
@@ -111,7 +112,7 @@ pins each form.
 | `machine.ct_purity` | stated_by_design |  | `implementation_bindings.Purity`; `ct_pure` where it states none |
 | `machine.emit.<name>` | stated_by_design |  | `molecule_steps.Emits`, naming the step |
 | `machine.implementation.callable` | stated_by_design |  | `implementation_bindings.Callable` |
-| `machine.implementation.module` | governed_elsewhere | `<domain>::STRUCTURE_BUILD_<DOMAIN>_CONFIG_V0` | `<domain>.implementation.capability_transforms.atoms.<code>`, as the domain's build manifest resolves transforms |
+| `machine.implementation.module` | governed_elsewhere | `<domain>::STRUCTURE_BUILD_<DOMAIN>_CONFIG_V0` | `<implementation_namespace>.<code>`, the namespace the domain's build manifest declares |
 | `machine.operation` | stated_by_design |  | `implementation_bindings.Operation` |
 
 ### Event (EV)
@@ -122,12 +123,9 @@ pins each form.
 |---|---|---|---|
 | `core.description` | stated_by_design |  | `new_artifacts.Summary` |
 | `core.moment` | stated_by_design |  | `artifact_properties.Value` where `Property` is `moment` |
-| `core.schema.<name>.description` | governed_elsewhere | `event::CONSTITUTION_EVENT_V0` | for `timestamp`, the event constitution |
-| `core.schema.<name>.format` | governed_elsewhere | `event::CONSTITUTION_EVENT_V0` | `interface_fields` rows for the artifact: `Format`; for `timestamp`, the event constitution |
-| `core.schema.<name>.required` | governed_elsewhere | `event::CONSTITUTION_EVENT_V0` | `interface_fields` rows for the artifact: `Required` `YES`; for `timestamp`, the event constitution |
-| `core.schema.<name>.required` | stated_by_design |  | `interface_fields` rows for the artifact: `Required` `YES`; for `timestamp`, the event constitution |
-| `core.schema.<name>.type` | governed_elsewhere | `event::CONSTITUTION_EVENT_V0` | `interface_fields` rows for the artifact, any direction: `Type`; for `timestamp` where the design states none, the event constitution |
-| `core.schema.<name>.type` | stated_by_design |  | `interface_fields` rows for the artifact, any direction: `Type`; for `timestamp` where the design states none, the event constitution |
+| `core.schema.<name>.format` | stated_by_design |  | `interface_fields` rows for the artifact: `Format` |
+| `core.schema.<name>.required` | stated_by_design |  | `interface_fields` rows for the artifact: `Required` `YES` |
+| `core.schema.<name>.type` | stated_by_design |  | `interface_fields` rows for the artifact, any direction: `Type` |
 | `core.subdomain` | stated_by_design |  | the owning subdomain |
 
 ### Intent (IN)
@@ -136,6 +134,7 @@ pins each form.
 
 | Field | Class | Governed by | Source |
 |---|---|---|---|
+| `core.inputs.<name>.default` | stated_by_design |  | `interface_fields` rows for the artifact, direction `INPUT`: `Default` |
 | `core.inputs.<name>.required` | stated_by_design |  | `interface_fields` rows for the artifact, direction `INPUT`: `Required` `YES` |
 | `core.inputs.<name>.type` | stated_by_design |  | `interface_fields` rows for the artifact, direction `INPUT`: `Type` |
 | `core.outcomes.<name>.description` | stated_by_design |  | constant: the `ACK`/`NACK` surface every intent has |
@@ -147,8 +146,10 @@ pins each form.
 
 | Field | Class | Governed by | Source |
 |---|---|---|---|
-| `core.bindings.<name>.policy.<name>` | stated_by_design |  | `runtime_policies` rows: `Key` and `Value`, by `Capability` in `rb_declarations.CS Bindings` |
-| `core.storage_structure` | stated_by_design |  | `rb_declarations.Storage Structure` |
+| `core.bindings.<name>.policy` | stated_by_design |  | declared empty: a `runtime_policies` row for the capability whose `Key` states nothing |
+| `core.bindings.<name>.policy.<name>` | stated_by_design |  | `runtime_policies` rows: `Key` and `Value`, typed, by `Capability` in `rb_declarations.CS Bindings` |
+| `core.storage_structure` | stated_by_design |  | `rb_declarations.Storage Structure`; omitted where it states none |
+| `parameters.[]` | stated_by_design |  | `artifact_properties` `parameters` |
 
 ### Structure
 
@@ -156,17 +157,15 @@ pins each form.
 
 | Field | Class | Governed by | Source |
 |---|---|---|---|
-| `core.deductions.[]` | stated_by_design |  | `artifact_properties` `deductions` |
-| `core.domain` | stated_by_design |  | the namespace of the identity |
-| `core.entity_stores` | stated_by_design |  | declared empty: a design stating no `structure_stores` |
-| `core.entity_stores.<name>.path` | stated_by_design |  | `structure_stores.Proposed Path`, by `Store Name` |
-| `core.layer` | stated_by_design |  | `artifact_properties` `layer`; `DOMAINS` where the design states none |
+| `core.<property>` | stated_by_design |  | `artifact_properties.Value`, whole, by `Property`: every key of `core` but the summary and the storage fields |
 | `core.json_schema` | stated_by_design |  | `artifact_properties` `json_schema`, whole: a JSON Schema is data |
-| `core.layer` | supplied_by_renderer |  | `artifact_properties` `layer`; `DOMAINS` where the design states none |
-| `core.maximum` | stated_by_design |  | `artifact_properties` `maximum` |
-| `core.minimum` | stated_by_design |  | `artifact_properties` `minimum` |
-| `core.phases.[]` | stated_by_design |  | `artifact_properties` `phases` |
-| `core.subdomain` | stated_by_design |  | the owning subdomain |
+| `core.domain` | stated_by_design |  | the namespace of the identity; storage only |
+| `core.entity_stores.<name>.path` | stated_by_design |  | `structure_stores.Proposed Path`, by `Store Name`, for the rows whose `Structure` names it or names none; storage only |
+| `core.layer` | stated_by_design |  | `artifact_properties` `layer`; `DOMAINS` where the design states none; storage only |
+| `core.subdomain` | stated_by_design |  | the owning subdomain; storage only |
+
+A structure is storage when a store belongs to it or the design gives it a `layer`. Any other
+structure is a shape: it carries its summary and its properties, and none of the storage fields.
 
 ### Test data
 
@@ -217,7 +216,6 @@ pins each form.
 | Field | Class | Governed by | Source |
 |---|---|---|---|
 | `<group>.casing` | stated_by_design |  | `vocabulary_extensions.Casing`; `UPPER_SNAKE` where it states none |
-| `<group>.casing` | supplied_by_renderer |  | `vocabulary_extensions.Casing`; `UPPER_SNAKE` where it states none |
 | `<group>.entries.[]` | stated_by_design |  | `vocabulary_extensions.Value`, by `Group` (`result_status` where it states none) |
 | `extends` | stated_by_design |  | `vocabulary_extensions.Extends` |
 
@@ -282,7 +280,8 @@ declared sameness rules (`build/sameness.py`), and renders the re-points the des
 - **Defaults the renderer supplies.** A structure's `core.layer` (`DOMAINS`) and a vocabulary
   group's `casing` (`UPPER_SNAKE`) are written where the design states none, and are refused by
   completeness as invented.
-- **The module path.** Construction derives `machine.implementation.module` as
-  `<domain>.implementation.capability_transforms.atoms.<code>`. The Collatz workload resolves its
-  transforms under `workloads.collatz`, so a design for it cannot be constructed until its build
-  manifest is read rather than its namespace assumed.
+- **The module path in the governed construction step.** `machine.implementation.module` is
+  `<implementation_namespace>.<code>`, where the namespace is the one the domain's build manifest
+  declares. The construction CLI and the acceptance harness read it from the manifest. The governed
+  render transform is handed no manifest, so it places a module where a generated manifest places
+  it, `<domain>.implementation.capability_transforms.atoms`.

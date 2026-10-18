@@ -35,6 +35,7 @@ from transformation.build.render import (
     machine_block,
     mark_superseded,
     generated,
+    implementation_namespace,
     render_all,
     retirements,
     supersessions,
@@ -575,6 +576,17 @@ def phase_emit(check_only: bool, snapshot_root: Path) -> None:
     sys.exit(0)
 
 
+def _namespace(domain_root: Path | None) -> str | None:
+    """The implementation namespace the domain's build manifest declares, where it has one."""
+    if domain_root is None:
+        return None
+    for path in sorted((domain_root / "registry").glob("**/STRUCTURE_BUILD_*_CONFIG_V*.md")):
+        block = machine_block(path.read_text(encoding="utf-8"))
+        if block is not None:
+            return implementation_namespace(yaml.safe_load(block) or {})
+    return None
+
+
 def _predecessors(rendered: list[dict], domain_root: Path) -> dict[str, dict]:
     """The Machine block of each document an emission is about to replace, by bare code."""
     out: dict[str, dict] = {}
@@ -654,7 +666,7 @@ def _meaning_refusals(p7: dict, p8: dict, snapshot_root: Path | None,
     successor = sameness.successors(supersessions(p7))
     out: list[str] = []
 
-    rendered = render_all(p7, p8)
+    rendered = render_all(p7, p8, _namespace(ctx.domain_root))
     held_docs: dict[str, dict] = {}
     for fqdn in acts.get("EXTEND", []):
         text = _held(fqdn, snapshot_root)
@@ -946,7 +958,7 @@ def construction_emit(dossier: Path, domain_root: Path, force: bool, threshold: 
     # An amendment replaces a document that may carry descriptions no register can state. `check`
     # measures the design with them carried forward, so emit writes it the same way — from the
     # document it is replacing — or what was measured is not what is written.
-    rendered = render_all(p7, p8)
+    rendered = render_all(p7, p8, _namespace(domain_root))
     carry_forward(rendered, _predecessors(rendered, domain_root))
     documents = [{"path": a["path"], "text": render_document(a)} for a in rendered]
     planned: list[tuple[Path, str]] = [(domain_root / d["path"], d["text"]) for d in documents]

@@ -42,7 +42,7 @@ class Family:
 
 
 FAMILIES: tuple[Family, ...] = (
-    Family("AC", "ACTOR", "governance::CONSTITUTION_GOVERNANCE_V0", "actors"),
+    Family("AC", "ACTOR", "actor::CONSTITUTION_ACTOR_IDENTITY_V0", "actors"),
     Family("IN", "INTENT", "intent::CONSTITUTION_INTENT_V0", "intents"),
     Family("WF", "WORKFLOW", "workflow::CONSTITUTION_WORKFLOW_V0", "workflows"),
     Family("CC", "CAPABILITY_CONTRACT",

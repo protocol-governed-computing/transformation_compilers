@@ -28,5 +28,4 @@ core:
     role:
       type: string
       required: true
-      value: seed_author
 ```

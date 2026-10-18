@@ -355,8 +355,19 @@ def unrenderable(p7: dict, p8: dict) -> list[tuple[str, str]]:
     return [(code, fam) for code, _, fam in _scheduled(p7, p8) if fam not in _BUILDERS]
 
 
-def render_all(p7: dict, p8: dict) -> list[dict]:
+def implementation_namespace(manifest: dict) -> str | None:
+    """Where a domain's build manifest says its transforms are implemented, if it says."""
+    for layer in (manifest.get("layer_definitions") or {}).values():
+        if isinstance(layer, dict) and layer.get("implementation_namespace"):
+            return layer["implementation_namespace"]
+    return None
+
+
+def render_all(p7: dict, p8: dict, namespace: str | None = None) -> list[dict]:
     """Every artifact the mandate schedules *and construction can build*, as `{path, machine}`.
+
+    `namespace` is the implementation namespace the domain's build manifest declares. Without it a
+    transform's module is placed where a generated manifest places it.
 
     One call over the whole mandate rather than one call per artifact: a capability contract is a
     fixed pipeline with no iteration, so a construction step that rendered one artifact could never
@@ -388,7 +399,8 @@ def render_all(p7: dict, p8: dict) -> list[dict]:
         declared_empty: list[str] = []
         supplied: dict[str, tuple[str, str]] = {}
         machine = _render(fam, code, short, summary.get(short, ""), subdomain.get(short, ""),
-                          p7, p8, declared_empty, sorted(supersedes.get(short, ())), supplied)
+                          p7, p8, declared_empty, sorted(supersedes.get(short, ())), supplied,
+                          namespace)
         domain = norm(code).split("::")[0]
         out.append({
             "path": f"registry/{subdomain.get(short, '')}/{DIRECTORY[fam]}/{short}.md",
@@ -470,7 +482,8 @@ def _declared_version(code: str) -> str:
 
 
 def _render(fam, code, short, summary, sub, p7, p8, declared_empty=None,
-            supersedes: list[str] | None = None, supplied: dict | None = None) -> dict:
+            supersedes: list[str] | None = None, supplied: dict | None = None,
+            namespace: str | None = None) -> dict:
     machine: dict[str, Any] = {
         "fqdn": code,
         "artifact_kind": KIND[fam],
@@ -501,7 +514,7 @@ def _render(fam, code, short, summary, sub, p7, p8, declared_empty=None,
     elif fam == "VOCAB":
         builder(machine, code, short, summary, sub, p7, p8, declared_empty, supplied)
     elif fam == "CT":
-        builder(machine, code, short, summary, sub, p7, p8, supplied, declared_empty)
+        builder(machine, code, short, summary, sub, p7, p8, supplied, declared_empty, namespace)
     elif fam in ("STRUCTURE", "EV"):
         builder(machine, code, short, summary, sub, p7, p8, supplied)
     else:
@@ -722,8 +735,9 @@ def _step(p7: dict, owner: str, r: dict, interpreter: str = "", name: str = "",
     # design had not committed — an absent binding is a declaration that there is none, and it has to
     # be written down to say so.
     out["inputs"] = inputs
-    if outputs:
-        out["outputs"] = outputs
+    # `outputs` likewise: the schema requires it on every step, and a step whose results nothing
+    # reads declares none.
+    out["outputs"] = outputs
     if interpreter:
         semantic = cell(r, "Semantic Status")
         routing = {"SUCCESS": "exit" if last else "continue"}
@@ -783,7 +797,8 @@ def _transform_constitution(kind: str, purity: str) -> str:
     return TRANSFORM_CONSTITUTIONS.get(purity, GOVERNED_BY["CT"])
 
 
-def _transform(m, code, short, summary, sub, p7, p8, supplied=None, declared_empty=None):
+def _transform(m, code, short, summary, sub, p7, p8, supplied=None, declared_empty=None,
+               namespace=None):
     row = next((r for r in rows(p7, "implementation_bindings") if bare(cell(r, "CT Code")) == short), {})
     m["core"] = {
         "summary": summary,
@@ -821,8 +836,9 @@ def _transform(m, code, short, summary, sub, p7, p8, supplied=None, declared_emp
         # resolves transforms under `<domain>.implementation.capability_transforms.atoms`, and the
         # module is named for the artifact it implements (CONSTRUCTION_MAPPING.md).
         domain = norm(code).split("::")[0]
+        package = namespace or f"{domain}.implementation.capability_transforms.atoms"
         m["machine"]["implementation"] = {
-            "module": f"{domain}.implementation.capability_transforms.atoms.{short.lower()}",
+            "module": f"{package}.{short.lower()}",
             "callable": cell(row, "Callable"),
         }
         _supplied(supplied, "machine.implementation.module",
@@ -902,7 +918,8 @@ HEADER_ONLY_PROPERTIES = {"supersedes"}
 def _property_value(r: dict) -> Any:
     """A property's value as the design states it: the names it lists, a text, or a typed value."""
     held = value(r, "Value")
-    if isinstance(held, list):
+    # A list of names is read as names; a list of structured entries is the structure it states.
+    if isinstance(held, list) and all(isinstance(v, str) for v in held):
         return list(items(r, "Value"))
     return norm(held) if isinstance(held, str) else held
 
@@ -957,9 +974,22 @@ def _vocabulary(m, code, short, summary, sub, p7, p8, declared_empty=None, suppl
 
 
 def _structure(m, code, short, summary, sub, p7, p8, supplied=None):
+    """A structure: storage, when stores belong to it, or a shape it declares.
+
+    A store belongs to the structure its row names. A row naming none belongs to every structure the
+    design renders, which is the one structure of a design that has one.
+
+    A structure is storage when a store belongs to it or the design gives it a layer: storage lives in
+    a layer. Any other structure is a shape, which declares what its properties state and carries no
+    storage fields.
+    """
     stores = {cell(r, "Store Name"): {"path": cell(r, "Proposed Path")}
-              for r in rows(p7, "structure_stores")}
+              for r in rows(p7, "structure_stores")
+              if bare(cell(r, "Structure")) in ("", short)}
     props = _properties(p7, code)
+    if not stores and "layer" not in props:
+        m["core"] = {"summary": summary, **props}
+        return
     if "layer" not in props:
         _supplied(supplied, "core.layer")
     m["core"] = {"summary": summary, "layer": props.pop("layer", "DOMAINS"),
@@ -987,7 +1017,9 @@ def _binding_artifact(m, code, short, summary, sub, p7, p8, declared_empty=None)
         # which is a different statement from having no row at all.
         policies.setdefault(capability, {})
         if key:
-            policies[capability][key] = cell(r, "Value")
+            # A policy value is the value the design states, of whatever type it is.
+            held = value(r, "Value")
+            policies[capability][key] = norm(held) if isinstance(held, str) else held
         elif declared_empty is not None:
             declared_empty.append(f"core.bindings.{capability}.policy")
 
@@ -1001,7 +1033,8 @@ def _binding_artifact(m, code, short, summary, sub, p7, p8, declared_empty=None)
     parameters = props.pop("parameters", "")
     if parameters:
         m["parameters"] = list(parameters) if isinstance(parameters, list) else [str(parameters)]
-    m["core"] = {"summary": summary, "storage_structure": structure, "bindings": bindings}
+    m["core"] = {"summary": summary, **({"storage_structure": structure} if structure else {}),
+                 "bindings": bindings}
 
 
 def _event(m, code, short, summary, sub, p7, p8, supplied=None):

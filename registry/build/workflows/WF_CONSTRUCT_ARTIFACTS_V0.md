@@ -90,13 +90,10 @@ core:
 
     EXIT_CONSTRUCTED:
       type: EXIT
-      status: SUCCESS
 
     EXIT_REFUSED:
       type: EXIT
-      status: VIOLATION
 
     EXIT_REJECTED:
       type: EXIT
-      status: VIOLATION
 ```

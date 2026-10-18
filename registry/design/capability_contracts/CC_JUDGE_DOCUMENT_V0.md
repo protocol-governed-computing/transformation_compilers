@@ -97,8 +97,8 @@ core:
       type: integer
   result_status_contract:
     allowed:
-    - SUCCESS
     - VIOLATION
+    - SUCCESS
     on_input_failure: VIOLATION
   pipeline:
   # Declares no outputs: registers are an intermediate, not a result of judging a document.

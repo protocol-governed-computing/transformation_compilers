@@ -79,6 +79,11 @@ cases:
           source: human
     - id: structure_stores
       value: []
+    - id: artifact_properties
+      value:
+      - artifact: STRUCTURE_S_STORAGE_V0
+        property: layer
+        value: DOMAINS
     mandate_registers:
     - id: build_order
       value:

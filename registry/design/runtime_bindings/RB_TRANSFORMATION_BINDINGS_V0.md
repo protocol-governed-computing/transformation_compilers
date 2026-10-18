@@ -34,9 +34,6 @@ core:
   description: Binds read-only observation of the executing composition. No storage, no writes.
   bindings:
     capability_side_effects::CS_SNAPSHOT_QUERY_V0:
-      type: CS
-      host: SnapshotQueryRuntime
-      operation: READ
       policy:
         snapshot_root: "{{snapshot_root}}"
 

@@ -33,5 +33,4 @@ core:
     role:
       type: string
       required: true
-      value: register_author
 ```

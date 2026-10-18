@@ -46,11 +46,23 @@ WHOLE = re.compile(r"(?:^|\.)(?:default|core\.json_schema|cases\.\[\]\.(?:bindin
                    r"machine\.atom_stream\.\[\]\.(?:inputs|accumulator|with|update_accumulator)\.<name>|machine\.emit\.<name>)$")
 
 
+# Kinds whose `core` holds properties the design states whole, beside the fields every one has.
+# A property is any key of `core` not listed: `artifact_properties` states it, value and all.
+PROPERTIES: dict[str, frozenset[str]] = {
+    "ACTOR": frozenset({"summary", "attributes"}),
+    "STRUCTURE": frozenset({"summary", "layer", "domain", "subdomain", "entity_stores"}),
+}
+
+
 def _fields(kind: str, value: Any, path: tuple[str, str] = ()):
     """Every field of a rendered machine block, normalised, with the raw path it was read at."""
     named = NAMED.get(kind, ())
     if path and WHOLE.search(path[0]):
         yield path
+        return
+    if kind in PROPERTIES and path and path[0].startswith("core.") and path[0].count(".") == 1 \
+            and path[0].split(".")[1] not in PROPERTIES[kind]:
+        yield ("core.<property>", path[1])
         return
     if isinstance(value, dict) and value:
         for key, item in value.items():

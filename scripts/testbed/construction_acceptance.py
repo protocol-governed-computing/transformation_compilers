@@ -1,29 +1,26 @@
-"""Construction acceptance — render a domain's artifacts from its dossiers and compare with what was built.
+"""Construction acceptance — render each root's design of record and compare it with its registry.
 
-A domain's registry is what its change requests have made it, in order, so acceptance renders the
-**sequence** and not one change of it. Each dossier's design is rendered in turn and a later one
-overrides an earlier for any artifact it touches, exactly as promotion did on disk. The comparison
-then asks the only question worth asking: **does the accumulated design determine the registry?**
-
-Rendering a single dossier was right while one change request owned the domain and wrong the moment a
-second amended eight of its artifacts — the earlier design still renders them as they were, so
-acceptance reported twenty-six differences that were history rather than defects. Evolution is never
-greenfield here; the acceptance corpus is a sequence for the same reason validation is.
+Every designed root carries one P7 and one P8 of record in `<root>/design/`, written from its
+registry by `python -m transformation.record`. Construction of that pair is compared with the
+registry, artifact by artifact, and the question is whether **the design states every fact of the
+registry**. A design generated from a registry and rendered back is a round trip: it proves that the
+design language can state the registry whole, not how the registry came to be.
 
 Every difference is one of exactly two things, and the difference itself says which:
 
     a generator bug          the design states the fact and the renderer got it wrong
     a design insufficiency   the design does not state the fact at all
 
-The second is the more valuable finding. Construction Completeness measures whether the facts the
-probe *knows to ask about* are determined; this measures whether the artifact can actually be
-rebuilt, which is the question the probe's fact list can only approximate.
-
 Comparison is semantic and scoped to the Machine block. An artifact's prose is human narrative that
-no register determines, and comparing text would report a hundred differences about paragraphs
-nobody claims are generated.
+no register determines, and comparing text would report differences about paragraphs nobody claims
+are generated.
 
-Run:  python scripts/testbed/construction_acceptance.py [dossier ...] [--registry <path>]
+Two kinds of root carry no design of record, and neither is compared. The platform's governance
+surface is constitutions, invariants and surface contracts, kinds the design language cannot state.
+The inspection surface's transport contracts are generated from their declaration by
+`author_transport_contracts.py`, whose `--check` compares them.
+
+Run:  python scripts/testbed/construction_acceptance.py
 Exit: 0 when every artifact matches, 1 otherwise.
 """
 
@@ -36,106 +33,28 @@ from pathlib import Path
 import yaml
 
 # `MACHINE_BLOCK` is one spelling of where a machine block ends, owned by the module
-# that renders them — there were three spellings and two of them disagreed.
+# that renders them.
 from transformation.build.render import MACHINE_BLOCK as MACHINE
-from transformation.build import sameness
-from transformation.build.render import render_all, bare, cell, rows, supersessions
+from transformation.build.render import bare, generated, implementation_namespace, render_all
 from transformation.design.read import read_seed
 
 REPO = Path(__file__).resolve().parents[2]
 WORKSPACE = REPO.parent
-# In order. A dossier appended here is a change that came after the ones above it, and the ordering
-# is the whole of what makes the composite meaningful.
-# The fixture dossiers, not the approved ones. A closed change request is evidence and is never
-# amended to satisfy a rule written after it was gated; a fixture is maintained against the
-# current rule set on purpose. See `fixture_dossiers/README.md`.
-CR_DOSSIERS = REPO / "scripts/testbed/fixture_dossiers"
-REGISTRY = WORKSPACE / "business_domains/book_library_mgmt/registry"
 
-# Every domain whose registry a dossier sequence determines, as (dossier root, registry).
-#
-# The two are read from different places and the asymmetry is deliberate. **The catalog is read from
-# maintained fixtures** because its own harnesses judge those documents and a delivered dossier goes
-# inadmissible as the design language grows. **blockchain is read from its delivered dossiers**,
-# which is possible because rendering reads registers and never judges admissibility — a dossier that
-# would be refused at P7 today still determines exactly the artifacts it determined when it was
-# gated. Nothing had ever compared those 40 artifacts against their designs.
-# The base-code roots below are read from their delivered dossiers for the same reason blockchain is:
-# rendering reads registers and never judges admissibility. They carry no numbering, so they carry no
-# order — see `sequence`.
-# `(dossier root, registry, whole)`. `whole` is whether the dossiers account for the registry
-# entirely — true where a domain was built by change requests from its first artifact, false where
-# the registry predates the lifecycle and most of it is determined by no design.
-COPIES = REPO / "scripts/testbed/delivered_copies"
-# Every identity deleted by record (`4e` SU-12). A delivered design may still render one.
-RETIRED = {e["identity"] for e in yaml.safe_load(
-    (WORKSPACE / ".github/process/retired_identities.yaml").read_text(encoding="utf-8"))["retired"]}
+# Every root with a design of record, as (root, registry). The design is `<root>/design/`.
+DOMAINS = tuple((root, root / "registry") for root in (
+    WORKSPACE / "business_domains/ai_governance",
+    WORKSPACE / "business_domains/blockchain",
+    WORKSPACE / "business_domains/book_library_mgmt",
+    WORKSPACE / "business_domains/causal_language_model",
+    WORKSPACE / "conformance_workloads/workloads/collatz",
+    REPO,
+))
 
-# A business domain's dossiers are read where they were delivered: they were converted to the
-# Machine form in place, mechanically, by the oracle's own reader at the swap. The two base-code
-# roots, whose dossiers the swap deleted, are read from their test copies, which hold each dossier's
-# design and mandate, because those two documents are all construction reads.
-DOMAINS = (
-    (CR_DOSSIERS, REGISTRY, True),
-    (WORKSPACE / "business_domains/blockchain/cr_dossiers",
-     WORKSPACE / "business_domains/blockchain/registry", True),
-    (WORKSPACE / "business_domains/causal_language_model/cr_dossiers",
-     WORKSPACE / "business_domains/causal_language_model/registry", True),
-    # ai_governance's registry predates the lifecycle: its change requests determine a few of its
-    # artifacts, and the rest were authored by hand.
-    (WORKSPACE / "business_domains/ai_governance/cr_dossiers",
-     WORKSPACE / "business_domains/ai_governance/registry", False),
-    (COPIES / "software_governance/dossiers",
-     WORKSPACE / "software_governance/registry", False),
-    (COPIES / "transformation/dossiers",
-     WORKSPACE / "transformation_compilers/registry", False),
-    # The Collatz workload predates the lifecycle too; cr_01 is its first change through it.
-    (WORKSPACE / "conformance_workloads/workloads/collatz/cr_dossiers",
-     WORKSPACE / "conformance_workloads/workloads/collatz/registry", False),
-)
+# A build manifest is determined by no design. Every field of it is configuration the compiler
+# discovers a domain by, and no register of any phase states one.
+BUILD_MANIFEST = re.compile(r"^STRUCTURE_BUILD_[A-Z0-9_]+_CONFIG_V\d+$")
 
-# A delivered root read through a substitute: the catalog's through maintained fixtures, and the
-# base-code roots through their test copies. Named here so the coverage check below can tell a
-# deliberate substitution from an omission.
-SUBSTITUTED = {
-    WORKSPACE / "business_domains/book_library_mgmt/cr_dossiers",
-    WORKSPACE / "software_governance/dossiers",
-    WORKSPACE / "transformation_compilers/dossiers",
-}
-
-# The sequence used to be a literal list, and a delivered dossier that re-rendered an artifact an
-# earlier one rendered had to be appended by hand. Miss the step and the harness compares a built
-# artifact against a design that is no longer its design of record, then reports the difference as
-# a field difference — which reads like a construction defect rather than a stale corpus. cr_03
-# cost 12 such differences before anyone thought to look at the list.
-#
-# A business-domain dossier is numbered, and the number *is* the sequence: `cr_NN_<subject>` is the
-# form, declared in `transformation_compilers/CLAUDE.md`. So the ordering is read from the name rather than
-# restated beside it. A directory that is not numbered that way is not part of a sequence and is
-# not silently swept in.
-SEQUENCED = re.compile(r"^cr_(\d+)_")
-
-
-def sequence(root: Path) -> list[Path]:
-    """The delivered dossiers of one domain, in the order they were delivered.
-
-    A business domain numbers its dossiers and the number *is* the order. A base-code domain does
-    not — `transformation_compilers/CLAUDE.md` rules that `cr_NN_` "says nothing true about it and reads as a
-    sequence that does not exist", because git manages the change. So an unnumbered root has a set
-    and no order, and this returns it sorted by name for a stable report rather than a meaningful one.
-
-    That is safe exactly while no two of its dossiers determine the same artifact, which `acceptance`
-    checks rather than assumes. Where two do, an order is needed, none is declared, and the harness
-    refuses instead of picking one.
-    """
-    numbered = [(int(m.group(1)), p) for p in root.iterdir()
-                if p.is_dir() and (m := SEQUENCED.match(p.name))]
-    if numbered:
-        return [p for _, p in sorted(numbered)]
-    return sorted(p for p in root.iterdir() if p.is_dir() and determines_artifacts(p))
-
-
-DOSSIERS = sequence(CR_DOSSIERS)
 
 def registers(path: Path) -> dict[str, list[dict]]:
     doc = read_seed(path)
@@ -165,33 +84,16 @@ def built(registry: Path) -> dict[str, dict]:
 #   nothing consumes it   `isolation`, `resolution`, `storage_roots` and `extensions` appear in no
 #                         compiler, assembler or runtime read path. `isolation.rules` restates in
 #                         prose what `entity_stores` already says structurally.
-#   it varies by author   the built corpus carries a field `description` on some fields and not
-#                         others; a governed fact is present or absent by rule.
+#   it varies by author   a field `description` is present on some fields and not others; a
+#                         governed fact is present or absent by rule.
 #
 # A key that something reads is governed however prose-like it looks — `parameters` on a runtime
 # binding is a list of names an assertion checks, so it stays in.
 DOCUMENTATION = {"description", "isolation", "resolution", "storage_roots", "extensions"}
 
-# `superseded_by` is written when an artifact is **stood down**, which is a separate act from
-# rendering it: a replaced artifact has no design left to render from, so construction marks the
-# header and leaves the rest alone. Comparing it here would report every superseded artifact as a
-# construction defect, when what it records is that the artifact was correctly retired. The rest of
-# the machine block is still compared, so a superseded artifact whose *content* drifted is caught.
+# `superseded_by` is written when an artifact is stood down, which is a separate act from rendering
+# it, so a design states it nowhere.
 STOOD_DOWN = {"superseded_by"}
-
-
-def repointed(artifact: dict, successor: dict[str, str]) -> dict:
-    """An earlier design's artifact as a later design's REPOINT leaves it: each name the later
-    design replaces, rewritten to its successor where it is a reference and nowhere else.
-
-    A REPOINT renders nothing of its own: construction rewrites the one reference in the artifact
-    as built. Reproducing the artifact from the design that last rendered it, without the re-point,
-    would report the re-point as a construction defect. Applied by the same function construction
-    applies, against the declaration it reads.
-    """
-    text = "```yaml\n" + yaml.safe_dump(artifact["machine"], sort_keys=False, allow_unicode=True) + "```"
-    moved = sameness.repoint(text, successor, sameness.read(WORKSPACE / "snapshot"))
-    return {**artifact, "machine": yaml.safe_load(sameness.MACHINE.search(moved).group(1))}
 
 
 def diff(expected, actual, path: str = "") -> list[str]:
@@ -221,177 +123,79 @@ def diff(expected, actual, path: str = "") -> list[str]:
     return []
 
 
-def acceptance(dossier_root: Path, registry: Path, dossiers: list[Path] | None = None,
-               whole: bool = True) -> tuple[int, int, int]:
-    """Render one domain's dossier sequence and compare it with what was built.
+def namespace(reference: dict[str, dict]) -> str | None:
+    """The implementation namespace the root's build manifest declares."""
+    for code, machine in reference.items():
+        if BUILD_MANIFEST.match(code):
+            return implementation_namespace(machine)
+    return None
 
-    `whole` says whether the dossiers account for the registry entirely. A business domain built by
-    change requests from the first artifact onward is whole, and a built artifact no dossier
-    determines is a real gap. A base-code domain is not: its registry was authored before the
-    lifecycle reached it, and most of it is determined by no design at all. Reporting those as gaps
-    would bury the two that matter under two hundred that do not.
 
-    What is compared is the same either way — every artifact a dossier determines. What changes is
-    whether the remainder is a finding.
+def acceptance(root: Path, registry: Path) -> tuple[int, int, int]:
+    """Render one root's design of record and compare it with its registry.
 
     Returns (compared, failures, field differences).
     """
-    dossiers = dossiers or sequence(dossier_root)
-    if not dossiers:
-        return 0, 0, 0
-
-    # Later changes override earlier ones, artifact by artifact — the same thing promotion did.
-    rendered: dict[str, dict] = {}
-    determined_by: dict[str, str] = {}
-    ordered = bool(SEQUENCED.match(dossiers[0].name))
-    for dossier in dossiers:
-        p7 = registers(next(dossier.glob("p7_*.md")))
-        p8 = registers(next(dossier.glob("p8_*.md")))
-        for artifact in render_all(p7, p8):
-            code = bare(artifact["machine"]["fqdn"])
-            # Overriding is what promotion did, and it is only meaningful where the dossiers are
-            # ordered. An unnumbered root carries no order, so two of its dossiers determining one
-            # artifact is two designs of record and nothing says which is later. That is the hazard
-            # `transformation_compilers/CLAUDE.md` names and nothing enforces — enforced here, for the roots
-            # where it can be.
-            if not ordered and code in rendered:
-                print(f"  REFUSED  {code} is determined by both {determined_by[code]} and "
-                      f"{dossier.name}, which carry no order between them")
-                return 0, 1, 0
-            rendered[code] = artifact
-            determined_by[code] = dossier.name
-
-        # A later design's re-points move references in artifacts an earlier design rendered.
-        successor = sameness.successors(supersessions(p7))
-        for row in rows(p7, "existing_inventory"):
-            code = bare(cell(row, "FQDN"))
-            if cell(row, "Action").upper() == "REPOINT" and code in rendered:
-                rendered[code] = repointed(rendered[code], successor)
-
-        # The domain build manifest is no longer compared, because construction no longer produces
-        # one. It was generated rather than rendered, and its domain was read from the namespace of
-        # the first scheduled artifact — the same word as the domain for a business domain, and not
-        # for anything else. Comparing a producer that has been withdrawn reported three differences
-        # against a manifest nobody now claims to derive.
-
+    design = root / "design"
+    p7_path, p8_path = next(design.glob("p7_*.md"), None), next(design.glob("p8_*.md"), None)
+    print(f"construction acceptance — {root.relative_to(WORKSPACE)}")
+    if p7_path is None or p8_path is None:
+        print(f"  MISS  {design.relative_to(WORKSPACE)} holds no design of record\n")
+        return 0, 1, 0
+    p7, p8 = registers(p7_path), registers(p8_path)
     reference = built(registry)
-    print(f"construction acceptance — {' -> '.join(d.name for d in dossiers)}")
-    print(f"{len(rendered)} rendered against {len(reference)} built\n")
+    rendered = {bare(a["machine"]["fqdn"]): a for a in render_all(p7, p8, namespace(reference))}
+    # An artifact the design says its generator produces is not construction's to write, and the
+    # generator's own check compares it.
+    reached = set(generated(p7))
+    print(f"{len(rendered)} rendered, {len(reached)} reached by a generator, against "
+          f"{len(reference)} built\n")
 
-    failures, total_diffs = 0, 0
-    undetermined = 0
+    failures = total_diffs = undetermined = 0
     for code in sorted(reference):
-        # A build manifest is determined by no design, in any domain. Every field of it is
-        # configuration the compiler discovers a domain by, and no register of any phase states one.
-        # Construction used to generate it and no longer does; comparing it here would report a gap
-        # against an artifact nothing claims to determine. Whether it should have a producer at all
-        # is an open ruling, and until it has one this is not a construction defect.
-        if code.startswith("STRUCTURE_BUILD_") and code.endswith("_CONFIG_V0"):
+        if BUILD_MANIFEST.match(code):
             undetermined += 1
             continue
+        if code in reached:
+            print(f"  GEN   {code}")
+            continue
         if code not in rendered:
-            if not whole:
-                undetermined += 1
-                continue
             print(f"  MISS  {code:<44} rendered nothing")
             failures += 1
             continue
         differences = diff(reference[code], rendered[code]["machine"])
         total_diffs += len(differences)
         if not differences:
-            print(f"  OK    {code:<44} {determined_by[code]}")
+            print(f"  OK    {code}")
             continue
         failures += 1
-        print(f"  DIFF  {code:<44} {len(differences)} field(s)   {determined_by[code]}")
+        print(f"  DIFF  {code:<44} {len(differences)} field(s)")
         for line in differences[:6]:
             print(f"          {line}")
         if len(differences) > 6:
             print(f"          … {len(differences) - 6} more")
 
     for code in sorted(set(rendered) - set(reference)):
-        # A test vector the design states and the delivered registry does not yet carry. Vectors joined
-        # the design language after these domains were delivered, and a delivered domain gains its
-        # vectors in its own change; until then the fixture that states one is ahead of the registry,
-        # which is not a construction defect. Reported by name so it stays visible, never counted.
-        if rendered[code]["machine"].get("artifact_kind") == "TEST_DATA":
-            print(f"  NOT YET DELIVERED  {code:<33} {determined_by[code]}")
-            continue
-        # An artifact a delivered design rendered and a later change deleted by record. The design is
-        # history; the ledger says why the artifact is gone. Reported by name, never counted.
-        if rendered[code]["machine"].get("fqdn") in RETIRED:
-            print(f"  RETIRED BY RECORD  {code:<33} {determined_by[code]}")
-            continue
         print(f"  EXTRA {code:<44} rendered, never built")
         failures += 1
 
-    # Compared is what a dossier determines, not what the registry holds. For a whole domain those
-    # are the same number; for a partial one the difference is the tail the lifecycle has not reached,
-    # reported so it stays visible rather than counted as reproduced.
     compared = len(reference) - undetermined
     print(f"\n  {compared - failures}/{compared} artifacts reproduced"
-          f"   ({total_diffs} field difference(s))"
-          + (f"   [{undetermined} built artifact(s) determined by no dossier]" if undetermined else "")
-          + "\n")
+          f"   ({total_diffs} field difference(s))\n")
     return compared, failures, total_diffs
 
 
-def determines_artifacts(dossier: Path) -> bool:
-    """True when a dossier's design schedules an artifact for construction to render.
-
-    A dossier that only amends existing artifacts renders nothing, so acceptance has nothing to
-    compare and its absence from the corpus is not a gap. Neither does one with no mandate: a design
-    still in flight has scheduled nothing, and only a mandate hands construction anything to render.
-    """
-    if not any(dossier.glob("p8_*.md")):
-        return False
-    for p7 in dossier.glob("p7_*.md"):
-        rows = registers(p7).get("new_artifacts") or []
-        if any(cell(row, "Code") for row in rows):
-            return True
-    return False
-
-
 def uncovered() -> list[Path]:
-    """Dossier roots holding a design that determines artifacts and that DOMAINS does not read.
-
-    `DOMAINS` is a hand-kept pair, which is the shape `SEQUENCED` was introduced to remove one level
-    down: the *sequence* used to be a literal list and a missed entry cost twelve differences read as
-    construction defects. The *domain* list is still literal, and a third domain whose dossiers
-    determine artifacts would be reproduced by nothing and reported by nothing.
-
-    So rather than derive the list — the fixture substitution above is deliberate and derivation
-    would undo it — this asks the question the list can go stale on, and asks it of the workspace
-    rather than of a second list.
-    """
-    covered = {root.resolve() for root, _, _ in DOMAINS} | {p.resolve() for p in SUBSTITUTED}
-    out = []
-    for repo in sorted(WORKSPACE.iterdir()):
-        if not repo.is_dir() or repo.name.startswith("."):
-            continue
-        for root in sorted(repo.glob("**/cr_dossiers")) + sorted(repo.glob("*/dossiers")) \
-                + sorted(repo.glob("dossiers")):
-            if root.resolve() in covered or not root.is_dir():
-                continue
-            if any(determines_artifacts(d) for d in root.iterdir() if d.is_dir()):
-                out.append(root)
-    return out
+    """Designs of record that `DOMAINS` does not read."""
+    covered = {(root / "design").resolve() for root, _ in DOMAINS}
+    return [p.parent for p in sorted(WORKSPACE.glob("**/design/p7_*_baseline.md"))
+            if p.parent.resolve() not in covered and ".venv" not in p.parts]
 
 
 def main() -> int:
-    args = sys.argv[1:]
-    if "--registry" in args:
-        i = args.index("--registry")
-        if i + 1 >= len(args):
-            print("--registry needs a path")
-            return 1
-        registry = Path(args[i + 1])
-        del args[i:i + 2]
-        compared, failures, _ = acceptance(CR_DOSSIERS, registry, [Path(a) for a in args] or None)
-        return 1 if failures else 0
-
     compared = failures = diffs = 0
-    for dossier_root, registry, whole in DOMAINS:
-        c, f, d = acceptance(dossier_root, registry, whole=whole)
+    for root, registry in DOMAINS:
+        c, f, d = acceptance(root, registry)
         compared += c; failures += f; diffs += d
 
     print(f"  {compared - failures}/{compared} artifacts reproduced across {len(DOMAINS)} domain(s)"
@@ -399,10 +203,8 @@ def main() -> int:
 
     missing = uncovered()
     for root in missing:
-        print(f"  UNCOVERED  {root.relative_to(WORKSPACE)} determines artifacts and is compared "
-              f"against nothing")
-    if missing:
-        print(f"\n  {len(missing)} dossier root(s) outside DOMAINS — add them, or say why not")
+        print(f"  UNCOVERED  {root.relative_to(WORKSPACE)} is a design of record compared against "
+              f"nothing")
     return 1 if failures or missing else 0
 
 

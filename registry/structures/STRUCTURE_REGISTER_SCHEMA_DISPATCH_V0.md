@@ -34,7 +34,7 @@ changing it is a new version of this structure.
 ```yaml
 fqdn: transformation::STRUCTURE_REGISTER_SCHEMA_DISPATCH_V0
 artifact_kind: STRUCTURE
-version: V0
+version: v0
 governed_by: structure::CONSTITUTION_STRUCTURE_V0
 authority: pgc.platform
 concern: transformation

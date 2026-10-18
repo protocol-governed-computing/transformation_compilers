@@ -27,5 +27,4 @@ core:
     role:
       type: string
       required: true
-      value: gate_reviewer
 ```

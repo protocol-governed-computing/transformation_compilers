@@ -69,7 +69,7 @@ one case it can still appear — the inadmissible document that is rated anyway.
 ```yaml
 fqdn: transformation::STRUCTURE_FIGURE_OF_MERIT_POLICY_V1
 artifact_kind: STRUCTURE
-version: V1
+version: v1
 governed_by: structure::CONSTITUTION_STRUCTURE_V0
 authority: pgc.platform
 concern: transformation

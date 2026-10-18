@@ -42,9 +42,6 @@ core:
   description: Binds the single write the construction pipeline performs, beneath a declared root.
   bindings:
     capability_side_effects::CS_TEXT_ARTIFACT_V0:
-      type: CS
-      host: TextArtifactRuntime
-      operation: WRITE_ALL
       policy:
         root: "{{module_data_root}}/construction"
 
