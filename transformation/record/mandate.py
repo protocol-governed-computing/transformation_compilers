@@ -42,7 +42,7 @@ def p8(held: list[dict], p7: dict[str, Any]) -> dict[str, Any]:
     deps: dict[str, list[str]] = {}
     for code in declared:
         machine = {k: v for k, v in by_fqdn[code]["machine"].items()
-                   if k not in ("fqdn", "supersedes", "superseded_by")}
+                   if k not in ("fqdn", "supersedes")}
         named = _names(machine)
         if family[code] == "WF":
             named += [f"{namespace}::{key}" for key in machine["core"]["nodes"]]

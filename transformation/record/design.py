@@ -19,8 +19,7 @@ _PATH_ROOTS = ("payload.", "results.", "inputs.", "capability_result.", "result_
 # The roots a molecule binding is rendered with `$.` restored (`render._molecule_source`).
 _MOLECULE_ROOTS = ("inputs.", "results.", "accumulator.")
 # Header keys every builder writes from the identity and the family. No register states them.
-_HEADER = ("fqdn", "artifact_kind", "version", "governed_by", "authority", "concern", "supersedes",
-           "superseded_by")
+_HEADER = ("fqdn", "artifact_kind", "version", "governed_by", "authority", "concern", "supersedes")
 
 
 def _bound(value: Any) -> Any:

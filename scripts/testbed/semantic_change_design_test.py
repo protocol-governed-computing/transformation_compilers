@@ -95,14 +95,6 @@ def test_a_declared_rule_the_comparison_does_not_apply_refuses_the_comparison():
         raise AssertionError("a comparison ran without a rule the platform declares")
 
 
-def test_a_stood_down_declaration_refuses_the_comparison():
-    try:
-        sameness.Declaration.from_frontmatter({**DECLARED, "superseded_by": ["artifact::X_V2"]})
-    except sameness.Uncomparable:
-        pass
-    else:
-        raise AssertionError("a stood-down declaration was read")
-
 
 def test_the_composition_declares_exactly_the_rules_construction_applies():
     assert sameness.read(SNAPSHOT).reference

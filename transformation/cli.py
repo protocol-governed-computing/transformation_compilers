@@ -618,10 +618,25 @@ def _held(fqdn: str, snapshot_root: Path) -> str | None:
     return sameness.canonical(result).get("content", "")
 
 
-def _stood_down(fqdn: str, snapshot_root: Path) -> bool:
-    status, result = inspector_api.query("si.artifact.show", {"artifact": fqdn}, str(snapshot_root))
-    return status == "SUCCESS" and bool(
-        (sameness.canonical(result).get("frontmatter") or {}).get("superseded_by"))
+def _superseded(snapshot_root: Path) -> set[str]:
+    """Every identity an artifact in the composition names in `supersedes`.
+
+    The relation is declared once, on the successor (`4e` SU-3), so a predecessor's retirement is
+    read from its successors, never from the predecessor itself.
+    """
+    status, listing = inspector_api.query("si.artifact.list", {}, str(snapshot_root))
+    if status != "SUCCESS":
+        return set()
+    out: set[str] = set()
+    for entry in listing.get("artifacts", []):
+        status, result = inspector_api.query("si.artifact.show", {"artifact": entry["artifact"]},
+                                             str(snapshot_root))
+        if status != "SUCCESS":
+            continue
+        frontmatter = sameness.canonical(result).get("frontmatter") or {}
+        named = frontmatter.get("supersedes")
+        out.update([named] if isinstance(named, str) else (named or []))
+    return out
 
 
 # Edges inspection carries that are not a declaration naming an artifact: a workflow's routing
@@ -725,9 +740,14 @@ def _meaning_refusals(p7: dict, p8: dict, snapshot_root: Path | None,
                        f"{', '.join(changed[:4])} — restate it as an amendment or replace it")
 
     accounted = set(touched)
+    retired: set[str] | None = None
     for fqdn in acts.get("REPLACE", []):
         for referrer in _referrers(fqdn, snapshot_root):
-            if referrer not in accounted and not _stood_down(referrer, snapshot_root):
+            if referrer in accounted:
+                continue
+            if retired is None:
+                retired = _superseded(snapshot_root)
+            if referrer not in retired:
                 out.append(f"{fqdn} is replaced and {referrer} still names it — REPLACE, EXTEND "
                            f"or REPOINT {referrer} in this design")
     return out

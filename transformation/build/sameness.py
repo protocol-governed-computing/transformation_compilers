@@ -47,10 +47,6 @@ class Declaration:
 
     @classmethod
     def from_frontmatter(cls, fm: dict) -> "Declaration":
-        if fm.get("superseded_by"):
-            raise Uncomparable(f"{DECLARATION} is stood down by {fm['superseded_by']}; construction "
-                               f"reads it by exact identity and must be re-pointed to its successor")
-
         def group(name: str) -> frozenset[str]:
             entries = (fm.get(name) or {}).get("entries") if isinstance(fm.get(name), dict) else None
             if not entries:
@@ -68,7 +64,11 @@ class Declaration:
 
 
 def read(snapshot_root: Path) -> Declaration:
-    """The platform's declaration, read from the composition by its exact identity."""
+    """The platform's declaration, read from the composition by its exact identity.
+
+    A composition cannot hold a superseded declaration in use: the compiler refuses a build in which
+    an artifact supersedes it, because it reads the declaration by exact identity.
+    """
     status, result = inspector_api.query("si.artifact.show", {"artifact": DECLARATION},
                                          str(snapshot_root))
     if status != "SUCCESS":
