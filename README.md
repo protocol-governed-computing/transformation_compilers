@@ -15,9 +15,8 @@ classes that different layers repair.
 
 The repository is named for the two compilers it holds. The lifecycle keeps its name: the domain,
 the `transformation::` namespace and the import package are all `transformation`, and the PyPI
-package is `pgc-transformation`. **`transformation` is not a third compiler.** It began as a functional rehost of RI-0's `pgs_change_mgmt`. For v6 it was rebuilt
-against a frozen copy of itself, the tag `oracle/transformation`, and swapped in whole: every rule it
-enforces is now declared as data.
+package is `pgc-transformation`. **`transformation` is not a third compiler.** Every rule it enforces is
+declared as data.
 
 A change begins as a plain-language problem statement and is driven through gated phases into an
 **Authoring Mandate** — a complete, reviewable dossier — *before* any protocol artifact is written.
@@ -31,9 +30,8 @@ problem statement → P0 → Gate 0 → seed → dossier P1..P7 → Gate 1 → P
 ```
 
 This pipeline is measured in **phases (P0–P8)**; `protocol_compiler` is measured in **stages
-(S1–S9)**. RI-0 numbered both S1–S7/S1–S9, which made every piece of evidence ambiguous about which
-pipeline produced it. A dossier has phases, a compilation has stages, and nothing uses one word for
-the other.
+(S1–S9)**. A dossier has phases, a compilation has stages, and nothing uses one word for the other,
+so every piece of evidence says which pipeline produced it.
 
 ## How a phase judges a document
 
@@ -205,10 +203,8 @@ transformation           problem     → change request → authoring mandate   
 ```
 
 Every snapshot fact this pipeline needs arrives through
-`inspector.api.query(operation, params, snapshot_root)`. It imports nothing from `compiler.*`.
-RI-0's pipeline reached directly into `pgs_compiler.compiler.projections` to build indexes itself;
-removing that coupling is why `snapshot_inspector` was completed first, and building this repo
-without it is that work's acceptance test.
+`inspector.api.query(operation, params, snapshot_root)`. It imports nothing from `compiler.*` and
+builds no index of its own: a fact the inspector does not publish becomes a new `si.` operation.
 
 ## Validation is pinned
 

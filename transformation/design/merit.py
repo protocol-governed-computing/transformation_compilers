@@ -1,7 +1,7 @@
 """Figure of merit — a deterministic rating of a phase document.
 
-Ported from RI-0's `engine/dossier.py:rate_stage`. The shape is kept: begin at the maximum,
-subtract for named defects, clamp, and report the reasons alongside the number.
+Begin at the maximum, subtract for named defects, clamp, and report the reasons alongside the
+number.
 
 **This module holds no policy.** What is deducted and by how much is declared in
 `transformation::STRUCTURE_FIGURE_OF_MERIT_POLICY_V1` and read from the composition. That split is

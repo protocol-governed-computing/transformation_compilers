@@ -117,9 +117,8 @@ core:
 
 ---
 
-## 5. Not ported from RI-0
+## 5. No convergence deduction
 
-RI-0 deducted a star when an iterative worker loop ended forced, at max-iterations, or stalled.
-PGC's phases are deterministic and single-shot: there is no loop, so convergence is *undefined*
-rather than *failed*. RI-0's own note is explicit that undefined convergence must not be penalised,
-so the deduction is absent here rather than carried across as a term nothing could ever trip.
+A phase is deterministic and single-shot: there is no worker loop, so convergence is *undefined*
+rather than *failed*, and undefined convergence is not penalised. No deduction names it, because a
+term nothing could ever trip would read as a check.

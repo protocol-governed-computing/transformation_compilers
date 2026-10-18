@@ -194,8 +194,7 @@ registers:
   authority_deferrals: null
 ```
 
-The reference subject, carried over from RI-0's elicitation for `blockchain/chain` and reorganized
-into the seed's registers. It is here because it was authored independently of this template: a
+The reference subject, an elicitation for `blockchain/chain` organized into the seed's registers. It is here because it was authored independently of this template: a
 template that only fits the document it was derived from proves nothing.
 
 ---

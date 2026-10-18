@@ -17,7 +17,7 @@ def _block(doc: ParsedDocument, rule) -> Block | None:
 
     A register identity wins when the rule declares one — it is stable across retitling and
     unambiguous when a section holds several registers. Section-title matching remains for P0,
-    which has no RI-0 template and therefore no register markers.
+    whose template carries no register markers.
     """
     register = getattr(rule, "register", None)
     if register:
