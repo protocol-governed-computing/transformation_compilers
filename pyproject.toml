@@ -1,0 +1,60 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pgc-transformation"
+version = "6.0.0"
+description = "PGC transformation compiler — the governed change request to authoring mandate pipeline (P0-P8), and the construction compiler that renders artifacts from an approved design (command: tc)"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "Apache-2.0"
+authors = [{ name = "Bhash Ganti", email = "bachipeachy@gmail.com" }]
+
+keywords = ["protocol-governed-computing", "pgc", "transformation", "change-request", "evolution"]
+
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Operating System :: OS Independent",
+  "Topic :: Software Development :: Compilers",
+]
+
+# Every third-party import the package actually makes. The previous list named
+# one of four: `click`, `yaml` and `runtime` were satisfied only by the shared
+# development venv, so a wheel failed on import three separate ways.
+#   inspector -> pgc-inspector : beliefs grounded against a pinned snapshot
+#   runtime   -> pgc-runtime   : the capability-transform atoms import it
+dependencies = [
+  "pgc-inspector>=2.0.0",
+  "pgc-runtime>=2.0.0",
+  "click",
+  "pyyaml",
+]
+
+[project.scripts]
+tc = "transformation.cli:main"
+
+[project.urls]
+Homepage = "https://omnibachi.org/"
+Repository = "https://github.com/protocol-governed-computing/transformation_compilers"
+Standard = "https://doi.org/10.5281/zenodo.22150616"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["transformation*"]
+
+[tool.setuptools.package-data]
+# The P0-P8 phase templates are content the pipeline reads at run time.
+"transformation.templates" = ["*.md"]
+"*" = ["*.md", "*.json", "*.yaml"]
+
+[tool.setuptools.exclude-package-data]
+"*" = [".DS_Store"]

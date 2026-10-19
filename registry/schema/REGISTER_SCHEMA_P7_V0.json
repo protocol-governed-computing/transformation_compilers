@@ -1,0 +1,4003 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "transformation.schemas.REGISTER_SCHEMA_P7_V0",
+  "$comment": "The registers a phase document's Machine block carries, and their shape.",
+  "x-revisions": [
+    {
+      "revision": 1,
+      "retroactive": false,
+      "change": "The rule set as rebuilt: declared in this schema, each rule named by its identity, the header stated under document.",
+      "digest": "sha256:71d872642905b893c4bcfba18b1a3d02b12d67cea7e05faea2e8c5a98c796930"
+    },
+    {
+      "revision": 2,
+      "retroactive": false,
+      "change": "transport_bindings states whether an egress field is owed: a row stating Required false declares an output field the response omits when its source carries nothing.",
+      "digest": "sha256:55a9c9f816f5aa821ae5fbed263e600e5c87d61437c1c58baeaefdc94cad012c"
+    },
+    {
+      "revision": 3,
+      "retroactive": false,
+      "change": "interface_fields states the shape of a structured field in a Structure column, and the structure it names must be one the design declares or carries over (FIELD_STRUCTURE_UNDECLARED).",
+      "digest": "sha256:0e24ee91ea463192ddc3764efcc0360b0a3426c63e70ef855e5932b29536b5fa"
+    },
+    {
+      "revision": 4,
+      "retroactive": false,
+      "change": "artifact_properties states the actor a workflow runs as (actor_context), and the actor it names must be one the design declares or carries over (WORKFLOW_ACTOR_UNDECLARED).",
+      "digest": "sha256:b7b88c26d7900524b288837c383784e16dd98e3c126d2d6eee9d7ef6354a52ce"
+    }
+  ],
+  "type": "object",
+  "required": [
+    "document",
+    "registers"
+  ],
+  "x-consumes": [
+    "ownership",
+    "storage_governance",
+    "cross_subdomain_deps",
+    "pps_artifacts_requiring_action"
+  ],
+  "x-emits": [
+    "cc_composition",
+    "generation_provenance"
+  ],
+  "properties": {
+    "document": {
+      "type": "object",
+      "required": [
+        "phase",
+        "domain",
+        "subdomain",
+        "cr",
+        "rule_set"
+      ],
+      "properties": {
+        "phase": {
+          "const": "p7"
+        },
+        "domain": {
+          "type": "string",
+          "minLength": 1
+        },
+        "subdomain": {
+          "type": [
+            "string",
+            "array"
+          ],
+          "items": {
+            "type": "string"
+          },
+          "minLength": 1,
+          "minItems": 1
+        },
+        "cr": {
+          "type": "string",
+          "minLength": 1
+        },
+        "rule_set": {
+          "type": "string",
+          "pattern": "^transformation\\.schemas\\.REGISTER_SCHEMA_P7_V[0-9]+$"
+        },
+        "approval": {
+          "$ref": "#/$defs/approval"
+        }
+      }
+    },
+    "registers": {
+      "type": "object",
+      "required": [
+        "design_resolution",
+        "existing_inventory",
+        "new_artifacts",
+        "rb_declarations",
+        "execution_topology",
+        "cc_composition",
+        "step_bindings",
+        "interface_fields",
+        "implementation_bindings",
+        "vocabulary_extensions",
+        "runtime_policies",
+        "artifact_properties",
+        "structure_stores",
+        "transport_bindings",
+        "artifact_summary",
+        "generation_provenance",
+        "declared_reach",
+        "refusal_discharge",
+        "refusal_deferrals",
+        "refusal_governance_discharge",
+        "molecule_steps",
+        "molecule_step_bindings",
+        "test_cases",
+        "test_case_values",
+        "withdrawn_facts"
+      ],
+      "properties": {
+        "design_resolution": {
+          "type": "array",
+          "x-section": {
+            "number": "1",
+            "title": "Design Decisions Resolution"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "decision": {
+                "title": "Decision",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "business_fact": {
+                "title": "Business Fact",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "resolution": {
+                "title": "Resolution",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "decision",
+              "business_fact",
+              "resolution",
+              "source_finding"
+            ]
+          }
+        },
+        "existing_inventory": {
+          "type": "array",
+          "x-section": {
+            "number": "2",
+            "title": "Artifact Inventory — Existing Artifacts"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "fqdn": {
+                "title": "FQDN",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "action": {
+                "title": "Action",
+                "x-vocab": {
+                  "artifact": "transformation::VOCAB_DESIGN_REGISTER_TERMS_V0",
+                  "group": "inventory_action"
+                },
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "summary": {
+                "title": "Summary",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "reason": {
+                "title": "Reason",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "fqdn",
+              "action",
+              "summary",
+              "reason",
+              "source_finding"
+            ]
+          },
+          "minItems": 1
+        },
+        "new_artifacts": {
+          "type": "array",
+          "x-section": {
+            "number": "3",
+            "title": "Artifact Family Mapping — New Artifacts"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "capability": {
+                "title": "Capability",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "family": {
+                "title": "Family",
+                "x-vocab": {
+                  "artifact": "transformation::VOCAB_DESIGN_REGISTER_TERMS_V0",
+                  "group": "artifact_family"
+                },
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "code": {
+                "title": "Code",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "summary": {
+                "title": "Summary",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "owner_subdomain": {
+                "title": "Owner Subdomain",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "status": {
+                "title": "Status",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "capability",
+              "family",
+              "code",
+              "summary",
+              "owner_subdomain",
+              "status",
+              "source_finding"
+            ]
+          },
+          "x-business-language": [
+            "capability"
+          ]
+        },
+        "rb_declarations": {
+          "type": "array",
+          "x-section": {
+            "number": "4",
+            "title": "Runtime Binding (RB) Declarations"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "rb_code": {
+                "title": "RB Code",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "binds_wf": {
+                "title": "Binds WF",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "cs_bindings": {
+                "title": "CS Bindings",
+                "type": [
+                  "array",
+                  "null"
+                ],
+                "items": {
+                  "type": "string"
+                }
+              },
+              "storage_structure": {
+                "title": "Storage Structure",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "rb_code",
+              "binds_wf",
+              "cs_bindings",
+              "storage_structure",
+              "source_finding"
+            ]
+          },
+          "minItems": 1
+        },
+        "execution_topology": {
+          "type": "array",
+          "x-section": {
+            "number": "5",
+            "title": "Execution Topology"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "workflow": {
+                "title": "Workflow",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "node": {
+                "title": "Node",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "runs": {
+                "title": "Runs",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "node_type": {
+                "title": "Node Type",
+                "x-vocab": {
+                  "artifact": "transformation::VOCAB_DESIGN_REGISTER_TERMS_V0",
+                  "group": "node_type"
+                },
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "routing": {
+                "title": "Routing",
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "additionalProperties": {
+                  "type": "string"
+                }
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "workflow",
+              "node",
+              "node_type",
+              "routing",
+              "source_finding"
+            ]
+          },
+          "minItems": 1
+        },
+        "cc_composition": {
+          "type": "array",
+          "x-section": {
+            "number": "6",
+            "title": "Capability Composition"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "cc_code": {
+                "title": "CC Code",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "step": {
+                "title": "Step",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "step_name": {
+                "title": "Step Name",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "capability": {
+                "title": "Capability",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "kind": {
+                "title": "Kind",
+                "x-vocab": {
+                  "artifact": "transformation::VOCAB_DESIGN_REGISTER_TERMS_V0",
+                  "group": "composition_kind"
+                },
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "operation": {
+                "title": "Operation",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "store": {
+                "title": "Store",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "consumes": {
+                "title": "Consumes",
+                "type": [
+                  "array",
+                  "null"
+                ],
+                "items": {
+                  "type": "string"
+                }
+              },
+              "produces": {
+                "title": "Produces",
+                "type": [
+                  "array",
+                  "null"
+                ],
+                "items": {
+                  "type": "string"
+                }
+              },
+              "routing": {
+                "title": "Routing",
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "additionalProperties": {
+                  "type": "string"
+                }
+              },
+              "interpreted_by": {
+                "title": "Interpreted By",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "semantic_status": {
+                "title": "Semantic Status",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "interface": {
+                "title": "Interface",
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "in": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "string"
+                    }
+                  },
+                  "out": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "required": [
+              "cc_code",
+              "step",
+              "step_name",
+              "capability",
+              "kind",
+              "operation",
+              "store",
+              "consumes",
+              "produces",
+              "routing",
+              "interpreted_by",
+              "semantic_status",
+              "interface"
+            ]
+          }
+        },
+        "step_bindings": {
+          "type": "array",
+          "x-section": {
+            "number": "7",
+            "title": "Step Bindings"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "owner": {
+                "title": "Owner",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "step": {
+                "title": "Step",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "direction": {
+                "title": "Direction",
+                "x-vocab": {
+                  "artifact": "transformation::VOCAB_DESIGN_REGISTER_TERMS_V0",
+                  "group": "field_direction"
+                },
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "field": {
+                "title": "Field",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "bound_to": {
+                "title": "Bound To",
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "object",
+                    "required": [
+                      "literal"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                      "literal": {}
+                    }
+                  },
+                  {
+                    "type": "object",
+                    "required": [
+                      "generated"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                      "generated": {
+                        "const": true
+                      }
+                    }
+                  }
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "owner",
+              "step",
+              "direction",
+              "field",
+              "bound_to",
+              "source_finding"
+            ]
+          }
+        },
+        "interface_fields": {
+          "type": "array",
+          "x-section": {
+            "number": "8",
+            "title": "Interface Fields"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "artifact": {
+                "title": "Artifact",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "direction": {
+                "title": "Direction",
+                "x-vocab": {
+                  "artifact": "transformation::VOCAB_DESIGN_REGISTER_TERMS_V0",
+                  "group": "interface_direction"
+                },
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "field": {
+                "title": "Field",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "type": {
+                "title": "Type",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "format": {
+                "title": "Format",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "structure": {
+                "title": "Structure",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "required": {
+                "title": "Required",
+                "x-vocab": {
+                  "artifact": "transformation::VOCAB_DESIGN_REGISTER_TERMS_V0",
+                  "group": "yes_no"
+                },
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "default": {
+                "title": "Default"
+              },
+              "meaning": {
+                "title": "Meaning",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "required": [
+              "artifact",
+              "direction",
+              "field",
+              "type",
+              "required",
+              "default",
+              "meaning"
+            ]
+          }
+        },
+        "implementation_bindings": {
+          "type": "array",
+          "x-section": {
+            "number": "9",
+            "title": "Implementation Bindings"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "ct_code": {
+                "title": "CT Code",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "callable": {
+                "title": "Callable",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "operation": {
+                "title": "Operation",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "kind": {
+                "title": "Kind",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "purity": {
+                "title": "Purity",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "refusal": {
+                "title": "Refusal",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "ct_code",
+              "callable",
+              "operation",
+              "kind",
+              "purity",
+              "refusal",
+              "source_finding"
+            ]
+          }
+        },
+        "vocabulary_extensions": {
+          "type": "array",
+          "x-section": {
+            "number": "10",
+            "title": "Vocabulary Extensions"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "vocabulary_code": {
+                "title": "Vocabulary Code",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "extends": {
+                "title": "Extends",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "group": {
+                "title": "Group",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "casing": {
+                "title": "Casing",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "value": {
+                "title": "Value",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "meaning": {
+                "title": "Meaning",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "vocabulary_code",
+              "extends",
+              "group",
+              "casing",
+              "value",
+              "meaning",
+              "source_finding"
+            ]
+          }
+        },
+        "runtime_policies": {
+          "type": "array",
+          "x-section": {
+            "number": "11",
+            "title": "Runtime Policies"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "rb_code": {
+                "title": "RB Code",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "capability": {
+                "title": "Capability",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "key": {
+                "title": "Key",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "value": {
+                "title": "Value",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "rb_code",
+              "capability",
+              "key",
+              "value",
+              "source_finding"
+            ]
+          }
+        },
+        "artifact_properties": {
+          "type": "array",
+          "x-section": {
+            "number": "12",
+            "title": "Artifact Properties"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "artifact": {
+                "title": "Artifact",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "property": {
+                "title": "Property",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "value": {
+                "title": "Value"
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "artifact",
+              "property",
+              "value",
+              "source_finding"
+            ]
+          }
+        },
+        "structure_stores": {
+          "type": "array",
+          "x-section": {
+            "number": "13",
+            "title": "STRUCTURE Stores"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "store_name": {
+                "title": "Store Name",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "storage_type": {
+                "title": "Storage Type",
+                "x-vocab": {
+                  "artifact": "transformation::VOCAB_DESIGN_REGISTER_TERMS_V0",
+                  "group": "storage_type"
+                },
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "proposed_path": {
+                "title": "Proposed Path",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "used_by": {
+                "title": "Used By",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "structure": {
+                "title": "Structure",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "store_name",
+              "storage_type",
+              "proposed_path",
+              "used_by",
+              "source_finding"
+            ]
+          }
+        },
+        "transport_bindings": {
+          "type": "array",
+          "x-section": {
+            "number": "14",
+            "title": "Transport Bindings"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "artifact": {
+                "title": "Artifact",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "direction": {
+                "title": "Direction",
+                "x-vocab": {
+                  "artifact": "transformation::VOCAB_DESIGN_REGISTER_TERMS_V0",
+                  "group": "transport_direction"
+                },
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "operation": {
+                "title": "Operation",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "handler_kind": {
+                "title": "Handler Kind",
+                "x-vocab": {
+                  "artifact": "transformation::VOCAB_DESIGN_REGISTER_TERMS_V0",
+                  "group": "handler_kind"
+                },
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "handler_target": {
+                "title": "Handler Target",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "field": {
+                "title": "Field",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "bound_to": {
+                "title": "Bound To",
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "object",
+                    "required": [
+                      "literal"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                      "literal": {}
+                    }
+                  },
+                  {
+                    "type": "object",
+                    "required": [
+                      "generated"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                      "generated": {
+                        "const": true
+                      }
+                    }
+                  }
+                ]
+              },
+              "required": {
+                "title": "Required",
+                "type": [
+                  "boolean",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "artifact",
+              "direction",
+              "operation",
+              "handler_kind",
+              "handler_target",
+              "field",
+              "bound_to",
+              "source_finding"
+            ]
+          }
+        },
+        "artifact_summary": {
+          "type": "array",
+          "x-section": {
+            "number": "15",
+            "title": "Artifact Summary"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "action": {
+                "title": "Action",
+                "x-vocab": {
+                  "artifact": "transformation::VOCAB_DESIGN_REGISTER_TERMS_V0",
+                  "group": "gap_resolution"
+                },
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "subdomain": {
+                "title": "Subdomain",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "count": {
+                "title": "Count",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "artifacts": {
+                "title": "Artifacts",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "required": [
+              "action",
+              "subdomain",
+              "count",
+              "artifacts"
+            ]
+          },
+          "minItems": 1
+        },
+        "generation_provenance": {
+          "type": "array",
+          "x-section": {
+            "number": "16",
+            "title": "Generation Provenance"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "artifact": {
+                "title": "Artifact",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "generator": {
+                "title": "Generator",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "generator_sources": {
+                "title": "Generator Sources",
+                "type": [
+                  "array",
+                  "null"
+                ],
+                "items": {
+                  "type": "string"
+                }
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "artifact",
+              "generator",
+              "generator_sources",
+              "source_finding"
+            ]
+          }
+        },
+        "declared_reach": {
+          "type": "array",
+          "x-section": {
+            "number": "17",
+            "title": "Declared Reach"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "act": {
+                "title": "Act",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "consults": {
+                "title": "Consults",
+                "type": [
+                  "array",
+                  "null"
+                ],
+                "items": {
+                  "type": "string"
+                }
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "act",
+              "consults",
+              "source_finding"
+            ]
+          }
+        },
+        "refusal_discharge": {
+          "type": "array",
+          "x-section": {
+            "number": "18",
+            "title": "Refusal Discharge"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "title": "Operation",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "refused_when": {
+                "title": "Refused When",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "act": {
+                "title": "Act",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "step": {
+                "title": "Step",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "outcome": {
+                "title": "Outcome",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "operation",
+              "refused_when",
+              "act",
+              "step",
+              "outcome",
+              "source_finding"
+            ]
+          }
+        },
+        "refusal_deferrals": {
+          "type": "array",
+          "x-section": {
+            "number": "19",
+            "title": "Refusal Deferrals"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "title": "Operation",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "refused_when": {
+                "title": "Refused When",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "deferred_to": {
+                "title": "Deferred To",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "until": {
+                "title": "Until",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "operation",
+              "refused_when",
+              "deferred_to",
+              "until",
+              "source_finding"
+            ]
+          }
+        },
+        "refusal_governance_discharge": {
+          "type": "array",
+          "x-section": {
+            "number": "20",
+            "title": "Refusal — Governance-Surface Discharge"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "title": "Operation",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "refused_when": {
+                "title": "Refused When",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "phase": {
+                "title": "Phase",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "governing_rule": {
+                "title": "Governing Rule",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "operation",
+              "refused_when",
+              "phase",
+              "governing_rule",
+              "source_finding"
+            ]
+          }
+        },
+        "molecule_steps": {
+          "type": "array",
+          "x-section": {
+            "number": "21",
+            "title": "Molecule Steps"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "ct_code": {
+                "title": "CT Code",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "step": {
+                "title": "Step",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "kind": {
+                "title": "Kind",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "target": {
+                "title": "Target",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "over": {
+                "title": "Over",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "iterator": {
+                "title": "Iterator",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "emits": {
+                "title": "Emits",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "ct_code",
+              "step",
+              "kind",
+              "target",
+              "over",
+              "iterator",
+              "emits",
+              "source_finding"
+            ]
+          }
+        },
+        "molecule_step_bindings": {
+          "type": "array",
+          "x-section": {
+            "number": "22",
+            "title": "Molecule Step Bindings"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "ct_code": {
+                "title": "CT Code",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "step": {
+                "title": "Step",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "role": {
+                "title": "Role",
+                "x-vocab": {
+                  "artifact": "transformation::VOCAB_DESIGN_REGISTER_TERMS_V0",
+                  "group": "molecule_binding_role"
+                },
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "field": {
+                "title": "Field",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "bound_to": {
+                "title": "Bound To",
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "object",
+                    "required": [
+                      "literal"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                      "literal": {}
+                    }
+                  },
+                  {
+                    "type": "object",
+                    "required": [
+                      "generated"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                      "generated": {
+                        "const": true
+                      }
+                    }
+                  }
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "ct_code",
+              "step",
+              "role",
+              "field",
+              "bound_to",
+              "source_finding"
+            ]
+          }
+        },
+        "test_cases": {
+          "type": "array",
+          "x-section": {
+            "number": "23",
+            "title": "Test Cases"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "ct_code": {
+                "title": "CT Code",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "case": {
+                "title": "Case",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "expected_outcome": {
+                "title": "Expected Outcome",
+                "x-vocab": {
+                  "artifact": "transformation::VOCAB_DESIGN_REGISTER_TERMS_V0",
+                  "group": "expected_outcome"
+                },
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "ct_code",
+              "case",
+              "expected_outcome",
+              "source_finding"
+            ]
+          }
+        },
+        "test_case_values": {
+          "type": "array",
+          "x-section": {
+            "number": "24",
+            "title": "Test Case Values"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "ct_code": {
+                "title": "CT Code",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "case": {
+                "title": "Case",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "role": {
+                "title": "Role",
+                "x-vocab": {
+                  "artifact": "transformation::VOCAB_DESIGN_REGISTER_TERMS_V0",
+                  "group": "test_value_role"
+                },
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "field": {
+                "title": "Field",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "value": {
+                "title": "Value"
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "ct_code",
+              "case",
+              "role",
+              "field",
+              "value",
+              "source_finding"
+            ]
+          }
+        },
+        "withdrawn_facts": {
+          "type": "array",
+          "x-section": {
+            "number": "25",
+            "title": "Withdrawn Facts"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "artifact": {
+                "title": "Artifact",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "fact": {
+                "title": "Fact",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "reason": {
+                "title": "Reason",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "artifact",
+              "fact",
+              "reason",
+              "source_finding"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "x-register": "new_artifacts",
+      "x-finding": {
+        "code": "NEW_CODE_ALREADY_EXISTS",
+        "intent": "an identity assigned as new must not already name something else"
+      },
+      "x-realises": "lifecycle::INVARIANT_NEW_IDENTITY_UNUSED_V0",
+      "x-grounding": {
+        "mode": "absent",
+        "params": {
+          "column": "Code",
+          "pattern": "[a-z][a-z0-9_.]*::[A-Z][A-Z0-9_]*_V\\d+",
+          "observation": "si.artifact.list"
+        }
+      }
+    },
+    {
+      "x-register": "new_artifacts",
+      "x-finding": {
+        "code": "NEW_CODE_MALFORMED",
+        "intent": "a binding identity is domain-qualified, family-prefixed and versioned",
+        "detail": "binding code {value!r} must be domain::FAMILY_NAME_V<n>"
+      },
+      "items": {
+        "properties": {
+          "code": {
+            "pattern": "^[a-z][a-z0-9_.]*::(?:STRUCTURE|TEST_DATA|VOCAB|AC|IN|WF|CC|CT|CS|RB|EV|TI|TE)_[A-Z0-9_]+_V\\d+$"
+          }
+        }
+      }
+    },
+    {
+      "x-register": "existing_inventory",
+      "x-finding": {
+        "code": "EXISTING_INVENTORY_UNRESOLVED",
+        "intent": "an artifact carried over from the composition must really be in it"
+      },
+      "x-realises": "lifecycle::INVARIANT_EXISTING_ARTIFACT_OBSERVED_V0",
+      "x-grounding": {
+        "mode": "exists",
+        "params": {
+          "column": "FQDN",
+          "pattern": "[a-z][a-z0-9_.]*::[A-Z][A-Z0-9_]*_V\\d+",
+          "observation": "si.artifact.list"
+        }
+      }
+    },
+    {
+      "x-register": "existing_inventory",
+      "x-finding": {
+        "code": "AMENDED_ARTIFACT_NOT_AUTHORABLE",
+        "intent": "a design amends only what it could have authored",
+        "detail": "amends {value!r}, whose family this design cannot author — an amended artifact is rendered whole, so this schedules a document to be rewritten from registers that never held its content. The governance surface is authored, not constructed: cite it with REUSE or REVIEW, and deliver the change by authoring it"
+      },
+      "items": {
+        "if": {
+          "properties": {
+            "action": {
+              "const": "EXTEND"
+            }
+          },
+          "required": [
+            "action"
+          ]
+        },
+        "then": {
+          "properties": {
+            "fqdn": {
+              "pattern": "^[a-z][a-z0-9_.]*::(?:STRUCTURE|VOCAB|AC|IN|WF|CC|CT|RB|EV|TI|TE)_[A-Z0-9_]+_V\\d+$"
+            }
+          }
+        }
+      }
+    },
+    {
+      "x-register": "existing_inventory",
+      "x-finding": {
+        "code": "REPLACED_ARTIFACT_NOT_AUTHORABLE",
+        "intent": "a design replaces only what it could have authored",
+        "detail": "replaces {value!r}, whose family this design cannot author — a replacement is a rendering like any other. The governance surface is authored, not constructed"
+      },
+      "items": {
+        "if": {
+          "properties": {
+            "action": {
+              "const": "REPLACE"
+            }
+          },
+          "required": [
+            "action"
+          ]
+        },
+        "then": {
+          "properties": {
+            "fqdn": {
+              "pattern": "^[a-z][a-z0-9_.]*::(?:STRUCTURE|VOCAB|AC|IN|WF|CC|CT|RB|EV|TI|TE)_[A-Z0-9_]+_V\\d+$"
+            }
+          }
+        }
+      }
+    },
+    {
+      "x-register": "execution_topology",
+      "x-finding": {
+        "code": "TOPOLOGY_WORKFLOW_UNDECLARED",
+        "intent": "a workflow in the topology is one this design declared or carried over"
+      },
+      "x-realises": "lifecycle::INVARIANT_DESIGN_NAMES_RESOLVE_V0",
+      "x-reference": {
+        "mode": "resolves",
+        "params": {
+          "column": "Workflow",
+          "target_registers": [
+            "new_artifacts",
+            "existing_inventory"
+          ],
+          "target_column": "Code",
+          "target_columns": [
+            "Code",
+            "FQDN"
+          ]
+        }
+      }
+    },
+    {
+      "x-register": "execution_topology",
+      "x-finding": {
+        "code": "TOPOLOGY_NODE_UNDECLARED",
+        "intent": "every node in the topology runs an identity this design actually assigned",
+        "detail": "a binding identity is immutable, so a spelling variant is a second artifact rather than a synonym"
+      },
+      "x-realises": "lifecycle::INVARIANT_DESIGN_NAMES_RESOLVE_V0",
+      "x-reference": {
+        "mode": "resolves",
+        "params": {
+          "column": "Node",
+          "prefer_column": "Runs",
+          "target_registers": [
+            "new_artifacts",
+            "existing_inventory"
+          ],
+          "target_column": "Code",
+          "target_columns": [
+            "Code",
+            "FQDN"
+          ],
+          "exempt_prefixes": [
+            "EXIT"
+          ],
+          "detail": "a binding identity is immutable, so a spelling variant is a second artifact rather than a synonym"
+        }
+      }
+    },
+    {
+      "x-register": "execution_topology",
+      "x-finding": {
+        "code": "TOPOLOGY_NODE_REPEATED",
+        "intent": "a node names one place in its workflow"
+      },
+      "x-realises": "lifecycle::INVARIANT_DESIGN_NAMES_RESOLVE_V0",
+      "x-key": {
+        "mode": "unique",
+        "params": {
+          "columns": [
+            "Workflow",
+            "Node"
+          ],
+          "detail": "{0} names {1} again (first at row {first}) — a node that runs a contract twice needs a key for each place, and `Runs` naming the contract"
+        }
+      }
+    },
+    {
+      "x-register": "execution_topology",
+      "x-finding": {
+        "code": "TOPOLOGY_ROUTE_UNRESOLVED",
+        "intent": "control reaches only a node the workflow declares or already has, or an ending"
+      },
+      "x-realises": "DESIGN_LANGUAGE.md#topology_route_resolves",
+      "x-procedure": {
+        "name": "TOPOLOGY_ROUTE_RESOLVES",
+        "params": {
+          "exempt_prefixes": [
+            "EXIT"
+          ],
+          "observation": "si.behavior_logic.list"
+        }
+      }
+    },
+    {
+      "x-register": "rb_declarations",
+      "x-finding": {
+        "code": "RB_BINDS_UNDECLARED_WORKFLOW",
+        "intent": "a runtime binding binds a workflow that exists in this design"
+      },
+      "x-realises": "lifecycle::INVARIANT_DESIGN_NAMES_RESOLVE_V0",
+      "x-reference": {
+        "mode": "resolves",
+        "params": {
+          "column": "Binds WF",
+          "target_registers": [
+            "new_artifacts",
+            "existing_inventory"
+          ],
+          "target_column": "Code",
+          "target_columns": [
+            "Code",
+            "FQDN"
+          ]
+        }
+      }
+    },
+    {
+      "x-register": "rb_declarations",
+      "x-finding": {
+        "code": "RB_CODE_UNDECLARED",
+        "intent": "a runtime binding is itself a declared artifact, never implicit"
+      },
+      "x-realises": "lifecycle::INVARIANT_DESIGN_NAMES_RESOLVE_V0",
+      "x-reference": {
+        "mode": "resolves",
+        "params": {
+          "column": "RB Code",
+          "target_registers": [
+            "new_artifacts",
+            "existing_inventory"
+          ],
+          "target_column": "Code",
+          "target_columns": [
+            "Code",
+            "FQDN"
+          ]
+        }
+      }
+    },
+    {
+      "x-register": "cc_composition",
+      "x-finding": {
+        "code": "COMPOSITION_CC_UNDECLARED",
+        "intent": "a composition belongs to a capability contract this design declared"
+      },
+      "x-realises": "lifecycle::INVARIANT_DESIGN_NAMES_RESOLVE_V0",
+      "x-reference": {
+        "mode": "resolves",
+        "params": {
+          "column": "CC Code",
+          "target_registers": [
+            "new_artifacts",
+            "existing_inventory"
+          ],
+          "target_column": "Code",
+          "target_columns": [
+            "Code",
+            "FQDN"
+          ]
+        }
+      }
+    },
+    {
+      "x-register": "cc_composition",
+      "x-finding": {
+        "code": "COMPOSITION_STEP_UNDECLARED",
+        "intent": "a step invokes a capability that is declared new or carried over, never invented inline"
+      },
+      "x-realises": "lifecycle::INVARIANT_DESIGN_NAMES_RESOLVE_V0",
+      "x-reference": {
+        "mode": "resolves",
+        "params": {
+          "column": "Capability",
+          "target_registers": [
+            "new_artifacts",
+            "existing_inventory"
+          ],
+          "target_column": "Code",
+          "target_columns": [
+            "Code",
+            "FQDN"
+          ]
+        }
+      }
+    },
+    {
+      "x-register": "cc_composition",
+      "x-finding": {
+        "code": "OBSERVATION_WITHOUT_INTERPRETATION",
+        "intent": "an outcome the operation cannot answer names the transform that produces it",
+        "detail": "branches on {outcomes}, which {operation} does not answer — it answers {answers}. An outcome the store cannot produce comes from an interpretation, and this step names none, so the branch is a decision nothing makes"
+      },
+      "x-realises": "DESIGN_LANGUAGE.md#outcome_grounded_in_operation",
+      "x-procedure": {
+        "name": "OUTCOME_GROUNDED_IN_OPERATION",
+        "params": {
+          "column": "Interpreted By",
+          "kind_column": "Kind",
+          "kind_value": "CS",
+          "routing_column": "Routing",
+          "status_column": "Semantic Status",
+          "observation": "si.capability.surface",
+          "detail": "branches on {outcomes}, which {operation} does not answer — it answers {answers}. An outcome the store cannot produce comes from an interpretation, and this step names none, so the branch is a decision nothing makes"
+        }
+      }
+    },
+    {
+      "x-register": "cc_composition",
+      "x-finding": {
+        "code": "OBSERVATION_WITHOUT_SEMANTIC_STATUS",
+        "intent": "an interpretation names the outcome it yields, closing the route",
+        "detail": "routes on {outcomes} and declares no semantic status — {operation} answers {answers}, so the outcome routed on is an interpretation's, and the workflow branch it feeds has nothing declared to route on"
+      },
+      "x-realises": "DESIGN_LANGUAGE.md#outcome_grounded_in_operation",
+      "x-procedure": {
+        "name": "OUTCOME_GROUNDED_IN_OPERATION",
+        "params": {
+          "column": "Semantic Status",
+          "kind_column": "Kind",
+          "kind_value": "CS",
+          "routing_column": "Routing",
+          "status_column": "Semantic Status",
+          "observation": "si.capability.surface",
+          "detail": "routes on {outcomes} and declares no semantic status — {operation} answers {answers}, so the outcome routed on is an interpretation's, and the workflow branch it feeds has nothing declared to route on"
+        }
+      }
+    },
+    {
+      "x-register": "cc_composition",
+      "x-finding": {
+        "code": "STORE_UNGROUNDED_IN_CAPABILITY",
+        "intent": "a step addresses a store exactly when its capability keeps one"
+      },
+      "x-realises": "DESIGN_LANGUAGE.md#store_grounded_in_capability",
+      "x-procedure": {
+        "name": "STORE_GROUNDED_IN_CAPABILITY",
+        "params": {
+          "column": "Store",
+          "capability_column": "Capability",
+          "store_keeping": {
+            "x-vocab": {
+              "artifact": "transformation::VOCAB_DESIGN_REGISTER_TERMS_V0",
+              "group": "storage_type"
+            }
+          },
+          "observation": "si.capability.surface",
+          "detail_missing": "names no store on {capability}, which keeps records — a storage step that addresses nothing is a read or a write with no subject",
+          "detail_spurious": "names a store on {capability}, which keeps none — the step addresses records that capability has no way to hold"
+        }
+      }
+    },
+    {
+      "x-register": "cc_composition",
+      "x-finding": {
+        "code": "STEP_CONSUMES_NOTHING_FROM_OPERATION_WITH_INPUT",
+        "intent": "a step consuming nothing invokes an operation that takes nothing",
+        "detail": "consumes nothing and invokes {operation}, which accepts {accepts} — the operation receives no value for what it takes, and the step reports success on having addressed nothing"
+      },
+      "x-realises": "DESIGN_LANGUAGE.md#consumption_grounded_in_operation",
+      "x-procedure": {
+        "name": "CONSUMPTION_GROUNDED_IN_OPERATION",
+        "params": {
+          "column": "Consumes",
+          "capability_column": "Capability",
+          "kind_column": "Kind",
+          "kind_value": "CS",
+          "observation": "si.capability.surface",
+          "detail": "consumes nothing and invokes {operation}, which accepts {accepts} — the operation receives no value for what it takes, and the step reports success on having addressed nothing"
+        }
+      }
+    },
+    {
+      "x-register": "declared_reach",
+      "x-finding": {
+        "code": "DECLARED_REACH_UNUSED",
+        "intent": "every reach an act declares is used by a read that act performs",
+        "detail": "declares a reach to {binding} and reads nothing it covers — that binding answers for {stores}, and no step this act runs addresses any of them. A permission granted for nothing is one whose purpose nobody reviewed"
+      },
+      "x-realises": "lifecycle::INVARIANT_REACH_DECLARED_AND_USED_V0",
+      "x-procedure": {
+        "name": "REACH_IS_USED",
+        "params": {
+          "register": "declared_reach",
+          "topology_register": "execution_topology",
+          "composition_register": "cc_composition",
+          "observation": "si.store.list",
+          "contract_observation": "si.capability.surface#contracts",
+          "detail": "declares a reach to {binding} and reads nothing it covers — that binding answers for {stores}, and no step this act runs addresses any of them. A permission granted for nothing is one whose purpose nobody reviewed"
+        }
+      }
+    },
+    {
+      "x-register": "execution_topology",
+      "x-finding": {
+        "code": "UNDECLARED_REACH_READ",
+        "intent": "an act reads nothing it did not declare a reach to",
+        "detail": "reads {store}, which {binding} does not cover and no declared reach names — the act reaches records another part of the business owns and its design does not say so, which is invisible until the act runs"
+      },
+      "x-realises": "lifecycle::INVARIANT_REACH_DECLARED_AND_USED_V0",
+      "x-procedure": {
+        "name": "READ_IS_DECLARED",
+        "params": {
+          "register": "declared_reach",
+          "rb_register": "rb_declarations",
+          "topology_register": "execution_topology",
+          "composition_register": "cc_composition",
+          "observation": "si.store.list",
+          "contract_observation": "si.capability.surface#contracts",
+          "detail": "reads {store}, which {binding} does not cover and no declared reach names — the act reaches records another part of the business owns and its design does not say so, which is invisible until the act runs"
+        }
+      }
+    },
+    {
+      "x-register": "execution_topology",
+      "x-finding": {
+        "code": "CROSS_SUBDOMAIN_WRITE",
+        "intent": "an act reaching into another subdomain reads what it holds and never changes it"
+      },
+      "x-realises": "DESIGN_LANGUAGE.md#cross_subdomain_reach_read_only",
+      "x-procedure": {
+        "name": "CROSS_SUBDOMAIN_REACH_READ_ONLY",
+        "params": {
+          "topology_register": "execution_topology",
+          "new_register": "new_artifacts",
+          "artifact_observation": "si.artifact.list",
+          "capability_observation": "si.capability.surface",
+          "contract_observation": "si.capability.surface#contracts"
+        }
+      }
+    },
+    {
+      "x-register": "cc_composition",
+      "x-finding": {
+        "code": "INTERPRETATION_TRANSFORM_UNDECLARED",
+        "intent": "the transform that turns an observation into a decision is itself governed",
+        "detail": "an interpreting transform is an artifact like any other, declared or carried over"
+      },
+      "x-realises": "lifecycle::INVARIANT_DESIGN_NAMES_RESOLVE_V0",
+      "x-reference": {
+        "mode": "resolves",
+        "params": {
+          "column": "Interpreted By",
+          "target_registers": [
+            "new_artifacts",
+            "existing_inventory"
+          ],
+          "target_column": "Code",
+          "target_columns": [
+            "Code",
+            "FQDN"
+          ],
+          "detail": "an interpreting transform is an artifact like any other, declared or carried over"
+        }
+      }
+    },
+    {
+      "x-register": "vocabulary_extensions",
+      "x-finding": {
+        "code": "VOCABULARY_WITHOUT_EXTENDS",
+        "intent": "a vocabulary states what it extends, or states that it extends nothing",
+        "detail": "vocabulary says nothing about what it extends — a base vocabulary declares that with the none marker, because an empty cell and an omission render the same thing"
+      },
+      "items": {
+        "properties": {
+          "extends": {
+            "minLength": 1
+          }
+        }
+      }
+    },
+    {
+      "x-register": "structure_stores",
+      "x-finding": {
+        "code": "STORE_WITHOUT_PROPOSED_PATH",
+        "intent": "a declared store says where it will live",
+        "detail": "store declares no proposed path — a store nobody can locate is not designed"
+      },
+      "items": {
+        "properties": {
+          "proposed_path": {
+            "minLength": 1
+          }
+        }
+      }
+    },
+    {
+      "x-register": "existing_inventory",
+      "x-finding": {
+        "code": "SATISFIED_DEPENDENCY_NOT_INVENTORIED",
+        "intent": "a dependency declared satisfied by an existing artifact must be inventoried as reuse"
+      },
+      "x-realises": "lifecycle::INVARIANT_UPSTREAM_COMMITMENT_CARRIED_V0",
+      "x-carriage": {
+        "mode": "identities_covered",
+        "params": {
+          "prior_phase": "p6",
+          "prior_register": "cross_subdomain_deps",
+          "prior_column": "Existing Artifact",
+          "column": "FQDN",
+          "require": "prior_in_here"
+        }
+      }
+    },
+    {
+      "x-register": "new_artifacts",
+      "x-finding": {
+        "code": "PROVISIONAL_CODE_NEVER_BOUND",
+        "intent": "a capability the business asked for and the design never bound is declined, not deferred"
+      },
+      "x-realises": "lifecycle::INVARIANT_UPSTREAM_COMMITMENT_CARRIED_V0",
+      "x-carriage": {
+        "mode": "identities_covered",
+        "params": {
+          "prior_phase": "p5",
+          "prior_register": "provisional_codes",
+          "prior_column": "Provisional Code",
+          "column": "Code",
+          "require": "prior_in_here",
+          "match_on": "bare_code",
+          "union": [
+            {
+              "register": "existing_inventory",
+              "column": "FQDN",
+              "only_when_column": "Action",
+              "only_when_value": "EXTEND"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "x-register": "new_artifacts",
+      "x-finding": {
+        "code": "AUTHORED_ARTIFACT_WITHOUT_INTENT",
+        "intent": "an artifact the design authors is one the business asked for, never one it invented"
+      },
+      "x-realises": "lifecycle::INVARIANT_CONTENT_ENTERS_AT_OWNING_PHASE_V0",
+      "x-carriage": {
+        "mode": "identities_covered",
+        "params": {
+          "prior_phase": "p5",
+          "prior_register": "provisional_codes",
+          "prior_column": "Provisional Code",
+          "column": "Code",
+          "require": "here_in_prior",
+          "match_on": "bare_code"
+        }
+      }
+    },
+    {
+      "x-register": "execution_topology",
+      "x-finding": {
+        "code": "WORKFLOW_WITHOUT_TOPOLOGY",
+        "intent": "a workflow with no declared graph is a workflow construction would have to invent"
+      },
+      "x-realises": "lifecycle::INVARIANT_DECLARED_ARTIFACT_FULLY_STATED_V0",
+      "x-reference": {
+        "mode": "covers",
+        "params": {
+          "source_register": "new_artifacts",
+          "source_column": "Code",
+          "column": "Workflow",
+          "only_when_column": "Family",
+          "only_when_value": "WF"
+        }
+      }
+    },
+    {
+      "x-register": "rb_declarations",
+      "x-finding": {
+        "code": "WORKFLOW_WITHOUT_RUNTIME_BINDING",
+        "intent": "a workflow with no runtime binding cannot resolve the capabilities it composes"
+      },
+      "x-realises": "lifecycle::INVARIANT_DECLARED_ARTIFACT_FULLY_STATED_V0",
+      "x-reference": {
+        "mode": "covers",
+        "params": {
+          "source_register": "new_artifacts",
+          "source_column": "Code",
+          "column": "Binds WF",
+          "only_when_column": "Family",
+          "only_when_value": "WF"
+        }
+      }
+    },
+    {
+      "x-register": "cc_composition",
+      "x-finding": {
+        "code": "CONTRACT_WITHOUT_COMPOSITION",
+        "intent": "a capability contract with no declared pipeline specifies nothing to build"
+      },
+      "x-realises": "lifecycle::INVARIANT_DECLARED_ARTIFACT_FULLY_STATED_V0",
+      "x-reference": {
+        "mode": "covers",
+        "params": {
+          "source_register": "new_artifacts",
+          "source_column": "Code",
+          "column": "CC Code",
+          "only_when_column": "Family",
+          "only_when_value": "CC"
+        }
+      }
+    },
+    {
+      "x-register": "implementation_bindings",
+      "x-finding": {
+        "code": "TRANSFORM_WITHOUT_IMPLEMENTATION",
+        "intent": "a transform is the one family that points outside the composition; the path is designed, not discovered"
+      },
+      "x-realises": "lifecycle::INVARIANT_DECLARED_ARTIFACT_FULLY_STATED_V0",
+      "x-reference": {
+        "mode": "covers",
+        "params": {
+          "source_register": "new_artifacts",
+          "source_column": "Code",
+          "column": "CT Code",
+          "only_when_column": "Family",
+          "only_when_value": "CT"
+        }
+      }
+    },
+    {
+      "x-register": "artifact_properties",
+      "x-finding": {
+        "code": "REPLACED_ARTIFACT_WITHOUT_SUCCESSOR",
+        "intent": "an artifact this design replaces is named by whatever supersedes it"
+      },
+      "x-realises": "lifecycle::INVARIANT_DECLARED_ARTIFACT_FULLY_STATED_V0",
+      "x-reference": {
+        "mode": "covers",
+        "params": {
+          "source_register": "existing_inventory",
+          "source_column": "FQDN",
+          "column": "Value",
+          "only_when_column": "Action",
+          "only_when_value": "REPLACE",
+          "covered_only_when_column": "Property",
+          "covered_only_when_value": "supersedes"
+        }
+      }
+    },
+    {
+      "x-register": "vocabulary_extensions",
+      "x-finding": {
+        "code": "VOCABULARY_WITHOUT_GROUP",
+        "intent": "a vocabulary states the group its values belong to",
+        "detail": "vocabulary names no group for its values — the renderer would supply one, and it supplies the same one to every vocabulary whatever the values mean"
+      },
+      "items": {
+        "properties": {
+          "group": {
+            "minLength": 1
+          }
+        }
+      }
+    },
+    {
+      "x-register": "vocabulary_extensions",
+      "x-finding": {
+        "code": "VOCABULARY_WITHOUT_CASING",
+        "intent": "a vocabulary states the spelling its values take",
+        "detail": "vocabulary names no spelling for its values — the renderer would supply one, and a spelling its values do not have is refused by the platform that reads them"
+      },
+      "items": {
+        "properties": {
+          "casing": {
+            "minLength": 1
+          }
+        }
+      }
+    },
+    {
+      "x-register": "vocabulary_extensions",
+      "x-finding": {
+        "code": "VOCABULARY_WITHOUT_VALUES",
+        "intent": "a vocabulary that declares no value admits nothing"
+      },
+      "x-realises": "lifecycle::INVARIANT_DECLARED_ARTIFACT_FULLY_STATED_V0",
+      "x-reference": {
+        "mode": "covers",
+        "params": {
+          "source_register": "new_artifacts",
+          "source_column": "Code",
+          "column": "Vocabulary Code",
+          "only_when_column": "Family",
+          "only_when_value": "VOCAB"
+        }
+      }
+    },
+    {
+      "x-register": "step_bindings",
+      "x-finding": {
+        "code": "BINDING_STEP_OWNER_UNDECLARED",
+        "intent": "a binding belongs to a workflow or contract this design declared"
+      },
+      "x-realises": "lifecycle::INVARIANT_DESIGN_NAMES_RESOLVE_V0",
+      "x-reference": {
+        "mode": "resolves",
+        "params": {
+          "column": "Owner",
+          "target_registers": [
+            "new_artifacts",
+            "existing_inventory"
+          ],
+          "target_column": "Code",
+          "target_columns": [
+            "Code",
+            "FQDN"
+          ]
+        }
+      }
+    },
+    {
+      "x-register": "interface_fields",
+      "x-finding": {
+        "code": "INTERFACE_ARTIFACT_UNDECLARED",
+        "intent": "a field belongs to an artifact this design declared"
+      },
+      "x-realises": "lifecycle::INVARIANT_DESIGN_NAMES_RESOLVE_V0",
+      "x-reference": {
+        "mode": "resolves",
+        "params": {
+          "column": "Artifact",
+          "target_registers": [
+            "new_artifacts",
+            "existing_inventory"
+          ],
+          "target_column": "Code",
+          "target_columns": [
+            "Code",
+            "FQDN"
+          ]
+        }
+      }
+    },
+    {
+      "x-register": "step_bindings",
+      "x-finding": {
+        "code": "BINDING_READS_UNPUBLISHED_FIELD",
+        "intent": "a binding reads a field the operation yields, never one it was hoped would exist"
+      },
+      "x-realises": "DESIGN_LANGUAGE.md#binding_source_published",
+      "x-procedure": {
+        "name": "BINDING_SOURCE_PUBLISHED",
+        "params": {
+          "step_register": "cc_composition",
+          "observation": "si.capability.surface"
+        }
+      }
+    },
+    {
+      "x-register": "cc_composition",
+      "x-finding": {
+        "code": "STEP_NAMES_UNPUBLISHED_OPERATION",
+        "intent": "a step invokes an operation the capability offers, never one it was assumed to have"
+      },
+      "x-realises": "DESIGN_LANGUAGE.md#step_operation_published",
+      "x-procedure": {
+        "name": "STEP_OPERATION_PUBLISHED",
+        "params": {
+          "observation": "si.capability.surface"
+        }
+      }
+    },
+    {
+      "x-register": "cc_composition",
+      "x-finding": {
+        "code": "STEP_CONSUMES_UNDECLARED_INPUT",
+        "intent": "a step hands an operation fields it accepts, never ones it was hoped would exist"
+      },
+      "x-realises": "DESIGN_LANGUAGE.md#step_consumes_published",
+      "x-procedure": {
+        "name": "STEP_CONSUMES_PUBLISHED",
+        "params": {
+          "observation": "si.capability.surface"
+        }
+      }
+    },
+    {
+      "x-register": "implementation_bindings",
+      "x-finding": {
+        "code": "IMPLEMENTATION_WITHOUT_KIND",
+        "intent": "a transform says whether it is an atom or a molecule",
+        "detail": "transform declares no kind — whether it runs an implementation or a stream of steps decides every other rule this row is held to"
+      },
+      "items": {
+        "properties": {
+          "kind": {
+            "minLength": 1
+          }
+        }
+      },
+      "x-columns": {
+        "kind": "Kind"
+      }
+    },
+    {
+      "x-register": "implementation_bindings",
+      "x-finding": {
+        "code": "IMPLEMENTATION_KIND_UNKNOWN",
+        "intent": "kind is one of the two the runtime can run",
+        "detail": "kind is {value!r}; a transform is an atom, which runs an implementation, or a molecule, which runs its declared steps, and the schema admits nothing else"
+      },
+      "items": {
+        "properties": {
+          "kind": {
+            "pattern": "^(atom|molecule)$"
+          }
+        }
+      },
+      "x-columns": {
+        "kind": "Kind"
+      }
+    },
+    {
+      "x-register": "implementation_bindings",
+      "x-finding": {
+        "code": "IMPLEMENTATION_WITHOUT_REFUSAL",
+        "intent": "a transform says how it expresses a judgement about its subject",
+        "detail": "transform declares no refusal — whether a judgement is raised or returned is the one fact that says if a step routing on it can ever fail, and both look the same from outside"
+      },
+      "items": {
+        "properties": {
+          "refusal": {
+            "minLength": 1
+          }
+        }
+      },
+      "x-columns": {
+        "refusal": "Refusal"
+      }
+    },
+    {
+      "x-register": "implementation_bindings",
+      "x-finding": {
+        "code": "IMPLEMENTATION_REFUSAL_UNKNOWN",
+        "intent": "refusal is one of the three the composition can act on",
+        "detail": "refusal is {value!r}; a transform raises its judgement, returns it, or makes none, and the schema admits nothing else"
+      },
+      "items": {
+        "properties": {
+          "refusal": {
+            "pattern": "^(raises|returns|never)$"
+          }
+        }
+      },
+      "x-columns": {
+        "refusal": "Refusal"
+      }
+    },
+    {
+      "x-register": "cc_composition",
+      "x-finding": {
+        "code": "INTERPRETATION_TRANSFORM_CANNOT_REFUSE",
+        "intent": "an interpretation can fail, or the branch it feeds is unreachable"
+      },
+      "x-realises": "DESIGN_LANGUAGE.md#interpretation_transform_refuses",
+      "x-procedure": {
+        "name": "INTERPRETATION_TRANSFORM_REFUSES",
+        "params": {
+          "column": "Interpreted By",
+          "status_column": "Semantic Status",
+          "observation": "si.capability.surface#transforms",
+          "design_register": "implementation_bindings",
+          "design_code_column": "CT Code",
+          "design_refusal_column": "Refusal"
+        }
+      }
+    },
+    {
+      "x-register": "implementation_bindings",
+      "x-finding": {
+        "code": "IMPLEMENTATION_CALLABLE_UNCONVENTIONAL",
+        "intent": "a transform is entered the one way every transform is entered",
+        "detail": "callable is {value!r}; every transform in the composition is entered through `execute`, and a loader given another name finds nothing"
+      },
+      "items": {
+        "properties": {
+          "callable": {
+            "pattern": "^execute$"
+          }
+        }
+      }
+    },
+    {
+      "x-register": "step_bindings",
+      "x-finding": {
+        "code": "BINDING_WITHOUT_SOURCE",
+        "intent": "every declared input names where its value comes from",
+        "detail": "field is bound to nothing — construction would have to choose a source"
+      },
+      "items": {
+        "properties": {
+          "bound_to": {
+            "minLength": 1
+          }
+        }
+      }
+    },
+    {
+      "x-register": "structure_stores",
+      "x-finding": {
+        "code": "STORE_PATH_FORMAT_MISMATCH",
+        "intent": "a store is named for the format its capability actually writes",
+        "detail": "{value!r} names a store CS_MUTABLE_JSON_V0 keeps, and CS_MUTABLE_JSON_V0 writes .json — a store's name must not advertise a format its capability does not write"
+      },
+      "items": {
+        "if": {
+          "properties": {
+            "storage_type": {
+              "const": "CS_MUTABLE_JSON_V0"
+            }
+          },
+          "required": [
+            "storage_type"
+          ]
+        },
+        "then": {
+          "properties": {
+            "proposed_path": {
+              "pattern": "^.*\\.json$"
+            }
+          }
+        }
+      }
+    },
+    {
+      "x-register": "structure_stores",
+      "x-finding": {
+        "code": "STORE_PATH_FORMAT_MISMATCH",
+        "intent": "a store is named for the format its capability actually writes",
+        "detail": "{value!r} names a store CS_REGISTRY_V0 keeps, and CS_REGISTRY_V0 writes .jsonl — a store's name must not advertise a format its capability does not write"
+      },
+      "items": {
+        "if": {
+          "properties": {
+            "storage_type": {
+              "const": "CS_REGISTRY_V0"
+            }
+          },
+          "required": [
+            "storage_type"
+          ]
+        },
+        "then": {
+          "properties": {
+            "proposed_path": {
+              "pattern": "^.*\\.jsonl$"
+            }
+          }
+        }
+      }
+    },
+    {
+      "x-register": "structure_stores",
+      "x-finding": {
+        "code": "STORE_PATH_FORMAT_MISMATCH",
+        "intent": "a store is named for the format its capability actually writes",
+        "detail": "{value!r} names a store CS_APPENDONLY_JSONL_V0 keeps, and CS_APPENDONLY_JSONL_V0 writes .jsonl — a store's name must not advertise a format its capability does not write"
+      },
+      "items": {
+        "if": {
+          "properties": {
+            "storage_type": {
+              "const": "CS_APPENDONLY_JSONL_V0"
+            }
+          },
+          "required": [
+            "storage_type"
+          ]
+        },
+        "then": {
+          "properties": {
+            "proposed_path": {
+              "pattern": "^.*\\.jsonl$"
+            }
+          }
+        }
+      }
+    },
+    {
+      "x-register": "step_bindings",
+      "x-finding": {
+        "code": "BINDING_SOURCE_UNROOTED",
+        "intent": "a source that names a place is rooted in one execution scope actually offers",
+        "detail": "{value!r} is not rooted in a scope execution offers — a source names a field under one of payload, inputs, results, capability_result, or is result_status"
+      },
+      "items": {
+        "properties": {
+          "bound_to": {
+            "pattern": "^(?:(?:payload|inputs|results|capability_result)\\..+|result_status|(?!(?:payload|inputs|results|capability_result)$)[^.]*|.*::.*|-?[0-9]+(?:\\.[0-9]+)?)$"
+          }
+        }
+      }
+    },
+    {
+      "x-register": "step_bindings",
+      "x-finding": {
+        "code": "NODE_INPUT_UNBOUND",
+        "intent": "a workflow hands a contract everything that contract says it requires"
+      },
+      "x-realises": "DESIGN_LANGUAGE.md#node_input_bound",
+      "x-procedure": {
+        "name": "NODE_INPUT_BOUND",
+        "params": {
+          "topology_register": "execution_topology",
+          "fields_register": "interface_fields",
+          "composition_register": "cc_composition",
+          "observation": "si.capability.surface#contracts"
+        }
+      }
+    },
+    {
+      "x-register": "transport_bindings",
+      "x-finding": {
+        "code": "ENTRANCE_UNDERSUPPLIES_GATE",
+        "intent": "an entrance supplies everything the gate it reaches requires"
+      },
+      "x-realises": "DESIGN_LANGUAGE.md#entrance_supplies_gate",
+      "x-procedure": {
+        "name": "ENTRANCE_SUPPLIES_GATE",
+        "params": {
+          "topology_register": "execution_topology",
+          "fields_register": "interface_fields",
+          "observation": "si.capability.surface#intents"
+        }
+      }
+    },
+    {
+      "x-register": "step_bindings",
+      "x-finding": {
+        "code": "BINDING_SOURCE_UNREACHABLE",
+        "intent": "a source that names another node must name one this workflow reaches"
+      },
+      "x-realises": "DESIGN_LANGUAGE.md#binding_source_reachable",
+      "x-procedure": {
+        "name": "BINDING_SOURCE_REACHABLE",
+        "params": {
+          "topology_register": "execution_topology",
+          "pattern": "results\\.([A-Za-z][A-Za-z0-9_.:]*?)\\."
+        }
+      }
+    },
+    {
+      "x-register": "cc_composition",
+      "x-finding": {
+        "code": "STEP_INTERFACE_NOT_CONFORMANT",
+        "intent": "a transform handed an input it does not declare receives nothing under that name"
+      },
+      "x-realises": "DESIGN_LANGUAGE.md#step_interface_conforms",
+      "x-procedure": {
+        "name": "STEP_INTERFACE_CONFORMS",
+        "params": {
+          "observation": "si.capability.surface#transforms"
+        }
+      }
+    },
+    {
+      "x-register": "step_bindings",
+      "x-finding": {
+        "code": "STEP_BINDING_NOT_IN_INTERFACE",
+        "intent": "a binding outside the interface feeds a capability input that does not exist"
+      },
+      "x-realises": "lifecycle::INVARIANT_DESIGN_NAMES_RESOLVE_V0",
+      "x-procedure": {
+        "name": "STEP_BINDINGS_MATCH_INTERFACE",
+        "params": {
+          "composition_register": "cc_composition"
+        }
+      }
+    },
+    {
+      "x-register": "step_bindings",
+      "x-finding": {
+        "code": "STEP_INPUT_UNBOUND",
+        "intent": "a capability handed no value for an input it declares receives a null"
+      },
+      "x-realises": "DESIGN_LANGUAGE.md#step_inputs_bound",
+      "x-procedure": {
+        "name": "STEP_INPUTS_BOUND",
+        "params": {
+          "composition_register": "cc_composition",
+          "fields_register": "interface_fields"
+        }
+      }
+    },
+    {
+      "x-register": "step_bindings",
+      "x-finding": {
+        "code": "BINDING_SOURCE_MALFORMED",
+        "intent": "a reference the runtime cannot resolve is indistinguishable from one it can",
+        "detail": "output binds {value!r}, which is not a form the runtime resolves — an output is written to capability_result.<field> or result_status; an input reads inputs.<field>, payload.<field>, results.<step>.<field>, or is a literal"
+      },
+      "items": {
+        "if": {
+          "properties": {
+            "direction": {
+              "const": "OUTPUT"
+            }
+          },
+          "required": [
+            "direction"
+          ]
+        },
+        "then": {
+          "properties": {
+            "bound_to": {
+              "pattern": "^(?:capability_result\\.[A-Za-z_][A-Za-z0-9_]*|result_status)$"
+            }
+          }
+        }
+      }
+    },
+    {
+      "x-register": "step_bindings",
+      "x-finding": {
+        "code": "BINDING_SOURCE_MALFORMED",
+        "intent": "a reference the runtime cannot resolve is indistinguishable from one it can",
+        "detail": "input binds {value!r}, which is not a form the runtime resolves — an output is written to capability_result.<field> or result_status; an input reads inputs.<field>, payload.<field>, results.<step>.<field>, or is a literal"
+      },
+      "items": {
+        "if": {
+          "properties": {
+            "direction": {
+              "const": "INPUT"
+            }
+          },
+          "required": [
+            "direction"
+          ]
+        },
+        "then": {
+          "properties": {
+            "bound_to": {
+              "pattern": "^(?:inputs\\.[A-Za-z_][A-Za-z0-9_.]*|payload\\.[A-Za-z_][A-Za-z0-9_.]*|results\\.[A-Za-z_][A-Za-z0-9_]*\\.[A-Za-z_][A-Za-z0-9_.]*|[\\[{].*[\\]}]|\"[^\"]*\"|'[^']*'|-?[0-9]+(?:\\.[0-9]+)?|[A-Za-z_][A-Za-z0-9_]*::[A-Za-z_][A-Za-z0-9_]*|[A-Za-z_][A-Za-z0-9_-]*)$"
+            }
+          }
+        }
+      }
+    },
+    {
+      "x-register": "interface_fields",
+      "x-finding": {
+        "code": "CONTRACT_OUTPUT_UNPRODUCED",
+        "intent": "a declared output no step emits gives every caller a name that resolves to nothing"
+      },
+      "x-realises": "lifecycle::INVARIANT_DESIGN_NAMES_RESOLVE_V0",
+      "x-procedure": {
+        "name": "CONTRACT_OUTPUT_PRODUCED",
+        "params": {
+          "bindings_register": "step_bindings"
+        }
+      }
+    },
+    {
+      "x-register": "generation_provenance",
+      "x-finding": {
+        "code": "GENERATED_ARTIFACT_UNDECLARED",
+        "intent": "provenance belongs to an artifact the design actually declares",
+        "detail": "provenance is stated about an artifact this design neither authors nor carries over — a generator for something nothing schedules produces nothing"
+      },
+      "x-realises": "lifecycle::INVARIANT_DESIGN_NAMES_RESOLVE_V0",
+      "x-reference": {
+        "mode": "resolves",
+        "params": {
+          "column": "Artifact",
+          "target_registers": [
+            "new_artifacts",
+            "existing_inventory"
+          ],
+          "target_column": "Code",
+          "target_columns": [
+            "Code",
+            "FQDN"
+          ],
+          "detail": "provenance is stated about an artifact this design neither authors nor carries over — a generator for something nothing schedules produces nothing"
+        }
+      }
+    },
+    {
+      "x-register": "generation_provenance",
+      "x-finding": {
+        "code": "ARTIFACT_HAS_TWO_GENERATORS",
+        "intent": "one artifact, one producer, so agreement with the generator means something",
+        "detail": "{value} is generated twice, first at row {first} — an artifact has exactly one producer, and two producers of one truth drift"
+      },
+      "x-realises": "lifecycle::INVARIANT_DESIGN_NAMES_RESOLVE_V0",
+      "x-key": {
+        "mode": "unique",
+        "params": {
+          "column": "Artifact",
+          "detail": "{value} is generated twice, first at row {first} — an artifact has exactly one producer, and two producers of one truth drift"
+        }
+      }
+    },
+    {
+      "x-register": "step_bindings",
+      "x-finding": {
+        "code": "GENERATED_SOURCE_WITHOUT_GENERATOR",
+        "intent": "a value is declared generated only where the design names its generator",
+        "detail": "binds a generated value, and its owner names no generator — a generator determines only what the design says it does"
+      },
+      "x-realises": "lifecycle::INVARIANT_DESIGN_NAMES_RESOLVE_V0",
+      "x-reference": {
+        "mode": "resolves",
+        "params": {
+          "column": "Owner",
+          "only_when_column": "Bound To",
+          "only_when_value": {
+            "generated": true
+          },
+          "target_registers": [
+            "generation_provenance"
+          ],
+          "target_column": "Artifact",
+          "detail": "binds a generated value, and its owner names no generator — a generator determines only what the design says it does"
+        }
+      }
+    },
+    {
+      "x-register": "generation_provenance",
+      "x-finding": {
+        "code": "GENERATOR_UNNAMED",
+        "intent": "a generated artifact names what produces it",
+        "detail": "artifact is declared generated and names no generator — construction has nothing to invoke and no way to reach it"
+      },
+      "items": {
+        "properties": {
+          "generator": {
+            "minLength": 1
+          }
+        }
+      }
+    },
+    {
+      "x-register": "generation_provenance",
+      "x-finding": {
+        "code": "GENERATOR_UNREACHABLE",
+        "intent": "a generator is invocable from the composition, not only by a person at a terminal",
+        "detail": "generator {value!r} must be module:callable — construction imports its generator and a script it can only shell out to is one nothing governs"
+      },
+      "items": {
+        "properties": {
+          "generator": {
+            "pattern": "^[a-z_][a-z0-9_]*(?:\\.[a-z_][a-z0-9_]*)*:[a-z_][a-z0-9_]*$"
+          }
+        }
+      }
+    },
+    {
+      "x-register": "generation_provenance",
+      "x-finding": {
+        "code": "GENERATOR_SOURCES_UNNAMED",
+        "intent": "a generator is its sources together, so a change to either is a change to it",
+        "detail": "generator names no sources — a template and the declaration read with it are one generator, and naming neither permits regenerating from a stale pairing"
+      },
+      "items": {
+        "properties": {
+          "generator_sources": {
+            "minLength": 1
+          }
+        }
+      }
+    },
+    {
+      "x-register": "refusal_discharge",
+      "x-finding": {
+        "code": "REFUSAL_UNACCOUNTED",
+        "intent": "every refusal the business declared is carried out here or owned by someone else"
+      },
+      "x-realises": "lifecycle::INVARIANT_BUSINESS_REFUSAL_DISCHARGED_V0",
+      "x-carriage": {
+        "mode": "present_by_key",
+        "params": {
+          "prior_phase": "p0",
+          "prior_register": "operation_refusals",
+          "prior_key_column": [
+            "Operation",
+            "Refused When"
+          ],
+          "key_column": [
+            "Operation",
+            "Refused When"
+          ],
+          "registers": [
+            "refusal_discharge",
+            "refusal_deferrals",
+            "refusal_governance_discharge"
+          ]
+        }
+      }
+    },
+    {
+      "x-register": "refusal_discharge",
+      "x-finding": {
+        "code": "DISCHARGE_UNDECLARED_REFUSAL",
+        "intent": "a discharge answers a refusal the business declared, never one the design invented"
+      },
+      "x-realises": "lifecycle::INVARIANT_CONTENT_ENTERS_AT_OWNING_PHASE_V0",
+      "x-carriage": {
+        "mode": "confined",
+        "params": {
+          "prior_phase": "p0",
+          "prior_register": "operation_refusals",
+          "prior_key_column": [
+            "Operation",
+            "Refused When"
+          ],
+          "key_column": [
+            "Operation",
+            "Refused When"
+          ]
+        }
+      }
+    },
+    {
+      "x-register": "refusal_deferrals",
+      "x-finding": {
+        "code": "DEFERRAL_UNDECLARED_REFUSAL",
+        "intent": "a deferral hands on a refusal the business declared, never one nobody approved"
+      },
+      "x-realises": "lifecycle::INVARIANT_CONTENT_ENTERS_AT_OWNING_PHASE_V0",
+      "x-carriage": {
+        "mode": "confined",
+        "params": {
+          "prior_phase": "p0",
+          "prior_register": "operation_refusals",
+          "prior_key_column": [
+            "Operation",
+            "Refused When"
+          ],
+          "key_column": [
+            "Operation",
+            "Refused When"
+          ]
+        }
+      }
+    },
+    {
+      "x-register": "refusal_deferrals",
+      "x-finding": {
+        "code": "DEFERRAL_OWNER_UNNAMED",
+        "intent": "a deferred refusal names who will carry it out",
+        "detail": "names no owner — a refusal handed on to nobody is a refusal dropped in language that sounds like a plan"
+      },
+      "items": {
+        "properties": {
+          "deferred_to": {
+            "minLength": 1
+          }
+        }
+      }
+    },
+    {
+      "x-register": "refusal_governance_discharge",
+      "x-finding": {
+        "code": "GOVERNANCE_DISCHARGE_UNDECLARED_REFUSAL",
+        "intent": "the governance surface is cited for a refusal the business declared, never for one it did not"
+      },
+      "x-realises": "lifecycle::INVARIANT_CONTENT_ENTERS_AT_OWNING_PHASE_V0",
+      "x-carriage": {
+        "mode": "confined",
+        "params": {
+          "prior_phase": "p0",
+          "prior_register": "operation_refusals",
+          "prior_key_column": [
+            "Operation",
+            "Refused When"
+          ],
+          "key_column": [
+            "Operation",
+            "Refused When"
+          ]
+        }
+      }
+    },
+    {
+      "x-register": "refusal_governance_discharge",
+      "x-finding": {
+        "code": "GOVERNING_RULE_PHASE_MALFORMED",
+        "intent": "a cited rule is located in the phase whose rule set holds it",
+        "detail": "{value!r} is not a phase — a rule is named by its phase and its identifier together, written p0 through p8, because an identifier alone names nine rules"
+      },
+      "items": {
+        "properties": {
+          "phase": {
+            "pattern": "^p[0-8]$"
+          }
+        }
+      }
+    },
+    {
+      "x-register": "refusal_governance_discharge",
+      "x-finding": {
+        "code": "GOVERNING_RULE_UNNAMED",
+        "intent": "a governance-surface discharge names the rule that refuses",
+        "detail": "cites no rule — a refusal said to be carried out by the governance surface and naming nothing there is prose, and prose refuses nothing"
+      },
+      "items": {
+        "properties": {
+          "governing_rule": {
+            "minLength": 1
+          }
+        }
+      }
+    },
+    {
+      "x-register": "refusal_governance_discharge",
+      "x-finding": {
+        "code": "GOVERNING_RULE_NOT_IN_FORCE",
+        "intent": "a rule said to carry out a refusal is really in force where the design is pinned"
+      },
+      "x-realises": "lifecycle::INVARIANT_BUSINESS_REFUSAL_DISCHARGED_V0",
+      "x-procedure": {
+        "name": "GOVERNING_RULE_IN_SEALED_SET",
+        "params": {
+          "observation": "si.rule_set.list",
+          "phase_workflows": {
+            "x-dispatch": "lineage"
+          }
+        }
+      }
+    },
+    {
+      "x-register": "refusal_discharge",
+      "x-finding": {
+        "code": "DISCHARGE_NOT_IN_TOPOLOGY",
+        "intent": "a discharge names a step the act has and an outcome that step reports"
+      },
+      "x-realises": "lifecycle::INVARIANT_BUSINESS_REFUSAL_DISCHARGED_V0",
+      "x-procedure": {
+        "name": "DISCHARGE_GROUNDED_IN_TOPOLOGY",
+        "params": {}
+      }
+    },
+    {
+      "x-register": "refusal_discharge",
+      "x-finding": {
+        "code": "DISCHARGE_DOES_NOT_REFUSE",
+        "intent": "the outcome a discharge names stops the act rather than continuing it"
+      },
+      "x-realises": "lifecycle::INVARIANT_BUSINESS_REFUSAL_DISCHARGED_V0",
+      "x-procedure": {
+        "name": "DISCHARGE_OUTCOME_REFUSES",
+        "params": {}
+      }
+    },
+    {
+      "x-register": "artifact_properties",
+      "x-finding": {
+        "code": "EMISSION_NOT_FROM_COMPLETING_ENDING",
+        "intent": "a moment is announced from an ending the act has, and one that completes it — or, for a moment declared a refusal, one that refuses it"
+      },
+      "x-realises": "lifecycle::INVARIANT_ANNOUNCEMENT_FROM_COMPLETING_ENDING_V0",
+      "x-procedure": {
+        "name": "EMISSION_GROUNDED_IN_ENDING",
+        "params": {
+          "property_prefix": "emit.",
+          "refusal_property": "moment",
+          "refusal_value": "refusal"
+        }
+      }
+    },
+    {
+      "x-register": "artifact_properties",
+      "x-finding": {
+        "code": "EMITTED_EVENT_UNDECLARED",
+        "intent": "an act announces a moment that exists, never one nothing declares",
+        "detail": "an announced moment must be an identity this design declares"
+      },
+      "x-realises": "lifecycle::INVARIANT_DESIGN_NAMES_RESOLVE_V0",
+      "x-reference": {
+        "mode": "resolves",
+        "params": {
+          "column": "Value",
+          "only_when_column": "Property",
+          "only_when_prefix": "emit.",
+          "target_registers": [
+            "new_artifacts",
+            "existing_inventory"
+          ],
+          "target_column": "Code",
+          "target_columns": [
+            "Code",
+            "FQDN"
+          ],
+          "detail": "an announced moment must be an identity this design declares"
+        }
+      }
+    },
+    {
+      "x-register": "molecule_steps",
+      "x-finding": {
+        "code": "MOLECULE_WITHOUT_STEPS",
+        "intent": "a molecule with no declared steps specifies nothing to run"
+      },
+      "x-realises": "lifecycle::INVARIANT_DECLARED_ARTIFACT_FULLY_STATED_V0",
+      "x-reference": {
+        "mode": "covers",
+        "params": {
+          "source_register": "implementation_bindings",
+          "source_column": "CT Code",
+          "column": "CT Code",
+          "only_when_column": "Kind",
+          "only_when_value": "molecule"
+        }
+      }
+    },
+    {
+      "x-register": "molecule_steps",
+      "x-finding": {
+        "code": "MOLECULE_STEP_OWNER_NOT_MOLECULE",
+        "intent": "only a molecule has steps",
+        "detail": "steps belong to a transform this design declares a molecule"
+      },
+      "x-realises": "lifecycle::INVARIANT_DESIGN_NAMES_RESOLVE_V0",
+      "x-reference": {
+        "mode": "resolves",
+        "params": {
+          "column": "CT Code",
+          "target_register": "implementation_bindings",
+          "target_column": "CT Code",
+          "target_only_when_column": "Kind",
+          "target_only_when_value": "molecule",
+          "detail": "steps belong to a transform this design declares a molecule"
+        }
+      }
+    },
+    {
+      "x-register": "molecule_steps",
+      "x-finding": {
+        "code": "MOLECULE_STEP_KIND_UNKNOWN",
+        "intent": "a step is one of the three the compiler lowers",
+        "detail": "step kind is {value!r}; a step runs an atom, a molecule once, or a molecule once per member of a collection, and the compiler lowers nothing else"
+      },
+      "items": {
+        "properties": {
+          "kind": {
+            "pattern": "^(atom|molecule|loop)$"
+          }
+        }
+      },
+      "x-columns": {
+        "kind": "Kind"
+      }
+    },
+    {
+      "x-register": "molecule_steps",
+      "x-finding": {
+        "code": "MOLECULE_STEP_WITHOUT_KIND",
+        "intent": "every step says how it runs",
+        "detail": "step declares no kind — construction would have to choose how it runs"
+      },
+      "items": {
+        "properties": {
+          "kind": {
+            "minLength": 1
+          }
+        }
+      },
+      "x-columns": {
+        "kind": "Kind"
+      }
+    },
+    {
+      "x-register": "molecule_steps",
+      "x-finding": {
+        "code": "MOLECULE_STEP_TARGET_UNDECLARED",
+        "intent": "a step runs something that exists",
+        "detail": "a step runs a transform this design declares or carries over"
+      },
+      "x-realises": "lifecycle::INVARIANT_DESIGN_NAMES_RESOLVE_V0",
+      "x-reference": {
+        "mode": "resolves",
+        "params": {
+          "column": "Target",
+          "target_registers": [
+            "new_artifacts",
+            "existing_inventory"
+          ],
+          "target_column": "Code",
+          "target_columns": [
+            "Code",
+            "FQDN"
+          ],
+          "detail": "a step runs a transform this design declares or carries over"
+        }
+      }
+    },
+    {
+      "x-register": "molecule_steps",
+      "x-finding": {
+        "code": "MOLECULE_STEP_WITHOUT_TARGET",
+        "intent": "every step names the transform it runs",
+        "detail": "step runs nothing — construction would have to choose what"
+      },
+      "items": {
+        "properties": {
+          "target": {
+            "minLength": 1
+          }
+        }
+      }
+    },
+    {
+      "x-register": "molecule_steps",
+      "x-finding": {
+        "code": "MOLECULE_STEP_UNNAMED",
+        "intent": "every step's result has a name later steps read it by",
+        "detail": "step has no symbol — a result nothing can name is a result no later step can read"
+      },
+      "items": {
+        "properties": {
+          "step": {
+            "minLength": 1
+          }
+        }
+      }
+    },
+    {
+      "x-register": "molecule_steps",
+      "x-finding": {
+        "code": "LOOP_WITHOUT_COLLECTION",
+        "intent": "a loop runs once per member of a collection the composition can see",
+        "detail": "loop names no collection — its passes would have no stated bound"
+      },
+      "items": {
+        "if": {
+          "properties": {
+            "kind": {
+              "const": "loop"
+            }
+          },
+          "required": [
+            "kind"
+          ]
+        },
+        "then": {
+          "properties": {
+            "over": {
+              "minLength": 1
+            }
+          }
+        }
+      },
+      "x-columns": {
+        "kind": "Kind"
+      }
+    },
+    {
+      "x-register": "molecule_steps",
+      "x-finding": {
+        "code": "LOOP_COLLECTION_UNROOTED",
+        "intent": "a loop's length never depends on the data it computes",
+        "detail": "loop runs over {value!r}; a loop's collection is a field the molecule is handed, inputs.<field>, so its length is fixed before the first pass and never by one"
+      },
+      "items": {
+        "if": {
+          "properties": {
+            "kind": {
+              "const": "loop"
+            }
+          },
+          "required": [
+            "kind"
+          ]
+        },
+        "then": {
+          "properties": {
+            "over": {
+              "pattern": "^inputs\\.[A-Za-z_][A-Za-z0-9_.]*$"
+            }
+          }
+        }
+      },
+      "x-columns": {
+        "kind": "Kind"
+      }
+    },
+    {
+      "x-register": "molecule_steps",
+      "x-finding": {
+        "code": "LOOP_WITHOUT_ITERATOR",
+        "intent": "a loop's body receives each member under a declared name",
+        "detail": "loop names no iterator — its body is handed a member under no name"
+      },
+      "items": {
+        "if": {
+          "properties": {
+            "kind": {
+              "const": "loop"
+            }
+          },
+          "required": [
+            "kind"
+          ]
+        },
+        "then": {
+          "properties": {
+            "iterator": {
+              "minLength": 1
+            }
+          }
+        }
+      },
+      "x-columns": {
+        "kind": "Kind"
+      }
+    },
+    {
+      "x-register": "molecule_steps",
+      "x-finding": {
+        "code": "LOOP_FIELDS_OUTSIDE_LOOP",
+        "intent": "a collection is stated where it bounds something",
+        "detail": "a step that is not a loop names collection {value!r}, which nothing reads"
+      },
+      "items": {
+        "if": {
+          "properties": {
+            "kind": {
+              "enum": [
+                "atom",
+                "molecule"
+              ]
+            }
+          },
+          "required": [
+            "kind"
+          ]
+        },
+        "then": {
+          "properties": {
+            "over": {
+              "pattern": "^(?:—|-)$"
+            }
+          }
+        }
+      },
+      "x-columns": {
+        "kind": "Kind"
+      }
+    },
+    {
+      "x-register": "molecule_steps",
+      "x-finding": {
+        "code": "MOLECULE_WITHOUT_EMISSION",
+        "intent": "a molecule yields a value, and says which step it comes from"
+      },
+      "x-realises": "lifecycle::INVARIANT_DECLARED_ARTIFACT_FULLY_STATED_V0",
+      "x-reference": {
+        "mode": "covers",
+        "params": {
+          "source_register": "implementation_bindings",
+          "source_column": "CT Code",
+          "column": "CT Code",
+          "only_when_column": "Kind",
+          "only_when_value": "molecule",
+          "covered_present_column": "Emits"
+        }
+      }
+    },
+    {
+      "x-register": "molecule_steps",
+      "x-finding": {
+        "code": "MOLECULE_EMITS_TWICE",
+        "intent": "a molecule yields exactly one value",
+        "detail": "{value} emits a second value, first at row {first} — a molecule yields exactly one, and two leave a caller to guess which it was handed"
+      },
+      "x-realises": "lifecycle::INVARIANT_DESIGN_NAMES_RESOLVE_V0",
+      "x-key": {
+        "mode": "unique",
+        "params": {
+          "column": "CT Code",
+          "only_when_present_column": "Emits",
+          "detail": "{value} emits a second value, first at row {first} — a molecule yields exactly one, and two leave a caller to guess which it was handed"
+        }
+      }
+    },
+    {
+      "x-register": "molecule_step_bindings",
+      "x-finding": {
+        "code": "MOLECULE_BINDING_STEP_UNDECLARED",
+        "intent": "a binding hands a value to a step that exists",
+        "detail": "a binding belongs to a step this design declares"
+      },
+      "x-realises": "lifecycle::INVARIANT_DESIGN_NAMES_RESOLVE_V0",
+      "x-reference": {
+        "mode": "resolves",
+        "params": {
+          "column": "Step",
+          "target_register": "molecule_steps",
+          "target_column": "Step",
+          "detail": "a binding belongs to a step this design declares"
+        }
+      }
+    },
+    {
+      "x-register": "molecule_step_bindings",
+      "x-finding": {
+        "code": "MOLECULE_BINDING_WITHOUT_SOURCE",
+        "intent": "every molecule binding names where its value comes from",
+        "detail": "field is bound to nothing — construction would have to choose a source"
+      },
+      "items": {
+        "properties": {
+          "bound_to": {
+            "minLength": 1
+          }
+        }
+      }
+    },
+    {
+      "x-register": "molecule_step_bindings",
+      "x-finding": {
+        "code": "MOLECULE_BINDING_SOURCE_MALFORMED",
+        "intent": "a reference the runtime cannot resolve is indistinguishable from one it can",
+        "detail": "source is {value!r}; a molecule binding reads inputs.<field>, results.<step>.<field>, iterator, accumulator.<field>, or is a literal"
+      },
+      "items": {
+        "properties": {
+          "bound_to": {
+            "pattern": "^(?:inputs\\.[A-Za-z_][A-Za-z0-9_.]*|results\\.[A-Za-z_][A-Za-z0-9_.]*|iterator|accumulator\\.[A-Za-z_][A-Za-z0-9_.]*|[\\[{].*[\\]}]|\"[^\"]*\"|'[^']*'|-?[0-9]+(?:\\.[0-9]+)?|[A-Za-z_][A-Za-z0-9_]*::[A-Za-z_][A-Za-z0-9_]*|[A-Za-z_][A-Za-z0-9_-]*)$"
+          }
+        }
+      }
+    },
+    {
+      "x-register": "molecule_step_bindings",
+      "x-finding": {
+        "code": "LOOP_UPDATE_NOT_FROM_RESULT",
+        "intent": "what a loop carries forward is what each pass produced",
+        "detail": "a carried value is updated from {value!r}; it is taken from what the pass produced, results.<field>, or the loop carries forward something no pass computed"
+      },
+      "items": {
+        "if": {
+          "properties": {
+            "role": {
+              "const": "UPDATE"
+            }
+          },
+          "required": [
+            "role"
+          ]
+        },
+        "then": {
+          "properties": {
+            "bound_to": {
+              "pattern": "^results\\.[A-Za-z_][A-Za-z0-9_.]*$"
+            }
+          }
+        }
+      }
+    },
+    {
+      "x-register": "withdrawn_facts",
+      "x-finding": {
+        "code": "WITHDRAWAL_IS_A_CHANGE_OF_MEANING",
+        "intent": "an amendment withdraws nothing; a change of meaning is a new identity",
+        "detail": "a withdrawal changes what an artifact means — author its successor and REPLACE it instead"
+      },
+      "maxItems": 0
+    },
+    {
+      "x-register": "test_cases",
+      "x-finding": {
+        "code": "TRANSFORM_WITHOUT_VECTOR",
+        "intent": "a transform authored here enters the composition with its proof"
+      },
+      "x-realises": "lifecycle::INVARIANT_DECLARED_ARTIFACT_FULLY_STATED_V0",
+      "x-reference": {
+        "mode": "covers",
+        "params": {
+          "source_register": "new_artifacts",
+          "source_column": "Code",
+          "column": "CT Code",
+          "only_when_column": "Family",
+          "only_when_value": "CT"
+        }
+      }
+    },
+    {
+      "x-register": "test_cases",
+      "x-finding": {
+        "code": "AMENDED_TRANSFORM_WITHOUT_VECTOR",
+        "intent": "a transform this change amends is proven as it will be"
+      },
+      "x-realises": "lifecycle::INVARIANT_DECLARED_ARTIFACT_FULLY_STATED_V0",
+      "x-reference": {
+        "mode": "covers",
+        "params": {
+          "source_register": "existing_inventory",
+          "source_column": "FQDN",
+          "column": "CT Code",
+          "only_when_column": "Action",
+          "only_when_value": "EXTEND",
+          "only_when_source_pattern": "^CT_"
+        }
+      }
+    },
+    {
+      "x-register": "test_cases",
+      "x-finding": {
+        "code": "TEST_CASE_TRANSFORM_UNDECLARED",
+        "intent": "a case tests something that exists",
+        "detail": "a case proves a transform this design declares or carries over"
+      },
+      "x-realises": "lifecycle::INVARIANT_DESIGN_NAMES_RESOLVE_V0",
+      "x-reference": {
+        "mode": "resolves",
+        "params": {
+          "column": "CT Code",
+          "target_registers": [
+            "new_artifacts",
+            "existing_inventory"
+          ],
+          "target_column": "Code",
+          "target_columns": [
+            "Code",
+            "FQDN"
+          ],
+          "detail": "a case proves a transform this design declares or carries over"
+        }
+      }
+    },
+    {
+      "x-register": "test_cases",
+      "x-finding": {
+        "code": "TEST_CASE_UNNAMED",
+        "intent": "every case is named",
+        "detail": "case has no name — a failure nothing can name is one nobody can find"
+      },
+      "items": {
+        "properties": {
+          "case": {
+            "minLength": 1
+          }
+        }
+      }
+    },
+    {
+      "x-register": "test_cases",
+      "x-finding": {
+        "code": "TEST_CASE_NAME_MALFORMED",
+        "intent": "a case name is a stable identifier",
+        "detail": "case is named {value!r}; a case is named in lower case, words joined by underscores"
+      },
+      "items": {
+        "properties": {
+          "case": {
+            "pattern": "^[a-z][a-z0-9_]*$"
+          }
+        }
+      }
+    },
+    {
+      "x-register": "test_case_values",
+      "x-finding": {
+        "code": "TEST_VALUE_CASE_UNDECLARED",
+        "intent": "a value is handed to, or expected of, a case that exists",
+        "detail": "a value belongs to a case this design declares"
+      },
+      "x-realises": "lifecycle::INVARIANT_DESIGN_NAMES_RESOLVE_V0",
+      "x-reference": {
+        "mode": "resolves",
+        "params": {
+          "column": "Case",
+          "target_register": "test_cases",
+          "target_column": "Case",
+          "detail": "a value belongs to a case this design declares"
+        }
+      }
+    },
+    {
+      "x-register": "test_case_values",
+      "x-finding": {
+        "code": "TEST_VALUE_WITHOUT_FIELD",
+        "intent": "every value names the field it is for",
+        "detail": "value names no field — construction would have to choose one"
+      },
+      "items": {
+        "properties": {
+          "field": {
+            "minLength": 1
+          }
+        }
+      }
+    },
+    {
+      "x-register": "test_case_values",
+      "x-finding": {
+        "code": "TEST_VALUE_EMPTY",
+        "intent": "every value is stated",
+        "detail": "value is not stated — write the literal; \"\" is the empty string and null is null"
+      },
+      "items": {
+        "required": [
+          "value"
+        ]
+      }
+    },
+    {
+      "x-register": "new_artifacts",
+      "x-finding": {
+        "code": "EVENT_CODE_NOT_PAST_PARTICIPLE",
+        "intent": "an event names an occurrence, and a code in the imperative names an operation",
+        "detail": "{value!r} does not name a moment that has happened — an event code reads EV_<subject>_<participle>, as EV_ACTOR_REGISTERED_V0 does"
+      },
+      "items": {
+        "if": {
+          "properties": {
+            "family": {
+              "const": "EV"
+            }
+          },
+          "required": [
+            "family"
+          ]
+        },
+        "then": {
+          "properties": {
+            "code": {
+              "pattern": "^(?:[a-z][a-z0-9_.]*::)?EV_[A-Z0-9_]+ED_V\\d+$"
+            }
+          }
+        }
+      }
+    },
+    {
+      "x-finding": {
+        "code": "REGISTER_CELL_UNRESOLVED",
+        "intent": "an unanswered question left in a register reads as decided to every later phase",
+        "detail": "{column!r} declares the question unanswered ({marker}) rather than answering it — ask it as a clarification, do not hedge it in a register"
+      },
+      "x-realises": "lifecycle::INVARIANT_NO_QUESTION_LEFT_OPEN_V0",
+      "x-procedure": {
+        "name": "UNRESOLVED_MARKER_ABSENT",
+        "params": {
+          "exempt": [],
+          "detail": "{column!r} declares the question unanswered ({marker}) rather than answering it — ask it as a clarification, do not hedge it in a register"
+        }
+      }
+    },
+    {
+      "x-register": "interface_fields",
+      "x-finding": {
+        "code": "FIELD_STRUCTURE_UNDECLARED",
+        "intent": "a field's structure names a STRUCTURE this design declares or carries over"
+      },
+      "x-realises": "lifecycle::INVARIANT_DESIGN_NAMES_RESOLVE_V0",
+      "x-reference": {
+        "mode": "resolves",
+        "params": {
+          "column": "Structure",
+          "target_registers": [
+            "new_artifacts",
+            "existing_inventory"
+          ],
+          "target_column": "Code",
+          "target_columns": [
+            "Code",
+            "FQDN"
+          ]
+        }
+      }
+    },
+    {
+      "x-register": "artifact_properties",
+      "x-finding": {
+        "code": "WORKFLOW_ACTOR_UNDECLARED",
+        "intent": "the actor a workflow runs as is one this design declares or carries over"
+      },
+      "x-realises": "lifecycle::INVARIANT_DESIGN_NAMES_RESOLVE_V0",
+      "x-reference": {
+        "mode": "resolves",
+        "params": {
+          "column": "Value",
+          "only_when_column": "Property",
+          "only_when_value": "actor_context",
+          "target_registers": [
+            "new_artifacts",
+            "existing_inventory"
+          ],
+          "target_column": "Code",
+          "target_columns": [
+            "Code",
+            "FQDN"
+          ]
+        }
+      }
+    }
+  ],
+  "x-priors": [
+    "p5",
+    "p6",
+    "p0"
+  ],
+  "x-observations": {
+    "si.artifact.list": "artifacts",
+    "si.capability.surface": "capabilities",
+    "si.capability.surface#transforms": "transforms",
+    "si.capability.surface#contracts": "contracts",
+    "si.capability.surface#intents": "intents",
+    "si.store.list": "stores",
+    "si.rule_set.list": "carriers",
+    "si.behavior_logic.list": "workflows"
+  },
+  "$defs": {
+    "citation": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "required": [
+            "register"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "phase": {
+              "type": "string",
+              "pattern": "^p[0-8]$"
+            },
+            "register": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9_]*$"
+            },
+            "row": {
+              "type": "integer"
+            },
+            "key": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "not": {
+            "required": [
+              "row",
+              "key"
+            ]
+          }
+        },
+        {
+          "type": "object",
+          "required": [
+            "artifact"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "artifact": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9_.]*::[A-Z][A-Z0-9_]*_V[0-9]+$"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "required": [
+            "source"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "source": {
+              "const": "human"
+            }
+          }
+        },
+        {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "oneOf": [
+              {
+                "type": "object",
+                "required": [
+                  "register"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "phase": {
+                    "type": "string",
+                    "pattern": "^p[0-8]$"
+                  },
+                  "register": {
+                    "type": "string",
+                    "pattern": "^[a-z][a-z0-9_]*$"
+                  },
+                  "row": {
+                    "type": "integer"
+                  },
+                  "key": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "not": {
+                  "required": [
+                    "row",
+                    "key"
+                  ]
+                }
+              },
+              {
+                "type": "object",
+                "required": [
+                  "artifact"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "artifact": {
+                    "type": "string",
+                    "pattern": "^[a-z][a-z0-9_.]*::[A-Z][A-Z0-9_]*_V[0-9]+$"
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "required": [
+                  "source"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "source": {
+                    "const": "human"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "approval": {
+      "type": "object",
+      "required": [
+        "gate",
+        "rule_set",
+        "state"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "gate": {
+          "type": "string",
+          "minLength": 1
+        },
+        "rule_set": {
+          "type": "string",
+          "pattern": "^transformation\\.schemas\\.REGISTER_SCHEMA_P7_V[0-9]+$"
+        },
+        "state": {
+          "x-vocab": {
+            "artifact": "transformation::VOCAB_DESIGN_REGISTER_TERMS_V0",
+            "group": "approval_state"
+          }
+        }
+      }
+    }
+  }
+}

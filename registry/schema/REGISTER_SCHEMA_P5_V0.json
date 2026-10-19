@@ -1,0 +1,950 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "transformation.schemas.REGISTER_SCHEMA_P5_V0",
+  "$comment": "The registers a phase document's Machine block carries, and their shape.",
+  "x-revisions": [
+    {
+      "revision": 1,
+      "retroactive": false,
+      "change": "The rule set as rebuilt: declared in this schema, each rule named by its identity, the header stated under document.",
+      "digest": "sha256:4d3c33ba9324d7078c62ae7a61215a582e3f81abe973aa3ff609313d02ecf91c"
+    }
+  ],
+  "type": "object",
+  "required": [
+    "document",
+    "registers"
+  ],
+  "x-consumes": [
+    "actors",
+    "bm_entities",
+    "events",
+    "capability_graph",
+    "constraint_register"
+  ],
+  "x-emits": [
+    "scope_boundary",
+    "invariants",
+    "actions",
+    "provisional_codes",
+    "cross_subdomain_refs"
+  ],
+  "properties": {
+    "document": {
+      "type": "object",
+      "required": [
+        "phase",
+        "domain",
+        "subdomain",
+        "cr",
+        "rule_set"
+      ],
+      "properties": {
+        "phase": {
+          "const": "p5"
+        },
+        "domain": {
+          "type": "string",
+          "minLength": 1
+        },
+        "subdomain": {
+          "type": [
+            "string",
+            "array"
+          ],
+          "items": {
+            "type": "string"
+          },
+          "minLength": 1,
+          "minItems": 1
+        },
+        "cr": {
+          "type": "string",
+          "minLength": 1
+        },
+        "rule_set": {
+          "type": "string",
+          "pattern": "^transformation\\.schemas\\.REGISTER_SCHEMA_P5_V[0-9]+$"
+        }
+      }
+    },
+    "registers": {
+      "type": "object",
+      "required": [
+        "subdomain_purpose",
+        "purpose_provenance",
+        "subdomain_purposes",
+        "scope_boundary",
+        "business_objects",
+        "identity_semantics",
+        "invariants",
+        "actions",
+        "provisional_codes",
+        "cross_subdomain_refs"
+      ],
+      "properties": {
+        "subdomain_purpose": {
+          "type": "string",
+          "minLength": 1,
+          "x-section": {
+            "number": "1",
+            "title": "Subdomain Purpose"
+          }
+        },
+        "purpose_provenance": {
+          "type": "array",
+          "x-section": {
+            "number": "1",
+            "title": "Subdomain Purpose"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "source": {
+                "title": "Source",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "disposition": {
+                "title": "Disposition",
+                "x-vocab": {
+                  "artifact": "transformation::VOCAB_DESIGN_REGISTER_TERMS_V0",
+                  "group": "purpose_disposition"
+                },
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "refinement": {
+                "title": "Refinement",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "required": [
+              "source",
+              "disposition",
+              "refinement"
+            ]
+          },
+          "minItems": 1,
+          "x-business-language": [
+            "refinement"
+          ]
+        },
+        "subdomain_purposes": {
+          "type": "array",
+          "x-section": {
+            "number": "1",
+            "title": "Subdomain Purpose"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "subdomain": {
+                "title": "Subdomain",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "purpose": {
+                "title": "Purpose",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "subdomain",
+              "purpose",
+              "source_finding"
+            ]
+          },
+          "minItems": 1,
+          "x-business-language": [
+            "purpose"
+          ]
+        },
+        "scope_boundary": {
+          "type": "array",
+          "x-section": {
+            "number": "2",
+            "title": "Scope Boundary"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "capability": {
+                "title": "Capability",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "status": {
+                "title": "Status",
+                "x-vocab": {
+                  "artifact": "transformation::VOCAB_DESIGN_REGISTER_TERMS_V0",
+                  "group": "scope_status"
+                },
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "notes": {
+                "title": "Notes",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "capability",
+              "status",
+              "notes",
+              "source_finding"
+            ]
+          },
+          "minItems": 1,
+          "x-business-language": [
+            "capability",
+            "notes"
+          ]
+        },
+        "business_objects": {
+          "type": "array",
+          "x-section": {
+            "number": "3",
+            "title": "Business Objects"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "store_name": {
+                "title": "Store Name",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "record_model": {
+                "title": "Record Model",
+                "x-vocab": {
+                  "artifact": "transformation::VOCAB_DESIGN_REGISTER_TERMS_V0",
+                  "group": "record_model"
+                },
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "business_rationale": {
+                "title": "Business Rationale",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "store_name",
+              "record_model",
+              "business_rationale",
+              "source_finding"
+            ]
+          },
+          "x-business-language": [
+            "store_name",
+            "business_rationale"
+          ]
+        },
+        "identity_semantics": {
+          "type": "array",
+          "x-section": {
+            "number": "4",
+            "title": "Identity Semantics"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "store_name": {
+                "title": "Store Name",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "identity_field": {
+                "title": "Identity Field",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source": {
+                "title": "Source",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "uniqueness_rule": {
+                "title": "Uniqueness Rule",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "cross_subdomain_relationship": {
+                "title": "Cross-Subdomain Relationship",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "store_name",
+              "identity_field",
+              "source",
+              "uniqueness_rule",
+              "cross_subdomain_relationship",
+              "source_finding"
+            ]
+          },
+          "minItems": 1,
+          "x-business-language": [
+            "identity_field",
+            "source",
+            "uniqueness_rule",
+            "cross_subdomain_relationship"
+          ]
+        },
+        "invariants": {
+          "type": "array",
+          "x-section": {
+            "number": "5",
+            "title": "Business Invariants"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "invariant": {
+                "title": "Invariant",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "business_reason": {
+                "title": "Business Reason",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "invariant",
+              "business_reason",
+              "source_finding"
+            ]
+          },
+          "minItems": 1,
+          "x-business-language": [
+            "invariant",
+            "business_reason"
+          ]
+        },
+        "actions": {
+          "type": "array",
+          "x-section": {
+            "number": "6",
+            "title": "Business Actions"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "action": {
+                "title": "Action",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "object": {
+                "title": "Object",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "trigger": {
+                "title": "Trigger",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "status": {
+                "title": "Status",
+                "x-vocab": {
+                  "artifact": "transformation::VOCAB_DESIGN_REGISTER_TERMS_V0",
+                  "group": "scope_status"
+                },
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "action",
+              "object",
+              "trigger",
+              "status",
+              "source_finding"
+            ]
+          },
+          "minItems": 1,
+          "x-business-language": [
+            "object",
+            "trigger"
+          ]
+        },
+        "provisional_codes": {
+          "type": "array",
+          "x-section": {
+            "number": "7",
+            "title": "Provisional Artifact Codes"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "subdomain": {
+                "title": "Subdomain",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "provisional_code": {
+                "title": "Provisional Code",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "family": {
+                "title": "Family",
+                "x-vocab": {
+                  "artifact": "transformation::VOCAB_DESIGN_REGISTER_TERMS_V0",
+                  "group": "artifact_family"
+                },
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "summary": {
+                "title": "Summary",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "subdomain",
+              "provisional_code",
+              "family",
+              "summary",
+              "source_finding"
+            ]
+          },
+          "x-business-language": [
+            "summary"
+          ]
+        },
+        "cross_subdomain_refs": {
+          "type": "array",
+          "x-section": {
+            "number": "8",
+            "title": "Cross-Subdomain References"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "cc_code": {
+                "title": "CC Code",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "defined_in": {
+                "title": "Defined In",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "role": {
+                "title": "Role",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "cc_code",
+              "defined_in",
+              "role",
+              "source_finding"
+            ]
+          },
+          "x-business-language": [
+            "role"
+          ]
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "x-register": "purpose_provenance",
+      "x-finding": {
+        "code": "PURPOSE_PROVENANCE_NOT_SINGULAR",
+        "intent": "a register owing one answer may not carry several",
+        "detail": "the register answers one question — whether this phase inherited the seed's purpose or refined it — and two rows are two answers to it"
+      },
+      "maxItems": 1
+    },
+    {
+      "x-register": "purpose_provenance",
+      "x-finding": {
+        "code": "PURPOSE_NOT_CARRIED_FROM_SEED",
+        "intent": "the one narrative no artifact can derive is authored once and never quietly replaced",
+        "detail": "the purpose is declared INHERITED and does not match the seed's — inherit it word for word, or declare REFINED and say what this phase adds"
+      },
+      "x-realises": "lifecycle::INVARIANT_UPSTREAM_COMMITMENT_CARRIED_V0",
+      "x-carriage": {
+        "mode": "prose",
+        "params": {
+          "prior_phase": "p0",
+          "prior_register": "subdomain_purpose",
+          "prose_register": "subdomain_purpose",
+          "column": "Disposition",
+          "inherited_value": "INHERITED",
+          "detail": "the purpose is declared INHERITED and does not match the seed's — inherit it word for word, or declare REFINED and say what this phase adds"
+        }
+      }
+    },
+    {
+      "x-register": "purpose_provenance",
+      "x-finding": {
+        "code": "REFINEMENT_NOT_STATED",
+        "intent": "superseding upstream content is allowed, doing it without saying so is not",
+        "detail": "a refined purpose must state what it adds that the seed did not say; silence here is the silent replacement this register exists to prevent"
+      },
+      "items": {
+        "if": {
+          "properties": {
+            "disposition": {
+              "const": "REFINED"
+            }
+          },
+          "required": [
+            "disposition"
+          ]
+        },
+        "then": {
+          "properties": {
+            "refinement": {
+              "minLength": 1
+            }
+          }
+        }
+      }
+    },
+    {
+      "x-register": "subdomain_purposes",
+      "x-finding": {
+        "code": "TOUCHED_SUBDOMAIN_WITHOUT_PURPOSE",
+        "intent": "every subdomain a change touches has its purpose stated"
+      },
+      "x-realises": "lifecycle::INVARIANT_TOUCHED_SUBDOMAIN_DECLARED_V0",
+      "x-carriage": {
+        "mode": "identities_covered",
+        "params": {
+          "prior_phase": "p0",
+          "prior_register": "cr_type",
+          "prior_column": "Subdomain",
+          "column": "Subdomain",
+          "require": "prior_in_here"
+        }
+      }
+    },
+    {
+      "x-register": "provisional_codes",
+      "x-finding": {
+        "code": "TOUCHED_SUBDOMAIN_AUTHORS_NOTHING",
+        "intent": "a subdomain a change authors into names the artifacts it authors"
+      },
+      "x-realises": "lifecycle::INVARIANT_TOUCHED_SUBDOMAIN_DECLARED_V0",
+      "x-carriage": {
+        "mode": "identities_covered",
+        "params": {
+          "prior_phase": "p0",
+          "prior_register": "cr_type",
+          "prior_column": "Subdomain",
+          "column": "Subdomain",
+          "require": "prior_in_here",
+          "prior_only_when_column": "Classification",
+          "prior_only_when_values": [
+            "NEW_SUBDOMAIN",
+            "EXTEND_SUBDOMAIN"
+          ]
+        }
+      }
+    },
+    {
+      "x-register": "provisional_codes",
+      "x-finding": {
+        "code": "PROVISIONAL_CODE_ALREADY_BOUND",
+        "intent": "a provisional code names what to build, never where it will live",
+        "detail": "{token!r} in {column!r} — a provisional code carrying a namespace has already been placed, and placement is Stage 7's decision"
+      },
+      "items": {
+        "properties": {
+          "provisional_code": {
+            "not": {
+              "pattern": "::"
+            }
+          }
+        }
+      }
+    },
+    {
+      "x-register": "provisional_codes",
+      "x-finding": {
+        "code": "PROVISIONAL_CODE_MALFORMED",
+        "intent": "a provisional code is readable as a family, a name and a version",
+        "detail": "provisional code must be FAMILY_NAME_V<n> with no namespace"
+      },
+      "items": {
+        "properties": {
+          "provisional_code": {
+            "pattern": "^(?:AC|IN|WF|CC|CT|EV|RB|VOCAB|STRUCTURE|TI|TE)_[A-Z0-9_]+_V\\d+$"
+          }
+        }
+      }
+    },
+    {
+      "x-register": "provisional_codes",
+      "x-finding": {
+        "code": "PROVISIONAL_FAMILY_MISMATCH",
+        "intent": "a code and the family it is filed under agree"
+      },
+      "x-realises": "lifecycle::INVARIANT_DESIGN_NAMES_RESOLVE_V0",
+      "x-procedure": {
+        "name": "CELL_PREFIXED_BY_COLUMN",
+        "params": {
+          "column": "Provisional Code",
+          "prefix_column": "Family"
+        }
+      }
+    },
+    {
+      "x-register": "cross_subdomain_refs",
+      "x-finding": {
+        "code": "CROSS_SUBDOMAIN_REF_UNRESOLVED",
+        "intent": "a capability borrowed from elsewhere must be one that really exists"
+      },
+      "x-realises": "lifecycle::INVARIANT_EXISTING_ARTIFACT_OBSERVED_V0",
+      "x-grounding": {
+        "mode": "exists",
+        "params": {
+          "column": "CC Code",
+          "pattern": "[a-z][a-z0-9_.]*::[A-Z][A-Z0-9_]*_V\\d+",
+          "observation": "si.artifact.list"
+        }
+      }
+    },
+    {
+      "x-register": "business_objects",
+      "x-finding": {
+        "code": "BINDING_LEAKED_INTO_INTENT",
+        "intent": "intent says what must be true, never how it is wired",
+        "detail": "{token!r} in {column!r} — a path, a binding expression or a hash is an implementation decision, and Stage 7 owns those"
+      },
+      "x-realises": "lifecycle::INVARIANT_PHASE_SPEAKS_ITS_RUNG_V0",
+      "items": {
+        "properties": {
+          "store_name": {
+            "not": {
+              "pattern": "\\$\\.[A-Za-z_]|/[a-z_]+/|\\b[0-9a-f]{16,}\\b"
+            }
+          },
+          "record_model": {
+            "not": {
+              "pattern": "\\$\\.[A-Za-z_]|/[a-z_]+/|\\b[0-9a-f]{16,}\\b"
+            }
+          },
+          "business_rationale": {
+            "not": {
+              "pattern": "\\$\\.[A-Za-z_]|/[a-z_]+/|\\b[0-9a-f]{16,}\\b"
+            }
+          }
+        }
+      }
+    },
+    {
+      "x-register": "invariants",
+      "x-finding": {
+        "code": "INVARIANT_WITHOUT_BUSINESS_REASON",
+        "intent": "every invariant is answerable to the business, not to the design",
+        "detail": "invariant states no business reason — a rule without one is a technical constraint and belongs elsewhere"
+      },
+      "items": {
+        "properties": {
+          "business_reason": {
+            "minLength": 1
+          }
+        }
+      }
+    },
+    {
+      "x-register": "identity_semantics",
+      "x-finding": {
+        "code": "IDENTITY_WITHOUT_UNIQUENESS_RULE",
+        "intent": "identity semantics are stated, never inferred from field names",
+        "detail": "identity declares no uniqueness rule — what a duplicate means is irreducible business knowledge the compiler cannot infer"
+      },
+      "items": {
+        "properties": {
+          "uniqueness_rule": {
+            "minLength": 1
+          }
+        }
+      }
+    },
+    {
+      "x-register": "provisional_codes",
+      "x-finding": {
+        "code": "EVENT_CODE_NOT_PAST_PARTICIPLE",
+        "intent": "an event names an occurrence, and a code in the imperative names an operation",
+        "detail": "{value!r} does not name a moment that has happened — an event code reads EV_<subject>_<participle>, as EV_ACTOR_REGISTERED_V0 does"
+      },
+      "items": {
+        "if": {
+          "properties": {
+            "family": {
+              "const": "EV"
+            }
+          },
+          "required": [
+            "family"
+          ]
+        },
+        "then": {
+          "properties": {
+            "provisional_code": {
+              "pattern": "^(?:[a-z][a-z0-9_.]*::)?EV_[A-Z0-9_]+ED_V\\d+$"
+            }
+          }
+        }
+      }
+    },
+    {
+      "x-finding": {
+        "code": "REGISTER_CELL_UNRESOLVED",
+        "intent": "an unanswered question left in a register reads as decided to every later phase",
+        "detail": "{column!r} declares the question unanswered ({marker}) rather than answering it — ask it as a clarification, do not hedge it in a register"
+      },
+      "x-realises": "lifecycle::INVARIANT_NO_QUESTION_LEFT_OPEN_V0",
+      "x-procedure": {
+        "name": "UNRESOLVED_MARKER_ABSENT",
+        "params": {
+          "exempt": [],
+          "detail": "{column!r} declares the question unanswered ({marker}) rather than answering it — ask it as a clarification, do not hedge it in a register"
+        }
+      }
+    }
+  ],
+  "x-priors": [
+    "p0"
+  ],
+  "x-observations": {
+    "si.artifact.list": "artifacts"
+  },
+  "$defs": {
+    "citation": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "required": [
+            "register"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "phase": {
+              "type": "string",
+              "pattern": "^p[0-8]$"
+            },
+            "register": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9_]*$"
+            },
+            "row": {
+              "type": "integer"
+            },
+            "key": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "not": {
+            "required": [
+              "row",
+              "key"
+            ]
+          }
+        },
+        {
+          "type": "object",
+          "required": [
+            "artifact"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "artifact": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9_.]*::[A-Z][A-Z0-9_]*_V[0-9]+$"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "required": [
+            "source"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "source": {
+              "const": "human"
+            }
+          }
+        },
+        {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "oneOf": [
+              {
+                "type": "object",
+                "required": [
+                  "register"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "phase": {
+                    "type": "string",
+                    "pattern": "^p[0-8]$"
+                  },
+                  "register": {
+                    "type": "string",
+                    "pattern": "^[a-z][a-z0-9_]*$"
+                  },
+                  "row": {
+                    "type": "integer"
+                  },
+                  "key": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "not": {
+                  "required": [
+                    "row",
+                    "key"
+                  ]
+                }
+              },
+              {
+                "type": "object",
+                "required": [
+                  "artifact"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "artifact": {
+                    "type": "string",
+                    "pattern": "^[a-z][a-z0-9_.]*::[A-Z][A-Z0-9_]*_V[0-9]+$"
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "required": [
+                  "source"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "source": {
+                    "const": "human"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

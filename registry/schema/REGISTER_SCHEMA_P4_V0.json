@@ -1,0 +1,896 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "transformation.schemas.REGISTER_SCHEMA_P4_V0",
+  "$comment": "The registers a phase document's Machine block carries, and their shape.",
+  "x-revisions": [
+    {
+      "revision": 1,
+      "retroactive": false,
+      "change": "The rule set as rebuilt: declared in this schema, each rule named by its identity, the header stated under document.",
+      "digest": "sha256:30d32d64de72d52d98c34d0b59ece56ccc7e27ccef251a0186f0708b8d8c95dc"
+    }
+  ],
+  "type": "object",
+  "required": [
+    "document",
+    "registers"
+  ],
+  "x-consumes": [
+    "authoring_decisions",
+    "dependency_discoveries",
+    "placement_decision",
+    "saturation"
+  ],
+  "x-emits": [
+    "actors",
+    "bm_entities",
+    "events",
+    "capability_graph",
+    "dependency_graph",
+    "constraint_register",
+    "gap_register",
+    "design_decisions",
+    "authoring_scope"
+  ],
+  "properties": {
+    "document": {
+      "type": "object",
+      "required": [
+        "phase",
+        "domain",
+        "subdomain",
+        "cr",
+        "rule_set"
+      ],
+      "properties": {
+        "phase": {
+          "const": "p4"
+        },
+        "domain": {
+          "type": "string",
+          "minLength": 1
+        },
+        "subdomain": {
+          "type": [
+            "string",
+            "array"
+          ],
+          "items": {
+            "type": "string"
+          },
+          "minLength": 1,
+          "minItems": 1
+        },
+        "cr": {
+          "type": "string",
+          "minLength": 1
+        },
+        "rule_set": {
+          "type": "string",
+          "pattern": "^transformation\\.schemas\\.REGISTER_SCHEMA_P4_V[0-9]+$"
+        }
+      }
+    },
+    "registers": {
+      "type": "object",
+      "required": [
+        "actors",
+        "bm_entities",
+        "resources",
+        "events",
+        "relationships",
+        "capability_graph",
+        "dependency_graph",
+        "constraint_register",
+        "gap_register",
+        "design_decisions",
+        "authoring_scope"
+      ],
+      "properties": {
+        "actors": {
+          "type": "array",
+          "x-section": {
+            "number": "1",
+            "title": "Discovery Summary"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "actor": {
+                "title": "Actor",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "role": {
+                "title": "Role",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "authority_class": {
+                "title": "Authority Class",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "actor",
+              "role",
+              "authority_class",
+              "source_finding"
+            ]
+          },
+          "minItems": 1,
+          "x-business-language": true
+        },
+        "bm_entities": {
+          "type": "array",
+          "x-section": {
+            "number": "1",
+            "title": "Discovery Summary"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "entity": {
+                "title": "Entity",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "description": {
+                "title": "Description",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "store_model": {
+                "title": "Store Model",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "entity",
+              "description",
+              "store_model",
+              "source_finding"
+            ]
+          },
+          "minItems": 1,
+          "x-business-language": true
+        },
+        "resources": {
+          "type": "array",
+          "x-section": {
+            "number": "1",
+            "title": "Discovery Summary"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "resource": {
+                "title": "Resource",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "description": {
+                "title": "Description",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "resource",
+              "description",
+              "source_finding"
+            ]
+          },
+          "x-business-language": true
+        },
+        "events": {
+          "type": "array",
+          "x-section": {
+            "number": "1",
+            "title": "Discovery Summary"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "event": {
+                "title": "Event",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "trigger": {
+                "title": "Trigger",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "lifecycle_meaning": {
+                "title": "Lifecycle Meaning",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "event",
+              "trigger",
+              "lifecycle_meaning",
+              "source_finding"
+            ]
+          },
+          "minItems": 1,
+          "x-business-language": true
+        },
+        "relationships": {
+          "type": "array",
+          "x-section": {
+            "number": "1",
+            "title": "Discovery Summary"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "subject": {
+                "title": "Subject",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "verb": {
+                "title": "Verb",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "object": {
+                "title": "Object",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "capability_need": {
+                "title": "Capability Need",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "subject",
+              "verb",
+              "object",
+              "capability_need",
+              "source_finding"
+            ]
+          },
+          "x-business-language": true
+        },
+        "capability_graph": {
+          "type": "array",
+          "x-section": {
+            "number": "2",
+            "title": "Capability Graph (capability_graph)"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "capability": {
+                "title": "Capability",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              },
+              "status": {
+                "title": "Status",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "gap_register_entry": {
+                "title": "Gap Register Entry",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "notes": {
+                "title": "Notes",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "required": [
+              "capability",
+              "source_finding",
+              "status",
+              "gap_register_entry",
+              "notes"
+            ]
+          },
+          "minItems": 1,
+          "x-business-language": true
+        },
+        "dependency_graph": {
+          "type": "array",
+          "x-section": {
+            "number": "3",
+            "title": "Dependency Graph (dependency_graph)"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "from": {
+                "title": "From",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "to": {
+                "title": "To",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "dependency_type": {
+                "title": "Dependency Type",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "pps_status": {
+                "title": "PPS Status",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "from",
+              "to",
+              "dependency_type",
+              "pps_status",
+              "source_finding"
+            ]
+          },
+          "minItems": 1
+        },
+        "constraint_register": {
+          "type": "array",
+          "x-section": {
+            "number": "4",
+            "title": "Constraint Register (constraint_register)"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "number": {
+                "title": "#",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "constraint": {
+                "title": "Constraint",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              },
+              "source": {
+                "title": "Source",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "required": [
+              "number",
+              "constraint",
+              "source_finding",
+              "source"
+            ]
+          },
+          "minItems": 1
+        },
+        "gap_register": {
+          "type": "array",
+          "x-section": {
+            "number": "5",
+            "title": "Gap Register (gap_register)"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "gap_code": {
+                "title": "Gap Code",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              },
+              "capability": {
+                "title": "Capability",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "owner_subdomain": {
+                "title": "Owner Subdomain",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "resolution": {
+                "title": "Resolution",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "required": [
+              "gap_code",
+              "source_finding",
+              "capability",
+              "owner_subdomain",
+              "resolution"
+            ]
+          },
+          "minItems": 1,
+          "x-business-language": true
+        },
+        "design_decisions": {
+          "type": "array",
+          "x-section": {
+            "number": "6",
+            "title": "Design Decisions (design_decisions)"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "number": {
+                "title": "#",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "decision": {
+                "title": "Decision",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              },
+              "rationale": {
+                "title": "Rationale",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "constraints_imposed": {
+                "title": "Constraints Imposed",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "required": [
+              "number",
+              "decision",
+              "source_finding",
+              "rationale",
+              "constraints_imposed"
+            ]
+          },
+          "minItems": 1
+        },
+        "authoring_scope": {
+          "type": "array",
+          "x-section": {
+            "number": "7",
+            "title": "Authoring Scope (authoring_scope)"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "capability": {
+                "title": "Capability",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "gap_register_ref": {
+                "title": "Gap Register Ref",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "required": [
+              "capability",
+              "gap_register_ref"
+            ]
+          },
+          "minItems": 1
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "x-register": "capability_graph",
+      "x-finding": {
+        "code": "CRITICAL_WITHOUT_GAP_ENTRY",
+        "intent": "every capability that must be authored is a declared gap",
+        "detail": "capability is CRITICAL but names no gap — work this change request must do has nowhere to be tracked"
+      },
+      "items": {
+        "if": {
+          "properties": {
+            "status": {
+              "const": "CRITICAL"
+            }
+          },
+          "required": [
+            "status"
+          ]
+        },
+        "then": {
+          "properties": {
+            "gap_register_entry": {
+              "minLength": 1
+            }
+          }
+        }
+      }
+    },
+    {
+      "x-register": "capability_graph",
+      "x-finding": {
+        "code": "GAP_ENTRY_UNDECLARED",
+        "intent": "a capability points only at a gap the document itself declares",
+        "detail": "a consolidation may only point at what it consolidated"
+      },
+      "x-realises": "lifecycle::INVARIANT_DESIGN_NAMES_RESOLVE_V0",
+      "x-reference": {
+        "mode": "resolves",
+        "params": {
+          "column": "Gap Register Entry",
+          "target_register": "gap_register",
+          "target_column": "Gap Code",
+          "only_when_column": "Status",
+          "only_when_value": "CRITICAL",
+          "detail": "a consolidation may only point at what it consolidated"
+        }
+      }
+    },
+    {
+      "x-register": "gap_register",
+      "x-finding": {
+        "code": "GAP_WITHOUT_OWNER",
+        "intent": "every gap has a subdomain accountable for closing it",
+        "detail": "gap names no owning subdomain — an unowned gap is nobody's work"
+      },
+      "items": {
+        "properties": {
+          "owner_subdomain": {
+            "minLength": 1
+          }
+        }
+      }
+    },
+    {
+      "x-register": "authoring_scope",
+      "x-finding": {
+        "code": "SCOPE_WITHOUT_GAP_REFERENCE",
+        "intent": "what this change request builds traces to a declared gap, not to intent",
+        "detail": "in-scope capability references no gap — scope must trace to evidence"
+      },
+      "items": {
+        "properties": {
+          "gap_register_ref": {
+            "minLength": 1
+          }
+        }
+      }
+    },
+    {
+      "x-register": "authoring_scope",
+      "x-finding": {
+        "code": "SCOPE_GAP_UNDECLARED",
+        "intent": "scope points only at a gap the document itself declares",
+        "detail": "a consolidation may only point at what it consolidated"
+      },
+      "x-realises": "lifecycle::INVARIANT_DESIGN_NAMES_RESOLVE_V0",
+      "x-reference": {
+        "mode": "resolves",
+        "params": {
+          "column": "Gap Register Ref",
+          "target_register": "gap_register",
+          "target_column": "Gap Code",
+          "detail": "a consolidation may only point at what it consolidated"
+        }
+      }
+    },
+    {
+      "x-register": "dependency_graph",
+      "x-finding": {
+        "code": "DEPENDENCY_IDENTITY_UNRESOLVED",
+        "intent": "a dependency on an existing artifact must be one that really exists"
+      },
+      "x-realises": "lifecycle::INVARIANT_EXISTING_ARTIFACT_OBSERVED_V0",
+      "x-grounding": {
+        "mode": "exists",
+        "params": {
+          "column": "To",
+          "pattern": "[a-z][a-z0-9_.]*::[A-Z][A-Z0-9_]*_V\\d+",
+          "observation": "si.artifact.list"
+        }
+      }
+    },
+    {
+      "x-register": "design_decisions",
+      "x-finding": {
+        "code": "DECISION_WITHOUT_RATIONALE",
+        "intent": "a consolidated decision carries the reasoning that produced it",
+        "detail": "design decision states no rationale — a decision without a reason cannot be reviewed"
+      },
+      "items": {
+        "properties": {
+          "rationale": {
+            "minLength": 1
+          }
+        }
+      }
+    },
+    {
+      "x-register": "capability_graph",
+      "x-finding": {
+        "code": "AUTHORING_DECISION_NOT_CONSOLIDATED",
+        "intent": "a capability P3 decided and P4 never consolidated is dropped, not deferred"
+      },
+      "x-realises": "lifecycle::INVARIANT_UPSTREAM_COMMITMENT_CARRIED_V0",
+      "x-carriage": {
+        "mode": "present_by_key",
+        "params": {
+          "prior_phase": "p3",
+          "prior_register": "authoring_decisions",
+          "prior_key_column": "Capability",
+          "key_column": "Capability"
+        }
+      }
+    },
+    {
+      "x-finding": {
+        "code": "REGISTER_CELL_UNRESOLVED",
+        "intent": "an unanswered question left in a register reads as decided to every later phase",
+        "detail": "{column!r} declares the question unanswered ({marker}) rather than answering it — ask it as a clarification, do not hedge it in a register"
+      },
+      "x-realises": "lifecycle::INVARIANT_NO_QUESTION_LEFT_OPEN_V0",
+      "x-procedure": {
+        "name": "UNRESOLVED_MARKER_ABSENT",
+        "params": {
+          "exempt": [
+            "gap_register"
+          ],
+          "detail": "{column!r} declares the question unanswered ({marker}) rather than answering it — ask it as a clarification, do not hedge it in a register"
+        }
+      }
+    }
+  ],
+  "x-priors": [
+    "p3"
+  ],
+  "x-observations": {
+    "si.artifact.list": "artifacts"
+  },
+  "$defs": {
+    "citation": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "required": [
+            "register"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "phase": {
+              "type": "string",
+              "pattern": "^p[0-8]$"
+            },
+            "register": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9_]*$"
+            },
+            "row": {
+              "type": "integer"
+            },
+            "key": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "not": {
+            "required": [
+              "row",
+              "key"
+            ]
+          }
+        },
+        {
+          "type": "object",
+          "required": [
+            "artifact"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "artifact": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9_.]*::[A-Z][A-Z0-9_]*_V[0-9]+$"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "required": [
+            "source"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "source": {
+              "const": "human"
+            }
+          }
+        },
+        {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "oneOf": [
+              {
+                "type": "object",
+                "required": [
+                  "register"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "phase": {
+                    "type": "string",
+                    "pattern": "^p[0-8]$"
+                  },
+                  "register": {
+                    "type": "string",
+                    "pattern": "^[a-z][a-z0-9_]*$"
+                  },
+                  "row": {
+                    "type": "integer"
+                  },
+                  "key": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "not": {
+                  "required": [
+                    "row",
+                    "key"
+                  ]
+                }
+              },
+              {
+                "type": "object",
+                "required": [
+                  "artifact"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "artifact": {
+                    "type": "string",
+                    "pattern": "^[a-z][a-z0-9_.]*::[A-Z][A-Z0-9_]*_V[0-9]+$"
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "required": [
+                  "source"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "source": {
+                    "const": "human"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

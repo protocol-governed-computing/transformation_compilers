@@ -1,0 +1,777 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "transformation.schemas.REGISTER_SCHEMA_P3_V0",
+  "$comment": "The registers a phase document's Machine block carries, and their shape.",
+  "x-revisions": [
+    {
+      "revision": 1,
+      "retroactive": false,
+      "change": "The rule set as rebuilt: declared in this schema, each rule named by its identity, the header stated under document.",
+      "digest": "sha256:a1a8c89228c338c3dbe45829da4550e9f01077cd8d0076dd2ee3e285646a0809"
+    }
+  ],
+  "type": "object",
+  "required": [
+    "document",
+    "registers"
+  ],
+  "x-consumes": [
+    "belief_verification",
+    "pps_baseline_fqdns",
+    "gaps",
+    "architectural_observations",
+    "discovery_concerns",
+    "open_questions"
+  ],
+  "x-emits": [
+    "authoring_decisions",
+    "dependency_discoveries",
+    "placement_decision",
+    "saturation"
+  ],
+  "properties": {
+    "document": {
+      "type": "object",
+      "required": [
+        "phase",
+        "domain",
+        "subdomain",
+        "cr",
+        "rule_set"
+      ],
+      "properties": {
+        "phase": {
+          "const": "p3"
+        },
+        "domain": {
+          "type": "string",
+          "minLength": 1
+        },
+        "subdomain": {
+          "type": [
+            "string",
+            "array"
+          ],
+          "items": {
+            "type": "string"
+          },
+          "minLength": 1,
+          "minItems": 1
+        },
+        "cr": {
+          "type": "string",
+          "minLength": 1
+        },
+        "rule_set": {
+          "type": "string",
+          "pattern": "^transformation\\.schemas\\.REGISTER_SCHEMA_P3_V[0-9]+$"
+        }
+      }
+    },
+    "registers": {
+      "type": "object",
+      "required": [
+        "analysis_findings",
+        "verification_results",
+        "dependency_discoveries",
+        "impact_analysis",
+        "authoring_decisions",
+        "placement_decision",
+        "saturation"
+      ],
+      "properties": {
+        "analysis_findings": {
+          "type": "array",
+          "x-section": {
+            "number": "1",
+            "title": "Analysis Findings"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "question_id": {
+                "title": "Question Id",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "finding": {
+                "title": "Finding",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "impact": {
+                "title": "Impact",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "evidence_status": {
+                "title": "Evidence Status",
+                "x-vocab": {
+                  "artifact": "transformation::VOCAB_DESIGN_REGISTER_TERMS_V0",
+                  "group": "evidence_status"
+                },
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "confidence": {
+                "title": "Confidence",
+                "x-vocab": {
+                  "artifact": "transformation::VOCAB_DESIGN_REGISTER_TERMS_V0",
+                  "group": "certainty"
+                },
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "resolution_status": {
+                "title": "Resolution Status",
+                "x-vocab": {
+                  "artifact": "transformation::VOCAB_DESIGN_REGISTER_TERMS_V0",
+                  "group": "resolution_status"
+                },
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "evidence": {
+                "title": "Evidence",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "required": [
+              "question_id",
+              "finding",
+              "impact",
+              "evidence_status",
+              "confidence",
+              "resolution_status",
+              "evidence"
+            ]
+          },
+          "minItems": 1
+        },
+        "verification_results": {
+          "type": "array",
+          "x-section": {
+            "number": "2",
+            "title": "Mandatory Verification Pass"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "item": {
+                "title": "Item",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "origin": {
+                "title": "Origin",
+                "$ref": "#/$defs/citation"
+              },
+              "result": {
+                "title": "Result",
+                "x-vocab": {
+                  "artifact": "transformation::VOCAB_DESIGN_REGISTER_TERMS_V0",
+                  "group": "verification_result"
+                },
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "evidence": {
+                "title": "Evidence",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "required": [
+              "item",
+              "origin",
+              "result",
+              "evidence"
+            ]
+          },
+          "minItems": 1
+        },
+        "dependency_discoveries": {
+          "type": "array",
+          "x-section": {
+            "number": "3",
+            "title": "Dependency Discoveries"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "dependency": {
+                "title": "Dependency",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "type": {
+                "title": "Type",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "disposition": {
+                "title": "Disposition",
+                "x-vocab": {
+                  "artifact": "transformation::VOCAB_DESIGN_REGISTER_TERMS_V0",
+                  "group": "dependency_disposition"
+                },
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "evidence": {
+                "title": "Evidence",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "required": [
+              "dependency",
+              "type",
+              "disposition",
+              "evidence"
+            ]
+          },
+          "minItems": 1
+        },
+        "impact_analysis": {
+          "type": "array",
+          "x-section": {
+            "number": "4",
+            "title": "Impact Analysis"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "artifact": {
+                "title": "Artifact",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "impact_scope": {
+                "title": "Impact Scope",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "consumer_count": {
+                "title": "Consumer Count",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "evidence": {
+                "title": "Evidence",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "required": [
+              "artifact",
+              "impact_scope",
+              "consumer_count",
+              "evidence"
+            ]
+          },
+          "minItems": 1
+        },
+        "authoring_decisions": {
+          "type": "array",
+          "x-section": {
+            "number": "5",
+            "title": "Authoring Decisions"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "capability": {
+                "title": "Capability",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "decision": {
+                "title": "Decision",
+                "x-vocab": {
+                  "artifact": "transformation::VOCAB_DESIGN_REGISTER_TERMS_V0",
+                  "group": "reuse_decision"
+                },
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "rationale": {
+                "title": "Rationale",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "alternatives_checked": {
+                "title": "Alternatives Checked",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "capability",
+              "decision",
+              "rationale",
+              "alternatives_checked",
+              "source_finding"
+            ]
+          },
+          "minItems": 1,
+          "x-business-language": [
+            "capability"
+          ]
+        },
+        "placement_decision": {
+          "type": "array",
+          "x-section": {
+            "number": "6",
+            "title": "Subdomain Placement Decision"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "decision": {
+                "title": "Decision",
+                "x-vocab": {
+                  "artifact": "transformation::VOCAB_DESIGN_REGISTER_TERMS_V0",
+                  "group": "placement_decision"
+                },
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "subdomain": {
+                "title": "Subdomain",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "rationale": {
+                "title": "Rationale",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "decision",
+              "subdomain",
+              "rationale",
+              "source_finding"
+            ]
+          },
+          "minItems": 1,
+          "x-business-language": [
+            "subdomain"
+          ]
+        },
+        "saturation": {
+          "type": "array",
+          "x-section": {
+            "number": "7",
+            "title": "Saturation Assessment"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "criterion": {
+                "title": "Criterion",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "status": {
+                "title": "Status",
+                "x-vocab": {
+                  "artifact": "transformation::VOCAB_DESIGN_REGISTER_TERMS_V0",
+                  "group": "saturation_status"
+                },
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "evidence": {
+                "title": "Evidence",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "required": [
+              "criterion",
+              "status",
+              "evidence"
+            ]
+          },
+          "minItems": 1,
+          "x-business-language": [
+            "criterion"
+          ]
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "x-register": "authoring_decisions",
+      "x-finding": {
+        "code": "REUSE_CANDIDATE_NOT_ELIGIBLE",
+        "intent": "a change request may only be offered candidates from a domain that permits reuse"
+      },
+      "x-realises": "lifecycle::INVARIANT_REUSE_FROM_PERMITTING_DOMAIN_V0",
+      "x-grounding": {
+        "mode": "reuse_eligible",
+        "params": {
+          "column": "Alternatives Checked",
+          "pattern": "[a-z][a-z0-9_.]*::[A-Z][A-Z0-9_]*_V\\d+",
+          "observation": "si.snapshot.summary",
+          "artifact_observation": "si.artifact.list",
+          "eligible": [
+            "substrate",
+            "business"
+          ]
+        }
+      }
+    },
+    {
+      "x-register": "authoring_decisions",
+      "x-finding": {
+        "code": "DECISION_WITHOUT_ALTERNATIVES",
+        "intent": "a committed decision shows the search that produced it",
+        "detail": "decision records no alternatives examined — 'I searched and found nothing' is credible only with the search shown"
+      },
+      "items": {
+        "properties": {
+          "alternatives_checked": {
+            "minLength": 1
+          }
+        }
+      }
+    },
+    {
+      "x-register": "authoring_decisions",
+      "x-finding": {
+        "code": "DECISION_WITHOUT_RATIONALE",
+        "intent": "every decision traces to a grounded reason",
+        "detail": "decision states no rationale — a classification without a reason is an assertion"
+      },
+      "items": {
+        "properties": {
+          "rationale": {
+            "minLength": 1
+          }
+        }
+      }
+    },
+    {
+      "x-register": "authoring_decisions",
+      "x-finding": {
+        "code": "CITED_ALTERNATIVE_UNRESOLVED",
+        "intent": "an alternative examined must be one that really exists"
+      },
+      "x-realises": "lifecycle::INVARIANT_EXISTING_ARTIFACT_OBSERVED_V0",
+      "x-grounding": {
+        "mode": "exists",
+        "params": {
+          "column": "Alternatives Checked",
+          "pattern": "[a-z][a-z0-9_.]*::[A-Z][A-Z0-9_]*_V\\d+",
+          "observation": "si.artifact.list"
+        }
+      }
+    },
+    {
+      "x-register": "impact_analysis",
+      "x-finding": {
+        "code": "IMPACT_WITHOUT_EVIDENCE",
+        "intent": "impact is mechanically captured, never summarised from memory",
+        "detail": "impact row carries no evidence — consumer counts are observed, never estimated"
+      },
+      "items": {
+        "properties": {
+          "evidence": {
+            "minLength": 1
+          }
+        }
+      }
+    },
+    {
+      "x-register": "verification_results",
+      "x-finding": {
+        "code": "VERIFICATION_WITHOUT_EVIDENCE",
+        "intent": "an overturned answer is marked with what overturned it, never erased",
+        "detail": "verification records no evidence — grounding is not inherited, so a re-check that cites nothing did not happen"
+      },
+      "items": {
+        "properties": {
+          "evidence": {
+            "minLength": 1
+          }
+        }
+      }
+    },
+    {
+      "x-register": "saturation",
+      "x-finding": {
+        "code": "SATURATION_CRITERIA_INCOMPLETE",
+        "intent": "analysis is saturated only against every declared criterion; a claim resting on fewer is the gap the criteria exist to close"
+      },
+      "minItems": 5
+    },
+    {
+      "x-register": "saturation",
+      "x-finding": {
+        "code": "SATURATION_CLAIMED_WITHOUT_EVIDENCE",
+        "intent": "saturation is demonstrated, not declared",
+        "detail": "criterion is asserted satisfied with nothing to show for it"
+      },
+      "items": {
+        "properties": {
+          "evidence": {
+            "minLength": 1
+          }
+        }
+      }
+    },
+    {
+      "x-register": "verification_results",
+      "x-finding": {
+        "code": "BELIEF_RESULT_NOT_REVERIFIED",
+        "intent": "a result nobody re-verified was inherited, and grounding is not inherited"
+      },
+      "x-realises": "lifecycle::INVARIANT_UPSTREAM_COMMITMENT_CARRIED_V0",
+      "x-carriage": {
+        "mode": "cited",
+        "params": {
+          "prior_phase": "p2",
+          "prior_register": "belief_verification",
+          "prior_key_column": "Belief",
+          "citation_column": "Origin"
+        }
+      }
+    },
+    {
+      "x-register": "verification_results",
+      "x-finding": {
+        "code": "BELIEF_RESULT_RESTATED_FROM_P2",
+        "intent": "a re-verification must address the result it cites, not a substitute for it"
+      },
+      "x-realises": "lifecycle::INVARIANT_RESTATEMENT_MATCHES_SOURCE_V0",
+      "x-carriage": {
+        "mode": "matches_cited",
+        "params": {
+          "prior_phase": "p2",
+          "prior_register": "belief_verification",
+          "prior_key_column": "Belief",
+          "key_column": "Item",
+          "citation_column": "Origin"
+        }
+      }
+    },
+    {
+      "x-finding": {
+        "code": "REGISTER_CELL_UNRESOLVED",
+        "intent": "an unanswered question left in a register reads as decided to every later phase",
+        "detail": "{column!r} declares the question unanswered ({marker}) rather than answering it — ask it as a clarification, do not hedge it in a register"
+      },
+      "x-realises": "lifecycle::INVARIANT_NO_QUESTION_LEFT_OPEN_V0",
+      "x-procedure": {
+        "name": "UNRESOLVED_MARKER_ABSENT",
+        "params": {
+          "exempt": [],
+          "detail": "{column!r} declares the question unanswered ({marker}) rather than answering it — ask it as a clarification, do not hedge it in a register"
+        }
+      }
+    }
+  ],
+  "x-priors": [
+    "p2"
+  ],
+  "x-observations": {
+    "si.artifact.list": "artifacts",
+    "si.snapshot.summary": "reuse_visibility"
+  },
+  "$defs": {
+    "citation": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "required": [
+            "register"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "phase": {
+              "type": "string",
+              "pattern": "^p[0-8]$"
+            },
+            "register": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9_]*$"
+            },
+            "row": {
+              "type": "integer"
+            },
+            "key": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "not": {
+            "required": [
+              "row",
+              "key"
+            ]
+          }
+        },
+        {
+          "type": "object",
+          "required": [
+            "artifact"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "artifact": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9_.]*::[A-Z][A-Z0-9_]*_V[0-9]+$"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "required": [
+            "source"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "source": {
+              "const": "human"
+            }
+          }
+        },
+        {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "oneOf": [
+              {
+                "type": "object",
+                "required": [
+                  "register"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "phase": {
+                    "type": "string",
+                    "pattern": "^p[0-8]$"
+                  },
+                  "register": {
+                    "type": "string",
+                    "pattern": "^[a-z][a-z0-9_]*$"
+                  },
+                  "row": {
+                    "type": "integer"
+                  },
+                  "key": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "not": {
+                  "required": [
+                    "row",
+                    "key"
+                  ]
+                }
+              },
+              {
+                "type": "object",
+                "required": [
+                  "artifact"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "artifact": {
+                    "type": "string",
+                    "pattern": "^[a-z][a-z0-9_.]*::[A-Z][A-Z0-9_]*_V[0-9]+$"
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "required": [
+                  "source"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "source": {
+                    "const": "human"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

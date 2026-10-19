@@ -1,0 +1,864 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "transformation.schemas.REGISTER_SCHEMA_P2_V0",
+  "$comment": "The registers a phase document's Machine block carries, and their shape.",
+  "x-revisions": [
+    {
+      "revision": 1,
+      "retroactive": false,
+      "change": "The rule set as rebuilt: declared in this schema, each rule named by its identity, the header stated under document.",
+      "digest": "sha256:28334f87a6c312b5c16f126612bf9baa4f84737e955bc2621620aaa0078e83f6"
+    }
+  ],
+  "type": "object",
+  "required": [
+    "document",
+    "registers"
+  ],
+  "x-consumes": [
+    "business_vocabulary",
+    "known_facts",
+    "system_beliefs",
+    "lifecycle_states",
+    "business_events",
+    "governance_scope",
+    "out_of_scope",
+    "constraints",
+    "business_invariants",
+    "authority_boundaries",
+    "identity_and_sameness",
+    "lifecycle_transitions",
+    "operation_refusals",
+    "authority_deferrals"
+  ],
+  "x-emits": [
+    "entities",
+    "entity_attributes",
+    "business_processes",
+    "process_steps",
+    "belief_verification",
+    "pps_baseline_fqdns",
+    "gaps",
+    "architectural_observations",
+    "discovery_concerns",
+    "open_questions"
+  ],
+  "properties": {
+    "document": {
+      "type": "object",
+      "required": [
+        "phase",
+        "domain",
+        "subdomain",
+        "cr",
+        "rule_set"
+      ],
+      "properties": {
+        "phase": {
+          "const": "p2"
+        },
+        "domain": {
+          "type": "string",
+          "minLength": 1
+        },
+        "subdomain": {
+          "type": [
+            "string",
+            "array"
+          ],
+          "items": {
+            "type": "string"
+          },
+          "minLength": 1,
+          "minItems": 1
+        },
+        "cr": {
+          "type": "string",
+          "minLength": 1
+        },
+        "rule_set": {
+          "type": "string",
+          "pattern": "^transformation\\.schemas\\.REGISTER_SCHEMA_P2_V[0-9]+$"
+        }
+      }
+    },
+    "registers": {
+      "type": "object",
+      "required": [
+        "entities",
+        "entity_attributes",
+        "business_processes",
+        "process_steps",
+        "belief_verification",
+        "pps_baseline_fqdns",
+        "gaps",
+        "architectural_observations",
+        "discovery_concerns",
+        "open_questions"
+      ],
+      "properties": {
+        "entities": {
+          "type": "array",
+          "x-section": {
+            "number": "1",
+            "title": "Business Entities"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "entity": {
+                "title": "Entity",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "description": {
+                "title": "Description",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "store_model": {
+                "title": "Store Model",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "evidence_status": {
+                "title": "Evidence Status",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "entity",
+              "description",
+              "store_model",
+              "evidence_status",
+              "source_finding"
+            ]
+          },
+          "minItems": 1,
+          "x-business-language": true
+        },
+        "entity_attributes": {
+          "type": "array",
+          "x-section": {
+            "number": "1",
+            "title": "Business Entities"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "entity": {
+                "title": "Entity",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "attribute": {
+                "title": "Attribute",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "meaning": {
+                "title": "Meaning",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "evidence_status": {
+                "title": "Evidence Status",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "entity",
+              "attribute",
+              "meaning",
+              "evidence_status",
+              "source_finding"
+            ]
+          },
+          "minItems": 1,
+          "x-business-language": true
+        },
+        "business_processes": {
+          "type": "array",
+          "x-section": {
+            "number": "2",
+            "title": "Business Processes"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "process": {
+                "title": "Process",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "initiator": {
+                "title": "Initiator",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "outcome": {
+                "title": "Outcome",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "evidence_status": {
+                "title": "Evidence Status",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "process",
+              "initiator",
+              "outcome",
+              "evidence_status",
+              "source_finding"
+            ]
+          },
+          "minItems": 1,
+          "x-business-language": true
+        },
+        "process_steps": {
+          "type": "array",
+          "x-section": {
+            "number": "2",
+            "title": "Business Processes"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "process": {
+                "title": "Process",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "step": {
+                "title": "Step #",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "action": {
+                "title": "Action",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "record_produced": {
+                "title": "Record Produced",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "evidence_status": {
+                "title": "Evidence Status",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "process",
+              "step",
+              "action",
+              "record_produced",
+              "evidence_status",
+              "source_finding"
+            ]
+          },
+          "minItems": 1,
+          "x-business-language": true
+        },
+        "belief_verification": {
+          "type": "array",
+          "x-section": {
+            "number": "3",
+            "title": "Belief Verification — THE SPINE (fill this register FIRST)"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "belief": {
+                "title": "Belief",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "result": {
+                "title": "Result",
+                "x-vocab": {
+                  "artifact": "transformation::VOCAB_DESIGN_REGISTER_TERMS_V0",
+                  "group": "belief_result"
+                },
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "evidence": {
+                "title": "Evidence",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "belief",
+              "result",
+              "evidence",
+              "source_finding"
+            ]
+          },
+          "minItems": 1
+        },
+        "pps_baseline_fqdns": {
+          "type": "array",
+          "x-section": {
+            "number": "4",
+            "title": "PPS Baseline — What Already Exists"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "capability": {
+                "title": "Capability",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "fqdn": {
+                "title": "FQDN",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "what_it_does": {
+                "title": "What It Does",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "fit": {
+                "title": "Fit",
+                "x-vocab": {
+                  "artifact": "transformation::VOCAB_DESIGN_REGISTER_TERMS_V0",
+                  "group": "fit"
+                },
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "cannot_do": {
+                "title": "Cannot Do",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "required": [
+              "capability",
+              "fqdn",
+              "what_it_does",
+              "fit",
+              "cannot_do"
+            ]
+          },
+          "minItems": 1
+        },
+        "gaps": {
+          "type": "array",
+          "x-section": {
+            "number": "5",
+            "title": "Gap Analysis — What Is Missing"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "gap": {
+                "title": "Gap",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "severity": {
+                "title": "Severity",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "impact": {
+                "title": "Impact",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "evidence_status": {
+                "title": "Evidence Status",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "gap",
+              "severity",
+              "impact",
+              "evidence_status",
+              "source_finding"
+            ]
+          },
+          "minItems": 1,
+          "x-business-language": true
+        },
+        "architectural_observations": {
+          "type": "array",
+          "x-section": {
+            "number": "6",
+            "title": "Architectural Observations"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "observation": {
+                "title": "Observation",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "evidence": {
+                "title": "Evidence",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "evidence_status": {
+                "title": "Evidence Status",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "observation",
+              "evidence",
+              "evidence_status",
+              "source_finding"
+            ]
+          },
+          "minItems": 1,
+          "x-business-language": true
+        },
+        "discovery_concerns": {
+          "type": "array",
+          "x-section": {
+            "number": "7",
+            "title": "Discovery Concerns"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "concern": {
+                "title": "Concern",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "evidence": {
+                "title": "Evidence",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "severity": {
+                "title": "Severity",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "evidence_status": {
+                "title": "Evidence Status",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "concern",
+              "evidence",
+              "severity",
+              "evidence_status",
+              "source_finding"
+            ]
+          },
+          "minItems": 1,
+          "x-business-language": true
+        },
+        "open_questions": {
+          "type": "array",
+          "x-section": {
+            "number": "8",
+            "title": "Open Questions for Stage 3"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "question": {
+                "title": "Question",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "category": {
+                "title": "Category",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "why_it_matters": {
+                "title": "Why It Matters",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "question",
+              "category",
+              "why_it_matters",
+              "source_finding"
+            ]
+          },
+          "x-business-language": true
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "x-register": "pps_baseline_fqdns",
+      "x-finding": {
+        "code": "BASELINE_IDENTITY_UNRESOLVED",
+        "intent": "the baseline register records what already exists, so every row must be observable"
+      },
+      "x-realises": "lifecycle::INVARIANT_EXISTING_ARTIFACT_OBSERVED_V0",
+      "x-grounding": {
+        "mode": "exists",
+        "params": {
+          "column": "FQDN",
+          "pattern": "[a-z][a-z0-9_.]*::[A-Z][A-Z0-9_]*_V\\d+",
+          "observation": "si.artifact.list",
+          "detail_missing": "baseline row names no artifact identity"
+        }
+      }
+    },
+    {
+      "x-register": "belief_verification",
+      "x-finding": {
+        "code": "VERIFIED_BELIEF_IDENTITY_UNRESOLVED",
+        "intent": "a belief grounded on an identity must be grounded on one that is really there"
+      },
+      "x-realises": "lifecycle::INVARIANT_EXISTING_ARTIFACT_OBSERVED_V0",
+      "x-grounding": {
+        "mode": "exists",
+        "params": {
+          "column": "Evidence",
+          "pattern": "[a-z][a-z0-9_.]*::[A-Z][A-Z0-9_]*_V\\d+",
+          "observation": "si.artifact.list",
+          "only_when_column": "Result",
+          "only_when_value": "VERIFIED"
+        }
+      }
+    },
+    {
+      "x-register": "belief_verification",
+      "x-finding": {
+        "code": "BELIEF_WITHOUT_EVIDENCE",
+        "intent": "a result without evidence is an assertion, not a verification",
+        "detail": "belief has a result but records nothing about how it was reached"
+      },
+      "items": {
+        "properties": {
+          "evidence": {
+            "minLength": 1
+          }
+        }
+      }
+    },
+    {
+      "x-register": "belief_verification",
+      "x-finding": {
+        "code": "BELIEF_NOT_CARRIED_FROM_P1",
+        "intent": "a belief nobody carried forward is forgotten, not resolved"
+      },
+      "x-realises": "lifecycle::INVARIANT_UPSTREAM_COMMITMENT_CARRIED_V0",
+      "x-carriage": {
+        "mode": "cited",
+        "params": {
+          "prior_phase": "p1",
+          "prior_register": "system_beliefs",
+          "prior_key_column": "Belief",
+          "citation_column": "Source Finding"
+        }
+      }
+    },
+    {
+      "x-register": "belief_verification",
+      "x-finding": {
+        "code": "BELIEF_RESTATED_FROM_P1",
+        "intent": "a verification must resolve the belief it cites, not a substitute for it"
+      },
+      "x-realises": "lifecycle::INVARIANT_RESTATEMENT_MATCHES_SOURCE_V0",
+      "x-carriage": {
+        "mode": "matches_cited",
+        "params": {
+          "prior_phase": "p1",
+          "prior_register": "system_beliefs",
+          "prior_key_column": "Belief",
+          "key_column": "Belief",
+          "citation_column": "Source Finding"
+        }
+      }
+    },
+    {
+      "x-finding": {
+        "code": "REGISTER_CELL_UNRESOLVED",
+        "intent": "an unanswered question left in a register reads as decided to every later phase",
+        "detail": "{column!r} declares the question unanswered ({marker}) rather than answering it — ask it as a clarification, do not hedge it in a register"
+      },
+      "x-realises": "lifecycle::INVARIANT_NO_QUESTION_LEFT_OPEN_V0",
+      "x-procedure": {
+        "name": "UNRESOLVED_MARKER_ABSENT",
+        "params": {
+          "exempt": [
+            "gaps",
+            "open_questions",
+            "discovery_concerns"
+          ],
+          "detail": "{column!r} declares the question unanswered ({marker}) rather than answering it — ask it as a clarification, do not hedge it in a register"
+        }
+      }
+    }
+  ],
+  "x-priors": [
+    "p1"
+  ],
+  "x-observations": {
+    "si.artifact.list": "artifacts"
+  },
+  "$defs": {
+    "citation": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "required": [
+            "register"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "phase": {
+              "type": "string",
+              "pattern": "^p[0-8]$"
+            },
+            "register": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9_]*$"
+            },
+            "row": {
+              "type": "integer"
+            },
+            "key": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "not": {
+            "required": [
+              "row",
+              "key"
+            ]
+          }
+        },
+        {
+          "type": "object",
+          "required": [
+            "artifact"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "artifact": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9_.]*::[A-Z][A-Z0-9_]*_V[0-9]+$"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "required": [
+            "source"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "source": {
+              "const": "human"
+            }
+          }
+        },
+        {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "oneOf": [
+              {
+                "type": "object",
+                "required": [
+                  "register"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "phase": {
+                    "type": "string",
+                    "pattern": "^p[0-8]$"
+                  },
+                  "register": {
+                    "type": "string",
+                    "pattern": "^[a-z][a-z0-9_]*$"
+                  },
+                  "row": {
+                    "type": "integer"
+                  },
+                  "key": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "not": {
+                  "required": [
+                    "row",
+                    "key"
+                  ]
+                }
+              },
+              {
+                "type": "object",
+                "required": [
+                  "artifact"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "artifact": {
+                    "type": "string",
+                    "pattern": "^[a-z][a-z0-9_.]*::[A-Z][A-Z0-9_]*_V[0-9]+$"
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "required": [
+                  "source"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "source": {
+                    "const": "human"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,741 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "transformation.schemas.REGISTER_SCHEMA_P6_V0",
+  "$comment": "The registers a phase document's Machine block carries, and their shape.",
+  "x-revisions": [
+    {
+      "revision": 1,
+      "retroactive": false,
+      "change": "The rule set as rebuilt: declared in this schema, each rule named by its identity, the header stated under document.",
+      "digest": "sha256:79a7c68cf6b51cd5a157e67e1006913976166e7bfe585d4d94c6fe4e2a31a0b6"
+    }
+  ],
+  "type": "object",
+  "required": [
+    "document",
+    "registers"
+  ],
+  "x-consumes": [
+    "scope_boundary",
+    "invariants",
+    "cross_subdomain_refs"
+  ],
+  "x-emits": [
+    "ownership",
+    "storage_governance",
+    "cross_subdomain_deps",
+    "pps_artifacts_requiring_action"
+  ],
+  "properties": {
+    "document": {
+      "type": "object",
+      "required": [
+        "phase",
+        "domain",
+        "subdomain",
+        "cr",
+        "rule_set"
+      ],
+      "properties": {
+        "phase": {
+          "const": "p6"
+        },
+        "domain": {
+          "type": "string",
+          "minLength": 1
+        },
+        "subdomain": {
+          "type": [
+            "string",
+            "array"
+          ],
+          "items": {
+            "type": "string"
+          },
+          "minLength": 1,
+          "minItems": 1
+        },
+        "cr": {
+          "type": "string",
+          "minLength": 1
+        },
+        "rule_set": {
+          "type": "string",
+          "pattern": "^transformation\\.schemas\\.REGISTER_SCHEMA_P6_V[0-9]+$"
+        }
+      }
+    },
+    "registers": {
+      "type": "object",
+      "required": [
+        "ownership",
+        "storage_governance",
+        "cross_subdomain_deps",
+        "pps_artifacts_requiring_action",
+        "boundary_rules",
+        "governance_outcome"
+      ],
+      "properties": {
+        "ownership": {
+          "type": "array",
+          "x-section": {
+            "number": "1",
+            "title": "Subdomain Boundary — Ownership"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "capability": {
+                "title": "Capability",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "owner_subdomain": {
+                "title": "Owner Subdomain",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "disposition": {
+                "title": "Disposition",
+                "x-vocab": {
+                  "artifact": "transformation::VOCAB_DESIGN_REGISTER_TERMS_V0",
+                  "group": "ownership_disposition"
+                },
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "existing_artifact": {
+                "title": "Existing Artifact",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "capability",
+              "owner_subdomain",
+              "disposition",
+              "existing_artifact",
+              "source_finding"
+            ]
+          },
+          "minItems": 1,
+          "x-business-language": [
+            "capability"
+          ]
+        },
+        "storage_governance": {
+          "type": "array",
+          "x-section": {
+            "number": "2",
+            "title": "Storage Governance Requirements"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "storage_need": {
+                "title": "Storage Need",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "purpose": {
+                "title": "Purpose",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "subdomain": {
+                "title": "Subdomain",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "storage_need",
+              "purpose",
+              "subdomain",
+              "source_finding"
+            ]
+          },
+          "minItems": 1,
+          "x-business-language": [
+            "storage_need",
+            "purpose"
+          ]
+        },
+        "cross_subdomain_deps": {
+          "type": "array",
+          "x-section": {
+            "number": "3",
+            "title": "Cross-Subdomain Dependency Declaration"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "dependency": {
+                "title": "Dependency",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "direction": {
+                "title": "Direction",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "existing_artifact": {
+                "title": "Existing Artifact",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "status": {
+                "title": "Status",
+                "x-vocab": {
+                  "artifact": "transformation::VOCAB_DESIGN_REGISTER_TERMS_V0",
+                  "group": "dependency_status"
+                },
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "dependency",
+              "direction",
+              "existing_artifact",
+              "status",
+              "source_finding"
+            ]
+          },
+          "x-business-language": [
+            "dependency"
+          ]
+        },
+        "pps_artifacts_requiring_action": {
+          "type": "array",
+          "x-section": {
+            "number": "4",
+            "title": "PPS Artifacts Requiring Action"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "fqdn": {
+                "title": "FQDN",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "current_status": {
+                "title": "Current Status",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "action": {
+                "title": "Action",
+                "x-vocab": {
+                  "artifact": "transformation::VOCAB_DESIGN_REGISTER_TERMS_V0",
+                  "group": "pps_action"
+                },
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "fqdn",
+              "current_status",
+              "action",
+              "source_finding"
+            ]
+          }
+        },
+        "boundary_rules": {
+          "type": "array",
+          "x-section": {
+            "number": "5",
+            "title": "Governance Boundary Rules"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "rule_name": {
+                "title": "Rule Name",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "statement": {
+                "title": "Statement",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "rule_name",
+              "statement",
+              "source_finding"
+            ]
+          }
+        },
+        "governance_outcome": {
+          "type": "array",
+          "x-section": {
+            "number": "6",
+            "title": "Governance Outcome"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "capability": {
+                "title": "Capability",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "owner_subdomain": {
+                "title": "Owner Subdomain",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "capability",
+              "owner_subdomain",
+              "source_finding"
+            ]
+          },
+          "x-business-language": [
+            "capability"
+          ]
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "x-register": "ownership",
+      "x-finding": {
+        "code": "PROVISIONAL_CODE_IN_PLACEMENT",
+        "intent": "placement names a subdomain, never an artifact",
+        "detail": "{token!r} in {column!r} — this stage places capabilities in subdomains; naming an artifact answers a question Stage 7 owns"
+      },
+      "x-realises": "lifecycle::INVARIANT_PHASE_SPEAKS_ITS_RUNG_V0",
+      "items": {
+        "properties": {
+          "capability": {
+            "not": {
+              "pattern": "\\b(?:STRUCTURE|TEST_DATA|VOCAB|AC|IN|WF|CC|CT|CS|RB|EV|TI|TE)_[A-Z0-9_]+_V\\d+\\b"
+            }
+          },
+          "owner_subdomain": {
+            "not": {
+              "pattern": "\\b(?:STRUCTURE|TEST_DATA|VOCAB|AC|IN|WF|CC|CT|CS|RB|EV|TI|TE)_[A-Z0-9_]+_V\\d+\\b"
+            }
+          }
+        }
+      }
+    },
+    {
+      "x-register": "storage_governance",
+      "x-finding": {
+        "code": "STORAGE_CODE_IN_PLACEMENT",
+        "intent": "a store is described by what it holds, not by what will write it",
+        "detail": "{token!r} in {column!r} — a storage need is business language, not an artifact"
+      },
+      "x-realises": "lifecycle::INVARIANT_PHASE_SPEAKS_ITS_RUNG_V0",
+      "items": {
+        "properties": {
+          "storage_need": {
+            "not": {
+              "pattern": "\\b(?:STRUCTURE|TEST_DATA|VOCAB|AC|IN|WF|CC|CT|CS|RB|EV|TI|TE)_[A-Z0-9_]+_V\\d+\\b"
+            }
+          },
+          "purpose": {
+            "not": {
+              "pattern": "\\b(?:STRUCTURE|TEST_DATA|VOCAB|AC|IN|WF|CC|CT|CS|RB|EV|TI|TE)_[A-Z0-9_]+_V\\d+\\b"
+            }
+          },
+          "subdomain": {
+            "not": {
+              "pattern": "\\b(?:STRUCTURE|TEST_DATA|VOCAB|AC|IN|WF|CC|CT|CS|RB|EV|TI|TE)_[A-Z0-9_]+_V\\d+\\b"
+            }
+          }
+        }
+      }
+    },
+    {
+      "x-register": "ownership",
+      "x-finding": {
+        "code": "SATISFIED_WITHOUT_EXISTING_ARTIFACT",
+        "intent": "a satisfied capability names what satisfies it",
+        "detail": "capability is SATISFIED but names no existing artifact — a claim that something already covers this needs the something"
+      },
+      "items": {
+        "if": {
+          "properties": {
+            "disposition": {
+              "const": "SATISFIED"
+            }
+          },
+          "required": [
+            "disposition"
+          ]
+        },
+        "then": {
+          "properties": {
+            "existing_artifact": {
+              "minLength": 1
+            }
+          }
+        }
+      }
+    },
+    {
+      "x-register": "ownership",
+      "x-finding": {
+        "code": "EXISTING_ARTIFACT_UNRESOLVED",
+        "intent": "an artifact said to cover a capability must be one that really exists"
+      },
+      "x-realises": "lifecycle::INVARIANT_EXISTING_ARTIFACT_OBSERVED_V0",
+      "x-grounding": {
+        "mode": "exists",
+        "params": {
+          "column": "Existing Artifact",
+          "pattern": "[a-z][a-z0-9_.]*::[A-Z][A-Z0-9_]*_V\\d+",
+          "observation": "si.artifact.list"
+        }
+      }
+    },
+    {
+      "x-register": "pps_artifacts_requiring_action",
+      "x-finding": {
+        "code": "PPS_ACTION_IDENTITY_UNRESOLVED",
+        "intent": "an artifact this change will act on must be one the composition carries"
+      },
+      "x-realises": "lifecycle::INVARIANT_EXISTING_ARTIFACT_OBSERVED_V0",
+      "x-grounding": {
+        "mode": "exists",
+        "params": {
+          "column": "FQDN",
+          "pattern": "[a-z][a-z0-9_.]*::[A-Z][A-Z0-9_]*_V\\d+",
+          "observation": "si.artifact.list"
+        }
+      }
+    },
+    {
+      "x-register": "cross_subdomain_deps",
+      "x-finding": {
+        "code": "DEPENDENCY_DIRECTION_MALFORMED",
+        "intent": "a dependency states which way it crosses the boundary",
+        "detail": "direction {value!r} must read `this_subdomain -> peer` — a boundary has two sides"
+      },
+      "items": {
+        "properties": {
+          "direction": {
+            "pattern": "^[a-z][a-z0-9_]*\\s*(?:->|→)\\s*[a-z][a-z0-9_]*$"
+          }
+        }
+      }
+    },
+    {
+      "x-register": "cross_subdomain_deps",
+      "x-finding": {
+        "code": "DEPENDENCY_SATISFIED_WITHOUT_ARTIFACT",
+        "intent": "a satisfied dependency names the artifact that satisfies it",
+        "detail": "dependency is SATISFIED but names no existing artifact — an unsatisfied dependency declared satisfied is how a gap goes missing"
+      },
+      "items": {
+        "if": {
+          "properties": {
+            "status": {
+              "const": "SATISFIED"
+            }
+          },
+          "required": [
+            "status"
+          ]
+        },
+        "then": {
+          "properties": {
+            "existing_artifact": {
+              "minLength": 1
+            }
+          }
+        }
+      }
+    },
+    {
+      "x-register": "governance_outcome",
+      "x-finding": {
+        "code": "OUTCOME_CAPABILITY_UNPLACED",
+        "intent": "the outcome restates placement, it does not introduce it"
+      },
+      "x-realises": "lifecycle::INVARIANT_DESIGN_NAMES_RESOLVE_V0",
+      "x-reference": {
+        "mode": "resolves",
+        "params": {
+          "column": "Capability",
+          "target_register": "ownership",
+          "target_column": "Capability"
+        }
+      }
+    },
+    {
+      "x-register": "ownership",
+      "x-finding": {
+        "code": "IN_SCOPE_CAPABILITY_UNPLACED",
+        "intent": "a capability declared in scope and given no owner is in nobody's scope"
+      },
+      "x-realises": "lifecycle::INVARIANT_UPSTREAM_COMMITMENT_CARRIED_V0",
+      "x-carriage": {
+        "mode": "present_by_key",
+        "params": {
+          "prior_phase": "p5",
+          "prior_register": "scope_boundary",
+          "prior_key_column": "Capability",
+          "key_column": "Capability",
+          "prior_only_when_column": "Status",
+          "prior_only_when_value": "IN_SCOPE"
+        }
+      }
+    },
+    {
+      "x-register": "cross_subdomain_deps",
+      "x-finding": {
+        "code": "BORROWED_CAPABILITY_NOT_DECLARED_CROSSING",
+        "intent": "a capability borrowed across a subdomain boundary is a dependency, declared as one"
+      },
+      "x-realises": "lifecycle::INVARIANT_TOUCHED_SUBDOMAIN_DECLARED_V0",
+      "x-carriage": {
+        "mode": "identities_covered",
+        "params": {
+          "prior_phase": "p5",
+          "prior_register": "cross_subdomain_refs",
+          "prior_column": "CC Code",
+          "column": "Existing Artifact",
+          "require": "prior_in_here"
+        }
+      }
+    },
+    {
+      "x-register": "ownership",
+      "x-finding": {
+        "code": "TOUCHED_SUBDOMAIN_UNOWNED",
+        "intent": "every subdomain a change touches has its owner declared"
+      },
+      "x-realises": "lifecycle::INVARIANT_TOUCHED_SUBDOMAIN_DECLARED_V0",
+      "x-carriage": {
+        "mode": "identities_covered",
+        "params": {
+          "prior_phase": "p0",
+          "prior_register": "cr_type",
+          "prior_column": "Subdomain",
+          "column": "Owner Subdomain",
+          "require": "prior_in_here"
+        }
+      }
+    },
+    {
+      "x-finding": {
+        "code": "REGISTER_CELL_UNRESOLVED",
+        "intent": "an unanswered question left in a register reads as decided to every later phase",
+        "detail": "{column!r} declares the question unanswered ({marker}) rather than answering it — ask it as a clarification, do not hedge it in a register"
+      },
+      "x-realises": "lifecycle::INVARIANT_NO_QUESTION_LEFT_OPEN_V0",
+      "x-procedure": {
+        "name": "UNRESOLVED_MARKER_ABSENT",
+        "params": {
+          "exempt": [],
+          "detail": "{column!r} declares the question unanswered ({marker}) rather than answering it — ask it as a clarification, do not hedge it in a register"
+        }
+      }
+    }
+  ],
+  "x-priors": [
+    "p5",
+    "p0"
+  ],
+  "x-observations": {
+    "si.artifact.list": "artifacts"
+  },
+  "$defs": {
+    "citation": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "required": [
+            "register"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "phase": {
+              "type": "string",
+              "pattern": "^p[0-8]$"
+            },
+            "register": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9_]*$"
+            },
+            "row": {
+              "type": "integer"
+            },
+            "key": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "not": {
+            "required": [
+              "row",
+              "key"
+            ]
+          }
+        },
+        {
+          "type": "object",
+          "required": [
+            "artifact"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "artifact": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9_.]*::[A-Z][A-Z0-9_]*_V[0-9]+$"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "required": [
+            "source"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "source": {
+              "const": "human"
+            }
+          }
+        },
+        {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "oneOf": [
+              {
+                "type": "object",
+                "required": [
+                  "register"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "phase": {
+                    "type": "string",
+                    "pattern": "^p[0-8]$"
+                  },
+                  "register": {
+                    "type": "string",
+                    "pattern": "^[a-z][a-z0-9_]*$"
+                  },
+                  "row": {
+                    "type": "integer"
+                  },
+                  "key": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "not": {
+                  "required": [
+                    "row",
+                    "key"
+                  ]
+                }
+              },
+              {
+                "type": "object",
+                "required": [
+                  "artifact"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "artifact": {
+                    "type": "string",
+                    "pattern": "^[a-z][a-z0-9_.]*::[A-Z][A-Z0-9_]*_V[0-9]+$"
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "required": [
+                  "source"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "source": {
+                    "const": "human"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

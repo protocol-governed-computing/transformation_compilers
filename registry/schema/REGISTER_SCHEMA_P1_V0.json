@@ -1,0 +1,1705 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "transformation.schemas.REGISTER_SCHEMA_P1_V0",
+  "$comment": "The registers a phase document's Machine block carries, and their shape.",
+  "x-revisions": [
+    {
+      "revision": 1,
+      "retroactive": false,
+      "change": "The rule set as rebuilt: declared in this schema, each rule named by its identity, the header stated under document.",
+      "digest": "sha256:648c73e164361375bc90cc476cb16f6fd0eee09f3dad500948de5c7538e8455d"
+    }
+  ],
+  "type": "object",
+  "required": [
+    "document",
+    "registers"
+  ],
+  "x-consumes": [
+    "human elicitation answers (the seed)"
+  ],
+  "x-emits": [
+    "cr_type",
+    "business_vocabulary",
+    "requested_outcomes",
+    "known_facts",
+    "system_beliefs",
+    "assumptions",
+    "constraints",
+    "business_invariants",
+    "lifecycle_states",
+    "business_events",
+    "authority_boundaries",
+    "out_of_scope",
+    "governance_scope",
+    "clarification_requests",
+    "acceptance_criteria",
+    "identity_and_sameness",
+    "lifecycle_transitions",
+    "operation_refusals",
+    "authority_deferrals"
+  ],
+  "properties": {
+    "document": {
+      "type": "object",
+      "required": [
+        "phase",
+        "domain",
+        "subdomain",
+        "cr",
+        "rule_set"
+      ],
+      "properties": {
+        "phase": {
+          "const": "p1"
+        },
+        "domain": {
+          "type": "string",
+          "minLength": 1
+        },
+        "subdomain": {
+          "type": [
+            "string",
+            "array"
+          ],
+          "items": {
+            "type": "string"
+          },
+          "minLength": 1,
+          "minItems": 1
+        },
+        "cr": {
+          "type": "string",
+          "minLength": 1
+        },
+        "rule_set": {
+          "type": "string",
+          "pattern": "^transformation\\.schemas\\.REGISTER_SCHEMA_P1_V[0-9]+$"
+        }
+      }
+    },
+    "registers": {
+      "type": "object",
+      "required": [
+        "cr_type",
+        "business_vocabulary",
+        "requested_outcomes",
+        "known_facts",
+        "system_beliefs",
+        "assumptions",
+        "constraints",
+        "business_invariants",
+        "lifecycle_states",
+        "business_events",
+        "authority_boundaries",
+        "out_of_scope",
+        "governance_scope",
+        "clarification_requests",
+        "acceptance_criteria",
+        "identity_and_sameness",
+        "lifecycle_transitions",
+        "operation_refusals",
+        "authority_deferrals"
+      ],
+      "properties": {
+        "cr_type": {
+          "type": "array",
+          "x-section": {
+            "number": "1",
+            "title": "CR Type"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "subdomain": {
+                "title": "Subdomain",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "classification": {
+                "title": "Classification",
+                "x-vocab": {
+                  "artifact": "transformation::VOCAB_DESIGN_REGISTER_TERMS_V0",
+                  "group": "classification"
+                },
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "rationale": {
+                "title": "Rationale",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "subdomain",
+              "classification",
+              "rationale",
+              "source_finding"
+            ]
+          },
+          "minItems": 1,
+          "x-business-language": true
+        },
+        "business_vocabulary": {
+          "type": "array",
+          "x-section": {
+            "number": "2",
+            "title": "Business Vocabulary"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "term": {
+                "title": "Term",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "definition": {
+                "title": "Definition",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "term",
+              "definition",
+              "source_finding"
+            ]
+          },
+          "minItems": 1,
+          "x-business-language": true
+        },
+        "requested_outcomes": {
+          "type": "array",
+          "x-section": {
+            "number": "3",
+            "title": "Requested Outcomes"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "outcome": {
+                "title": "Outcome",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "outcome",
+              "source_finding"
+            ]
+          },
+          "minItems": 1,
+          "x-business-language": true
+        },
+        "known_facts": {
+          "type": "array",
+          "x-section": {
+            "number": "4",
+            "title": "Known Facts — Business Truths"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "fact": {
+                "title": "Fact",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "certainty": {
+                "title": "Certainty",
+                "x-vocab": {
+                  "artifact": "transformation::VOCAB_DESIGN_REGISTER_TERMS_V0",
+                  "group": "certainty"
+                },
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "fact",
+              "certainty",
+              "source_finding"
+            ]
+          },
+          "minItems": 1,
+          "x-business-language": true
+        },
+        "system_beliefs": {
+          "type": "array",
+          "x-section": {
+            "number": "5",
+            "title": "Existing-System Beliefs — Requiring Verification"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "belief": {
+                "title": "Belief",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "why_it_matters": {
+                "title": "Why It Matters",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "verification_goal": {
+                "title": "Verification Goal",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "belief",
+              "why_it_matters",
+              "verification_goal",
+              "source_finding"
+            ]
+          },
+          "minItems": 1,
+          "x-business-language": true
+        },
+        "assumptions": {
+          "type": "array",
+          "x-section": {
+            "number": "6",
+            "title": "Assumptions"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "assumption": {
+                "title": "Assumption",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "basis": {
+                "title": "Basis",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "assumption",
+              "basis",
+              "source_finding"
+            ]
+          },
+          "x-business-language": true
+        },
+        "constraints": {
+          "type": "array",
+          "x-section": {
+            "number": "7",
+            "title": "Constraints"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "constraint": {
+                "title": "Constraint",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source": {
+                "title": "Source",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "constraint",
+              "source",
+              "source_finding"
+            ]
+          },
+          "minItems": 1,
+          "x-business-language": true
+        },
+        "business_invariants": {
+          "type": "array",
+          "x-section": {
+            "number": "8",
+            "title": "Business Invariants"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "invariant": {
+                "title": "Invariant",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "invariant",
+              "source_finding"
+            ]
+          },
+          "minItems": 1,
+          "x-business-language": true
+        },
+        "lifecycle_states": {
+          "type": "array",
+          "x-section": {
+            "number": "9",
+            "title": "Lifecycle States"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "object": {
+                "title": "Object",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "state": {
+                "title": "State",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "meaning": {
+                "title": "Meaning",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "object",
+              "state",
+              "meaning",
+              "source_finding"
+            ]
+          },
+          "minItems": 1,
+          "x-business-language": true
+        },
+        "business_events": {
+          "type": "array",
+          "x-section": {
+            "number": "10",
+            "title": "Business Events"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "event": {
+                "title": "Event",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "when_it_occurs": {
+                "title": "When It Occurs",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "significance": {
+                "title": "Significance",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "event",
+              "when_it_occurs",
+              "significance",
+              "source_finding"
+            ]
+          },
+          "minItems": 1,
+          "x-business-language": true
+        },
+        "authority_boundaries": {
+          "type": "array",
+          "x-section": {
+            "number": "11",
+            "title": "Authority Boundaries"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "business_object": {
+                "title": "Business Object",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "authoritative_owner": {
+                "title": "Authoritative Owner",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "business_object",
+              "authoritative_owner",
+              "source_finding"
+            ]
+          },
+          "minItems": 1,
+          "x-business-language": true
+        },
+        "out_of_scope": {
+          "type": "array",
+          "x-section": {
+            "number": "12",
+            "title": "Out of Scope"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "item": {
+                "title": "Item",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "reason": {
+                "title": "Reason",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "item",
+              "reason",
+              "source_finding"
+            ]
+          },
+          "x-business-language": true
+        },
+        "governance_scope": {
+          "type": "array",
+          "x-section": {
+            "number": "13",
+            "title": "Governance Scope"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "scope_item": {
+                "title": "Scope Item",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "relationship": {
+                "title": "Relationship",
+                "x-vocab": {
+                  "artifact": "transformation::VOCAB_DESIGN_REGISTER_TERMS_V0",
+                  "group": "scope_relationship"
+                },
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "scope_item",
+              "relationship",
+              "source_finding"
+            ]
+          },
+          "minItems": 1,
+          "x-business-language": true
+        },
+        "clarification_requests": {
+          "type": "array",
+          "x-section": {
+            "number": "14",
+            "title": "Clarification Requests"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "question": {
+                "title": "Question",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "why_needed": {
+                "title": "Why Needed",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "blocking": {
+                "title": "Blocking",
+                "x-vocab": {
+                  "artifact": "transformation::VOCAB_DESIGN_REGISTER_TERMS_V0",
+                  "group": "yes_no"
+                },
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "owner": {
+                "title": "Owner",
+                "x-vocab": {
+                  "artifact": "transformation::VOCAB_DESIGN_REGISTER_TERMS_V0",
+                  "group": "clarification_owner"
+                },
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "question",
+              "why_needed",
+              "blocking",
+              "owner",
+              "source_finding"
+            ]
+          },
+          "x-business-language": true
+        },
+        "acceptance_criteria": {
+          "type": "array",
+          "x-section": {
+            "number": "15",
+            "title": "Acceptance Criteria"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "criterion": {
+                "title": "Criterion",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "criterion",
+              "source_finding"
+            ]
+          },
+          "minItems": 1,
+          "x-business-language": true
+        },
+        "identity_and_sameness": {
+          "type": "array",
+          "x-section": {
+            "number": "16",
+            "title": "Identity and Sameness"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "business_object": {
+                "title": "Business Object",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "identified_by": {
+                "title": "Identified By",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "two_are_the_same_when": {
+                "title": "Two Are The Same When",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "business_object",
+              "identified_by",
+              "two_are_the_same_when",
+              "source_finding"
+            ]
+          },
+          "x-business-language": true
+        },
+        "lifecycle_transitions": {
+          "type": "array",
+          "x-section": {
+            "number": "17",
+            "title": "Lifecycle Transitions"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "object": {
+                "title": "Object",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "from_state": {
+                "title": "From State",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "to_state": {
+                "title": "To State",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "triggered_by": {
+                "title": "Triggered By",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "cascade": {
+                "title": "Cascade",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "object",
+              "from_state",
+              "to_state",
+              "triggered_by",
+              "cascade",
+              "source_finding"
+            ]
+          },
+          "x-business-language": true
+        },
+        "operation_refusals": {
+          "type": "array",
+          "x-section": {
+            "number": "18",
+            "title": "Operation Refusals"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "operation": {
+                "title": "Operation",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "refused_when": {
+                "title": "Refused When",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "business_reason": {
+                "title": "Business Reason",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "operation",
+              "refused_when",
+              "business_reason",
+              "source_finding"
+            ]
+          },
+          "x-business-language": true
+        },
+        "authority_deferrals": {
+          "type": "array",
+          "x-section": {
+            "number": "19",
+            "title": "Authority Deferrals"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "business_object": {
+                "title": "Business Object",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "deferred_to": {
+                "title": "Deferred To",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "until": {
+                "title": "Until",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_finding": {
+                "title": "Source Finding",
+                "$ref": "#/$defs/citation"
+              }
+            },
+            "required": [
+              "business_object",
+              "deferred_to",
+              "until",
+              "source_finding"
+            ]
+          },
+          "x-business-language": true
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "x-register": "system_beliefs",
+      "x-finding": {
+        "code": "SEED_ROW_NOT_CARRIED",
+        "intent": "P0 reorganizes and P1 restates; neither may drop what the business said"
+      },
+      "x-realises": "lifecycle::INVARIANT_UPSTREAM_COMMITMENT_CARRIED_V0",
+      "x-carriage": {
+        "mode": "present_by_key",
+        "params": {
+          "prior_phase": "p0",
+          "prior_register": "system_beliefs",
+          "prior_key_column": "Belief",
+          "key_column": "Belief"
+        }
+      }
+    },
+    {
+      "x-register": "requested_outcomes",
+      "x-finding": {
+        "code": "SEED_ROW_NOT_CARRIED",
+        "intent": "P0 reorganizes and P1 restates; neither may drop what the business said"
+      },
+      "x-realises": "lifecycle::INVARIANT_UPSTREAM_COMMITMENT_CARRIED_V0",
+      "x-carriage": {
+        "mode": "present_by_key",
+        "params": {
+          "prior_phase": "p0",
+          "prior_register": "requested_outcomes",
+          "prior_key_column": "Outcome",
+          "key_column": "Outcome"
+        }
+      }
+    },
+    {
+      "x-register": "business_invariants",
+      "x-finding": {
+        "code": "SEED_ROW_NOT_CARRIED",
+        "intent": "P0 reorganizes and P1 restates; neither may drop what the business said"
+      },
+      "x-realises": "lifecycle::INVARIANT_UPSTREAM_COMMITMENT_CARRIED_V0",
+      "x-carriage": {
+        "mode": "present_by_key",
+        "params": {
+          "prior_phase": "p0",
+          "prior_register": "business_invariants",
+          "prior_key_column": "Invariant",
+          "key_column": "Invariant"
+        }
+      }
+    },
+    {
+      "x-register": "acceptance_criteria",
+      "x-finding": {
+        "code": "SEED_ROW_NOT_CARRIED",
+        "intent": "P0 reorganizes and P1 restates; neither may drop what the business said"
+      },
+      "x-realises": "lifecycle::INVARIANT_UPSTREAM_COMMITMENT_CARRIED_V0",
+      "x-carriage": {
+        "mode": "present_by_key",
+        "params": {
+          "prior_phase": "p0",
+          "prior_register": "acceptance_criteria",
+          "prior_key_column": "Criterion",
+          "key_column": "Criterion"
+        }
+      }
+    },
+    {
+      "x-register": "known_facts",
+      "x-finding": {
+        "code": "SEED_ROW_NOT_CARRIED",
+        "intent": "P0 reorganizes and P1 restates; neither may drop what the business said"
+      },
+      "x-realises": "lifecycle::INVARIANT_UPSTREAM_COMMITMENT_CARRIED_V0",
+      "x-carriage": {
+        "mode": "present_by_key",
+        "params": {
+          "prior_phase": "p0",
+          "prior_register": "known_facts",
+          "prior_key_column": "Fact",
+          "key_column": "Fact"
+        }
+      }
+    },
+    {
+      "x-register": "business_vocabulary",
+      "x-finding": {
+        "code": "SEED_ROW_NOT_CARRIED",
+        "intent": "P0 reorganizes and P1 restates; neither may drop what the business said"
+      },
+      "x-realises": "lifecycle::INVARIANT_UPSTREAM_COMMITMENT_CARRIED_V0",
+      "x-carriage": {
+        "mode": "present_by_key",
+        "params": {
+          "prior_phase": "p0",
+          "prior_register": "business_vocabulary",
+          "prior_key_column": "Term",
+          "key_column": "Term"
+        }
+      }
+    },
+    {
+      "x-register": "constraints",
+      "x-finding": {
+        "code": "SEED_ROW_NOT_CARRIED",
+        "intent": "P0 reorganizes and P1 restates; neither may drop what the business said"
+      },
+      "x-realises": "lifecycle::INVARIANT_UPSTREAM_COMMITMENT_CARRIED_V0",
+      "x-carriage": {
+        "mode": "present_by_key",
+        "params": {
+          "prior_phase": "p0",
+          "prior_register": "constraints",
+          "prior_key_column": "Constraint",
+          "key_column": "Constraint"
+        }
+      }
+    },
+    {
+      "x-register": "assumptions",
+      "x-finding": {
+        "code": "SEED_ROW_NOT_CARRIED",
+        "intent": "P0 reorganizes and P1 restates; neither may drop what the business said"
+      },
+      "x-realises": "lifecycle::INVARIANT_UPSTREAM_COMMITMENT_CARRIED_V0",
+      "x-carriage": {
+        "mode": "present_by_key",
+        "params": {
+          "prior_phase": "p0",
+          "prior_register": "assumptions",
+          "prior_key_column": "Assumption",
+          "key_column": "Assumption"
+        }
+      }
+    },
+    {
+      "x-register": "business_events",
+      "x-finding": {
+        "code": "SEED_ROW_NOT_CARRIED",
+        "intent": "P0 reorganizes and P1 restates; neither may drop what the business said"
+      },
+      "x-realises": "lifecycle::INVARIANT_UPSTREAM_COMMITMENT_CARRIED_V0",
+      "x-carriage": {
+        "mode": "present_by_key",
+        "params": {
+          "prior_phase": "p0",
+          "prior_register": "business_events",
+          "prior_key_column": "Event",
+          "key_column": "Event"
+        }
+      }
+    },
+    {
+      "x-register": "authority_boundaries",
+      "x-finding": {
+        "code": "SEED_ROW_NOT_CARRIED",
+        "intent": "P0 reorganizes and P1 restates; neither may drop what the business said"
+      },
+      "x-realises": "lifecycle::INVARIANT_UPSTREAM_COMMITMENT_CARRIED_V0",
+      "x-carriage": {
+        "mode": "present_by_key",
+        "params": {
+          "prior_phase": "p0",
+          "prior_register": "authority_boundaries",
+          "prior_key_column": "Business Object",
+          "key_column": "Business Object"
+        }
+      }
+    },
+    {
+      "x-register": "out_of_scope",
+      "x-finding": {
+        "code": "SEED_ROW_NOT_CARRIED",
+        "intent": "P0 reorganizes and P1 restates; neither may drop what the business said"
+      },
+      "x-realises": "lifecycle::INVARIANT_UPSTREAM_COMMITMENT_CARRIED_V0",
+      "x-carriage": {
+        "mode": "present_by_key",
+        "params": {
+          "prior_phase": "p0",
+          "prior_register": "out_of_scope",
+          "prior_key_column": "Item",
+          "key_column": "Item"
+        }
+      }
+    },
+    {
+      "x-register": "governance_scope",
+      "x-finding": {
+        "code": "SEED_ROW_NOT_CARRIED",
+        "intent": "P0 reorganizes and P1 restates; neither may drop what the business said"
+      },
+      "x-realises": "lifecycle::INVARIANT_UPSTREAM_COMMITMENT_CARRIED_V0",
+      "x-carriage": {
+        "mode": "present_by_key",
+        "params": {
+          "prior_phase": "p0",
+          "prior_register": "governance_scope",
+          "prior_key_column": "Scope Item",
+          "key_column": "Scope Item"
+        }
+      }
+    },
+    {
+      "x-register": "identity_and_sameness",
+      "x-finding": {
+        "code": "SEED_ROW_NOT_CARRIED",
+        "intent": "P0 reorganizes and P1 restates; neither may drop what the business said"
+      },
+      "x-realises": "lifecycle::INVARIANT_UPSTREAM_COMMITMENT_CARRIED_V0",
+      "x-carriage": {
+        "mode": "present_by_key",
+        "params": {
+          "prior_phase": "p0",
+          "prior_register": "identity_and_sameness",
+          "prior_key_column": "Business Object",
+          "key_column": "Business Object"
+        }
+      }
+    },
+    {
+      "x-register": "authority_deferrals",
+      "x-finding": {
+        "code": "SEED_ROW_NOT_CARRIED",
+        "intent": "P0 reorganizes and P1 restates; neither may drop what the business said"
+      },
+      "x-realises": "lifecycle::INVARIANT_UPSTREAM_COMMITMENT_CARRIED_V0",
+      "x-carriage": {
+        "mode": "present_by_key",
+        "params": {
+          "prior_phase": "p0",
+          "prior_register": "authority_deferrals",
+          "prior_key_column": "Business Object",
+          "key_column": "Business Object"
+        }
+      }
+    },
+    {
+      "x-register": "lifecycle_states",
+      "x-finding": {
+        "code": "SEED_ROW_NOT_CARRIED",
+        "intent": "P0 reorganizes and P1 restates; neither may drop what the business said"
+      },
+      "x-realises": "lifecycle::INVARIANT_UPSTREAM_COMMITMENT_CARRIED_V0",
+      "x-carriage": {
+        "mode": "present_by_key",
+        "params": {
+          "prior_phase": "p0",
+          "prior_register": "lifecycle_states",
+          "prior_key_column": [
+            "Object",
+            "State"
+          ],
+          "key_column": [
+            "Object",
+            "State"
+          ]
+        }
+      }
+    },
+    {
+      "x-register": "lifecycle_transitions",
+      "x-finding": {
+        "code": "SEED_ROW_NOT_CARRIED",
+        "intent": "P0 reorganizes and P1 restates; neither may drop what the business said"
+      },
+      "x-realises": "lifecycle::INVARIANT_UPSTREAM_COMMITMENT_CARRIED_V0",
+      "x-carriage": {
+        "mode": "present_by_key",
+        "params": {
+          "prior_phase": "p0",
+          "prior_register": "lifecycle_transitions",
+          "prior_key_column": [
+            "Object",
+            "From State",
+            "To State"
+          ],
+          "key_column": [
+            "Object",
+            "From State",
+            "To State"
+          ]
+        }
+      }
+    },
+    {
+      "x-register": "operation_refusals",
+      "x-finding": {
+        "code": "SEED_ROW_NOT_CARRIED",
+        "intent": "P0 reorganizes and P1 restates; neither may drop what the business said"
+      },
+      "x-realises": "lifecycle::INVARIANT_UPSTREAM_COMMITMENT_CARRIED_V0",
+      "x-carriage": {
+        "mode": "present_by_key",
+        "params": {
+          "prior_phase": "p0",
+          "prior_register": "operation_refusals",
+          "prior_key_column": [
+            "Operation",
+            "Refused When"
+          ],
+          "key_column": [
+            "Operation",
+            "Refused When"
+          ]
+        }
+      }
+    },
+    {
+      "x-register": "system_beliefs",
+      "x-finding": {
+        "code": "ROW_NOT_IN_SEED",
+        "intent": "P1 interrogates and restates; business content enters at P0 or not at all"
+      },
+      "x-realises": "lifecycle::INVARIANT_CONTENT_ENTERS_AT_OWNING_PHASE_V0",
+      "x-carriage": {
+        "mode": "confined",
+        "params": {
+          "prior_phase": "p0",
+          "prior_register": "system_beliefs",
+          "prior_key_column": "Belief",
+          "key_column": "Belief"
+        }
+      }
+    },
+    {
+      "x-register": "requested_outcomes",
+      "x-finding": {
+        "code": "ROW_NOT_IN_SEED",
+        "intent": "P1 interrogates and restates; business content enters at P0 or not at all"
+      },
+      "x-realises": "lifecycle::INVARIANT_CONTENT_ENTERS_AT_OWNING_PHASE_V0",
+      "x-carriage": {
+        "mode": "confined",
+        "params": {
+          "prior_phase": "p0",
+          "prior_register": "requested_outcomes",
+          "prior_key_column": "Outcome",
+          "key_column": "Outcome"
+        }
+      }
+    },
+    {
+      "x-register": "business_invariants",
+      "x-finding": {
+        "code": "ROW_NOT_IN_SEED",
+        "intent": "P1 interrogates and restates; business content enters at P0 or not at all"
+      },
+      "x-realises": "lifecycle::INVARIANT_CONTENT_ENTERS_AT_OWNING_PHASE_V0",
+      "x-carriage": {
+        "mode": "confined",
+        "params": {
+          "prior_phase": "p0",
+          "prior_register": "business_invariants",
+          "prior_key_column": "Invariant",
+          "key_column": "Invariant"
+        }
+      }
+    },
+    {
+      "x-register": "acceptance_criteria",
+      "x-finding": {
+        "code": "ROW_NOT_IN_SEED",
+        "intent": "P1 interrogates and restates; business content enters at P0 or not at all"
+      },
+      "x-realises": "lifecycle::INVARIANT_CONTENT_ENTERS_AT_OWNING_PHASE_V0",
+      "x-carriage": {
+        "mode": "confined",
+        "params": {
+          "prior_phase": "p0",
+          "prior_register": "acceptance_criteria",
+          "prior_key_column": "Criterion",
+          "key_column": "Criterion"
+        }
+      }
+    },
+    {
+      "x-register": "known_facts",
+      "x-finding": {
+        "code": "ROW_NOT_IN_SEED",
+        "intent": "P1 interrogates and restates; business content enters at P0 or not at all"
+      },
+      "x-realises": "lifecycle::INVARIANT_CONTENT_ENTERS_AT_OWNING_PHASE_V0",
+      "x-carriage": {
+        "mode": "confined",
+        "params": {
+          "prior_phase": "p0",
+          "prior_register": "known_facts",
+          "prior_key_column": "Fact",
+          "key_column": "Fact"
+        }
+      }
+    },
+    {
+      "x-register": "business_vocabulary",
+      "x-finding": {
+        "code": "ROW_NOT_IN_SEED",
+        "intent": "P1 interrogates and restates; business content enters at P0 or not at all"
+      },
+      "x-realises": "lifecycle::INVARIANT_CONTENT_ENTERS_AT_OWNING_PHASE_V0",
+      "x-carriage": {
+        "mode": "confined",
+        "params": {
+          "prior_phase": "p0",
+          "prior_register": "business_vocabulary",
+          "prior_key_column": "Term",
+          "key_column": "Term"
+        }
+      }
+    },
+    {
+      "x-register": "constraints",
+      "x-finding": {
+        "code": "ROW_NOT_IN_SEED",
+        "intent": "P1 interrogates and restates; business content enters at P0 or not at all"
+      },
+      "x-realises": "lifecycle::INVARIANT_CONTENT_ENTERS_AT_OWNING_PHASE_V0",
+      "x-carriage": {
+        "mode": "confined",
+        "params": {
+          "prior_phase": "p0",
+          "prior_register": "constraints",
+          "prior_key_column": "Constraint",
+          "key_column": "Constraint"
+        }
+      }
+    },
+    {
+      "x-register": "assumptions",
+      "x-finding": {
+        "code": "ROW_NOT_IN_SEED",
+        "intent": "P1 interrogates and restates; business content enters at P0 or not at all"
+      },
+      "x-realises": "lifecycle::INVARIANT_CONTENT_ENTERS_AT_OWNING_PHASE_V0",
+      "x-carriage": {
+        "mode": "confined",
+        "params": {
+          "prior_phase": "p0",
+          "prior_register": "assumptions",
+          "prior_key_column": "Assumption",
+          "key_column": "Assumption"
+        }
+      }
+    },
+    {
+      "x-register": "business_events",
+      "x-finding": {
+        "code": "ROW_NOT_IN_SEED",
+        "intent": "P1 interrogates and restates; business content enters at P0 or not at all"
+      },
+      "x-realises": "lifecycle::INVARIANT_CONTENT_ENTERS_AT_OWNING_PHASE_V0",
+      "x-carriage": {
+        "mode": "confined",
+        "params": {
+          "prior_phase": "p0",
+          "prior_register": "business_events",
+          "prior_key_column": "Event",
+          "key_column": "Event"
+        }
+      }
+    },
+    {
+      "x-register": "authority_boundaries",
+      "x-finding": {
+        "code": "ROW_NOT_IN_SEED",
+        "intent": "P1 interrogates and restates; business content enters at P0 or not at all"
+      },
+      "x-realises": "lifecycle::INVARIANT_CONTENT_ENTERS_AT_OWNING_PHASE_V0",
+      "x-carriage": {
+        "mode": "confined",
+        "params": {
+          "prior_phase": "p0",
+          "prior_register": "authority_boundaries",
+          "prior_key_column": "Business Object",
+          "key_column": "Business Object"
+        }
+      }
+    },
+    {
+      "x-register": "out_of_scope",
+      "x-finding": {
+        "code": "ROW_NOT_IN_SEED",
+        "intent": "P1 interrogates and restates; business content enters at P0 or not at all"
+      },
+      "x-realises": "lifecycle::INVARIANT_CONTENT_ENTERS_AT_OWNING_PHASE_V0",
+      "x-carriage": {
+        "mode": "confined",
+        "params": {
+          "prior_phase": "p0",
+          "prior_register": "out_of_scope",
+          "prior_key_column": "Item",
+          "key_column": "Item"
+        }
+      }
+    },
+    {
+      "x-register": "governance_scope",
+      "x-finding": {
+        "code": "ROW_NOT_IN_SEED",
+        "intent": "P1 interrogates and restates; business content enters at P0 or not at all"
+      },
+      "x-realises": "lifecycle::INVARIANT_CONTENT_ENTERS_AT_OWNING_PHASE_V0",
+      "x-carriage": {
+        "mode": "confined",
+        "params": {
+          "prior_phase": "p0",
+          "prior_register": "governance_scope",
+          "prior_key_column": "Scope Item",
+          "key_column": "Scope Item"
+        }
+      }
+    },
+    {
+      "x-register": "identity_and_sameness",
+      "x-finding": {
+        "code": "ROW_NOT_IN_SEED",
+        "intent": "P1 interrogates and restates; business content enters at P0 or not at all"
+      },
+      "x-realises": "lifecycle::INVARIANT_CONTENT_ENTERS_AT_OWNING_PHASE_V0",
+      "x-carriage": {
+        "mode": "confined",
+        "params": {
+          "prior_phase": "p0",
+          "prior_register": "identity_and_sameness",
+          "prior_key_column": "Business Object",
+          "key_column": "Business Object"
+        }
+      }
+    },
+    {
+      "x-register": "authority_deferrals",
+      "x-finding": {
+        "code": "ROW_NOT_IN_SEED",
+        "intent": "P1 interrogates and restates; business content enters at P0 or not at all"
+      },
+      "x-realises": "lifecycle::INVARIANT_CONTENT_ENTERS_AT_OWNING_PHASE_V0",
+      "x-carriage": {
+        "mode": "confined",
+        "params": {
+          "prior_phase": "p0",
+          "prior_register": "authority_deferrals",
+          "prior_key_column": "Business Object",
+          "key_column": "Business Object"
+        }
+      }
+    },
+    {
+      "x-register": "lifecycle_states",
+      "x-finding": {
+        "code": "ROW_NOT_IN_SEED",
+        "intent": "P1 interrogates and restates; business content enters at P0 or not at all"
+      },
+      "x-realises": "lifecycle::INVARIANT_CONTENT_ENTERS_AT_OWNING_PHASE_V0",
+      "x-carriage": {
+        "mode": "confined",
+        "params": {
+          "prior_phase": "p0",
+          "prior_register": "lifecycle_states",
+          "prior_key_column": [
+            "Object",
+            "State"
+          ],
+          "key_column": [
+            "Object",
+            "State"
+          ]
+        }
+      }
+    },
+    {
+      "x-register": "lifecycle_transitions",
+      "x-finding": {
+        "code": "ROW_NOT_IN_SEED",
+        "intent": "P1 interrogates and restates; business content enters at P0 or not at all"
+      },
+      "x-realises": "lifecycle::INVARIANT_CONTENT_ENTERS_AT_OWNING_PHASE_V0",
+      "x-carriage": {
+        "mode": "confined",
+        "params": {
+          "prior_phase": "p0",
+          "prior_register": "lifecycle_transitions",
+          "prior_key_column": [
+            "Object",
+            "From State",
+            "To State"
+          ],
+          "key_column": [
+            "Object",
+            "From State",
+            "To State"
+          ]
+        }
+      }
+    },
+    {
+      "x-register": "operation_refusals",
+      "x-finding": {
+        "code": "ROW_NOT_IN_SEED",
+        "intent": "P1 interrogates and restates; business content enters at P0 or not at all"
+      },
+      "x-realises": "lifecycle::INVARIANT_CONTENT_ENTERS_AT_OWNING_PHASE_V0",
+      "x-carriage": {
+        "mode": "confined",
+        "params": {
+          "prior_phase": "p0",
+          "prior_register": "operation_refusals",
+          "prior_key_column": [
+            "Operation",
+            "Refused When"
+          ],
+          "key_column": [
+            "Operation",
+            "Refused When"
+          ]
+        }
+      }
+    },
+    {
+      "x-finding": {
+        "code": "REGISTER_CELL_UNRESOLVED",
+        "intent": "an unanswered question left in a register reads as decided to every later phase",
+        "detail": "{column!r} declares the question unanswered ({marker}) rather than answering it — ask it as a clarification, do not hedge it in a register"
+      },
+      "x-realises": "lifecycle::INVARIANT_NO_QUESTION_LEFT_OPEN_V0",
+      "x-procedure": {
+        "name": "UNRESOLVED_MARKER_ABSENT",
+        "params": {
+          "exempt": [
+            "clarification_requests"
+          ],
+          "detail": "{column!r} declares the question unanswered ({marker}) rather than answering it — ask it as a clarification, do not hedge it in a register"
+        }
+      }
+    },
+    {
+      "x-register": "clarification_requests",
+      "x-finding": {
+        "code": "BLOCKING_CLARIFICATION_OUTSTANDING",
+        "intent": "a blocking question the next phase never sees is answered by invention",
+        "detail": "a blocking clarification is unanswered — resolve it with the named owner and fold the answer into the document before any phase consumes it"
+      },
+      "x-realises": "lifecycle::INVARIANT_NO_QUESTION_LEFT_OPEN_V0",
+      "items": {
+        "not": {
+          "properties": {
+            "blocking": {
+              "const": "YES"
+            }
+          },
+          "required": [
+            "blocking"
+          ]
+        }
+      }
+    },
+    {
+      "x-register": "clarification_requests",
+      "x-finding": {
+        "code": "BUSINESS_CLARIFICATION_OUTSTANDING",
+        "intent": "a business question that outlives the seed is answered downstream by inference",
+        "detail": "only the business can answer this — ask it, fold the answer into the problem statement, and re-author the seed rather than carrying the question forward"
+      },
+      "x-realises": "lifecycle::INVARIANT_NO_QUESTION_LEFT_OPEN_V0",
+      "items": {
+        "not": {
+          "properties": {
+            "owner": {
+              "const": "HUMAN"
+            }
+          },
+          "required": [
+            "owner"
+          ]
+        }
+      }
+    }
+  ],
+  "x-priors": [
+    "p0"
+  ],
+  "$defs": {
+    "citation": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "required": [
+            "register"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "phase": {
+              "type": "string",
+              "pattern": "^p[0-8]$"
+            },
+            "register": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9_]*$"
+            },
+            "row": {
+              "type": "integer"
+            },
+            "key": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "not": {
+            "required": [
+              "row",
+              "key"
+            ]
+          }
+        },
+        {
+          "type": "object",
+          "required": [
+            "artifact"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "artifact": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9_.]*::[A-Z][A-Z0-9_]*_V[0-9]+$"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "required": [
+            "source"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "source": {
+              "const": "human"
+            }
+          }
+        },
+        {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "oneOf": [
+              {
+                "type": "object",
+                "required": [
+                  "register"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "phase": {
+                    "type": "string",
+                    "pattern": "^p[0-8]$"
+                  },
+                  "register": {
+                    "type": "string",
+                    "pattern": "^[a-z][a-z0-9_]*$"
+                  },
+                  "row": {
+                    "type": "integer"
+                  },
+                  "key": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "not": {
+                  "required": [
+                    "row",
+                    "key"
+                  ]
+                }
+              },
+              {
+                "type": "object",
+                "required": [
+                  "artifact"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "artifact": {
+                    "type": "string",
+                    "pattern": "^[a-z][a-z0-9_.]*::[A-Z][A-Z0-9_]*_V[0-9]+$"
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "required": [
+                  "source"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "source": {
+                    "const": "human"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}
