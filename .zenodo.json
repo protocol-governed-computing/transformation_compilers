@@ -1,6 +1,6 @@
 {
   "upload_type": "software",
-  "title": "PGC Reference Implementation: Transformation Lifecycle (transformation)",
+  "title": "PGC Reference Implementation: Transformation Lifecycle (transformation_compilers)",
   "description": "<p>The governed change-request to protocol-artifact pipeline, holding two compilers: a Design Compiler driving phases P0-P8 to an Authoring Mandate, and a Construction Compiler rendering artifacts from the approved design alone.</p><p>Part of the Protocol-Governed Computing reference corpus. Cite the version DOI of the release you used, not the concept DOI.</p>",
   "creators": [
     {
