@@ -215,6 +215,7 @@ structure is a shape: it carries its summary and its properties, and none of the
 | Field | Class | Governed by | Source |
 |---|---|---|---|
 | `<group>.casing` | stated_by_design |  | `vocabulary_extensions.Casing`; `UPPER_SNAKE` where it states none |
+| `<group>.names_kind` | stated_by_design |  | `vocabulary_extensions.Names Kind`; absent where it states none |
 | `<group>.entries.[]` | stated_by_design |  | `vocabulary_extensions.Value`, by `Group` (`result_status` where it states none) |
 | `extends` | stated_by_design |  | `vocabulary_extensions.Extends` |
 

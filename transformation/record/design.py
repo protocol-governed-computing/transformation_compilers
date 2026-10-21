@@ -203,7 +203,8 @@ class Design:
             for value in spec["entries"]:
                 self.r["vocabulary_extensions"].append({
                     "vocabulary_code": a["fqdn"], "extends": extends, "group": group,
-                    "casing": spec.get("casing"), "value": value,
+                    "casing": spec.get("casing"), "names_kind": spec.get("names_kind"),
+                    "value": value,
                     "meaning": " ".join(str(meanings.get(value) or value).split())})
 
     def _structure(self, a: dict) -> None:

@@ -24455,672 +24455,784 @@ registers:
     extends: null
     group: fact_provenance
     casing: lower_snake
+    names_kind: null
     value: stated_by_design
     meaning: stated_by_design
   - vocabulary_code: transformation::VOCAB_FACT_PROVENANCE_V0
     extends: null
     group: fact_provenance
     casing: lower_snake
+    names_kind: null
     value: governed_elsewhere
     meaning: governed_elsewhere
   - vocabulary_code: transformation::VOCAB_FACT_PROVENANCE_V0
     extends: null
     group: fact_provenance
     casing: lower_snake
+    names_kind: null
     value: carried_from_predecessor
     meaning: carried_from_predecessor
   - vocabulary_code: transformation::VOCAB_FACT_PROVENANCE_V0
     extends: null
     group: fact_provenance
     casing: lower_snake
+    names_kind: null
     value: supplied_by_renderer
     meaning: supplied_by_renderer
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: artifact_family
     casing: UPPER_SNAKE
+    names_kind: null
     value: AC
     meaning: AC
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: artifact_family
     casing: UPPER_SNAKE
+    names_kind: null
     value: IN
     meaning: IN
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: artifact_family
     casing: UPPER_SNAKE
+    names_kind: null
     value: WF
     meaning: WF
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: artifact_family
     casing: UPPER_SNAKE
+    names_kind: null
     value: CC
     meaning: CC
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: artifact_family
     casing: UPPER_SNAKE
+    names_kind: null
     value: CT
     meaning: CT
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: artifact_family
     casing: UPPER_SNAKE
+    names_kind: null
     value: EV
     meaning: EV
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: artifact_family
     casing: UPPER_SNAKE
+    names_kind: null
     value: RB
     meaning: RB
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: artifact_family
     casing: UPPER_SNAKE
+    names_kind: null
     value: VOCAB
     meaning: VOCAB
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: artifact_family
     casing: UPPER_SNAKE
+    names_kind: null
     value: STRUCTURE
     meaning: STRUCTURE
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: artifact_family
     casing: UPPER_SNAKE
+    names_kind: null
     value: TI
     meaning: TI
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: artifact_family
     casing: UPPER_SNAKE
+    names_kind: null
     value: TE
     meaning: TE
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: approval_state
     casing: UPPER_SNAKE
+    names_kind: null
     value: APPROVED
     meaning: APPROVED
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: approval_state
     casing: UPPER_SNAKE
+    names_kind: null
     value: MIGRATED
     meaning: MIGRATED
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: approval_state
     casing: UPPER_SNAKE
+    names_kind: null
     value: RECONFIRMED
     meaning: RECONFIRMED
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: belief_result
     casing: UPPER_SNAKE
+    names_kind: null
     value: VERIFIED
     meaning: VERIFIED
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: belief_result
     casing: UPPER_SNAKE
+    names_kind: null
     value: NOT_FOUND
     meaning: NOT_FOUND
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: belief_result
     casing: UPPER_SNAKE
+    names_kind: null
     value: INSUFFICIENT_EVIDENCE
     meaning: INSUFFICIENT_EVIDENCE
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: certainty
     casing: UPPER_SNAKE
+    names_kind: null
     value: HIGH
     meaning: HIGH
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: certainty
     casing: UPPER_SNAKE
+    names_kind: null
     value: MEDIUM
     meaning: MEDIUM
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: certainty
     casing: UPPER_SNAKE
+    names_kind: null
     value: LOW
     meaning: LOW
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: clarification_owner
     casing: UPPER_SNAKE
+    names_kind: null
     value: HUMAN
     meaning: HUMAN
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: clarification_owner
     casing: UPPER_SNAKE
+    names_kind: null
     value: SNAPSHOT
     meaning: SNAPSHOT
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: clarification_owner
     casing: UPPER_SNAKE
+    names_kind: null
     value: GOVERNANCE
     meaning: GOVERNANCE
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: classification
     casing: UPPER_SNAKE
+    names_kind: null
     value: NEW_SUBDOMAIN
     meaning: NEW_SUBDOMAIN
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: classification
     casing: UPPER_SNAKE
+    names_kind: null
     value: EXTEND_SUBDOMAIN
     meaning: EXTEND_SUBDOMAIN
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: classification
     casing: UPPER_SNAKE
+    names_kind: null
     value: MODIFY
     meaning: MODIFY
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: classification
     casing: UPPER_SNAKE
+    names_kind: null
     value: DEPRECATE
     meaning: DEPRECATE
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: composition_kind
     casing: UPPER_SNAKE
+    names_kind: null
     value: CT
     meaning: CT
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: composition_kind
     casing: UPPER_SNAKE
+    names_kind: null
     value: CS
     meaning: CS
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: dependency_disposition
     casing: UPPER_SNAKE
+    names_kind: null
     value: EXISTING
     meaning: EXISTING
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: dependency_disposition
     casing: UPPER_SNAKE
+    names_kind: null
     value: EXTEND
     meaning: EXTEND
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: dependency_disposition
     casing: UPPER_SNAKE
+    names_kind: null
     value: REUSE
     meaning: REUSE
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: dependency_disposition
     casing: UPPER_SNAKE
+    names_kind: null
     value: AUTHOR_NEW
     meaning: AUTHOR_NEW
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: dependency_disposition
     casing: UPPER_SNAKE
+    names_kind: null
     value: INVESTIGATE
     meaning: INVESTIGATE
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: dependency_status
     casing: UPPER_SNAKE
+    names_kind: null
     value: SATISFIED
     meaning: SATISFIED
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: dependency_status
     casing: UPPER_SNAKE
+    names_kind: null
     value: GAP
     meaning: GAP
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: evidence_status
     casing: UPPER_SNAKE
+    names_kind: null
     value: OBSERVED
     meaning: OBSERVED
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: evidence_status
     casing: UPPER_SNAKE
+    names_kind: null
     value: INFERRED
     meaning: INFERRED
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: evidence_status
     casing: UPPER_SNAKE
+    names_kind: null
     value: OPEN
     meaning: OPEN
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: expected_outcome
     casing: UPPER_SNAKE
+    names_kind: null
     value: SUCCESS
     meaning: SUCCESS
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: expected_outcome
     casing: UPPER_SNAKE
+    names_kind: null
     value: VIOLATION
     meaning: VIOLATION
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: field_direction
     casing: UPPER_SNAKE
+    names_kind: null
     value: INPUT
     meaning: INPUT
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: field_direction
     casing: UPPER_SNAKE
+    names_kind: null
     value: OUTPUT
     meaning: OUTPUT
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: fit
     casing: UPPER_SNAKE
+    names_kind: null
     value: EXACT
     meaning: EXACT
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: fit
     casing: UPPER_SNAKE
+    names_kind: null
     value: PARTIAL
     meaning: PARTIAL
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: fit
     casing: UPPER_SNAKE
+    names_kind: null
     value: MISMATCH
     meaning: MISMATCH
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: gap_resolution
     casing: UPPER_SNAKE
+    names_kind: null
     value: REPLACE
     meaning: REPLACE
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: gap_resolution
     casing: UPPER_SNAKE
+    names_kind: null
     value: EXTEND
     meaning: EXTEND
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: gap_resolution
     casing: UPPER_SNAKE
+    names_kind: null
     value: NEW
     meaning: NEW
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: handler_kind
     casing: UPPER_SNAKE
+    names_kind: null
     value: WF_INVOCATION
     meaning: WF_INVOCATION
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: handler_kind
     casing: UPPER_SNAKE
+    names_kind: null
     value: SNAPSHOT_READ
     meaning: SNAPSHOT_READ
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: interface_direction
     casing: UPPER_SNAKE
+    names_kind: null
     value: INPUT
     meaning: INPUT
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: interface_direction
     casing: UPPER_SNAKE
+    names_kind: null
     value: OUTPUT
     meaning: OUTPUT
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: interface_direction
     casing: UPPER_SNAKE
+    names_kind: null
     value: ATTRIBUTE
     meaning: ATTRIBUTE
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: inventory_action
     casing: UPPER_SNAKE
+    names_kind: null
     value: REPLACE
     meaning: REPLACE
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: inventory_action
     casing: UPPER_SNAKE
+    names_kind: null
     value: REUSE
     meaning: REUSE
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: inventory_action
     casing: UPPER_SNAKE
+    names_kind: null
     value: EXTEND
     meaning: EXTEND
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: inventory_action
     casing: UPPER_SNAKE
+    names_kind: null
     value: REPOINT
     meaning: REPOINT
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: inventory_action
     casing: UPPER_SNAKE
+    names_kind: null
     value: REVIEW
     meaning: REVIEW
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: molecule_binding_role
     casing: UPPER_SNAKE
+    names_kind: null
     value: INPUT
     meaning: INPUT
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: molecule_binding_role
     casing: UPPER_SNAKE
+    names_kind: null
     value: CARRY
     meaning: CARRY
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: molecule_binding_role
     casing: UPPER_SNAKE
+    names_kind: null
     value: UPDATE
     meaning: UPDATE
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: node_type
     casing: UPPER_SNAKE
+    names_kind: null
     value: IN
     meaning: IN
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: node_type
     casing: UPPER_SNAKE
+    names_kind: null
     value: CC
     meaning: CC
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: node_type
     casing: UPPER_SNAKE
+    names_kind: null
     value: EXIT
     meaning: EXIT
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: node_type
     casing: UPPER_SNAKE
+    names_kind: null
     value: EXIT_SUCCESS
     meaning: EXIT_SUCCESS
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: ownership_disposition
     casing: UPPER_SNAKE
+    names_kind: null
     value: OWNED
     meaning: OWNED
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: ownership_disposition
     casing: UPPER_SNAKE
+    names_kind: null
     value: SATISFIED
     meaning: SATISFIED
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: ownership_disposition
     casing: UPPER_SNAKE
+    names_kind: null
     value: DEFERRED
     meaning: DEFERRED
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: placement_decision
     casing: UPPER_SNAKE
+    names_kind: null
     value: NEW_SUBDOMAIN
     meaning: NEW_SUBDOMAIN
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: placement_decision
     casing: UPPER_SNAKE
+    names_kind: null
     value: EXTEND
     meaning: EXTEND
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: pps_action
     casing: UPPER_SNAKE
+    names_kind: null
     value: REPLACE
     meaning: REPLACE
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: pps_action
     casing: UPPER_SNAKE
+    names_kind: null
     value: REVIEW
     meaning: REVIEW
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: pps_action
     casing: UPPER_SNAKE
+    names_kind: null
     value: REUSE
     meaning: REUSE
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: pps_action
     casing: UPPER_SNAKE
+    names_kind: null
     value: EXTEND
     meaning: EXTEND
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: purpose_disposition
     casing: UPPER_SNAKE
+    names_kind: null
     value: INHERITED
     meaning: INHERITED
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: purpose_disposition
     casing: UPPER_SNAKE
+    names_kind: null
     value: REFINED
     meaning: REFINED
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: record_model
     casing: UPPER_SNAKE
+    names_kind: null
     value: MUTABLE_STATE
     meaning: MUTABLE_STATE
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: record_model
     casing: UPPER_SNAKE
+    names_kind: null
     value: APPEND_ONLY_JOURNAL
     meaning: APPEND_ONLY_JOURNAL
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: record_model
     casing: UPPER_SNAKE
+    names_kind: null
     value: IDENTITY_REGISTRY
     meaning: IDENTITY_REGISTRY
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: record_model
     casing: UPPER_SNAKE
+    names_kind: null
     value: HYBRID
     meaning: HYBRID
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: resolution_status
     casing: UPPER_SNAKE
+    names_kind: null
     value: CLOSED
     meaning: CLOSED
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: resolution_status
     casing: UPPER_SNAKE
+    names_kind: null
     value: OPEN
     meaning: OPEN
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: reuse_decision
     casing: UPPER_SNAKE
+    names_kind: null
     value: REUSE
     meaning: REUSE
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: reuse_decision
     casing: UPPER_SNAKE
+    names_kind: null
     value: EXTEND
     meaning: EXTEND
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: reuse_decision
     casing: UPPER_SNAKE
+    names_kind: null
     value: AUTHOR_NEW
     meaning: AUTHOR_NEW
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: saturation_status
     casing: UPPER_SNAKE
+    names_kind: null
     value: SATISFIED
     meaning: SATISFIED
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: saturation_status
     casing: UPPER_SNAKE
+    names_kind: null
     value: NOT_SATISFIED
     meaning: NOT_SATISFIED
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: scope_relationship
     casing: UPPER_SNAKE
+    names_kind: null
     value: CREATED
     meaning: CREATED
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: scope_relationship
     casing: UPPER_SNAKE
+    names_kind: null
     value: EXTENDED
     meaning: EXTENDED
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: scope_relationship
     casing: UPPER_SNAKE
+    names_kind: null
     value: MODIFIED
     meaning: MODIFIED
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: scope_relationship
     casing: UPPER_SNAKE
+    names_kind: null
     value: DEPRECATED
     meaning: DEPRECATED
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: scope_relationship
     casing: UPPER_SNAKE
+    names_kind: null
     value: ADJACENT
     meaning: ADJACENT
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: scope_status
     casing: UPPER_SNAKE
+    names_kind: null
     value: IN_SCOPE
     meaning: IN_SCOPE
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: scope_status
     casing: UPPER_SNAKE
+    names_kind: null
     value: DEFERRED
     meaning: DEFERRED
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: storage_type
     casing: UPPER_SNAKE
+    names_kind: CAPABILITY_SIDE_EFFECT
     value: CS_APPENDONLY_JSONL_V0
     meaning: CS_APPENDONLY_JSONL_V0
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: storage_type
     casing: UPPER_SNAKE
+    names_kind: CAPABILITY_SIDE_EFFECT
     value: CS_MUTABLE_JSON_V0
     meaning: CS_MUTABLE_JSON_V0
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: storage_type
     casing: UPPER_SNAKE
+    names_kind: CAPABILITY_SIDE_EFFECT
     value: CS_REGISTRY_V0
     meaning: CS_REGISTRY_V0
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: test_value_role
     casing: UPPER_SNAKE
+    names_kind: null
     value: INPUT
     meaning: INPUT
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: test_value_role
     casing: UPPER_SNAKE
+    names_kind: null
     value: EXPECTED
     meaning: EXPECTED
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: test_value_role
     casing: UPPER_SNAKE
+    names_kind: null
     value: ASSERT
     meaning: ASSERT
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: test_value_role
     casing: UPPER_SNAKE
+    names_kind: null
     value: RECORDED
     meaning: RECORDED
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: transport_direction
     casing: UPPER_SNAKE
+    names_kind: null
     value: INGRESS
     meaning: INGRESS
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: transport_direction
     casing: UPPER_SNAKE
+    names_kind: null
     value: EGRESS
     meaning: EGRESS
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: verification_result
     casing: UPPER_SNAKE
+    names_kind: null
     value: CONFIRMED
     meaning: CONFIRMED
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: verification_result
     casing: UPPER_SNAKE
+    names_kind: null
     value: OVERTURNED
     meaning: OVERTURNED
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: yes_no
     casing: UPPER_SNAKE
+    names_kind: null
     value: 'YES'
     meaning: 'YES'
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: yes_no
     casing: UPPER_SNAKE
+    names_kind: null
     value: 'NO'
     meaning: 'NO'
   runtime_policies:

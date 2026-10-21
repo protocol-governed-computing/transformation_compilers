@@ -87,6 +87,7 @@ registers:
     extends: null
     group: null
     casing: null
+    names_kind: null
     value: null
     meaning: null
     source_finding: null
@@ -499,6 +500,10 @@ together or the composition compiles with a status nothing recognizes.*
 *`Extends` is required and the none marker is an answer. A vocabulary that builds on nothing is a
 base vocabulary, which is a decision; left blank it is indistinguishable from a design that never
 settled the question, and both render the same empty field.*
+
+*`Names Kind` is for a group whose values are artifact codes, such as a store's capability: it names
+the artifact kind, and the compiler refuses a value that is not the code of an artifact of that kind
+the build can see. Leave it blank for a group of symbols.*
 
 Register `vocabulary_extensions` in the Machine block.
 

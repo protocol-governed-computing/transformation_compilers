@@ -194,6 +194,7 @@ scope_status:
   - DEFERRED
 storage_type:
   casing: UPPER_SNAKE
+  names_kind: CAPABILITY_SIDE_EFFECT
   entries:
   - CS_APPENDONLY_JSONL_V0
   - CS_MUTABLE_JSON_V0

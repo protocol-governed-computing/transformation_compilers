@@ -988,7 +988,11 @@ def _vocabulary(m, code, short, summary, sub, p7, p8, declared_empty=None, suppl
         if group not in m:
             if not cell(r, "Casing"):
                 _supplied(supplied, f"{group}.casing")
-            m[group] = {"casing": cell(r, "Casing") or "UPPER_SNAKE", "entries": []}
+            m[group] = {"casing": cell(r, "Casing") or "UPPER_SNAKE"}
+            # A group whose entries name artifacts says which kind; most groups are symbols only.
+            if cell(r, "Names Kind"):
+                m[group]["names_kind"] = cell(r, "Names Kind")
+            m[group]["entries"] = []
         m[group]["entries"].append(cell(r, "Value"))
 
 

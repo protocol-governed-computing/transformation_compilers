@@ -836,6 +836,13 @@
                   "null"
                 ]
               },
+              "names_kind": {
+                "title": "Names Kind",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
               "value": {
                 "title": "Value",
                 "type": [
