@@ -515,7 +515,9 @@ def _render(fam, code, short, summary, sub, p7, p8, declared_empty=None,
         builder(machine, code, short, summary, sub, p7, p8, declared_empty, supplied)
     elif fam == "CT":
         builder(machine, code, short, summary, sub, p7, p8, supplied, declared_empty, namespace)
-    elif fam in ("STRUCTURE", "EV"):
+    elif fam == "STRUCTURE":
+        builder(machine, code, short, summary, sub, p7, p8, supplied, declared_empty)
+    elif fam == "EV":
         builder(machine, code, short, summary, sub, p7, p8, supplied)
     else:
         builder(machine, code, short, summary, sub, p7, p8)
@@ -596,6 +598,11 @@ def _workflow(m, code, short, summary, sub, p7, p8, declared_empty=None, supplie
         bindings = _bindings(p7, short, node, "INPUT")
         if bindings:
             spec["inputs"] = bindings
+        if declared_empty is not None:
+            # A literal the design wrote as `''` or `{}` is a value it chose — no reason on a success,
+            # no detail on an audit record — and determined, exactly as it is inside a contract step.
+            for field, literal in _stated_literals(p7, short, node, "INPUT").items():
+                declared_empty.extend(_declared_empty_leaves(literal, f"core.nodes.{node}.inputs.{field}"))
         spec["next"] = _edges(value(r, "Routing"))
         nodes[node] = spec
 
@@ -622,6 +629,18 @@ def _bindings(p7: dict, owner: str, step: str, direction: str) -> dict:
             for b in rows(p7, "step_bindings")
             if bare(cell(b, "Owner")) == owner and bare(cell(b, "Step")) == step
             and cell(b, "Direction") == direction}
+
+
+def _stated_literals(p7: dict, owner: str, step: str, direction: str) -> dict:
+    """The bindings of one node or step that state their value outright, and that value."""
+    out = {}
+    for b in rows(p7, "step_bindings"):
+        if bare(cell(b, "Owner")) == owner and bare(cell(b, "Step")) == step \
+                and cell(b, "Direction") == direction:
+            stated, literal = _literal_or(value(b, "Bound To"))
+            if stated:
+                out[cell(b, "Field")] = literal
+    return out
 
 
 def _literal_or(bound: Any) -> tuple[bool, Any]:
@@ -973,7 +992,7 @@ def _vocabulary(m, code, short, summary, sub, p7, p8, declared_empty=None, suppl
         m[group]["entries"].append(cell(r, "Value"))
 
 
-def _structure(m, code, short, summary, sub, p7, p8, supplied=None):
+def _structure(m, code, short, summary, sub, p7, p8, supplied=None, declared_empty=None):
     """A structure: storage, when stores belong to it, or a shape it declares.
 
     A store belongs to the structure its row names. A row naming none belongs to every structure the
@@ -987,6 +1006,11 @@ def _structure(m, code, short, summary, sub, p7, p8, supplied=None):
               for r in rows(p7, "structure_stores")
               if bare(cell(r, "Structure")) in ("", short)}
     props = _properties(p7, code)
+    if declared_empty is not None:
+        # A property the design wrote may hold an empty value on purpose: a phase with no human gate
+        # states `gate: null`. What a property row states is determined, empties included.
+        for name, held in props.items():
+            declared_empty.extend(_declared_empty_leaves(held, f"core.{name}"))
     if not stores and "layer" not in props:
         m["core"] = {"summary": summary, **props}
         return
