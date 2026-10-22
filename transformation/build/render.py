@@ -1322,8 +1322,6 @@ def build_manifest(p7: dict, p8: dict, held: tuple[str, ...] = ()) -> dict | Non
             "tokenized_projection_path": {"layer": "GOVERNANCE", "subpath": "compiled/tokenized"},
             "evidence_projection_path": {"layer": "GOVERNANCE", "subpath": "compiled/evidence"},
             "trust_attestation_path": {"layer": "GOVERNANCE", "subpath": "compiled/trust"},
-            "visualization_projection_path":
-                {"layer": "GOVERNANCE", "subpath": "compiled/visualization"},
             "layer_outputs": {layer: {"layer": layer, "subpath": "compiled/canonical"}},
             "bootstrap_search_roots": [{"layer": "GOVERNANCE", "subpath": "structure/structures"}],
         } | ({"conformance": {"layer": "GOVERNANCE", "subpath": "compiled/transform_conformance"}}
