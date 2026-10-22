@@ -31,6 +31,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 import yaml
+from transformation.machine_block import machine_yaml
 
 # Vocabulary classes a phase may introduce, in ladder order. A phase admits its own rung and every
 # rung below it.
@@ -79,10 +80,10 @@ DISPATCH = Path(__file__).resolve().parents[2] / "registry" / "structures" / "ST
 
 def _declared() -> tuple[Phase, ...]:
     text = DISPATCH.read_text(encoding="utf-8")
-    machine = re.search(r"^## Machine\n+```yaml\n(.*?)^```", text, re.M | re.S)
+    machine = machine_yaml(text)
     if machine is None:
         raise ValueError(f"{DISPATCH.name} carries no Machine block")
-    rows = yaml.safe_load(machine.group(1))["core"]["phases"]
+    rows = yaml.safe_load(machine)["core"]["phases"]
     return tuple(Phase(id=row["phase"], schema_id=row["schema"], workflow=row["workflow"],
                        template=row["template"], rung=row["rung"], purpose=row["purpose"],
                        question=row["question"], key_rule=row["key_rule"], gate=row.get("gate"))

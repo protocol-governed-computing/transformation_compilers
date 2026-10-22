@@ -22,12 +22,12 @@ from pathlib import Path
 
 import jsonschema
 import yaml
+from transformation.machine_block import MACHINE_BLOCK
 
 REPO = Path(__file__).resolve().parents[2]
 SCHEMAS = REPO / "registry" / "schema"
 META = SCHEMAS / "SCHEMA_REGISTER_SCHEMA_V0.json"
 REGISTRY = REPO / "registry"
-MACHINE_BLOCK = re.compile(r"## Machine\s*\n+```yaml\n(.*?)\n```", re.S)
 
 # Columns that cite rather than state. A citation names its subject — including, in a grounding
 # phase, a compiled artifact — so these are never business-language columns.

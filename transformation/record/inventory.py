@@ -14,14 +14,14 @@ from pathlib import Path
 import yaml
 
 from transformation.design.families import FAMILIES
+from transformation.machine_block import MACHINE_BLOCK
 
-MACHINE = re.compile(r"^```yaml\n(.*?)^```$", re.S | re.M)
 FAMILY = {f.artifact_kind: f.code for f in FAMILIES}
 BUILD_MANIFEST = re.compile(r"^STRUCTURE_BUILD_[A-Z0-9_]+_CONFIG_V\d+$")
 
 
 def _machine(path: Path) -> dict | None:
-    found = MACHINE.search(path.read_text(encoding="utf-8"))
+    found = MACHINE_BLOCK.search(path.read_text(encoding="utf-8"))
     if not found:
         return None
     machine = yaml.safe_load(found.group(1))

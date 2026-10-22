@@ -16,7 +16,6 @@ Exit: 0 when every check holds, 1 otherwise.
 
 from __future__ import annotations
 
-import re
 import sys
 from pathlib import Path
 
@@ -34,7 +33,7 @@ REPO = Path(__file__).resolve().parents[2]
 STRUCTURES = REPO / "registry" / "structures"
 TRANSFORMS = REPO / "registry" / "design" / "capability_transforms"
 CORPUS = REPO / "scripts" / "testbed"
-MACHINE = re.compile(r"```yaml\n(.*?)```", re.S)
+from transformation.machine_block import MACHINE_BLOCK as MACHINE
 PARTS = {"header": "STRUCTURE_PHASE_HEADER_V0", "sections": "STRUCTURE_PHASE_SECTIONS_V0",
          "registers": "STRUCTURE_PHASE_REGISTERS_V0"}
 

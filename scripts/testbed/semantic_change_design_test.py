@@ -106,6 +106,8 @@ DOC = """# IN_PROBE_V0
 
 Starts WF_OLD_V0, which names probe::RB_OLD_V0 in its prose.
 
+## Machine
+
 ```yaml
 fqdn: probe::IN_PROBE_V0
 core:
@@ -121,8 +123,29 @@ def test_a_re_point_rewrites_names_in_the_machine_block_only():
     assert out.startswith(DOC.split("```yaml")[0]), "prose was rewritten"
 
 
+def test_yaml_in_the_prose_is_not_the_machine_block():
+    # A declaration may show YAML in its prose before its machine block, as an example.
+    doc = """# STRUCTURE_PROBE_V0
+
+```yaml
+example: not the declaration
+```
+
+## Machine
+
+```yaml
+fqdn: probe::STRUCTURE_PROBE_V0
+note: "a value may carry ``` backticks"
+```
+"""
+    assert sameness.machine(doc) == {"fqdn": "probe::STRUCTURE_PROBE_V0",
+                                     "note": "a value may carry ``` backticks"}
+
+
 def test_a_re_point_leaves_a_place_label_and_its_route_alone():
-    doc = """```yaml
+    doc = """## Machine
+
+```yaml
 fqdn: probe::WF_V0
 core:
   nodes:

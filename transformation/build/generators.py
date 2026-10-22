@@ -26,8 +26,8 @@ from typing import Callable
 
 import yaml
 
+from transformation.machine_block import MACHINE_BLOCK
 from transformation.build.render import (
-    MACHINE_BLOCK,
     build_manifest,
     manifest_path,
     render_document,

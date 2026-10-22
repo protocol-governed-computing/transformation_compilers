@@ -28,11 +28,11 @@ from inspector import api as inspector_api
 from transformation.build import sameness
 from transformation.build.completeness import carry_forward, measure
 from transformation.build.provenance import of as provenance_of
+from transformation.machine_block import machine_yaml
 from transformation.build.render import (
     bare,
     cell,
     rows,
-    machine_block,
     mark_superseded,
     generated,
     implementation_namespace,
@@ -581,7 +581,7 @@ def _namespace(domain_root: Path | None) -> str | None:
     if domain_root is None:
         return None
     for path in sorted((domain_root / "registry").glob("**/STRUCTURE_BUILD_*_CONFIG_V*.md")):
-        block = machine_block(path.read_text(encoding="utf-8"))
+        block = machine_yaml(path.read_text(encoding="utf-8"))
         if block is not None:
             return implementation_namespace(yaml.safe_load(block) or {})
     return None
@@ -594,7 +594,7 @@ def _predecessors(rendered: list[dict], domain_root: Path) -> dict[str, dict]:
         path = domain_root / artifact["path"]
         if not path.is_file():
             continue
-        block = machine_block(path.read_text(encoding="utf-8"))
+        block = machine_yaml(path.read_text(encoding="utf-8"))
         if block is not None:
             out[path.stem] = yaml.safe_load(block) or {}
     return out

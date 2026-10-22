@@ -25,13 +25,13 @@ from typing import Any
 import yaml
 
 from inspector import api as inspector_api
+from transformation.machine_block import MACHINE_BLOCK
 
 DECLARATION = "artifact::VOCAB_DECLARATION_REPRESENTATION_V0"
 
 # The rules this module applies. The declaration must name exactly these.
 APPLIED = frozenset({"explanation_only_as_text", "reference_to_declared_successor"})
 
-MACHINE = re.compile(r"```yaml\n(.*?)```", re.S)
 
 
 class Uncomparable(ValueError):
@@ -83,7 +83,7 @@ def canonical(show_result: dict) -> dict:
 
 
 def machine(text: str) -> dict:
-    found = MACHINE.search(text)
+    found = MACHINE_BLOCK.search(text)
     return (yaml.safe_load(found.group(1)) or {}) if found else {}
 
 
@@ -198,7 +198,7 @@ def repoint(text: str, successor: dict[str, str], decl: Declaration) -> str:
     it in, and routes to that place, by the same spelling; the label and the route are not
     references, and rewriting them would rename a place rather than re-point it.
     """
-    found = MACHINE.search(text)
+    found = MACHINE_BLOCK.search(text)
     if not found:
         return text
     block = found.group(1)

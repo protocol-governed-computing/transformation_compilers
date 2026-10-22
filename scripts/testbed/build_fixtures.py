@@ -19,7 +19,6 @@ Run:  python scripts/testbed/build_fixtures.py
 
 from __future__ import annotations
 
-import re
 from pathlib import Path
 
 import yaml
@@ -30,7 +29,7 @@ REPO = Path(__file__).resolve().parents[2]
 WORKSPACE = REPO.parent
 # Fixtures maintained against the current rule set. See `fixtures/README.md`.
 CR_01 = REPO / "scripts/testbed/fixtures/catalog/cr_01_catalog"
-MACHINE = re.compile(r"## Machine\s*\n+```yaml\n(.*?)\n```", re.S)
+from transformation.machine_block import MACHINE_BLOCK as MACHINE
 CORPUS = REPO / "scripts/testbed"
 
 P0 = CR_01 / "p0_seed_book_library_mgmt_catalog_v0.md"

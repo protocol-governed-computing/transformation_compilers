@@ -38,6 +38,7 @@ import yaml
 from inspector import api as inspector_api
 
 from transformation.design.catalog import PHASES
+from transformation.machine_block import machine_yaml
 
 REPO = Path(__file__).resolve().parents[2]
 WORKFLOWS = REPO / "registry" / "design" / "workflows"
@@ -261,11 +262,10 @@ def splice_query_answers(text: str, outcomes: tuple[str, ...]) -> str:
 
 def machine(text: str) -> dict:
     """The artifact's `Machine` block, parsed."""
-    import re
-    match = re.search(r"```yaml\n(.*?)```", text, re.S)
-    if match is None:
+    block = machine_yaml(text)
+    if block is None:
         raise SystemExit("expected a ```yaml Machine block")
-    return yaml.safe_load(match.group(1))
+    return yaml.safe_load(block)
 
 
 def splice_allowed(text: str) -> str:

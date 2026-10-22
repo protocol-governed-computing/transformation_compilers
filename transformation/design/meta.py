@@ -39,6 +39,7 @@ from transformation.design.evaluate import procedures
 from transformation.design.evaluate import kinds as declared_kinds
 from transformation.design.rule_sets import PhaseRules
 from transformation.design.rules import Rule
+from transformation.machine_block import machine_yaml
 
 # A subscript under one of these is reached only on some paths, so the rule that omits it is not
 # thereby broken. `BoolOp` covers the `params.get(a) or params[b]` alternation — b is required only
@@ -317,8 +318,8 @@ STATEMENT = "DESIGN_LANGUAGE.md#"
 
 
 def _machine(content: str) -> dict:
-    found = re.search(r"^```yaml\n(.*?)^```", content, re.M | re.S)
-    return yaml.safe_load(found.group(1)) if found else {}
+    block = machine_yaml(content)
+    return yaml.safe_load(block) if block is not None else {}
 
 
 def _artifact(fqdn: str, snapshot_root: str) -> dict | None:

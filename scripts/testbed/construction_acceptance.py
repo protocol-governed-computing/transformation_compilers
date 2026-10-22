@@ -32,9 +32,7 @@ from pathlib import Path
 
 import yaml
 
-# `MACHINE_BLOCK` is one spelling of where a machine block ends, owned by the module
-# that renders them.
-from transformation.build.render import MACHINE_BLOCK as MACHINE
+from transformation.machine_block import MACHINE_BLOCK as MACHINE
 from transformation.build.render import bare, generated, implementation_namespace, render_all
 from transformation.design.read import read_seed
 
