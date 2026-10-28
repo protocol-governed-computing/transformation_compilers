@@ -29,11 +29,13 @@ classifiers = [
 # development venv, so a wheel failed on import three separate ways.
 #   inspector -> pgc-inspector : beliefs grounded against a pinned snapshot
 #   runtime   -> pgc-runtime   : the capability-transform atoms import it
+#   jsonschema                 : the register schemas, and the decision compiler's ledger schema
 dependencies = [
   "pgc-inspector>=2.0.0",
   "pgc-runtime>=2.0.0",
   "click",
   "pyyaml",
+  "jsonschema",
 ]
 
 [project.scripts]

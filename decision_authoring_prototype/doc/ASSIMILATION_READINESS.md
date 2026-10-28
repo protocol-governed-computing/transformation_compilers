@@ -7,20 +7,20 @@ criterion below holds. Each criterion states its evidence and where it stands to
 
 | # | Criterion | Evidence | Today |
 |---|---|---|---|
-| 1.1 | A block composer replaces the operation patterns | book and blockchain regenerate through it and pass every criterion they pass now | **holds**: `engine/compose.py`; book 23/23 and 27/27, blockchain 26/26, 6/6, 12/12 and 8/9, at 100% construction; one composition, `change_identity`, is still fitted |
+| 1.1 | A block composer replaces the operation patterns | book and blockchain regenerate through it and pass every criterion they pass now | **holds**: `transformation/decision/compose.py`; book 23/23 and 27/27, blockchain 26/26, 6/6, 12/12 and 8/9, at 100% construction; one composition, `change_identity`, is still fitted |
 | 1.2 | A held-out domain derives with no new block | ai_governance passes its 21 owner-answer criteria, or fails only on a declared platform gap | **holds**: 100% construction; 17/21, and the four failures follow from the registry count, a declared gap (21/21 with it stood in); no new block; see `domains/ai_governance/FINDINGS_COMPOSER_RUN.md` |
-| 1.3 | The question catalog is closed for the three domains | every answer in the three ledgers fits a catalog question; the 5 ai_governance candidates are added or refused | **holds**: `engine/catalog.yaml`, 30 questions; all 5 candidates added, plus `values` and `sets` from the composer run; every ledger key names its question, and two questions are answered by the carried surface |
-| 1.4 | Ledgers are written in the closed shape, not normalized by hand | a ledger schema refuses an answer outside its shape | **holds**: `engine/ledger_schema.yaml` and `check_ledger.py`; the three ledgers are admitted, 16 answers outside their shapes are refused, and `compose.py` refuses before deriving. The closed ledger has no open question or case yet |
+| 1.3 | The question catalog is closed for the three domains | every answer in the three ledgers fits a catalog question; the 5 ai_governance candidates are added or refused | **holds**: `transformation/decision/catalog.yaml`, 31 questions; all 5 candidates added, plus `values` and `sets` from the composer run and `replaces` from deciding identities; every ledger key names its question, and two questions are answered by the carried surface |
+| 1.4 | Ledgers are written in the closed shape, not normalized by hand | a ledger schema refuses an answer outside its shape | **holds**: `transformation/decision/ledger_schema.yaml` and `check_ledger.py`; the three ledgers are admitted, 16 answers outside their shapes are refused, and `compose.py` refuses before deriving. The closed ledger has no open question or case yet |
 
 ## 2. It obeys the repository's rules
 
 | # | Criterion | Today |
 |---|---|---|
-| 2.1 | It lives in `transformation/`, with absolute imports and no `sys.path` | outside the package; uses `sys.path` |
-| 2.2 | Every snapshot fact arrives through `inspector.api.query` | reads P7 and P8 files directly |
-| 2.3 | Doctrine is a sealed rule set with a `$id`, revisions and a digest, and every result names it as `judged_by` | `doctrine.yaml` is data; it is neither sealed nor versioned |
-| 2.4 | Each doctrine rule cites what it realizes, as phase rules do | no citations |
-| 2.5 | `sameness` decides identity: a change of meaning takes the next version, and a retirement is recorded | changed components keep `_V0` |
+| 2.1 | It lives in `transformation/`, with absolute imports and no `sys.path` | **holds**: `transformation/decision/` (base, compose, ledger, splice, identity, seal, cli), run as `tc decision check \| meta \| selftest \| derive \| identities \| splice \| revise`; `scripts/decision_build.sh` builds a domain in scratch. The prototype folder keeps the ledgers, checks, findings and two analysis scripts |
+| 2.2 | Every snapshot fact arrives through `inspector.api.query` | **holds**: the held artifacts, the composition's listing and the sameness declaration are read through the inspector; a design of record is read by `transformation.machine_block`, as every reader in the package reads one |
+| 2.3 | Doctrine is a sealed rule set with a `$id`, revisions and a digest, and every result names it as `judged_by` | **holds**: the doctrine, the ledger schema and the catalog each carry a `$id` and `x-revisions` with digests (`seal.py`); a derivation is refused while one is not its last revision, and every derived design names all three under `_judged_by`. They are sealed in the package, not into a compiled artifact |
+| 2.4 | Each doctrine rule cites what it realizes, as phase rules do | **partial**: `tc decision meta` checks every citation resolves in the composition. Three rules cite invariants (naming, binding, failed_record_ends). Six realize none, each stating why: no platform invariant states order, storage, interface, reuse, own_values or rules_held. They are stated with the standard text (3.3–3.6) |
+| 2.5 | `sameness` decides identity: a change of meaning takes the next version, and a retirement is recorded | **holds for book and blockchain**: `tc decision identities` renders the derived design as construction will and compares it with the composition. Same meaning is EXTEND; changed meaning takes the next unused version and supersedes its predecessor; construction's emit compares again and accepts. Deletions are written as retirement-ledger entries. Book keeps 23 and supersedes 18; blockchain keeps 13 and supersedes 9. The domain suites name the predecessors they were written against; `scripts/decision_suite.py` dispatches the successor each declares, and both domains pass what they passed before. **ai_governance is refused**: two recording components and a binding the ledger no longer derives still name artifacts it replaces. A `replaces` answer names the operations an operation takes the place of, but no answer names a component, and the design language states no retirement without a successor |
 
 ## 3. It is governed
 
@@ -38,15 +38,15 @@ criterion below holds. Each criterion states its evidence and where it stands to
 | # | Criterion | Today |
 |---|---|---|
 | 4.1 | Derivation is deterministic | book, blockchain and ai_governance each generate identical output twice |
-| 4.2 | `regression.sh` runs the derive-and-build pipeline for each derived domain | run by hand |
+| 4.2 | `regression.sh` runs the derive-and-build pipeline for each derived domain | **holds**: `--all` runs `decision_ledgers`, `decision_meta`, `decision_selftest` and `decision_<domain>` for the three domains, with their expected results in `expectations.yaml`; ai_governance is red by design (2.5) |
 | 4.3 | Construction completeness is 100% for every derived domain | book, blockchain and ai_governance at 100% |
-| 4.4 | Each derived domain's criteria are written before its design | blockchain and ai_governance checks were; book's suites predate the method |
+| 4.4 | Each derived domain's criteria are written before its design | blockchain and ai_governance checks were; book's suites predate the method. That is history and stays a stated limit |
 
 ## 5. What it leaves behind is clean
 
 | # | Criterion | Today |
 |---|---|---|
-| 5.1 | The platform gaps it found are resolved, or each is a declared refusal at admission | empty-answer filter and registry count parked |
+| 5.1 | The platform gaps it found are resolved, or each is a declared refusal at admission | empty-answer filter and registry count parked; the design language has no retirement without a successor |
 | 5.2 | Behavior the owners decided reaches the domains as numbered change requests, not as a derived design swapped in | none delivered; book's update rule and blockchain's listing, repeat registration and shared address wait |
 | 5.3 | Defects found in today's designs are fixed or parked by name | parked in the handoff |
 
@@ -55,5 +55,6 @@ criterion below holds. Each criterion states its evidence and where it stands to
 1. Build the block composer (1.1). Done.
 2. Run ai_governance through it (1.2). Done; the registry count stays a declared gap (5.1).
    Close the catalog and the ledger shape (1.3, 1.4). Done.
-3. Then do the engineering in sections 2 and 4. It is mechanical once the design is stable.
+3. Then do the engineering in sections 2 and 4. Done, except 2.4's six uncited rules and 2.5's
+   retirement without a successor.
 4. Write the standard text last (3.3–3.6). It describes a design proven to hold.

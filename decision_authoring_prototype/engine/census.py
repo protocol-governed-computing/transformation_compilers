@@ -7,9 +7,11 @@ import re, sys
 from collections import Counter, defaultdict
 import yaml
 
+from transformation.machine_block import machine_yaml
+
 path, profile_path = sys.argv[1], sys.argv[2]
 text = open(path).read()
-reg = yaml.safe_load(re.findall(r"```yaml\n(.*?)```", text, re.S)[0])["registers"]
+reg = yaml.safe_load(machine_yaml(text))["registers"]
 prof = yaml.safe_load(open(profile_path))
 
 def leaves(x):

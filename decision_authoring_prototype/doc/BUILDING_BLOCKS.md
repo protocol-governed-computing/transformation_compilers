@@ -119,8 +119,8 @@ beside the parked empty-answer filter.
 
 ## As built
 
-`engine/compose.py` is the composer. It replaces the twelve patterns, which are deleted.
-`engine/generate_domain.py` keeps only the shared base: steps, components, stores, the carried
+`transformation/decision/compose.py` is the composer. It replaces the twelve patterns, which are deleted.
+`transformation/decision/base.py` keeps only the shared base: steps, components, stores, the carried
 surface and rendering. The ledgers no longer name a pattern. Each operation says what it `does`
 (`create`, `change`, `read` or `query`) and to which things, and its other answers select the
 blocks.

@@ -1,4 +1,21 @@
 {
+ "_judged_by": {
+  "doctrine": {
+   "id": "transformation.decision.DOCTRINE_V0",
+   "revision": 2,
+   "digest": "sha256:87dbe1471dd784a340dbf60e8f3d96eed5ed09e6cdbd4ab2f31aebf78785fb7f"
+  },
+  "ledger_schema": {
+   "id": "transformation.decision.LEDGER_SCHEMA_V0",
+   "revision": 2,
+   "digest": "sha256:929186492ed3c7a768ffade5416beb89e70672607af2a1eb859df9880fdb8154"
+  },
+  "catalog": {
+   "id": "transformation.decision.CATALOG_V0",
+   "revision": 2,
+   "digest": "sha256:8fbe0c355b3b3f828e612d8023036ec91cc5502f5a2340dd462fb7440d96eab5"
+  }
+ },
  "new_artifacts": [
   {
    "family": "AC",
@@ -26,7 +43,7 @@
   },
   {
    "family": "STRUCTURE",
-   "code": "blockchain::STRUCTURE_WALLET_STORAGE_V0",
+   "code": "blockchain::STRUCTURE_WALLET_STORAGE_V1",
    "summary": "Declares the stores the wallet owns and the paths they occupy",
    "owner_subdomain": "wallet",
    "status": "NEW",
@@ -34,7 +51,7 @@
   },
   {
    "family": "RB",
-   "code": "blockchain::RB_WALLET_BINDINGS_V0",
+   "code": "blockchain::RB_WALLET_BINDINGS_V1",
    "summary": "Binds the wallet's workflows to the stores and mechanisms they use",
    "owner_subdomain": "wallet",
    "status": "NEW",
@@ -138,7 +155,7 @@
   },
   {
    "family": "CC",
-   "code": "blockchain::CC_CLAIM_WALLET_IDENTITY_V0",
+   "code": "blockchain::CC_CLAIM_WALLET_IDENTITY_V1",
    "summary": "Claim a wallet's wallet id",
    "owner_subdomain": "wallet",
    "status": "NEW",
@@ -170,7 +187,7 @@
   },
   {
    "family": "WF",
-   "code": "blockchain::WF_REGISTER_ACTOR_V0",
+   "code": "blockchain::WF_REGISTER_ACTOR_V1",
    "summary": "The governed sequence that performs: register actor",
    "owner_subdomain": "identity",
    "status": "NEW",
@@ -186,7 +203,7 @@
   },
   {
    "family": "WF",
-   "code": "blockchain::WF_ACCEPT_ACTOR_V0",
+   "code": "blockchain::WF_ACCEPT_ACTOR_V1",
    "summary": "The governed sequence that performs: accept actor",
    "owner_subdomain": "identity",
    "status": "NEW",
@@ -202,7 +219,7 @@
   },
   {
    "family": "WF",
-   "code": "blockchain::WF_REJECT_ACTOR_V0",
+   "code": "blockchain::WF_REJECT_ACTOR_V1",
    "summary": "The governed sequence that performs: reject actor",
    "owner_subdomain": "identity",
    "status": "NEW",
@@ -234,7 +251,7 @@
   },
   {
    "family": "WF",
-   "code": "blockchain::WF_CREATE_WALLET_V0",
+   "code": "blockchain::WF_CREATE_WALLET_V1",
    "summary": "The governed sequence that performs: create wallet",
    "owner_subdomain": "wallet",
    "status": "NEW",
@@ -266,7 +283,7 @@
   },
   {
    "family": "EV",
-   "code": "blockchain::EV_ACTOR_ACCEPTED_V0",
+   "code": "blockchain::EV_ACTOR_ACCEPTED_V1",
    "summary": "A actor accepted",
    "owner_subdomain": "identity",
    "status": "NEW",
@@ -338,7 +355,7 @@
   },
   {
    "family": "VOCAB",
-   "code": "blockchain::VOCAB_WALLET_CLASSIFICATION_V0",
+   "code": "blockchain::VOCAB_WALLET_CLASSIFICATION_V1",
    "summary": "The classification values the business names for a wallet",
    "owner_subdomain": "wallet",
    "status": "NEW",
@@ -356,7 +373,7 @@
  "rb_declarations": [
   {
    "rb_code": "blockchain::RB_IDENTITY_BINDINGS_V0",
-   "binds_wf": "blockchain::WF_REGISTER_ACTOR_V0",
+   "binds_wf": "blockchain::WF_REGISTER_ACTOR_V1",
    "cs_bindings": [
     "capability_side_effects::CS_MUTABLE_JSON_V0",
     "capability_side_effects::CS_REGISTRY_V0",
@@ -368,7 +385,7 @@
   },
   {
    "rb_code": "blockchain::RB_IDENTITY_BINDINGS_V0",
-   "binds_wf": "blockchain::WF_ACCEPT_ACTOR_V0",
+   "binds_wf": "blockchain::WF_ACCEPT_ACTOR_V1",
    "cs_bindings": [
     "capability_side_effects::CS_MUTABLE_JSON_V0",
     "capability_side_effects::CS_REGISTRY_V0",
@@ -380,7 +397,7 @@
   },
   {
    "rb_code": "blockchain::RB_IDENTITY_BINDINGS_V0",
-   "binds_wf": "blockchain::WF_REJECT_ACTOR_V0",
+   "binds_wf": "blockchain::WF_REJECT_ACTOR_V1",
    "cs_bindings": [
     "capability_side_effects::CS_MUTABLE_JSON_V0",
     "capability_side_effects::CS_REGISTRY_V0",
@@ -403,20 +420,20 @@
    "_from": "doctrine:binding"
   },
   {
-   "rb_code": "blockchain::RB_WALLET_BINDINGS_V0",
-   "binds_wf": "blockchain::WF_CREATE_WALLET_V0",
+   "rb_code": "blockchain::RB_WALLET_BINDINGS_V1",
+   "binds_wf": "blockchain::WF_CREATE_WALLET_V1",
    "cs_bindings": [
     "capability_side_effects::CS_MUTABLE_JSON_V0",
     "capability_side_effects::CS_REGISTRY_V0",
     "capability_side_effects::CS_APPENDONLY_JSONL_V0"
    ],
-   "storage_structure": "blockchain::STRUCTURE_WALLET_STORAGE_V0",
+   "storage_structure": "blockchain::STRUCTURE_WALLET_STORAGE_V1",
    "_from": "doctrine:binding"
   }
  ],
  "execution_topology": [
   {
-   "workflow": "blockchain::WF_REGISTER_ACTOR_V0",
+   "workflow": "blockchain::WF_REGISTER_ACTOR_V1",
    "node": "IN_REGISTER_ACTOR_V0",
    "node_type": "IN",
    "routing": {
@@ -426,7 +443,7 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "blockchain::WF_REGISTER_ACTOR_V0",
+   "workflow": "blockchain::WF_REGISTER_ACTOR_V1",
    "node": "CC_CHECK_REGISTER_ACTOR_SUBMISSION_V0",
    "node_type": "CC",
    "routing": {
@@ -436,7 +453,7 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "blockchain::WF_REGISTER_ACTOR_V0",
+   "workflow": "blockchain::WF_REGISTER_ACTOR_V1",
    "node": "CC_CLAIM_ACTOR_CONTACT_ADDRESS_V0",
    "node_type": "CC",
    "routing": {
@@ -448,7 +465,7 @@
    "_from": "ledger:operations/register actor/on_repeat"
   },
   {
-   "workflow": "blockchain::WF_REGISTER_ACTOR_V0",
+   "workflow": "blockchain::WF_REGISTER_ACTOR_V1",
    "node": "CC_WRITE_ACTOR_V0",
    "node_type": "CC",
    "routing": {
@@ -459,7 +476,7 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "blockchain::WF_REGISTER_ACTOR_V0",
+   "workflow": "blockchain::WF_REGISTER_ACTOR_V1",
    "node": "CC_RECORD_IDENTITY_MOMENT_V0",
    "node_type": "CC",
    "routing": {
@@ -470,7 +487,7 @@
    "_from": "ledger:trail"
   },
   {
-   "workflow": "blockchain::WF_REGISTER_ACTOR_V0",
+   "workflow": "blockchain::WF_REGISTER_ACTOR_V1",
    "node": "CC_RECORD_IDENTITY_REPEATED_MOMENT_V0",
    "node_type": "CC",
    "routing": {
@@ -481,28 +498,28 @@
    "_from": "ledger:operations/register actor/on_repeat"
   },
   {
-   "workflow": "blockchain::WF_REGISTER_ACTOR_V0",
+   "workflow": "blockchain::WF_REGISTER_ACTOR_V1",
    "node": "EXIT_COMPLETED",
    "node_type": "EXIT",
    "routing": null,
    "_from": "doctrine:order"
   },
   {
-   "workflow": "blockchain::WF_REGISTER_ACTOR_V0",
+   "workflow": "blockchain::WF_REGISTER_ACTOR_V1",
    "node": "EXIT_REJECTED",
    "node_type": "EXIT",
    "routing": null,
    "_from": "doctrine:order"
   },
   {
-   "workflow": "blockchain::WF_REGISTER_ACTOR_V0",
+   "workflow": "blockchain::WF_REGISTER_ACTOR_V1",
    "node": "EXIT_REPEATED",
    "node_type": "EXIT",
    "routing": null,
    "_from": "doctrine:order"
   },
   {
-   "workflow": "blockchain::WF_ACCEPT_ACTOR_V0",
+   "workflow": "blockchain::WF_ACCEPT_ACTOR_V1",
    "node": "IN_ACCEPT_ACTOR_V0",
    "node_type": "IN",
    "routing": {
@@ -512,7 +529,7 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "blockchain::WF_ACCEPT_ACTOR_V0",
+   "workflow": "blockchain::WF_ACCEPT_ACTOR_V1",
    "node": "CC_RESOLVE_ACTOR_IDENTITY_V0",
    "node_type": "CC",
    "routing": {
@@ -524,7 +541,7 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "blockchain::WF_ACCEPT_ACTOR_V0",
+   "workflow": "blockchain::WF_ACCEPT_ACTOR_V1",
    "node": "CC_MOVE_ACTOR_FROM_UNVERIFIED_V0",
    "node_type": "CC",
    "routing": {
@@ -535,7 +552,7 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "blockchain::WF_ACCEPT_ACTOR_V0",
+   "workflow": "blockchain::WF_ACCEPT_ACTOR_V1",
    "node": "CC_RECORD_IDENTITY_MOMENT_V0",
    "node_type": "CC",
    "routing": {
@@ -546,21 +563,21 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "blockchain::WF_ACCEPT_ACTOR_V0",
+   "workflow": "blockchain::WF_ACCEPT_ACTOR_V1",
    "node": "EXIT_COMPLETED",
    "node_type": "EXIT",
    "routing": null,
    "_from": "doctrine:order"
   },
   {
-   "workflow": "blockchain::WF_ACCEPT_ACTOR_V0",
+   "workflow": "blockchain::WF_ACCEPT_ACTOR_V1",
    "node": "EXIT_REJECTED",
    "node_type": "EXIT",
    "routing": null,
    "_from": "doctrine:order"
   },
   {
-   "workflow": "blockchain::WF_REJECT_ACTOR_V0",
+   "workflow": "blockchain::WF_REJECT_ACTOR_V1",
    "node": "IN_REJECT_ACTOR_V0",
    "node_type": "IN",
    "routing": {
@@ -570,7 +587,7 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "blockchain::WF_REJECT_ACTOR_V0",
+   "workflow": "blockchain::WF_REJECT_ACTOR_V1",
    "node": "CC_REQUIRE_GROUNDS_TO_REJECT_ACTOR_V0",
    "node_type": "CC",
    "routing": {
@@ -580,7 +597,7 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "blockchain::WF_REJECT_ACTOR_V0",
+   "workflow": "blockchain::WF_REJECT_ACTOR_V1",
    "node": "CC_RESOLVE_ACTOR_IDENTITY_V0",
    "node_type": "CC",
    "routing": {
@@ -592,7 +609,7 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "blockchain::WF_REJECT_ACTOR_V0",
+   "workflow": "blockchain::WF_REJECT_ACTOR_V1",
    "node": "CC_MOVE_ACTOR_FROM_UNVERIFIED_V0",
    "node_type": "CC",
    "routing": {
@@ -603,7 +620,7 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "blockchain::WF_REJECT_ACTOR_V0",
+   "workflow": "blockchain::WF_REJECT_ACTOR_V1",
    "node": "CC_RECORD_IDENTITY_MOMENT_V0",
    "node_type": "CC",
    "routing": {
@@ -614,14 +631,14 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "blockchain::WF_REJECT_ACTOR_V0",
+   "workflow": "blockchain::WF_REJECT_ACTOR_V1",
    "node": "EXIT_COMPLETED",
    "node_type": "EXIT",
    "routing": null,
    "_from": "doctrine:order"
   },
   {
-   "workflow": "blockchain::WF_REJECT_ACTOR_V0",
+   "workflow": "blockchain::WF_REJECT_ACTOR_V1",
    "node": "EXIT_REJECTED",
    "node_type": "EXIT",
    "routing": null,
@@ -674,7 +691,7 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "blockchain::WF_CREATE_WALLET_V0",
+   "workflow": "blockchain::WF_CREATE_WALLET_V1",
    "node": "IN_CREATE_WALLET_V0",
    "node_type": "IN",
    "routing": {
@@ -684,7 +701,7 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "blockchain::WF_CREATE_WALLET_V0",
+   "workflow": "blockchain::WF_CREATE_WALLET_V1",
    "node": "CC_RESOLVE_ACTOR_IDENTITY_V0",
    "node_type": "CC",
    "routing": {
@@ -696,7 +713,7 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "blockchain::WF_CREATE_WALLET_V0",
+   "workflow": "blockchain::WF_CREATE_WALLET_V1",
    "node": "CC_REQUIRE_ACCEPTED_ACTOR_V0",
    "node_type": "CC",
    "routing": {
@@ -706,7 +723,7 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "blockchain::WF_CREATE_WALLET_V0",
+   "workflow": "blockchain::WF_CREATE_WALLET_V1",
    "node": "CC_DERIVE_WALLET_ADDRESS_V0",
    "node_type": "CC",
    "routing": {
@@ -716,19 +733,19 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "blockchain::WF_CREATE_WALLET_V0",
+   "workflow": "blockchain::WF_CREATE_WALLET_V1",
    "node": "CC_REQUIRE_WALLET_ADDRESS_FREE_V0",
    "node_type": "CC",
    "routing": {
-    "SUCCESS": "CC_CLAIM_WALLET_IDENTITY_V0",
+    "SUCCESS": "CC_CLAIM_WALLET_IDENTITY_V1",
     "VIOLATION": "EXIT_REJECTED",
     "BACKEND_ERROR": "EXIT_REJECTED"
    },
    "_from": "doctrine:order"
   },
   {
-   "workflow": "blockchain::WF_CREATE_WALLET_V0",
-   "node": "CC_CLAIM_WALLET_IDENTITY_V0",
+   "workflow": "blockchain::WF_CREATE_WALLET_V1",
+   "node": "CC_CLAIM_WALLET_IDENTITY_V1",
    "node_type": "CC",
    "routing": {
     "SUCCESS": "CC_CLAIM_WALLET_ADDRESS_V0",
@@ -739,7 +756,7 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "blockchain::WF_CREATE_WALLET_V0",
+   "workflow": "blockchain::WF_CREATE_WALLET_V1",
    "node": "CC_CLAIM_WALLET_ADDRESS_V0",
    "node_type": "CC",
    "routing": {
@@ -751,7 +768,7 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "blockchain::WF_CREATE_WALLET_V0",
+   "workflow": "blockchain::WF_CREATE_WALLET_V1",
    "node": "CC_WRITE_WALLET_V0",
    "node_type": "CC",
    "routing": {
@@ -762,7 +779,7 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "blockchain::WF_CREATE_WALLET_V0",
+   "workflow": "blockchain::WF_CREATE_WALLET_V1",
    "node": "CC_RECORD_WALLET_MOMENT_V0",
    "node_type": "CC",
    "routing": {
@@ -773,14 +790,14 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "blockchain::WF_CREATE_WALLET_V0",
+   "workflow": "blockchain::WF_CREATE_WALLET_V1",
    "node": "EXIT_COMPLETED",
    "node_type": "EXIT",
    "routing": null,
    "_from": "doctrine:order"
   },
   {
-   "workflow": "blockchain::WF_CREATE_WALLET_V0",
+   "workflow": "blockchain::WF_CREATE_WALLET_V1",
    "node": "EXIT_REJECTED",
    "node_type": "EXIT",
    "routing": null,
@@ -1553,7 +1570,7 @@
    "_from": "doctrine:order"
   },
   {
-   "cc_code": "blockchain::CC_CLAIM_WALLET_IDENTITY_V0",
+   "cc_code": "blockchain::CC_CLAIM_WALLET_IDENTITY_V1",
    "step": "1",
    "step_name": "form_wallet_id",
    "capability": "capability_transforms::CT_PURE_GENERATE_ID_V0",
@@ -1585,7 +1602,7 @@
    "_from": "ledger:things/wallet/identity + doctrine:own_values"
   },
   {
-   "cc_code": "blockchain::CC_CLAIM_WALLET_IDENTITY_V0",
+   "cc_code": "blockchain::CC_CLAIM_WALLET_IDENTITY_V1",
    "step": "2",
    "step_name": "claim_id",
    "capability": "capability_side_effects::CS_REGISTRY_V0",
@@ -2447,7 +2464,7 @@
    "_from": "doctrine:order"
   },
   {
-   "owner": "blockchain::CC_CLAIM_WALLET_IDENTITY_V0",
+   "owner": "blockchain::CC_CLAIM_WALLET_IDENTITY_V1",
    "step": "form_wallet_id",
    "direction": "INPUT",
    "field": "data",
@@ -2455,7 +2472,7 @@
    "_from": "ledger:things/wallet/identity + doctrine:own_values"
   },
   {
-   "owner": "blockchain::CC_CLAIM_WALLET_IDENTITY_V0",
+   "owner": "blockchain::CC_CLAIM_WALLET_IDENTITY_V1",
    "step": "form_wallet_id",
    "direction": "INPUT",
    "field": "prefix",
@@ -2465,7 +2482,7 @@
    "_from": "ledger:things/wallet/identity + doctrine:own_values"
   },
   {
-   "owner": "blockchain::CC_CLAIM_WALLET_IDENTITY_V0",
+   "owner": "blockchain::CC_CLAIM_WALLET_IDENTITY_V1",
    "step": "form_wallet_id",
    "direction": "OUTPUT",
    "field": "wallet_id",
@@ -2473,7 +2490,7 @@
    "_from": "ledger:things/wallet/identity + doctrine:own_values"
   },
   {
-   "owner": "blockchain::CC_CLAIM_WALLET_IDENTITY_V0",
+   "owner": "blockchain::CC_CLAIM_WALLET_IDENTITY_V1",
    "step": "claim_id",
    "direction": "INPUT",
    "field": "key",
@@ -2481,7 +2498,7 @@
    "_from": "ledger:things/wallet/identity"
   },
   {
-   "owner": "blockchain::CC_CLAIM_WALLET_IDENTITY_V0",
+   "owner": "blockchain::CC_CLAIM_WALLET_IDENTITY_V1",
    "step": "claim_id",
    "direction": "INPUT",
    "field": "target_cs",
@@ -2491,7 +2508,7 @@
    "_from": "ledger:things/wallet/identity"
   },
   {
-   "owner": "blockchain::CC_CLAIM_WALLET_IDENTITY_V0",
+   "owner": "blockchain::CC_CLAIM_WALLET_IDENTITY_V1",
    "step": "claim_id",
    "direction": "INPUT",
    "field": "target_ref",
@@ -2501,7 +2518,7 @@
    "_from": "ledger:things/wallet/identity"
   },
   {
-   "owner": "blockchain::CC_CLAIM_WALLET_IDENTITY_V0",
+   "owner": "blockchain::CC_CLAIM_WALLET_IDENTITY_V1",
    "step": "claim_id",
    "direction": "OUTPUT",
    "field": "address",
@@ -2509,7 +2526,7 @@
    "_from": "ledger:things/wallet/identity"
   },
   {
-   "owner": "blockchain::CC_CLAIM_WALLET_IDENTITY_V0",
+   "owner": "blockchain::CC_CLAIM_WALLET_IDENTITY_V1",
    "step": "claim_id",
    "direction": "OUTPUT",
    "field": "result_status",
@@ -2654,7 +2671,7 @@
    "_from": "ledger:trail + doctrine:own_values"
   },
   {
-   "owner": "blockchain::WF_REGISTER_ACTOR_V0",
+   "owner": "blockchain::WF_REGISTER_ACTOR_V1",
    "step": "CC_CHECK_REGISTER_ACTOR_SUBMISSION_V0",
    "direction": "INPUT",
    "field": "submission",
@@ -2662,7 +2679,7 @@
    "_from": "ledger:operations/register actor/required"
   },
   {
-   "owner": "blockchain::WF_REGISTER_ACTOR_V0",
+   "owner": "blockchain::WF_REGISTER_ACTOR_V1",
    "step": "CC_CLAIM_ACTOR_CONTACT_ADDRESS_V0",
    "direction": "INPUT",
    "field": "contact_address",
@@ -2670,7 +2687,7 @@
    "_from": "ledger:operations/register actor/on_repeat"
   },
   {
-   "owner": "blockchain::WF_REGISTER_ACTOR_V0",
+   "owner": "blockchain::WF_REGISTER_ACTOR_V1",
    "step": "CC_WRITE_ACTOR_V0",
    "direction": "INPUT",
    "field": "contact_address",
@@ -2678,7 +2695,7 @@
    "_from": "ledger:operations/register actor"
   },
   {
-   "owner": "blockchain::WF_REGISTER_ACTOR_V0",
+   "owner": "blockchain::WF_REGISTER_ACTOR_V1",
    "step": "CC_WRITE_ACTOR_V0",
    "direction": "INPUT",
    "field": "submission",
@@ -2686,7 +2703,7 @@
    "_from": "ledger:operations/register actor"
   },
   {
-   "owner": "blockchain::WF_REGISTER_ACTOR_V0",
+   "owner": "blockchain::WF_REGISTER_ACTOR_V1",
    "step": "CC_RECORD_IDENTITY_MOMENT_V0",
    "direction": "INPUT",
    "field": "occurrence",
@@ -2696,7 +2713,7 @@
    "_from": "ledger:trail"
   },
   {
-   "owner": "blockchain::WF_REGISTER_ACTOR_V0",
+   "owner": "blockchain::WF_REGISTER_ACTOR_V1",
    "step": "CC_RECORD_IDENTITY_MOMENT_V0",
    "direction": "INPUT",
    "field": "contact_address",
@@ -2704,7 +2721,7 @@
    "_from": "ledger:trail"
   },
   {
-   "owner": "blockchain::WF_REGISTER_ACTOR_V0",
+   "owner": "blockchain::WF_REGISTER_ACTOR_V1",
    "step": "CC_RECORD_IDENTITY_MOMENT_V0",
    "direction": "INPUT",
    "field": "verifying_authority",
@@ -2712,7 +2729,7 @@
    "_from": "ledger:trail"
   },
   {
-   "owner": "blockchain::WF_REGISTER_ACTOR_V0",
+   "owner": "blockchain::WF_REGISTER_ACTOR_V1",
    "step": "CC_RECORD_IDENTITY_MOMENT_V0",
    "direction": "INPUT",
    "field": "grounds",
@@ -2720,7 +2737,7 @@
    "_from": "ledger:trail"
   },
   {
-   "owner": "blockchain::WF_REGISTER_ACTOR_V0",
+   "owner": "blockchain::WF_REGISTER_ACTOR_V1",
    "step": "CC_RECORD_IDENTITY_REPEATED_MOMENT_V0",
    "direction": "INPUT",
    "field": "occurrence",
@@ -2730,7 +2747,7 @@
    "_from": "ledger:operations/register actor/on_repeat"
   },
   {
-   "owner": "blockchain::WF_REGISTER_ACTOR_V0",
+   "owner": "blockchain::WF_REGISTER_ACTOR_V1",
    "step": "CC_RECORD_IDENTITY_REPEATED_MOMENT_V0",
    "direction": "INPUT",
    "field": "contact_address",
@@ -2738,7 +2755,7 @@
    "_from": "ledger:operations/register actor/on_repeat"
   },
   {
-   "owner": "blockchain::WF_REGISTER_ACTOR_V0",
+   "owner": "blockchain::WF_REGISTER_ACTOR_V1",
    "step": "CC_RECORD_IDENTITY_REPEATED_MOMENT_V0",
    "direction": "INPUT",
    "field": "verifying_authority",
@@ -2746,7 +2763,7 @@
    "_from": "ledger:operations/register actor/on_repeat"
   },
   {
-   "owner": "blockchain::WF_REGISTER_ACTOR_V0",
+   "owner": "blockchain::WF_REGISTER_ACTOR_V1",
    "step": "CC_RECORD_IDENTITY_REPEATED_MOMENT_V0",
    "direction": "INPUT",
    "field": "grounds",
@@ -2754,7 +2771,7 @@
    "_from": "ledger:operations/register actor/on_repeat"
   },
   {
-   "owner": "blockchain::WF_REGISTER_ACTOR_V0",
+   "owner": "blockchain::WF_REGISTER_ACTOR_V1",
    "step": "CC_RECORD_IDENTITY_REPEATED_MOMENT_V0",
    "direction": "INPUT",
    "field": "name",
@@ -2762,7 +2779,7 @@
    "_from": "ledger:operations/register actor/on_repeat"
   },
   {
-   "owner": "blockchain::WF_REGISTER_ACTOR_V0",
+   "owner": "blockchain::WF_REGISTER_ACTOR_V1",
    "step": "CC_RECORD_IDENTITY_REPEATED_MOMENT_V0",
    "direction": "INPUT",
    "field": "currency_preference",
@@ -2770,7 +2787,7 @@
    "_from": "ledger:operations/register actor/on_repeat"
   },
   {
-   "owner": "blockchain::WF_REGISTER_ACTOR_V0",
+   "owner": "blockchain::WF_REGISTER_ACTOR_V1",
    "step": "CC_RECORD_IDENTITY_REPEATED_MOMENT_V0",
    "direction": "INPUT",
    "field": "language",
@@ -2778,7 +2795,7 @@
    "_from": "ledger:operations/register actor/on_repeat"
   },
   {
-   "owner": "blockchain::WF_ACCEPT_ACTOR_V0",
+   "owner": "blockchain::WF_ACCEPT_ACTOR_V1",
    "step": "CC_RESOLVE_ACTOR_IDENTITY_V0",
    "direction": "INPUT",
    "field": "contact_address",
@@ -2786,7 +2803,7 @@
    "_from": "ledger:operations/accept actor/precondition"
   },
   {
-   "owner": "blockchain::WF_ACCEPT_ACTOR_V0",
+   "owner": "blockchain::WF_ACCEPT_ACTOR_V1",
    "step": "CC_MOVE_ACTOR_FROM_UNVERIFIED_V0",
    "direction": "INPUT",
    "field": "to_state",
@@ -2796,7 +2813,7 @@
    "_from": "ledger:operations/accept actor"
   },
   {
-   "owner": "blockchain::WF_ACCEPT_ACTOR_V0",
+   "owner": "blockchain::WF_ACCEPT_ACTOR_V1",
    "step": "CC_MOVE_ACTOR_FROM_UNVERIFIED_V0",
    "direction": "INPUT",
    "field": "contact_address",
@@ -2804,7 +2821,7 @@
    "_from": "ledger:operations/accept actor"
   },
   {
-   "owner": "blockchain::WF_ACCEPT_ACTOR_V0",
+   "owner": "blockchain::WF_ACCEPT_ACTOR_V1",
    "step": "CC_MOVE_ACTOR_FROM_UNVERIFIED_V0",
    "direction": "INPUT",
    "field": "verifying_authority",
@@ -2812,7 +2829,7 @@
    "_from": "ledger:operations/accept actor"
   },
   {
-   "owner": "blockchain::WF_ACCEPT_ACTOR_V0",
+   "owner": "blockchain::WF_ACCEPT_ACTOR_V1",
    "step": "CC_MOVE_ACTOR_FROM_UNVERIFIED_V0",
    "direction": "INPUT",
    "field": "grounds",
@@ -2820,7 +2837,7 @@
    "_from": "ledger:operations/accept actor"
   },
   {
-   "owner": "blockchain::WF_ACCEPT_ACTOR_V0",
+   "owner": "blockchain::WF_ACCEPT_ACTOR_V1",
    "step": "CC_RECORD_IDENTITY_MOMENT_V0",
    "direction": "INPUT",
    "field": "occurrence",
@@ -2830,7 +2847,7 @@
    "_from": "ledger:trail"
   },
   {
-   "owner": "blockchain::WF_ACCEPT_ACTOR_V0",
+   "owner": "blockchain::WF_ACCEPT_ACTOR_V1",
    "step": "CC_RECORD_IDENTITY_MOMENT_V0",
    "direction": "INPUT",
    "field": "contact_address",
@@ -2838,7 +2855,7 @@
    "_from": "ledger:trail"
   },
   {
-   "owner": "blockchain::WF_ACCEPT_ACTOR_V0",
+   "owner": "blockchain::WF_ACCEPT_ACTOR_V1",
    "step": "CC_RECORD_IDENTITY_MOMENT_V0",
    "direction": "INPUT",
    "field": "verifying_authority",
@@ -2846,7 +2863,7 @@
    "_from": "ledger:trail"
   },
   {
-   "owner": "blockchain::WF_ACCEPT_ACTOR_V0",
+   "owner": "blockchain::WF_ACCEPT_ACTOR_V1",
    "step": "CC_RECORD_IDENTITY_MOMENT_V0",
    "direction": "INPUT",
    "field": "grounds",
@@ -2854,7 +2871,7 @@
    "_from": "ledger:trail"
   },
   {
-   "owner": "blockchain::WF_REJECT_ACTOR_V0",
+   "owner": "blockchain::WF_REJECT_ACTOR_V1",
    "step": "CC_REQUIRE_GROUNDS_TO_REJECT_ACTOR_V0",
    "direction": "INPUT",
    "field": "grounds",
@@ -2862,7 +2879,7 @@
    "_from": "ledger:operations/reject actor/required"
   },
   {
-   "owner": "blockchain::WF_REJECT_ACTOR_V0",
+   "owner": "blockchain::WF_REJECT_ACTOR_V1",
    "step": "CC_RESOLVE_ACTOR_IDENTITY_V0",
    "direction": "INPUT",
    "field": "contact_address",
@@ -2870,7 +2887,7 @@
    "_from": "ledger:operations/reject actor/precondition"
   },
   {
-   "owner": "blockchain::WF_REJECT_ACTOR_V0",
+   "owner": "blockchain::WF_REJECT_ACTOR_V1",
    "step": "CC_MOVE_ACTOR_FROM_UNVERIFIED_V0",
    "direction": "INPUT",
    "field": "to_state",
@@ -2880,7 +2897,7 @@
    "_from": "ledger:operations/reject actor"
   },
   {
-   "owner": "blockchain::WF_REJECT_ACTOR_V0",
+   "owner": "blockchain::WF_REJECT_ACTOR_V1",
    "step": "CC_MOVE_ACTOR_FROM_UNVERIFIED_V0",
    "direction": "INPUT",
    "field": "contact_address",
@@ -2888,7 +2905,7 @@
    "_from": "ledger:operations/reject actor"
   },
   {
-   "owner": "blockchain::WF_REJECT_ACTOR_V0",
+   "owner": "blockchain::WF_REJECT_ACTOR_V1",
    "step": "CC_MOVE_ACTOR_FROM_UNVERIFIED_V0",
    "direction": "INPUT",
    "field": "verifying_authority",
@@ -2896,7 +2913,7 @@
    "_from": "ledger:operations/reject actor"
   },
   {
-   "owner": "blockchain::WF_REJECT_ACTOR_V0",
+   "owner": "blockchain::WF_REJECT_ACTOR_V1",
    "step": "CC_MOVE_ACTOR_FROM_UNVERIFIED_V0",
    "direction": "INPUT",
    "field": "grounds",
@@ -2904,7 +2921,7 @@
    "_from": "ledger:operations/reject actor"
   },
   {
-   "owner": "blockchain::WF_REJECT_ACTOR_V0",
+   "owner": "blockchain::WF_REJECT_ACTOR_V1",
    "step": "CC_RECORD_IDENTITY_MOMENT_V0",
    "direction": "INPUT",
    "field": "occurrence",
@@ -2914,7 +2931,7 @@
    "_from": "ledger:trail"
   },
   {
-   "owner": "blockchain::WF_REJECT_ACTOR_V0",
+   "owner": "blockchain::WF_REJECT_ACTOR_V1",
    "step": "CC_RECORD_IDENTITY_MOMENT_V0",
    "direction": "INPUT",
    "field": "contact_address",
@@ -2922,7 +2939,7 @@
    "_from": "ledger:trail"
   },
   {
-   "owner": "blockchain::WF_REJECT_ACTOR_V0",
+   "owner": "blockchain::WF_REJECT_ACTOR_V1",
    "step": "CC_RECORD_IDENTITY_MOMENT_V0",
    "direction": "INPUT",
    "field": "verifying_authority",
@@ -2930,7 +2947,7 @@
    "_from": "ledger:trail"
   },
   {
-   "owner": "blockchain::WF_REJECT_ACTOR_V0",
+   "owner": "blockchain::WF_REJECT_ACTOR_V1",
    "step": "CC_RECORD_IDENTITY_MOMENT_V0",
    "direction": "INPUT",
    "field": "grounds",
@@ -2956,7 +2973,7 @@
    "_from": "ledger:operations/list actors"
   },
   {
-   "owner": "blockchain::WF_CREATE_WALLET_V0",
+   "owner": "blockchain::WF_CREATE_WALLET_V1",
    "step": "CC_RESOLVE_ACTOR_IDENTITY_V0",
    "direction": "INPUT",
    "field": "contact_address",
@@ -2964,7 +2981,7 @@
    "_from": "ledger:reads_other_part + ledger:operations/create wallet/precondition"
   },
   {
-   "owner": "blockchain::WF_CREATE_WALLET_V0",
+   "owner": "blockchain::WF_CREATE_WALLET_V1",
    "step": "CC_REQUIRE_ACCEPTED_ACTOR_V0",
    "direction": "INPUT",
    "field": "state",
@@ -2972,7 +2989,7 @@
    "_from": "ledger:things/wallet/held_by"
   },
   {
-   "owner": "blockchain::WF_CREATE_WALLET_V0",
+   "owner": "blockchain::WF_CREATE_WALLET_V1",
    "step": "CC_DERIVE_WALLET_ADDRESS_V0",
    "direction": "INPUT",
    "field": "key_material",
@@ -2980,7 +2997,7 @@
    "_from": "ledger:things/wallet/derived/address"
   },
   {
-   "owner": "blockchain::WF_CREATE_WALLET_V0",
+   "owner": "blockchain::WF_CREATE_WALLET_V1",
    "step": "CC_REQUIRE_WALLET_ADDRESS_FREE_V0",
    "direction": "INPUT",
    "field": "address",
@@ -2988,15 +3005,15 @@
    "_from": "doctrine:order"
   },
   {
-   "owner": "blockchain::WF_CREATE_WALLET_V0",
-   "step": "CC_CLAIM_WALLET_IDENTITY_V0",
+   "owner": "blockchain::WF_CREATE_WALLET_V1",
+   "step": "CC_CLAIM_WALLET_IDENTITY_V1",
    "direction": "INPUT",
    "field": "holder",
    "bound_to": "results.CC_RESOLVE_ACTOR_IDENTITY_V0.actor_record.contact_address",
    "_from": "ledger:things/wallet/identity"
   },
   {
-   "owner": "blockchain::WF_CREATE_WALLET_V0",
+   "owner": "blockchain::WF_CREATE_WALLET_V1",
    "step": "CC_CLAIM_WALLET_ADDRESS_V0",
    "direction": "INPUT",
    "field": "address",
@@ -3004,15 +3021,15 @@
    "_from": "ledger:things/wallet/identity"
   },
   {
-   "owner": "blockchain::WF_CREATE_WALLET_V0",
+   "owner": "blockchain::WF_CREATE_WALLET_V1",
    "step": "CC_WRITE_WALLET_V0",
    "direction": "INPUT",
    "field": "wallet_id",
-   "bound_to": "results.CC_CLAIM_WALLET_IDENTITY_V0.wallet_id",
+   "bound_to": "results.CC_CLAIM_WALLET_IDENTITY_V1.wallet_id",
    "_from": "ledger:operations/create wallet"
   },
   {
-   "owner": "blockchain::WF_CREATE_WALLET_V0",
+   "owner": "blockchain::WF_CREATE_WALLET_V1",
    "step": "CC_WRITE_WALLET_V0",
    "direction": "INPUT",
    "field": "holder",
@@ -3020,7 +3037,7 @@
    "_from": "ledger:operations/create wallet"
   },
   {
-   "owner": "blockchain::WF_CREATE_WALLET_V0",
+   "owner": "blockchain::WF_CREATE_WALLET_V1",
    "step": "CC_RECORD_WALLET_MOMENT_V0",
    "direction": "INPUT",
    "field": "occurrence",
@@ -3030,7 +3047,7 @@
    "_from": "ledger:trail"
   },
   {
-   "owner": "blockchain::WF_CREATE_WALLET_V0",
+   "owner": "blockchain::WF_CREATE_WALLET_V1",
    "step": "CC_RECORD_WALLET_MOMENT_V0",
    "direction": "INPUT",
    "field": "holder",
@@ -3038,11 +3055,11 @@
    "_from": "ledger:trail"
   },
   {
-   "owner": "blockchain::WF_CREATE_WALLET_V0",
+   "owner": "blockchain::WF_CREATE_WALLET_V1",
    "step": "CC_RECORD_WALLET_MOMENT_V0",
    "direction": "INPUT",
    "field": "wallet_id",
-   "bound_to": "results.CC_CLAIM_WALLET_IDENTITY_V0.wallet_id",
+   "bound_to": "results.CC_CLAIM_WALLET_IDENTITY_V1.wallet_id",
    "_from": "ledger:trail"
   }
  ],
@@ -3468,7 +3485,7 @@
    "_from": "doctrine:interface"
   },
   {
-   "artifact": "blockchain::CC_CLAIM_WALLET_IDENTITY_V0",
+   "artifact": "blockchain::CC_CLAIM_WALLET_IDENTITY_V1",
    "direction": "INPUT",
    "field": "holder",
    "type": "string",
@@ -3478,7 +3495,7 @@
    "_from": "ledger:things/wallet/identity"
   },
   {
-   "artifact": "blockchain::CC_CLAIM_WALLET_IDENTITY_V0",
+   "artifact": "blockchain::CC_CLAIM_WALLET_IDENTITY_V1",
    "direction": "OUTPUT",
    "field": "wallet_id",
    "type": "string",
@@ -3770,7 +3787,7 @@
    "_from": "doctrine:interface"
   },
   {
-   "artifact": "blockchain::EV_ACTOR_ACCEPTED_V0",
+   "artifact": "blockchain::EV_ACTOR_ACCEPTED_V1",
    "direction": "OUTPUT",
    "field": "contact_address",
    "type": "string",
@@ -3780,7 +3797,7 @@
    "_from": "ledger:announces"
   },
   {
-   "artifact": "blockchain::EV_ACTOR_ACCEPTED_V0",
+   "artifact": "blockchain::EV_ACTOR_ACCEPTED_V1",
    "direction": "OUTPUT",
    "field": "verifying_authority",
    "type": "string",
@@ -3790,7 +3807,7 @@
    "_from": "ledger:announces"
   },
   {
-   "artifact": "blockchain::EV_ACTOR_ACCEPTED_V0",
+   "artifact": "blockchain::EV_ACTOR_ACCEPTED_V1",
    "direction": "OUTPUT",
    "field": "grounds",
    "type": "string",
@@ -3800,7 +3817,7 @@
    "_from": "ledger:announces"
   },
   {
-   "artifact": "blockchain::EV_ACTOR_ACCEPTED_V0",
+   "artifact": "blockchain::EV_ACTOR_ACCEPTED_V1",
    "direction": "OUTPUT",
    "field": "occurred_at",
    "type": "string",
@@ -3810,7 +3827,7 @@
    "_from": "ledger:announces"
   },
   {
-   "artifact": "blockchain::EV_ACTOR_ACCEPTED_V0",
+   "artifact": "blockchain::EV_ACTOR_ACCEPTED_V1",
    "direction": "OUTPUT",
    "field": "timestamp",
    "type": "string",
@@ -4054,24 +4071,24 @@
    "_from": "doctrine:binding"
   },
   {
-   "rb_code": "blockchain::RB_WALLET_BINDINGS_V0",
+   "rb_code": "blockchain::RB_WALLET_BINDINGS_V1",
    "capability": "capability_side_effects::CS_MUTABLE_JSON_V0",
    "key": "structure",
-   "value": "blockchain::STRUCTURE_WALLET_STORAGE_V0",
+   "value": "blockchain::STRUCTURE_WALLET_STORAGE_V1",
    "_from": "doctrine:binding"
   },
   {
-   "rb_code": "blockchain::RB_WALLET_BINDINGS_V0",
+   "rb_code": "blockchain::RB_WALLET_BINDINGS_V1",
    "capability": "capability_side_effects::CS_REGISTRY_V0",
    "key": "structure",
-   "value": "blockchain::STRUCTURE_WALLET_STORAGE_V0",
+   "value": "blockchain::STRUCTURE_WALLET_STORAGE_V1",
    "_from": "doctrine:binding"
   },
   {
-   "rb_code": "blockchain::RB_WALLET_BINDINGS_V0",
+   "rb_code": "blockchain::RB_WALLET_BINDINGS_V1",
    "capability": "capability_side_effects::CS_APPENDONLY_JSONL_V0",
    "key": "structure",
-   "value": "blockchain::STRUCTURE_WALLET_STORAGE_V0",
+   "value": "blockchain::STRUCTURE_WALLET_STORAGE_V1",
    "_from": "doctrine:binding"
   }
  ],
@@ -4089,19 +4106,19 @@
    "_from": "doctrine:storage"
   },
   {
-   "artifact": "blockchain::STRUCTURE_WALLET_STORAGE_V0",
+   "artifact": "blockchain::STRUCTURE_WALLET_STORAGE_V1",
    "property": "layer",
    "value": "DOMAINS",
    "_from": "doctrine:storage"
   },
   {
-   "artifact": "blockchain::WF_REGISTER_ACTOR_V0",
+   "artifact": "blockchain::WF_REGISTER_ACTOR_V1",
    "property": "actor_context",
    "value": "blockchain::AC_PARTICIPANT_V0",
    "_from": "ledger:actor"
   },
   {
-   "artifact": "blockchain::WF_REGISTER_ACTOR_V0",
+   "artifact": "blockchain::WF_REGISTER_ACTOR_V1",
    "property": "emit.EXIT_COMPLETED",
    "value": [
     "blockchain::EV_ACTOR_REGISTERED_UNVERIFIED_V0"
@@ -4109,7 +4126,7 @@
    "_from": "ledger:announces"
   },
   {
-   "artifact": "blockchain::WF_REGISTER_ACTOR_V0",
+   "artifact": "blockchain::WF_REGISTER_ACTOR_V1",
    "property": "emit.EXIT_REPEATED",
    "value": [
     "blockchain::EV_ACTOR_REGISTERED_AGAIN_V0"
@@ -4117,27 +4134,27 @@
    "_from": "ledger:operations/register actor/on_repeat"
   },
   {
-   "artifact": "blockchain::WF_ACCEPT_ACTOR_V0",
+   "artifact": "blockchain::WF_ACCEPT_ACTOR_V1",
    "property": "actor_context",
    "value": "blockchain::AC_PARTICIPANT_V0",
    "_from": "ledger:actor"
   },
   {
-   "artifact": "blockchain::WF_ACCEPT_ACTOR_V0",
+   "artifact": "blockchain::WF_ACCEPT_ACTOR_V1",
    "property": "emit.EXIT_COMPLETED",
    "value": [
-    "blockchain::EV_ACTOR_ACCEPTED_V0"
+    "blockchain::EV_ACTOR_ACCEPTED_V1"
    ],
    "_from": "ledger:announces"
   },
   {
-   "artifact": "blockchain::WF_REJECT_ACTOR_V0",
+   "artifact": "blockchain::WF_REJECT_ACTOR_V1",
    "property": "actor_context",
    "value": "blockchain::AC_PARTICIPANT_V0",
    "_from": "ledger:actor"
   },
   {
-   "artifact": "blockchain::WF_REJECT_ACTOR_V0",
+   "artifact": "blockchain::WF_REJECT_ACTOR_V1",
    "property": "emit.EXIT_COMPLETED",
    "value": [
     "blockchain::EV_ACTOR_REJECTED_V0"
@@ -4151,13 +4168,13 @@
    "_from": "ledger:actor"
   },
   {
-   "artifact": "blockchain::WF_CREATE_WALLET_V0",
+   "artifact": "blockchain::WF_CREATE_WALLET_V1",
    "property": "actor_context",
    "value": "blockchain::AC_PARTICIPANT_V0",
    "_from": "ledger:actor"
   },
   {
-   "artifact": "blockchain::WF_CREATE_WALLET_V0",
+   "artifact": "blockchain::WF_CREATE_WALLET_V1",
    "property": "emit.EXIT_COMPLETED",
    "value": [
     "blockchain::EV_WALLET_CREATED_V0"
@@ -4285,15 +4302,15 @@
    "storage_type": "CS_REGISTRY_V0",
    "proposed_path": "blockchain/wallet/wallet_address_registry.jsonl",
    "used_by": "blockchain::CC_CLAIM_WALLET_ADDRESS_V0, blockchain::CC_REQUIRE_WALLET_ADDRESS_FREE_V0",
-   "structure": "blockchain::STRUCTURE_WALLET_STORAGE_V0",
+   "structure": "blockchain::STRUCTURE_WALLET_STORAGE_V1",
    "_from": "ledger:things/wallet/identity + doctrine:storage"
   },
   {
    "store_name": "WALLET_IDENTITIES",
    "storage_type": "CS_REGISTRY_V0",
    "proposed_path": "blockchain/wallet/wallet_identity_registry.jsonl",
-   "used_by": "blockchain::CC_CLAIM_WALLET_IDENTITY_V0",
-   "structure": "blockchain::STRUCTURE_WALLET_STORAGE_V0",
+   "used_by": "blockchain::CC_CLAIM_WALLET_IDENTITY_V1",
+   "structure": "blockchain::STRUCTURE_WALLET_STORAGE_V1",
    "_from": "ledger:things/wallet/identity + doctrine:storage + carried:surface"
   },
   {
@@ -4301,7 +4318,7 @@
    "storage_type": "CS_MUTABLE_JSON_V0",
    "proposed_path": "blockchain/wallet/wallets.json",
    "used_by": "blockchain::CC_WRITE_WALLET_V0",
-   "structure": "blockchain::STRUCTURE_WALLET_STORAGE_V0",
+   "structure": "blockchain::STRUCTURE_WALLET_STORAGE_V1",
    "_from": "ledger:things/wallet + doctrine:storage"
   },
   {
@@ -4309,7 +4326,7 @@
    "storage_type": "CS_APPENDONLY_JSONL_V0",
    "proposed_path": "blockchain/wallet/wallet_occurrences.jsonl",
    "used_by": "blockchain::CC_RECORD_WALLET_MOMENT_V0",
-   "structure": "blockchain::STRUCTURE_WALLET_STORAGE_V0",
+   "structure": "blockchain::STRUCTURE_WALLET_STORAGE_V1",
    "_from": "ledger:trail + doctrine:storage + carried:surface"
   }
  ],
@@ -4363,7 +4380,7 @@
  ],
  "declared_reach": [
   {
-   "act": "blockchain::WF_CREATE_WALLET_V0",
+   "act": "blockchain::WF_CREATE_WALLET_V1",
    "consults": [
     "blockchain::RB_IDENTITY_BINDINGS_V0"
    ],
@@ -4376,7 +4393,7 @@
    "direction": "INGRESS",
    "operation": "blockchain.register_actor",
    "handler_kind": "WF_INVOCATION",
-   "handler_target": "blockchain::WF_REGISTER_ACTOR_V0",
+   "handler_target": "blockchain::WF_REGISTER_ACTOR_V1",
    "field": "actor_record.name",
    "bound_to": "${input.name}",
    "_from": "ledger:public_acts + carried:surface"
@@ -4386,7 +4403,7 @@
    "direction": "INGRESS",
    "operation": "blockchain.register_actor",
    "handler_kind": "WF_INVOCATION",
-   "handler_target": "blockchain::WF_REGISTER_ACTOR_V0",
+   "handler_target": "blockchain::WF_REGISTER_ACTOR_V1",
    "field": "actor_record.contact_address",
    "bound_to": "${input.contact_address}",
    "_from": "ledger:public_acts + carried:surface"
@@ -4396,7 +4413,7 @@
    "direction": "INGRESS",
    "operation": "blockchain.register_actor",
    "handler_kind": "WF_INVOCATION",
-   "handler_target": "blockchain::WF_REGISTER_ACTOR_V0",
+   "handler_target": "blockchain::WF_REGISTER_ACTOR_V1",
    "field": "actor_record.currency_preference",
    "bound_to": "BACHI",
    "_from": "ledger:public_acts + carried:surface"
@@ -4406,7 +4423,7 @@
    "direction": "INGRESS",
    "operation": "blockchain.register_actor",
    "handler_kind": "WF_INVOCATION",
-   "handler_target": "blockchain::WF_REGISTER_ACTOR_V0",
+   "handler_target": "blockchain::WF_REGISTER_ACTOR_V1",
    "field": "actor_record.language",
    "bound_to": "en",
    "_from": "ledger:public_acts + carried:surface"
@@ -4456,7 +4473,7 @@
    "direction": "INGRESS",
    "operation": "blockchain.accept_actor",
    "handler_kind": "WF_INVOCATION",
-   "handler_target": "blockchain::WF_ACCEPT_ACTOR_V0",
+   "handler_target": "blockchain::WF_ACCEPT_ACTOR_V1",
    "field": "contact_address",
    "bound_to": "${input.contact_address}",
    "_from": "ledger:public_acts + carried:surface"
@@ -4466,7 +4483,7 @@
    "direction": "INGRESS",
    "operation": "blockchain.accept_actor",
    "handler_kind": "WF_INVOCATION",
-   "handler_target": "blockchain::WF_ACCEPT_ACTOR_V0",
+   "handler_target": "blockchain::WF_ACCEPT_ACTOR_V1",
    "field": "verifying_authority",
    "bound_to": "${input.verifying_authority}",
    "_from": "ledger:public_acts + carried:surface"
@@ -4476,7 +4493,7 @@
    "direction": "INGRESS",
    "operation": "blockchain.accept_actor",
    "handler_kind": "WF_INVOCATION",
-   "handler_target": "blockchain::WF_ACCEPT_ACTOR_V0",
+   "handler_target": "blockchain::WF_ACCEPT_ACTOR_V1",
    "field": "grounds",
    "bound_to": "${input.grounds}",
    "_from": "ledger:public_acts + carried:surface"
@@ -4547,7 +4564,7 @@
    "direction": "INGRESS",
    "operation": "blockchain.reject_actor",
    "handler_kind": "WF_INVOCATION",
-   "handler_target": "blockchain::WF_REJECT_ACTOR_V0",
+   "handler_target": "blockchain::WF_REJECT_ACTOR_V1",
    "field": "contact_address",
    "bound_to": "${input.contact_address}",
    "_from": "ledger:public_acts + carried:surface"
@@ -4557,7 +4574,7 @@
    "direction": "INGRESS",
    "operation": "blockchain.reject_actor",
    "handler_kind": "WF_INVOCATION",
-   "handler_target": "blockchain::WF_REJECT_ACTOR_V0",
+   "handler_target": "blockchain::WF_REJECT_ACTOR_V1",
    "field": "verifying_authority",
    "bound_to": "${input.verifying_authority}",
    "_from": "ledger:public_acts + carried:surface"
@@ -4567,7 +4584,7 @@
    "direction": "INGRESS",
    "operation": "blockchain.reject_actor",
    "handler_kind": "WF_INVOCATION",
-   "handler_target": "blockchain::WF_REJECT_ACTOR_V0",
+   "handler_target": "blockchain::WF_REJECT_ACTOR_V1",
    "field": "grounds",
    "bound_to": "${input.grounds}",
    "_from": "ledger:public_acts + carried:surface"
@@ -4635,7 +4652,7 @@
  ],
  "vocabulary_extensions": [
   {
-   "vocabulary_code": "blockchain::VOCAB_WALLET_CLASSIFICATION_V0",
+   "vocabulary_code": "blockchain::VOCAB_WALLET_CLASSIFICATION_V1",
    "extends": null,
    "group": "result_status",
    "casing": "UPPER_SNAKE",
@@ -4645,7 +4662,7 @@
    "_from": "ledger:things/wallet/allowed_values + carried:surface"
   },
   {
-   "vocabulary_code": "blockchain::VOCAB_WALLET_CLASSIFICATION_V0",
+   "vocabulary_code": "blockchain::VOCAB_WALLET_CLASSIFICATION_V1",
    "extends": null,
    "group": "result_status",
    "casing": "UPPER_SNAKE",
@@ -4655,7 +4672,7 @@
    "_from": "ledger:things/wallet/allowed_values + carried:surface"
   },
   {
-   "vocabulary_code": "blockchain::VOCAB_WALLET_CLASSIFICATION_V0",
+   "vocabulary_code": "blockchain::VOCAB_WALLET_CLASSIFICATION_V1",
    "extends": null,
    "group": "result_status",
    "casing": "UPPER_SNAKE",
@@ -4665,7 +4682,7 @@
    "_from": "ledger:things/wallet/allowed_values + carried:surface"
   },
   {
-   "vocabulary_code": "blockchain::VOCAB_WALLET_CLASSIFICATION_V0",
+   "vocabulary_code": "blockchain::VOCAB_WALLET_CLASSIFICATION_V1",
    "extends": null,
    "group": "result_status",
    "casing": "UPPER_SNAKE",
@@ -4679,5 +4696,88 @@
   "register actor: defaults {'currency_preference': 'BACHI', 'language': 'en'} apply when a request leaves a field out. No platform transform supplies a default; the entrance supplies them for callers outside, and a direct request that leaves one out records none.",
   "list actors: nothing_found=empty needs a filter that answers empty; the platform's (CT_PURE_FILTER_RECORDS_V0) refuses an empty result. Realized with it; an empty answer is still refused."
  ],
- "_conflicts": []
+ "_conflicts": [],
+ "_replaces": {},
+ "_identity": {
+  "kept": [
+   "blockchain::AC_PARTICIPANT_V0",
+   "blockchain::CT_PURE_DERIVE_WALLET_ADDRESS_V0",
+   "blockchain::EV_ACTOR_REGISTERED_UNVERIFIED_V0",
+   "blockchain::EV_ACTOR_REJECTED_V0",
+   "blockchain::EV_WALLET_CREATED_V0",
+   "blockchain::RB_IDENTITY_BINDINGS_V0",
+   "blockchain::STRUCTURE_IDENTITY_STORAGE_V0",
+   "blockchain::TE_ACCEPT_ACTOR_V0",
+   "blockchain::TE_REGISTER_ACTOR_V0",
+   "blockchain::TE_REJECT_ACTOR_V0",
+   "blockchain::TI_ACCEPT_ACTOR_V0",
+   "blockchain::TI_REGISTER_ACTOR_V0",
+   "blockchain::TI_REJECT_ACTOR_V0"
+  ],
+  "new": [
+   "blockchain::CC_CHECK_REGISTER_ACTOR_SUBMISSION_V0",
+   "blockchain::CC_CLAIM_ACTOR_CONTACT_ADDRESS_V0",
+   "blockchain::CC_CLAIM_WALLET_ADDRESS_V0",
+   "blockchain::CC_DERIVE_WALLET_ADDRESS_V0",
+   "blockchain::CC_LIST_ACTORS_V0",
+   "blockchain::CC_MOVE_ACTOR_FROM_UNVERIFIED_V0",
+   "blockchain::CC_RECORD_IDENTITY_MOMENT_V0",
+   "blockchain::CC_RECORD_IDENTITY_REPEATED_MOMENT_V0",
+   "blockchain::CC_RECORD_WALLET_MOMENT_V0",
+   "blockchain::CC_REQUIRE_ACCEPTED_ACTOR_V0",
+   "blockchain::CC_REQUIRE_GROUNDS_TO_REJECT_ACTOR_V0",
+   "blockchain::CC_REQUIRE_WALLET_ADDRESS_FREE_V0",
+   "blockchain::CC_RESOLVE_ACTOR_IDENTITY_V0",
+   "blockchain::CC_WRITE_ACTOR_V0",
+   "blockchain::CC_WRITE_WALLET_V0",
+   "blockchain::EV_ACTOR_REGISTERED_AGAIN_V0",
+   "blockchain::IN_ACCEPT_ACTOR_V0",
+   "blockchain::IN_CREATE_WALLET_V0",
+   "blockchain::IN_LIST_ACTORS_V0",
+   "blockchain::IN_REGISTER_ACTOR_V0",
+   "blockchain::IN_REJECT_ACTOR_V0",
+   "blockchain::WF_LIST_ACTORS_V0"
+  ],
+  "superseded": {
+   "blockchain::CC_CLAIM_WALLET_IDENTITY_V0": "blockchain::CC_CLAIM_WALLET_IDENTITY_V1",
+   "blockchain::EV_ACTOR_ACCEPTED_V0": "blockchain::EV_ACTOR_ACCEPTED_V1",
+   "blockchain::RB_WALLET_BINDINGS_V0": "blockchain::RB_WALLET_BINDINGS_V1",
+   "blockchain::STRUCTURE_WALLET_STORAGE_V0": "blockchain::STRUCTURE_WALLET_STORAGE_V1",
+   "blockchain::VOCAB_WALLET_CLASSIFICATION_V0": "blockchain::VOCAB_WALLET_CLASSIFICATION_V1",
+   "blockchain::WF_ACCEPT_ACTOR_V0": "blockchain::WF_ACCEPT_ACTOR_V1",
+   "blockchain::WF_CREATE_WALLET_V0": "blockchain::WF_CREATE_WALLET_V1",
+   "blockchain::WF_REGISTER_ACTOR_V0": "blockchain::WF_REGISTER_ACTOR_V1",
+   "blockchain::WF_REJECT_ACTOR_V0": "blockchain::WF_REJECT_ACTOR_V1"
+  },
+  "changed_at": {
+   "blockchain::CC_CLAIM_WALLET_IDENTITY_V0": 41,
+   "blockchain::EV_ACTOR_ACCEPTED_V0": 1,
+   "blockchain::RB_WALLET_BINDINGS_V0": 7,
+   "blockchain::STRUCTURE_WALLET_STORAGE_V0": 1,
+   "blockchain::VOCAB_WALLET_CLASSIFICATION_V0": 4,
+   "blockchain::WF_ACCEPT_ACTOR_V0": 65,
+   "blockchain::WF_CREATE_WALLET_V0": 104,
+   "blockchain::WF_REGISTER_ACTOR_V0": 88,
+   "blockchain::WF_REJECT_ACTOR_V0": 75
+  },
+  "replaced": {},
+  "retired": [
+   "blockchain::CC_APPEND_ACTOR_OCCURRENCE_V0",
+   "blockchain::CC_APPEND_WALLET_OCCURRENCE_V0",
+   "blockchain::CC_CLAIM_CONTACT_ADDRESS_V0",
+   "blockchain::CC_CREATE_WALLET_RECORD_V0",
+   "blockchain::CC_DETERMINE_WALLET_IDENTITY_V0",
+   "blockchain::CC_ESTABLISH_WALLET_ADDRESS_V0",
+   "blockchain::CC_RECORD_VERIFICATION_DECISION_V0",
+   "blockchain::CC_REGISTER_ACTOR_V0",
+   "blockchain::CC_REQUIRE_ACCEPTED_HOLDER_V0",
+   "blockchain::CC_REQUIRE_REJECTION_GROUNDS_V0",
+   "blockchain::CC_RESOLVE_ACTOR_V0",
+   "blockchain::CC_VALIDATE_REGISTRATION_V0",
+   "blockchain::IN_ACTOR_ACCEPTANCE_V0",
+   "blockchain::IN_ACTOR_REGISTERED_V0",
+   "blockchain::IN_ACTOR_REJECTION_V0",
+   "blockchain::IN_WALLET_CREATION_V0"
+  ]
+ }
 }

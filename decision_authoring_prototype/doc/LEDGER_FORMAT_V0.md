@@ -106,7 +106,8 @@ needs the shape first.
 ### Questions a third domain added
 
 The blind run of `ai_governance` named five question types the catalog lacked. All five are added.
-Running the domain through the block composer added two more.
+Running the domain through the block composer added two more, and deciding identities by
+meaning added `replaces`.
 
 | Question | Asked when | Answer shape | Derives |
 |---|---|---|---|
@@ -117,6 +118,7 @@ Running the domain through the block composer added two more.
 | `outcome_condition` | per change that waits on a measured condition | `when` the condition holds, `otherwise` where the operation ends | a carried transform, a second exit |
 | `values` | per thing | `fixed` values a new record takes, and `clock` values that are the time of the act | fields of the written record, a clock step |
 | `sets` | per operation recording a fact | the fields set on an existing record, to a value or to the time | a conditional update |
+| `replaces` | per operation that takes the place of one the composition holds | the operations it replaces, as the business names them today | `supersedes` on the operation's workflow and entrance |
 
 `grants` and `value_rules` share one shape: a named table in the part, read by a `look_up` check.
 The blind author's `value_rules` named rules in words (`one_of`, `at_most`). The ledger writes them
@@ -131,19 +133,19 @@ frees what the thing claimed.
 The author's file above is the format the blind runs wrote. The ledger each domain derives from is
 `domains/<name>/ledger.yaml`, in closed shape. Three files hold the shape:
 
-- `engine/catalog.yaml` is the question catalog as data, 30 questions;
-- `engine/ledger_schema.yaml` is the shape, as JSON Schema. Every object is closed, and every answer
+- `transformation/decision/catalog.yaml` is the question catalog as data, 31 questions;
+- `transformation/decision/ledger_schema.yaml` is the shape, as JSON Schema. Every object is closed, and every answer
   names the question it answers (`x-question`);
-- `engine/check_ledger.py` applies the schema and the references between answers that a schema
+- `transformation/decision/ledger.py` applies the schema and the references between answers that a schema
   cannot state: a named thing, state, operation, actor, check, table or event must exist.
 
-`compose.py` refuses a ledger before it derives anything. `check_ledger.py --selftest` shows sixteen
+The composer refuses a ledger before it derives anything. `tc decision selftest` shows sixteen
 answers outside their shapes, each refused.
 
 ## Doctrine, not questions
 
 Some P7 content looks like a decision but follows from PGC doctrine. The front end applies it
-without asking. The rules are data, in `engine/doctrine.yaml`. Each is stated once and cited by
+without asking. The rules are data, in `transformation/decision/doctrine.yaml`. Each is stated once and cited by
 every row it produces. A citation of a rule the file does not state is refused.
 
 The author reads the doctrine and does not answer it. A brief does not state it as a requirement.
@@ -172,7 +174,7 @@ an answer.
 
 - **Answer shapes are closed.** An answer that does not fit its shape is refused. It is not
   interpreted. This keeps derivation deterministic, at the cost of expressiveness. A second
-  domain needed nine more shapes, and a third seven; each is now in the catalog and the schema.
+  domain needed nine more shapes, and a third eight; each is now in the catalog and the schema.
 - **The closed ledger has no open question and no case.** The author's file marks an unanswered
   question `open: true` and states cases. The closed ledger has neither yet. Open questions were
   settled before each ledger was written, and cases live in each domain's checks.

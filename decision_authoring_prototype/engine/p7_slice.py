@@ -4,39 +4,17 @@ A row belongs to an artifact when its owning column names it. The slice is what 
 must reproduce for that family; `compare.py` diffs two slices.
 """
 import json
-import re
 import sys
 
 import yaml
 
-# The column that names a row's owning artifact, per register.
-OWNER = {
-    "new_artifacts": "code",
-    "rb_declarations": "binds_wf",
-    "execution_topology": "workflow",
-    "cc_composition": "cc_code",
-    "step_bindings": "owner",
-    "interface_fields": "artifact",
-    "implementation_bindings": "ct_code",
-    "runtime_policies": "rb_code",
-    "artifact_properties": "artifact",
-    "structure_stores": "store_name",
-    "test_cases": "ct_code",
-    "test_case_values": "ct_code",
-    "declared_reach": "act",
-    "transport_bindings": "artifact",
-    "vocabulary_extensions": "vocabulary_code",
-}
-
-
-def short(code):
-    return str(code).split("::")[-1]
+from transformation.decision.splice import OWNER, short
+from transformation.machine_block import machine_yaml
 
 
 def load(path):
     text = open(path).read()
-    block = re.findall(r"```yaml\n(.*?)```", text, re.S)
-    return yaml.safe_load(block[0] if block else text)["registers"]
+    return yaml.safe_load(machine_yaml(text) or text)["registers"]
 
 
 def cut(registers, members):

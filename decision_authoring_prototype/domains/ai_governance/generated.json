@@ -1,8 +1,25 @@
 {
+ "_judged_by": {
+  "doctrine": {
+   "id": "transformation.decision.DOCTRINE_V0",
+   "revision": 2,
+   "digest": "sha256:87dbe1471dd784a340dbf60e8f3d96eed5ed09e6cdbd4ab2f31aebf78785fb7f"
+  },
+  "ledger_schema": {
+   "id": "transformation.decision.LEDGER_SCHEMA_V0",
+   "revision": 2,
+   "digest": "sha256:929186492ed3c7a768ffade5416beb89e70672607af2a1eb859df9880fdb8154"
+  },
+  "catalog": {
+   "id": "transformation.decision.CATALOG_V0",
+   "revision": 2,
+   "digest": "sha256:8fbe0c355b3b3f828e612d8023036ec91cc5502f5a2340dd462fb7440d96eab5"
+  }
+ },
  "new_artifacts": [
   {
    "family": "AC",
-   "code": "ai_governance::AC_EMPLOYEE_V0",
+   "code": "ai_governance::AC_EMPLOYEE_V1",
    "summary": "A person the business may license for AI tools",
    "owner_subdomain": "ai_licensing",
    "status": "NEW",
@@ -26,7 +43,7 @@
   },
   {
    "family": "STRUCTURE",
-   "code": "ai_governance::STRUCTURE_AI_LICENSING_STORAGE_V0",
+   "code": "ai_governance::STRUCTURE_AI_LICENSING_STORAGE_V1",
    "summary": "Declares the stores the ai_licensing owns and the paths they occupy",
    "owner_subdomain": "ai_licensing",
    "status": "NEW",
@@ -42,7 +59,7 @@
   },
   {
    "family": "STRUCTURE",
-   "code": "ai_governance::STRUCTURE_AGENT_GOVERNANCE_STORAGE_V0",
+   "code": "ai_governance::STRUCTURE_AGENT_GOVERNANCE_STORAGE_V1",
    "summary": "Declares the stores the agent_governance owns and the paths they occupy",
    "owner_subdomain": "agent_governance",
    "status": "NEW",
@@ -50,7 +67,7 @@
   },
   {
    "family": "RB",
-   "code": "ai_governance::RB_AGENT_GOVERNANCE_BINDINGS_V0",
+   "code": "ai_governance::RB_AGENT_GOVERNANCE_BINDINGS_V1",
    "summary": "Binds the agent_governance's workflows to the stores and mechanisms they use",
    "owner_subdomain": "agent_governance",
    "status": "NEW",
@@ -362,7 +379,7 @@
   },
   {
    "family": "IN",
-   "code": "ai_governance::IN_RECLAIM_LICENSE_V0",
+   "code": "ai_governance::IN_RECLAIM_LICENSE_V1",
    "summary": "A request to reclaim license",
    "owner_subdomain": "ai_licensing",
    "status": "NEW",
@@ -370,7 +387,7 @@
   },
   {
    "family": "WF",
-   "code": "ai_governance::WF_GOVERN_AGENT_ACTION_V0",
+   "code": "ai_governance::WF_GOVERN_AGENT_ACTION_V1",
    "summary": "The governed sequence that performs: govern agent action",
    "owner_subdomain": "agent_governance",
    "status": "NEW",
@@ -394,7 +411,7 @@
   },
   {
    "family": "EV",
-   "code": "ai_governance::EV_TRAINING_COMPLETED_V0",
+   "code": "ai_governance::EV_TRAINING_COMPLETED_V1",
    "summary": "A training completed",
    "owner_subdomain": "ai_licensing",
    "status": "NEW",
@@ -402,7 +419,7 @@
   },
   {
    "family": "EV",
-   "code": "ai_governance::EV_LICENSE_CAP_SET_V0",
+   "code": "ai_governance::EV_LICENSE_CAP_SET_V1",
    "summary": "A license cap set",
    "owner_subdomain": "ai_licensing",
    "status": "NEW",
@@ -410,7 +427,7 @@
   },
   {
    "family": "EV",
-   "code": "ai_governance::EV_PROVISION_DENIED_V0",
+   "code": "ai_governance::EV_PROVISION_DENIED_V1",
    "summary": "A provision denied",
    "owner_subdomain": "ai_licensing",
    "status": "NEW",
@@ -418,7 +435,7 @@
   },
   {
    "family": "EV",
-   "code": "ai_governance::EV_LICENSE_PROVISIONED_V0",
+   "code": "ai_governance::EV_LICENSE_PROVISIONED_V1",
    "summary": "A license provisioned",
    "owner_subdomain": "ai_licensing",
    "status": "NEW",
@@ -426,7 +443,7 @@
   },
   {
    "family": "EV",
-   "code": "ai_governance::EV_USAGE_RECORDED_V0",
+   "code": "ai_governance::EV_USAGE_RECORDED_V1",
    "summary": "A usage recorded",
    "owner_subdomain": "ai_licensing",
    "status": "NEW",
@@ -434,7 +451,7 @@
   },
   {
    "family": "EV",
-   "code": "ai_governance::EV_LICENSE_REVOKED_V0",
+   "code": "ai_governance::EV_LICENSE_REVOKED_V1",
    "summary": "A license revoked",
    "owner_subdomain": "ai_licensing",
    "status": "NEW",
@@ -442,7 +459,7 @@
   },
   {
    "family": "EV",
-   "code": "ai_governance::EV_AGENT_ACTION_DENIED_V0",
+   "code": "ai_governance::EV_AGENT_ACTION_DENIED_V1",
    "summary": "A agent action denied",
    "owner_subdomain": "agent_governance",
    "status": "NEW",
@@ -450,7 +467,7 @@
   },
   {
    "family": "EV",
-   "code": "ai_governance::EV_AGENT_ACTION_AUTHORIZED_V0",
+   "code": "ai_governance::EV_AGENT_ACTION_AUTHORIZED_V1",
    "summary": "A agent action authorized",
    "owner_subdomain": "agent_governance",
    "status": "NEW",
@@ -475,7 +492,7 @@
     "capability_side_effects::CS_APPENDONLY_JSONL_V0",
     "capability_side_effects::CS_CLOCK_V0"
    ],
-   "storage_structure": "ai_governance::STRUCTURE_AI_LICENSING_STORAGE_V0",
+   "storage_structure": "ai_governance::STRUCTURE_AI_LICENSING_STORAGE_V1",
    "_from": "doctrine:binding"
   },
   {
@@ -487,7 +504,7 @@
     "capability_side_effects::CS_APPENDONLY_JSONL_V0",
     "capability_side_effects::CS_CLOCK_V0"
    ],
-   "storage_structure": "ai_governance::STRUCTURE_AI_LICENSING_STORAGE_V0",
+   "storage_structure": "ai_governance::STRUCTURE_AI_LICENSING_STORAGE_V1",
    "_from": "doctrine:binding"
   },
   {
@@ -499,7 +516,7 @@
     "capability_side_effects::CS_APPENDONLY_JSONL_V0",
     "capability_side_effects::CS_CLOCK_V0"
    ],
-   "storage_structure": "ai_governance::STRUCTURE_AI_LICENSING_STORAGE_V0",
+   "storage_structure": "ai_governance::STRUCTURE_AI_LICENSING_STORAGE_V1",
    "_from": "doctrine:binding"
   },
   {
@@ -511,7 +528,7 @@
     "capability_side_effects::CS_APPENDONLY_JSONL_V0",
     "capability_side_effects::CS_CLOCK_V0"
    ],
-   "storage_structure": "ai_governance::STRUCTURE_AI_LICENSING_STORAGE_V0",
+   "storage_structure": "ai_governance::STRUCTURE_AI_LICENSING_STORAGE_V1",
    "_from": "doctrine:binding"
   },
   {
@@ -523,7 +540,7 @@
     "capability_side_effects::CS_APPENDONLY_JSONL_V0",
     "capability_side_effects::CS_CLOCK_V0"
    ],
-   "storage_structure": "ai_governance::STRUCTURE_AI_LICENSING_STORAGE_V0",
+   "storage_structure": "ai_governance::STRUCTURE_AI_LICENSING_STORAGE_V1",
    "_from": "doctrine:binding"
   },
   {
@@ -535,18 +552,18 @@
     "capability_side_effects::CS_APPENDONLY_JSONL_V0",
     "capability_side_effects::CS_CLOCK_V0"
    ],
-   "storage_structure": "ai_governance::STRUCTURE_AI_LICENSING_STORAGE_V0",
+   "storage_structure": "ai_governance::STRUCTURE_AI_LICENSING_STORAGE_V1",
    "_from": "doctrine:binding"
   },
   {
-   "rb_code": "ai_governance::RB_AGENT_GOVERNANCE_BINDINGS_V0",
-   "binds_wf": "ai_governance::WF_GOVERN_AGENT_ACTION_V0",
+   "rb_code": "ai_governance::RB_AGENT_GOVERNANCE_BINDINGS_V1",
+   "binds_wf": "ai_governance::WF_GOVERN_AGENT_ACTION_V1",
    "cs_bindings": [
     "capability_side_effects::CS_MUTABLE_JSON_V0",
     "capability_side_effects::CS_REGISTRY_V0",
     "capability_side_effects::CS_APPENDONLY_JSONL_V0"
    ],
-   "storage_structure": "ai_governance::STRUCTURE_AGENT_GOVERNANCE_STORAGE_V0",
+   "storage_structure": "ai_governance::STRUCTURE_AGENT_GOVERNANCE_STORAGE_V1",
    "_from": "doctrine:binding"
   }
  ],
@@ -950,7 +967,7 @@
   },
   {
    "workflow": "ai_governance::WF_RECLAIM_LICENSE_V0",
-   "node": "IN_RECLAIM_LICENSE_V0",
+   "node": "IN_RECLAIM_LICENSE_V1",
    "node_type": "IN",
    "routing": {
     "ACK": "CC_RESOLVE_LICENSE_V0",
@@ -1037,7 +1054,7 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "ai_governance::WF_GOVERN_AGENT_ACTION_V0",
+   "workflow": "ai_governance::WF_GOVERN_AGENT_ACTION_V1",
    "node": "IN_GOVERN_AGENT_ACTION_V0",
    "node_type": "IN",
    "routing": {
@@ -1047,7 +1064,7 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "ai_governance::WF_GOVERN_AGENT_ACTION_V0",
+   "workflow": "ai_governance::WF_GOVERN_AGENT_ACTION_V1",
    "node": "CC_CHECK_GOVERN_AGENT_ACTION_SUBMISSION_V0",
    "node_type": "CC",
    "routing": {
@@ -1057,7 +1074,7 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "ai_governance::WF_GOVERN_AGENT_ACTION_V0",
+   "workflow": "ai_governance::WF_GOVERN_AGENT_ACTION_V1",
    "node": "CC_REQUIRE_TOOL_DECLARED_V0",
    "node_type": "CC",
    "routing": {
@@ -1067,7 +1084,7 @@
    "_from": "ledger:operations/govern agent action/checks/tool declared"
   },
   {
-   "workflow": "ai_governance::WF_GOVERN_AGENT_ACTION_V0",
+   "workflow": "ai_governance::WF_GOVERN_AGENT_ACTION_V1",
    "node": "CC_RESOLVE_LICENSE_V0",
    "node_type": "CC",
    "routing": {
@@ -1079,7 +1096,7 @@
    "_from": "ledger:operations/govern agent action/checks/license active"
   },
   {
-   "workflow": "ai_governance::WF_GOVERN_AGENT_ACTION_V0",
+   "workflow": "ai_governance::WF_GOVERN_AGENT_ACTION_V1",
    "node": "CC_REQUIRE_LICENSE_ACTIVE_V0",
    "node_type": "CC",
    "routing": {
@@ -1089,7 +1106,7 @@
    "_from": "ledger:operations/govern agent action/checks/license active"
   },
   {
-   "workflow": "ai_governance::WF_GOVERN_AGENT_ACTION_V0",
+   "workflow": "ai_governance::WF_GOVERN_AGENT_ACTION_V1",
    "node": "CC_REQUIRE_TIER_GRANTS_TOOL_V0",
    "node_type": "CC",
    "routing": {
@@ -1099,7 +1116,7 @@
    "_from": "ledger:operations/govern agent action/checks/tier grants tool"
   },
   {
-   "workflow": "ai_governance::WF_GOVERN_AGENT_ACTION_V0",
+   "workflow": "ai_governance::WF_GOVERN_AGENT_ACTION_V1",
    "node": "CC_REQUIRE_PARAMETERS_SATISFY_RULES_V0",
    "node_type": "CC",
    "routing": {
@@ -1109,7 +1126,7 @@
    "_from": "ledger:operations/govern agent action/checks/parameters satisfy rules"
   },
   {
-   "workflow": "ai_governance::WF_GOVERN_AGENT_ACTION_V0",
+   "workflow": "ai_governance::WF_GOVERN_AGENT_ACTION_V1",
    "node": "CC_FORM_ACTION_REQUEST_IDENTITY_V0",
    "node_type": "CC",
    "routing": {
@@ -1119,7 +1136,7 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "ai_governance::WF_GOVERN_AGENT_ACTION_V0",
+   "workflow": "ai_governance::WF_GOVERN_AGENT_ACTION_V1",
    "node": "CC_CLAIM_ACTION_IDENTITY_V0",
    "node_type": "CC",
    "routing": {
@@ -1131,7 +1148,7 @@
    "_from": "ledger:things/action/identity"
   },
   {
-   "workflow": "ai_governance::WF_GOVERN_AGENT_ACTION_V0",
+   "workflow": "ai_governance::WF_GOVERN_AGENT_ACTION_V1",
    "node": "CC_WRITE_ACTION_V0",
    "node_type": "CC",
    "routing": {
@@ -1142,7 +1159,7 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "ai_governance::WF_GOVERN_AGENT_ACTION_V0",
+   "workflow": "ai_governance::WF_GOVERN_AGENT_ACTION_V1",
    "node": "CC_RECORD_AGENT_GOVERNANCE_MOMENT_V0",
    "node_type": "CC",
    "routing": {
@@ -1153,7 +1170,7 @@
    "_from": "ledger:trail"
   },
   {
-   "workflow": "ai_governance::WF_GOVERN_AGENT_ACTION_V0",
+   "workflow": "ai_governance::WF_GOVERN_AGENT_ACTION_V1",
    "node": "CC_DENY_UNDECLARED_TOOL",
    "node_type": "CC",
    "routing": {
@@ -1165,7 +1182,7 @@
    "_from": "ledger:operations/govern agent action/on_refusal"
   },
   {
-   "workflow": "ai_governance::WF_GOVERN_AGENT_ACTION_V0",
+   "workflow": "ai_governance::WF_GOVERN_AGENT_ACTION_V1",
    "node": "CC_DENY_UNAUTHORIZED_ACTOR",
    "node_type": "CC",
    "routing": {
@@ -1177,7 +1194,7 @@
    "_from": "ledger:operations/govern agent action/on_refusal"
   },
   {
-   "workflow": "ai_governance::WF_GOVERN_AGENT_ACTION_V0",
+   "workflow": "ai_governance::WF_GOVERN_AGENT_ACTION_V1",
    "node": "CC_DENY_UNAUTHORIZED_TOOL",
    "node_type": "CC",
    "routing": {
@@ -1189,7 +1206,7 @@
    "_from": "ledger:operations/govern agent action/on_refusal"
   },
   {
-   "workflow": "ai_governance::WF_GOVERN_AGENT_ACTION_V0",
+   "workflow": "ai_governance::WF_GOVERN_AGENT_ACTION_V1",
    "node": "CC_DENY_PARAMETER_VIOLATION",
    "node_type": "CC",
    "routing": {
@@ -1201,21 +1218,21 @@
    "_from": "ledger:operations/govern agent action/on_refusal"
   },
   {
-   "workflow": "ai_governance::WF_GOVERN_AGENT_ACTION_V0",
+   "workflow": "ai_governance::WF_GOVERN_AGENT_ACTION_V1",
    "node": "EXIT_COMPLETED",
    "node_type": "EXIT",
    "routing": null,
    "_from": "doctrine:order"
   },
   {
-   "workflow": "ai_governance::WF_GOVERN_AGENT_ACTION_V0",
+   "workflow": "ai_governance::WF_GOVERN_AGENT_ACTION_V1",
    "node": "EXIT_REJECTED",
    "node_type": "EXIT",
    "routing": null,
    "_from": "doctrine:order"
   },
   {
-   "workflow": "ai_governance::WF_GOVERN_AGENT_ACTION_V0",
+   "workflow": "ai_governance::WF_GOVERN_AGENT_ACTION_V1",
    "node": "EXIT_DENIED",
    "node_type": "EXIT",
    "routing": null,
@@ -4717,7 +4734,7 @@
    "_from": "ledger:trail"
   },
   {
-   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V0",
+   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V1",
    "step": "CC_CHECK_GOVERN_AGENT_ACTION_SUBMISSION_V0",
    "direction": "INPUT",
    "field": "submission",
@@ -4730,7 +4747,7 @@
    "_from": "ledger:operations/govern agent action/required"
   },
   {
-   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V0",
+   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V1",
    "step": "CC_REQUIRE_TOOL_DECLARED_V0",
    "direction": "INPUT",
    "field": "tool_name",
@@ -4738,7 +4755,7 @@
    "_from": "ledger:operations/govern agent action/checks/tool declared"
   },
   {
-   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V0",
+   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V1",
    "step": "CC_RESOLVE_LICENSE_V0",
    "direction": "INPUT",
    "field": "employee_id",
@@ -4746,7 +4763,7 @@
    "_from": "ledger:operations/govern agent action/checks/license active"
   },
   {
-   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V0",
+   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V1",
    "step": "CC_REQUIRE_LICENSE_ACTIVE_V0",
    "direction": "INPUT",
    "field": "state",
@@ -4754,7 +4771,7 @@
    "_from": "ledger:operations/govern agent action/checks/license active"
   },
   {
-   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V0",
+   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V1",
    "step": "CC_REQUIRE_TIER_GRANTS_TOOL_V0",
    "direction": "INPUT",
    "field": "key",
@@ -4762,7 +4779,7 @@
    "_from": "ledger:operations/govern agent action/checks/tier grants tool"
   },
   {
-   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V0",
+   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V1",
    "step": "CC_REQUIRE_TIER_GRANTS_TOOL_V0",
    "direction": "INPUT",
    "field": "tool_name",
@@ -4770,7 +4787,7 @@
    "_from": "ledger:operations/govern agent action/checks/tier grants tool"
   },
   {
-   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V0",
+   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V1",
    "step": "CC_REQUIRE_PARAMETERS_SATISFY_RULES_V0",
    "direction": "INPUT",
    "field": "key",
@@ -4778,7 +4795,7 @@
    "_from": "ledger:operations/govern agent action/checks/parameters satisfy rules"
   },
   {
-   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V0",
+   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V1",
    "step": "CC_REQUIRE_PARAMETERS_SATISFY_RULES_V0",
    "direction": "INPUT",
    "field": "parameters",
@@ -4786,7 +4803,7 @@
    "_from": "ledger:operations/govern agent action/checks/parameters satisfy rules"
   },
   {
-   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V0",
+   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V1",
    "step": "CC_FORM_ACTION_REQUEST_IDENTITY_V0",
    "direction": "INPUT",
    "field": "tool_name",
@@ -4794,7 +4811,7 @@
    "_from": "ledger:things/action/derived/request_identity"
   },
   {
-   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V0",
+   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V1",
    "step": "CC_FORM_ACTION_REQUEST_IDENTITY_V0",
    "direction": "INPUT",
    "field": "requesting_user_id",
@@ -4802,7 +4819,7 @@
    "_from": "ledger:things/action/derived/request_identity"
   },
   {
-   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V0",
+   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V1",
    "step": "CC_FORM_ACTION_REQUEST_IDENTITY_V0",
    "direction": "INPUT",
    "field": "domain_context",
@@ -4810,7 +4827,7 @@
    "_from": "ledger:things/action/derived/request_identity"
   },
   {
-   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V0",
+   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V1",
    "step": "CC_CLAIM_ACTION_IDENTITY_V0",
    "direction": "INPUT",
    "field": "tool_name",
@@ -4818,7 +4835,7 @@
    "_from": "ledger:things/action/identity"
   },
   {
-   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V0",
+   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V1",
    "step": "CC_CLAIM_ACTION_IDENTITY_V0",
    "direction": "INPUT",
    "field": "requesting_user_id",
@@ -4826,7 +4843,7 @@
    "_from": "ledger:things/action/identity"
   },
   {
-   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V0",
+   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V1",
    "step": "CC_CLAIM_ACTION_IDENTITY_V0",
    "direction": "INPUT",
    "field": "domain_context",
@@ -4834,7 +4851,7 @@
    "_from": "ledger:things/action/identity"
   },
   {
-   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V0",
+   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V1",
    "step": "CC_CLAIM_ACTION_IDENTITY_V0",
    "direction": "INPUT",
    "field": "action_fields",
@@ -4847,7 +4864,7 @@
    "_from": "ledger:things/action/identity"
   },
   {
-   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V0",
+   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V1",
    "step": "CC_WRITE_ACTION_V0",
    "direction": "INPUT",
    "field": "action_id",
@@ -4855,7 +4872,7 @@
    "_from": "ledger:operations/govern agent action"
   },
   {
-   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V0",
+   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V1",
    "step": "CC_WRITE_ACTION_V0",
    "direction": "INPUT",
    "field": "submission",
@@ -4868,7 +4885,7 @@
    "_from": "ledger:operations/govern agent action"
   },
   {
-   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V0",
+   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V1",
    "step": "CC_RECORD_AGENT_GOVERNANCE_MOMENT_V0",
    "direction": "INPUT",
    "field": "occurrence",
@@ -4878,7 +4895,7 @@
    "_from": "ledger:trail"
   },
   {
-   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V0",
+   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V1",
    "step": "CC_RECORD_AGENT_GOVERNANCE_MOMENT_V0",
    "direction": "INPUT",
    "field": "tool_name",
@@ -4886,7 +4903,7 @@
    "_from": "ledger:trail"
   },
   {
-   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V0",
+   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V1",
    "step": "CC_RECORD_AGENT_GOVERNANCE_MOMENT_V0",
    "direction": "INPUT",
    "field": "requesting_user_id",
@@ -4894,7 +4911,7 @@
    "_from": "ledger:trail"
   },
   {
-   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V0",
+   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V1",
    "step": "CC_RECORD_AGENT_GOVERNANCE_MOMENT_V0",
    "direction": "INPUT",
    "field": "reason",
@@ -4902,7 +4919,7 @@
    "_from": "ledger:trail"
   },
   {
-   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V0",
+   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V1",
    "step": "CC_DENY_UNDECLARED_TOOL",
    "direction": "INPUT",
    "field": "occurrence",
@@ -4912,7 +4929,7 @@
    "_from": "ledger:operations/govern agent action/on_refusal"
   },
   {
-   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V0",
+   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V1",
    "step": "CC_DENY_UNDECLARED_TOOL",
    "direction": "INPUT",
    "field": "tool_name",
@@ -4920,7 +4937,7 @@
    "_from": "ledger:operations/govern agent action/on_refusal"
   },
   {
-   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V0",
+   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V1",
    "step": "CC_DENY_UNDECLARED_TOOL",
    "direction": "INPUT",
    "field": "requesting_user_id",
@@ -4928,7 +4945,7 @@
    "_from": "ledger:operations/govern agent action/on_refusal"
   },
   {
-   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V0",
+   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V1",
    "step": "CC_DENY_UNDECLARED_TOOL",
    "direction": "INPUT",
    "field": "reason",
@@ -4938,7 +4955,7 @@
    "_from": "ledger:operations/govern agent action/on_refusal"
   },
   {
-   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V0",
+   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V1",
    "step": "CC_DENY_UNAUTHORIZED_ACTOR",
    "direction": "INPUT",
    "field": "occurrence",
@@ -4948,7 +4965,7 @@
    "_from": "ledger:operations/govern agent action/on_refusal"
   },
   {
-   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V0",
+   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V1",
    "step": "CC_DENY_UNAUTHORIZED_ACTOR",
    "direction": "INPUT",
    "field": "tool_name",
@@ -4956,7 +4973,7 @@
    "_from": "ledger:operations/govern agent action/on_refusal"
   },
   {
-   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V0",
+   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V1",
    "step": "CC_DENY_UNAUTHORIZED_ACTOR",
    "direction": "INPUT",
    "field": "requesting_user_id",
@@ -4964,7 +4981,7 @@
    "_from": "ledger:operations/govern agent action/on_refusal"
   },
   {
-   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V0",
+   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V1",
    "step": "CC_DENY_UNAUTHORIZED_ACTOR",
    "direction": "INPUT",
    "field": "reason",
@@ -4974,7 +4991,7 @@
    "_from": "ledger:operations/govern agent action/on_refusal"
   },
   {
-   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V0",
+   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V1",
    "step": "CC_DENY_UNAUTHORIZED_TOOL",
    "direction": "INPUT",
    "field": "occurrence",
@@ -4984,7 +5001,7 @@
    "_from": "ledger:operations/govern agent action/on_refusal"
   },
   {
-   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V0",
+   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V1",
    "step": "CC_DENY_UNAUTHORIZED_TOOL",
    "direction": "INPUT",
    "field": "tool_name",
@@ -4992,7 +5009,7 @@
    "_from": "ledger:operations/govern agent action/on_refusal"
   },
   {
-   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V0",
+   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V1",
    "step": "CC_DENY_UNAUTHORIZED_TOOL",
    "direction": "INPUT",
    "field": "requesting_user_id",
@@ -5000,7 +5017,7 @@
    "_from": "ledger:operations/govern agent action/on_refusal"
   },
   {
-   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V0",
+   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V1",
    "step": "CC_DENY_UNAUTHORIZED_TOOL",
    "direction": "INPUT",
    "field": "reason",
@@ -5010,7 +5027,7 @@
    "_from": "ledger:operations/govern agent action/on_refusal"
   },
   {
-   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V0",
+   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V1",
    "step": "CC_DENY_PARAMETER_VIOLATION",
    "direction": "INPUT",
    "field": "occurrence",
@@ -5020,7 +5037,7 @@
    "_from": "ledger:operations/govern agent action/on_refusal"
   },
   {
-   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V0",
+   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V1",
    "step": "CC_DENY_PARAMETER_VIOLATION",
    "direction": "INPUT",
    "field": "tool_name",
@@ -5028,7 +5045,7 @@
    "_from": "ledger:operations/govern agent action/on_refusal"
   },
   {
-   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V0",
+   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V1",
    "step": "CC_DENY_PARAMETER_VIOLATION",
    "direction": "INPUT",
    "field": "requesting_user_id",
@@ -5036,7 +5053,7 @@
    "_from": "ledger:operations/govern agent action/on_refusal"
   },
   {
-   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V0",
+   "owner": "ai_governance::WF_GOVERN_AGENT_ACTION_V1",
    "step": "CC_DENY_PARAMETER_VIOLATION",
    "direction": "INPUT",
    "field": "reason",
@@ -5048,7 +5065,7 @@
  ],
  "interface_fields": [
   {
-   "artifact": "ai_governance::AC_EMPLOYEE_V0",
+   "artifact": "ai_governance::AC_EMPLOYEE_V1",
    "direction": "ATTRIBUTE",
    "field": "employee_id",
    "type": "string",
@@ -5868,7 +5885,7 @@
    "_from": "ledger:operations/record license usage"
   },
   {
-   "artifact": "ai_governance::IN_RECLAIM_LICENSE_V0",
+   "artifact": "ai_governance::IN_RECLAIM_LICENSE_V1",
    "direction": "INPUT",
    "field": "employee_id",
    "type": "string",
@@ -5949,7 +5966,7 @@
    "_from": "doctrine:interface"
   },
   {
-   "artifact": "ai_governance::EV_TRAINING_COMPLETED_V0",
+   "artifact": "ai_governance::EV_TRAINING_COMPLETED_V1",
    "direction": "OUTPUT",
    "field": "employee_id",
    "type": "string",
@@ -5959,7 +5976,7 @@
    "_from": "ledger:announces"
   },
   {
-   "artifact": "ai_governance::EV_TRAINING_COMPLETED_V0",
+   "artifact": "ai_governance::EV_TRAINING_COMPLETED_V1",
    "direction": "OUTPUT",
    "field": "timestamp",
    "type": "string",
@@ -5970,7 +5987,7 @@
    "_from": "doctrine:interface"
   },
   {
-   "artifact": "ai_governance::EV_LICENSE_CAP_SET_V0",
+   "artifact": "ai_governance::EV_LICENSE_CAP_SET_V1",
    "direction": "OUTPUT",
    "field": "cap",
    "type": "integer",
@@ -5980,7 +5997,7 @@
    "_from": "ledger:announces"
   },
   {
-   "artifact": "ai_governance::EV_LICENSE_CAP_SET_V0",
+   "artifact": "ai_governance::EV_LICENSE_CAP_SET_V1",
    "direction": "OUTPUT",
    "field": "timestamp",
    "type": "string",
@@ -5991,7 +6008,7 @@
    "_from": "doctrine:interface"
   },
   {
-   "artifact": "ai_governance::EV_PROVISION_DENIED_V0",
+   "artifact": "ai_governance::EV_PROVISION_DENIED_V1",
    "direction": "OUTPUT",
    "field": "employee_id",
    "type": "string",
@@ -6001,7 +6018,7 @@
    "_from": "ledger:announces"
   },
   {
-   "artifact": "ai_governance::EV_PROVISION_DENIED_V0",
+   "artifact": "ai_governance::EV_PROVISION_DENIED_V1",
    "direction": "OUTPUT",
    "field": "reason",
    "type": "string",
@@ -6011,7 +6028,7 @@
    "_from": "ledger:announces"
   },
   {
-   "artifact": "ai_governance::EV_PROVISION_DENIED_V0",
+   "artifact": "ai_governance::EV_PROVISION_DENIED_V1",
    "direction": "OUTPUT",
    "field": "timestamp",
    "type": "string",
@@ -6022,7 +6039,7 @@
    "_from": "doctrine:interface"
   },
   {
-   "artifact": "ai_governance::EV_LICENSE_PROVISIONED_V0",
+   "artifact": "ai_governance::EV_LICENSE_PROVISIONED_V1",
    "direction": "OUTPUT",
    "field": "employee_id",
    "type": "string",
@@ -6032,7 +6049,7 @@
    "_from": "ledger:announces"
   },
   {
-   "artifact": "ai_governance::EV_LICENSE_PROVISIONED_V0",
+   "artifact": "ai_governance::EV_LICENSE_PROVISIONED_V1",
    "direction": "OUTPUT",
    "field": "license_id",
    "type": "string",
@@ -6042,7 +6059,7 @@
    "_from": "ledger:announces"
   },
   {
-   "artifact": "ai_governance::EV_LICENSE_PROVISIONED_V0",
+   "artifact": "ai_governance::EV_LICENSE_PROVISIONED_V1",
    "direction": "OUTPUT",
    "field": "tier",
    "type": "string",
@@ -6052,7 +6069,7 @@
    "_from": "ledger:announces"
   },
   {
-   "artifact": "ai_governance::EV_LICENSE_PROVISIONED_V0",
+   "artifact": "ai_governance::EV_LICENSE_PROVISIONED_V1",
    "direction": "OUTPUT",
    "field": "timestamp",
    "type": "string",
@@ -6063,7 +6080,7 @@
    "_from": "doctrine:interface"
   },
   {
-   "artifact": "ai_governance::EV_USAGE_RECORDED_V0",
+   "artifact": "ai_governance::EV_USAGE_RECORDED_V1",
    "direction": "OUTPUT",
    "field": "employee_id",
    "type": "string",
@@ -6073,7 +6090,7 @@
    "_from": "ledger:announces"
   },
   {
-   "artifact": "ai_governance::EV_USAGE_RECORDED_V0",
+   "artifact": "ai_governance::EV_USAGE_RECORDED_V1",
    "direction": "OUTPUT",
    "field": "license_id",
    "type": "string",
@@ -6083,7 +6100,7 @@
    "_from": "ledger:announces"
   },
   {
-   "artifact": "ai_governance::EV_USAGE_RECORDED_V0",
+   "artifact": "ai_governance::EV_USAGE_RECORDED_V1",
    "direction": "OUTPUT",
    "field": "timestamp",
    "type": "string",
@@ -6094,7 +6111,7 @@
    "_from": "doctrine:interface"
   },
   {
-   "artifact": "ai_governance::EV_LICENSE_REVOKED_V0",
+   "artifact": "ai_governance::EV_LICENSE_REVOKED_V1",
    "direction": "OUTPUT",
    "field": "employee_id",
    "type": "string",
@@ -6104,7 +6121,7 @@
    "_from": "ledger:announces"
   },
   {
-   "artifact": "ai_governance::EV_LICENSE_REVOKED_V0",
+   "artifact": "ai_governance::EV_LICENSE_REVOKED_V1",
    "direction": "OUTPUT",
    "field": "license_id",
    "type": "string",
@@ -6114,7 +6131,7 @@
    "_from": "ledger:announces"
   },
   {
-   "artifact": "ai_governance::EV_LICENSE_REVOKED_V0",
+   "artifact": "ai_governance::EV_LICENSE_REVOKED_V1",
    "direction": "OUTPUT",
    "field": "timestamp",
    "type": "string",
@@ -6125,7 +6142,7 @@
    "_from": "doctrine:interface"
   },
   {
-   "artifact": "ai_governance::EV_AGENT_ACTION_DENIED_V0",
+   "artifact": "ai_governance::EV_AGENT_ACTION_DENIED_V1",
    "direction": "OUTPUT",
    "field": "tool_name",
    "type": "string",
@@ -6135,7 +6152,7 @@
    "_from": "ledger:announces"
   },
   {
-   "artifact": "ai_governance::EV_AGENT_ACTION_DENIED_V0",
+   "artifact": "ai_governance::EV_AGENT_ACTION_DENIED_V1",
    "direction": "OUTPUT",
    "field": "requesting_user_id",
    "type": "string",
@@ -6145,7 +6162,7 @@
    "_from": "ledger:announces"
   },
   {
-   "artifact": "ai_governance::EV_AGENT_ACTION_DENIED_V0",
+   "artifact": "ai_governance::EV_AGENT_ACTION_DENIED_V1",
    "direction": "OUTPUT",
    "field": "reason",
    "type": "string",
@@ -6155,7 +6172,7 @@
    "_from": "ledger:announces"
   },
   {
-   "artifact": "ai_governance::EV_AGENT_ACTION_DENIED_V0",
+   "artifact": "ai_governance::EV_AGENT_ACTION_DENIED_V1",
    "direction": "OUTPUT",
    "field": "timestamp",
    "type": "string",
@@ -6166,7 +6183,7 @@
    "_from": "doctrine:interface"
   },
   {
-   "artifact": "ai_governance::EV_AGENT_ACTION_AUTHORIZED_V0",
+   "artifact": "ai_governance::EV_AGENT_ACTION_AUTHORIZED_V1",
    "direction": "OUTPUT",
    "field": "tool_name",
    "type": "string",
@@ -6176,7 +6193,7 @@
    "_from": "ledger:announces"
   },
   {
-   "artifact": "ai_governance::EV_AGENT_ACTION_AUTHORIZED_V0",
+   "artifact": "ai_governance::EV_AGENT_ACTION_AUTHORIZED_V1",
    "direction": "OUTPUT",
    "field": "requesting_user_id",
    "type": "string",
@@ -6186,7 +6203,7 @@
    "_from": "ledger:announces"
   },
   {
-   "artifact": "ai_governance::EV_AGENT_ACTION_AUTHORIZED_V0",
+   "artifact": "ai_governance::EV_AGENT_ACTION_AUTHORIZED_V1",
    "direction": "OUTPUT",
    "field": "timestamp",
    "type": "string",
@@ -6263,21 +6280,21 @@
    "rb_code": "ai_governance::RB_AI_LICENSING_BINDINGS_V0",
    "capability": "capability_side_effects::CS_MUTABLE_JSON_V0",
    "key": "structure",
-   "value": "ai_governance::STRUCTURE_AI_LICENSING_STORAGE_V0",
+   "value": "ai_governance::STRUCTURE_AI_LICENSING_STORAGE_V1",
    "_from": "doctrine:binding"
   },
   {
    "rb_code": "ai_governance::RB_AI_LICENSING_BINDINGS_V0",
    "capability": "capability_side_effects::CS_REGISTRY_V0",
    "key": "structure",
-   "value": "ai_governance::STRUCTURE_AI_LICENSING_STORAGE_V0",
+   "value": "ai_governance::STRUCTURE_AI_LICENSING_STORAGE_V1",
    "_from": "doctrine:binding"
   },
   {
    "rb_code": "ai_governance::RB_AI_LICENSING_BINDINGS_V0",
    "capability": "capability_side_effects::CS_APPENDONLY_JSONL_V0",
    "key": "structure",
-   "value": "ai_governance::STRUCTURE_AI_LICENSING_STORAGE_V0",
+   "value": "ai_governance::STRUCTURE_AI_LICENSING_STORAGE_V1",
    "_from": "doctrine:binding"
   },
   {
@@ -6288,30 +6305,30 @@
    "_from": "doctrine:binding"
   },
   {
-   "rb_code": "ai_governance::RB_AGENT_GOVERNANCE_BINDINGS_V0",
+   "rb_code": "ai_governance::RB_AGENT_GOVERNANCE_BINDINGS_V1",
    "capability": "capability_side_effects::CS_MUTABLE_JSON_V0",
    "key": "structure",
-   "value": "ai_governance::STRUCTURE_AGENT_GOVERNANCE_STORAGE_V0",
+   "value": "ai_governance::STRUCTURE_AGENT_GOVERNANCE_STORAGE_V1",
    "_from": "doctrine:binding"
   },
   {
-   "rb_code": "ai_governance::RB_AGENT_GOVERNANCE_BINDINGS_V0",
+   "rb_code": "ai_governance::RB_AGENT_GOVERNANCE_BINDINGS_V1",
    "capability": "capability_side_effects::CS_REGISTRY_V0",
    "key": "structure",
-   "value": "ai_governance::STRUCTURE_AGENT_GOVERNANCE_STORAGE_V0",
+   "value": "ai_governance::STRUCTURE_AGENT_GOVERNANCE_STORAGE_V1",
    "_from": "doctrine:binding"
   },
   {
-   "rb_code": "ai_governance::RB_AGENT_GOVERNANCE_BINDINGS_V0",
+   "rb_code": "ai_governance::RB_AGENT_GOVERNANCE_BINDINGS_V1",
    "capability": "capability_side_effects::CS_APPENDONLY_JSONL_V0",
    "key": "structure",
-   "value": "ai_governance::STRUCTURE_AGENT_GOVERNANCE_STORAGE_V0",
+   "value": "ai_governance::STRUCTURE_AGENT_GOVERNANCE_STORAGE_V1",
    "_from": "doctrine:binding"
   }
  ],
  "artifact_properties": [
   {
-   "artifact": "ai_governance::AC_EMPLOYEE_V0",
+   "artifact": "ai_governance::AC_EMPLOYEE_V1",
    "property": "type",
    "value": "human",
    "_from": "ledger:actor"
@@ -6329,13 +6346,13 @@
    "_from": "ledger:actor"
   },
   {
-   "artifact": "ai_governance::STRUCTURE_AI_LICENSING_STORAGE_V0",
+   "artifact": "ai_governance::STRUCTURE_AI_LICENSING_STORAGE_V1",
    "property": "layer",
    "value": "DOMAINS",
    "_from": "doctrine:storage"
   },
   {
-   "artifact": "ai_governance::STRUCTURE_AGENT_GOVERNANCE_STORAGE_V0",
+   "artifact": "ai_governance::STRUCTURE_AGENT_GOVERNANCE_STORAGE_V1",
    "property": "layer",
    "value": "DOMAINS",
    "_from": "doctrine:storage"
@@ -6364,7 +6381,7 @@
    "artifact": "ai_governance::WF_RECORD_TRAINING_COMPLETED_V0",
    "property": "emit.EXIT_COMPLETED",
    "value": [
-    "ai_governance::EV_TRAINING_COMPLETED_V0"
+    "ai_governance::EV_TRAINING_COMPLETED_V1"
    ],
    "_from": "ledger:announces"
   },
@@ -6378,21 +6395,21 @@
    "artifact": "ai_governance::WF_SET_LICENSE_CAP_V0",
    "property": "emit.EXIT_COMPLETED",
    "value": [
-    "ai_governance::EV_LICENSE_CAP_SET_V0"
+    "ai_governance::EV_LICENSE_CAP_SET_V1"
    ],
    "_from": "ledger:announces"
   },
   {
    "artifact": "ai_governance::WF_PROVISION_LICENSE_V0",
    "property": "actor_context",
-   "value": "ai_governance::AC_EMPLOYEE_V0",
+   "value": "ai_governance::AC_EMPLOYEE_V1",
    "_from": "ledger:actor"
   },
   {
    "artifact": "ai_governance::WF_PROVISION_LICENSE_V0",
    "property": "emit.EXIT_COMPLETED",
    "value": [
-    "ai_governance::EV_LICENSE_PROVISIONED_V0"
+    "ai_governance::EV_LICENSE_PROVISIONED_V1"
    ],
    "_from": "ledger:announces"
   },
@@ -6400,21 +6417,21 @@
    "artifact": "ai_governance::WF_PROVISION_LICENSE_V0",
    "property": "emit.EXIT_DENIED",
    "value": [
-    "ai_governance::EV_PROVISION_DENIED_V0"
+    "ai_governance::EV_PROVISION_DENIED_V1"
    ],
    "_from": "ledger:operations/provision license/on_refusal"
   },
   {
    "artifact": "ai_governance::WF_RECORD_LICENSE_USAGE_V0",
    "property": "actor_context",
-   "value": "ai_governance::AC_EMPLOYEE_V0",
+   "value": "ai_governance::AC_EMPLOYEE_V1",
    "_from": "ledger:actor"
   },
   {
    "artifact": "ai_governance::WF_RECORD_LICENSE_USAGE_V0",
    "property": "emit.EXIT_COMPLETED",
    "value": [
-    "ai_governance::EV_USAGE_RECORDED_V0"
+    "ai_governance::EV_USAGE_RECORDED_V1"
    ],
    "_from": "ledger:announces"
   },
@@ -6428,29 +6445,29 @@
    "artifact": "ai_governance::WF_RECLAIM_LICENSE_V0",
    "property": "emit.EXIT_COMPLETED",
    "value": [
-    "ai_governance::EV_LICENSE_REVOKED_V0"
+    "ai_governance::EV_LICENSE_REVOKED_V1"
    ],
    "_from": "ledger:announces"
   },
   {
-   "artifact": "ai_governance::WF_GOVERN_AGENT_ACTION_V0",
+   "artifact": "ai_governance::WF_GOVERN_AGENT_ACTION_V1",
    "property": "actor_context",
    "value": "ai_governance::AC_AGENT_V0",
    "_from": "ledger:actor"
   },
   {
-   "artifact": "ai_governance::WF_GOVERN_AGENT_ACTION_V0",
+   "artifact": "ai_governance::WF_GOVERN_AGENT_ACTION_V1",
    "property": "emit.EXIT_COMPLETED",
    "value": [
-    "ai_governance::EV_AGENT_ACTION_AUTHORIZED_V0"
+    "ai_governance::EV_AGENT_ACTION_AUTHORIZED_V1"
    ],
    "_from": "ledger:announces"
   },
   {
-   "artifact": "ai_governance::WF_GOVERN_AGENT_ACTION_V0",
+   "artifact": "ai_governance::WF_GOVERN_AGENT_ACTION_V1",
    "property": "emit.EXIT_DENIED",
    "value": [
-    "ai_governance::EV_AGENT_ACTION_DENIED_V0"
+    "ai_governance::EV_AGENT_ACTION_DENIED_V1"
    ],
    "_from": "ledger:operations/govern agent action/on_refusal"
   }
@@ -6461,7 +6478,7 @@
    "storage_type": "CS_REGISTRY_V0",
    "proposed_path": "ai_governance/ai_licensing/employee_employee_id_registry.jsonl",
    "used_by": "ai_governance::CC_CLAIM_EMPLOYEE_ID_V0, ai_governance::CC_RESOLVE_EMPLOYEE_IDENTITY_V0",
-   "structure": "ai_governance::STRUCTURE_AI_LICENSING_STORAGE_V0",
+   "structure": "ai_governance::STRUCTURE_AI_LICENSING_STORAGE_V1",
    "_from": "ledger:things/employee/identity + doctrine:storage"
   },
   {
@@ -6469,7 +6486,7 @@
    "storage_type": "CS_MUTABLE_JSON_V0",
    "proposed_path": "ai_governance/ai_licensing/employees.json",
    "used_by": "ai_governance::CC_RECORD_TRAINING_COMPLETED_V0, ai_governance::CC_RESOLVE_EMPLOYEE_IDENTITY_V0, ai_governance::CC_WRITE_EMPLOYEE_V0",
-   "structure": "ai_governance::STRUCTURE_AI_LICENSING_STORAGE_V0",
+   "structure": "ai_governance::STRUCTURE_AI_LICENSING_STORAGE_V1",
    "_from": "ledger:things/employee + doctrine:storage"
   },
   {
@@ -6477,7 +6494,7 @@
    "storage_type": "CS_APPENDONLY_JSONL_V0",
    "proposed_path": "ai_governance/ai_licensing/audit_log.jsonl",
    "used_by": "ai_governance::CC_RECORD_AI_LICENSING_MOMENT_V0",
-   "structure": "ai_governance::STRUCTURE_AI_LICENSING_STORAGE_V0",
+   "structure": "ai_governance::STRUCTURE_AI_LICENSING_STORAGE_V1",
    "_from": "ledger:trail + doctrine:storage + carried:surface"
   },
   {
@@ -6485,7 +6502,7 @@
    "storage_type": "CS_MUTABLE_JSON_V0",
    "proposed_path": "ai_governance/ai_licensing/license_caps.json",
    "used_by": "ai_governance::CC_REQUIRE_CAP_SET_V0, ai_governance::CC_WRITE_LICENSE_CAP_V0",
-   "structure": "ai_governance::STRUCTURE_AI_LICENSING_STORAGE_V0",
+   "structure": "ai_governance::STRUCTURE_AI_LICENSING_STORAGE_V1",
    "_from": "ledger:things/license cap + doctrine:storage"
   },
   {
@@ -6493,7 +6510,7 @@
    "storage_type": "CS_REGISTRY_V0",
    "proposed_path": "ai_governance/ai_licensing/license_identity_registry.jsonl",
    "used_by": "ai_governance::CC_CLAIM_LICENSE_IDENTITY_V0, ai_governance::CC_RELEASE_LICENSE_IDENTITY_V0, ai_governance::CC_RESOLVE_LICENSE_V0",
-   "structure": "ai_governance::STRUCTURE_AI_LICENSING_STORAGE_V0",
+   "structure": "ai_governance::STRUCTURE_AI_LICENSING_STORAGE_V1",
    "_from": "ledger:things/license/identity + doctrine:storage"
   },
   {
@@ -6501,7 +6518,7 @@
    "storage_type": "CS_MUTABLE_JSON_V0",
    "proposed_path": "ai_governance/ai_licensing/licenses.json",
    "used_by": "ai_governance::CC_MOVE_LICENSE_FROM_ACTIVE_V0, ai_governance::CC_RECORD_LICENSE_USAGE_V0, ai_governance::CC_RESOLVE_LICENSE_V0, ai_governance::CC_WRITE_LICENSE_V0",
-   "structure": "ai_governance::STRUCTURE_AI_LICENSING_STORAGE_V0",
+   "structure": "ai_governance::STRUCTURE_AI_LICENSING_STORAGE_V1",
    "_from": "ledger:things/license + doctrine:storage"
   },
   {
@@ -6509,7 +6526,7 @@
    "storage_type": "CS_REGISTRY_V0",
    "proposed_path": "ai_governance/agent_governance/action_identity_registry.jsonl",
    "used_by": "ai_governance::CC_CLAIM_ACTION_IDENTITY_V0",
-   "structure": "ai_governance::STRUCTURE_AGENT_GOVERNANCE_STORAGE_V0",
+   "structure": "ai_governance::STRUCTURE_AGENT_GOVERNANCE_STORAGE_V1",
    "_from": "ledger:things/action/identity + doctrine:storage"
   },
   {
@@ -6517,7 +6534,7 @@
    "storage_type": "CS_MUTABLE_JSON_V0",
    "proposed_path": "ai_governance/agent_governance/actions.json",
    "used_by": "ai_governance::CC_CLAIM_ACTION_IDENTITY_V0, ai_governance::CC_WRITE_ACTION_V0",
-   "structure": "ai_governance::STRUCTURE_AGENT_GOVERNANCE_STORAGE_V0",
+   "structure": "ai_governance::STRUCTURE_AGENT_GOVERNANCE_STORAGE_V1",
    "_from": "ledger:things/action + doctrine:storage"
   },
   {
@@ -6525,7 +6542,7 @@
    "storage_type": "CS_APPENDONLY_JSONL_V0",
    "proposed_path": "ai_governance/agent_governance/governance_audit.jsonl",
    "used_by": "ai_governance::CC_RECORD_AGENT_GOVERNANCE_MOMENT_V0",
-   "structure": "ai_governance::STRUCTURE_AGENT_GOVERNANCE_STORAGE_V0",
+   "structure": "ai_governance::STRUCTURE_AGENT_GOVERNANCE_STORAGE_V1",
    "_from": "ledger:trail + doctrine:storage + carried:surface"
   }
  ],
@@ -6657,7 +6674,7 @@
  ],
  "declared_reach": [
   {
-   "act": "ai_governance::WF_GOVERN_AGENT_ACTION_V0",
+   "act": "ai_governance::WF_GOVERN_AGENT_ACTION_V1",
    "consults": [
     "ai_governance::RB_AI_LICENSING_BINDINGS_V0"
    ],
@@ -6667,5 +6684,122 @@
  "_unrealized": [
   "provision license: 'under the cap' counts licenses; the registry declares no COUNT operation and no carried transform counts records. Not realized."
  ],
- "_conflicts": []
+ "_conflicts": [],
+ "_replaces": {
+  "ai_governance::WF_PROVISION_AI_LICENSING_V0": "ai_governance::WF_PROVISION_LICENSE_V0",
+  "ai_governance::IN_PROVISION_AI_LICENSE_V0": "ai_governance::IN_PROVISION_LICENSE_V0",
+  "ai_governance::WF_DENY_PROVISION_V0": "ai_governance::WF_PROVISION_LICENSE_V0",
+  "ai_governance::IN_DENY_PROVISION_V0": "ai_governance::IN_PROVISION_LICENSE_V0",
+  "ai_governance::WF_AUTO_RECLAIM_V0": "ai_governance::WF_RECLAIM_LICENSE_V0",
+  "ai_governance::IN_RECLAIM_LICENSE_V1": "ai_governance::IN_RECLAIM_LICENSE_V1"
+ },
+ "_identity": {
+  "kept": [
+   "ai_governance::AC_AGENT_V0",
+   "ai_governance::AC_SYSTEM_V0",
+   "ai_governance::CT_PURE_EVALUATE_INACTIVITY_V0",
+   "ai_governance::EV_EMPLOYEE_REGISTERED_V0"
+  ],
+  "new": [
+   "ai_governance::CC_CHECK_GOVERN_AGENT_ACTION_SUBMISSION_V0",
+   "ai_governance::CC_CHECK_PROVISION_LICENSE_SUBMISSION_V0",
+   "ai_governance::CC_CHECK_SET_LICENSE_CAP_SUBMISSION_V0",
+   "ai_governance::CC_CLAIM_ACTION_IDENTITY_V0",
+   "ai_governance::CC_CLAIM_EMPLOYEE_ID_V0",
+   "ai_governance::CC_CLAIM_LICENSE_IDENTITY_V0",
+   "ai_governance::CC_FORM_ACTION_REQUEST_IDENTITY_V0",
+   "ai_governance::CC_MOVE_LICENSE_FROM_ACTIVE_V0",
+   "ai_governance::CC_RECORD_AGENT_GOVERNANCE_MOMENT_V0",
+   "ai_governance::CC_RECORD_AI_LICENSING_MOMENT_V0",
+   "ai_governance::CC_RECORD_LICENSE_USAGE_V0",
+   "ai_governance::CC_RECORD_TRAINING_COMPLETED_V0",
+   "ai_governance::CC_RELEASE_LICENSE_IDENTITY_V0",
+   "ai_governance::CC_REQUIRE_CAP_SET_V0",
+   "ai_governance::CC_REQUIRE_LICENSE_ACTIVE_V0",
+   "ai_governance::CC_REQUIRE_LICENSE_UNUSED_FOR_DAYS_V0",
+   "ai_governance::CC_REQUIRE_PARAMETERS_SATISFY_RULES_V0",
+   "ai_governance::CC_REQUIRE_TIER_ADMITTED_V0",
+   "ai_governance::CC_REQUIRE_TIER_GRANTS_TOOL_V0",
+   "ai_governance::CC_REQUIRE_TOOL_DECLARED_V0",
+   "ai_governance::CC_REQUIRE_TRAINING_COMPLETED_V0",
+   "ai_governance::CC_RESOLVE_EMPLOYEE_IDENTITY_V0",
+   "ai_governance::CC_RESOLVE_LICENSE_V0",
+   "ai_governance::CC_WRITE_ACTION_V0",
+   "ai_governance::CC_WRITE_EMPLOYEE_V0",
+   "ai_governance::CC_WRITE_LICENSE_CAP_V0",
+   "ai_governance::CC_WRITE_LICENSE_V0",
+   "ai_governance::IN_GOVERN_AGENT_ACTION_V0",
+   "ai_governance::IN_PROVISION_LICENSE_V0",
+   "ai_governance::IN_RECORD_LICENSE_USAGE_V0",
+   "ai_governance::IN_RECORD_TRAINING_COMPLETED_V0",
+   "ai_governance::IN_REGISTER_EMPLOYEE_V0",
+   "ai_governance::IN_SET_LICENSE_CAP_V0",
+   "ai_governance::RB_AI_LICENSING_BINDINGS_V0",
+   "ai_governance::WF_PROVISION_LICENSE_V0",
+   "ai_governance::WF_RECLAIM_LICENSE_V0",
+   "ai_governance::WF_RECORD_LICENSE_USAGE_V0",
+   "ai_governance::WF_RECORD_TRAINING_COMPLETED_V0",
+   "ai_governance::WF_REGISTER_EMPLOYEE_V0",
+   "ai_governance::WF_SET_LICENSE_CAP_V0"
+  ],
+  "superseded": {
+   "ai_governance::AC_EMPLOYEE_V0": "ai_governance::AC_EMPLOYEE_V1",
+   "ai_governance::EV_AGENT_ACTION_AUTHORIZED_V0": "ai_governance::EV_AGENT_ACTION_AUTHORIZED_V1",
+   "ai_governance::EV_AGENT_ACTION_DENIED_V0": "ai_governance::EV_AGENT_ACTION_DENIED_V1",
+   "ai_governance::EV_LICENSE_CAP_SET_V0": "ai_governance::EV_LICENSE_CAP_SET_V1",
+   "ai_governance::EV_LICENSE_PROVISIONED_V0": "ai_governance::EV_LICENSE_PROVISIONED_V1",
+   "ai_governance::EV_LICENSE_REVOKED_V0": "ai_governance::EV_LICENSE_REVOKED_V1",
+   "ai_governance::EV_PROVISION_DENIED_V0": "ai_governance::EV_PROVISION_DENIED_V1",
+   "ai_governance::EV_TRAINING_COMPLETED_V0": "ai_governance::EV_TRAINING_COMPLETED_V1",
+   "ai_governance::EV_USAGE_RECORDED_V0": "ai_governance::EV_USAGE_RECORDED_V1",
+   "ai_governance::IN_RECLAIM_LICENSE_V0": "ai_governance::IN_RECLAIM_LICENSE_V1",
+   "ai_governance::RB_AGENT_GOVERNANCE_BINDINGS_V0": "ai_governance::RB_AGENT_GOVERNANCE_BINDINGS_V1",
+   "ai_governance::STRUCTURE_AGENT_GOVERNANCE_STORAGE_V0": "ai_governance::STRUCTURE_AGENT_GOVERNANCE_STORAGE_V1",
+   "ai_governance::STRUCTURE_AI_LICENSING_STORAGE_V0": "ai_governance::STRUCTURE_AI_LICENSING_STORAGE_V1",
+   "ai_governance::WF_GOVERN_AGENT_ACTION_V0": "ai_governance::WF_GOVERN_AGENT_ACTION_V1"
+  },
+  "changed_at": {
+   "ai_governance::AC_EMPLOYEE_V0": 2,
+   "ai_governance::EV_AGENT_ACTION_AUTHORIZED_V0": 6,
+   "ai_governance::EV_AGENT_ACTION_DENIED_V0": 8,
+   "ai_governance::EV_LICENSE_CAP_SET_V0": 7,
+   "ai_governance::EV_LICENSE_PROVISIONED_V0": 2,
+   "ai_governance::EV_LICENSE_REVOKED_V0": 4,
+   "ai_governance::EV_PROVISION_DENIED_V0": 4,
+   "ai_governance::EV_TRAINING_COMPLETED_V0": 3,
+   "ai_governance::EV_USAGE_RECORDED_V0": 5,
+   "ai_governance::IN_RECLAIM_LICENSE_V0": 9,
+   "ai_governance::RB_AGENT_GOVERNANCE_BINDINGS_V0": 7,
+   "ai_governance::STRUCTURE_AGENT_GOVERNANCE_STORAGE_V0": 12,
+   "ai_governance::STRUCTURE_AI_LICENSING_STORAGE_V0": 14,
+   "ai_governance::WF_GOVERN_AGENT_ACTION_V0": 211
+  },
+  "replaced": {
+   "ai_governance::IN_DENY_PROVISION_V0": "ai_governance::IN_PROVISION_LICENSE_V0",
+   "ai_governance::IN_PROVISION_AI_LICENSE_V0": "ai_governance::IN_PROVISION_LICENSE_V0",
+   "ai_governance::WF_AUTO_RECLAIM_V0": "ai_governance::WF_RECLAIM_LICENSE_V0",
+   "ai_governance::WF_DENY_PROVISION_V0": "ai_governance::WF_PROVISION_LICENSE_V0",
+   "ai_governance::WF_PROVISION_AI_LICENSING_V0": "ai_governance::WF_PROVISION_LICENSE_V0"
+  },
+  "retired": [
+   "ai_governance::AC_ENTERPRISE_RUNTIME_V0",
+   "ai_governance::AC_SYSTEM_GOVERNOR_V0",
+   "ai_governance::CC_APPEND_AUDIT_EVENT_V0",
+   "ai_governance::CC_BIND_LICENSE_TO_TOOL_SURFACE_V0",
+   "ai_governance::CC_CHECK_TOOL_DECLARED_V0",
+   "ai_governance::CC_NORMALIZE_AGENT_REQUEST_V0",
+   "ai_governance::CC_PROVISION_LICENSE_V0",
+   "ai_governance::CC_RECLAIM_UNUSED_LICENSE_V0",
+   "ai_governance::CC_RECORD_DENIED_ACTION_V0",
+   "ai_governance::CC_RECORD_GOVERNED_ACTION_V0",
+   "ai_governance::CC_RESOLVE_LICENSE_TIER_V0",
+   "ai_governance::CC_VALIDATE_ELIGIBILITY_V0",
+   "ai_governance::CC_VALIDATE_TOOL_PARAMETERS_V0",
+   "ai_governance::CT_PURE_CHECK_QUOTA_AVAILABLE_V0",
+   "ai_governance::CT_PURE_CHECK_TRAINING_STATUS_V0",
+   "ai_governance::IN_AGENT_ACTION_REQUESTED_V0",
+   "ai_governance::RB_LICENSE_BINDINGS_V0",
+   "ai_governance::VOCAB_AI_LICENSING_STATES_V0"
+  ]
+ }
 }

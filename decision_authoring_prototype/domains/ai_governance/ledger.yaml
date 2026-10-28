@@ -1,5 +1,5 @@
 # The ai_governance ledger, whole domain, in closed shapes. Each operation says what it does
-# (create, change, read, query) and to which things; engine/compose.py selects the blocks.
+# (create, change, read, query) and to which things; transformation/decision/compose.py selects the blocks.
 # Normalized by hand from LEDGER_OWNER_ANSWERS_AI_GOVERNANCE.yaml ("owner") and
 # LEDGER_BRIEF_RUN_AI_GOVERNANCE.yaml ("brief-run"). No business statement exists for this domain:
 # the owner is the authority for every answer.
@@ -80,7 +80,8 @@ parts:
           - {name: cap set, exists: {thing: license cap}}
           - {name: under the cap, count: {thing: license, holds: {state: active}, below: {thing: license cap, field: cap}}}
         on_refusal: {announces: provision denied}
-        from: "owner / training record, tier, cap, one active per employee, deny act dropped"
+        replaces: [provision ai licensing, deny provision]
+        from: "owner / training record, tier, cap, one active per employee, deny act dropped (its denial is this act's)"
       record license usage:
         does: change
         thing: license
@@ -99,6 +100,7 @@ parts:
         when: {unused_for_days: 30, since: last_used_at}
         otherwise: still active
         releases: identity
+        replaces: [auto reclaim]
         from: "owner / 30 days fixed, one license at a time, by the system; cr_02 refused removal"
     trail:
       records: [employee_id, license_id, tier, reason]

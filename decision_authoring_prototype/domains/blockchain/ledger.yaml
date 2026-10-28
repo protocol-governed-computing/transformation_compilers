@@ -1,8 +1,8 @@
 # The blockchain ledger, whole domain, in closed shapes. Each operation says what it does
-# (create, change, read, query) and to which things; engine/compose.py selects the blocks.
+# (create, change, read, query) and to which things; transformation/decision/compose.py selects the blocks.
 # Normalized by hand from LEDGER_BRIEF_RUN_BLOCKCHAIN.yaml (the blind run, "brief-run") and
 # LEDGER_OWNER_ANSWERS_BLOCKCHAIN.yaml ("owner"). `from` names the entries each value comes from.
-# Doctrine (engine/doctrine.yaml) is not restated here: own_values, rules_held and
+# Doctrine (transformation/decision/doctrine.yaml) is not restated here: own_values, rules_held and
 # failed_record_ends replace the brief-run's value_source (fixed, clock),
 # request_cannot_override and on_record_failure.
 

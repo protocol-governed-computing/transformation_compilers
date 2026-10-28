@@ -1,5 +1,5 @@
 # The library catalog ledger, whole domain, in closed shapes. Each operation says what it does
-# (create, change, read, query) and to which things; engine/compose.py selects the blocks.
+# (create, change, read, query) and to which things; transformation/decision/compose.py selects the blocks.
 # Normalized by hand from LEDGER_BRIEF_RUN_LIBRARY_CATALOG.yaml and
 # LEDGER_OWNER_ANSWERS_LIBRARY_CATALOG.yaml. `from` names the entry each value comes from.
 

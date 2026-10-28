@@ -1,4 +1,21 @@
 {
+ "_judged_by": {
+  "doctrine": {
+   "id": "transformation.decision.DOCTRINE_V0",
+   "revision": 2,
+   "digest": "sha256:87dbe1471dd784a340dbf60e8f3d96eed5ed09e6cdbd4ab2f31aebf78785fb7f"
+  },
+  "ledger_schema": {
+   "id": "transformation.decision.LEDGER_SCHEMA_V0",
+   "revision": 2,
+   "digest": "sha256:929186492ed3c7a768ffade5416beb89e70672607af2a1eb859df9880fdb8154"
+  },
+  "catalog": {
+   "id": "transformation.decision.CATALOG_V0",
+   "revision": 2,
+   "digest": "sha256:8fbe0c355b3b3f828e612d8023036ec91cc5502f5a2340dd462fb7440d96eab5"
+  }
+ },
  "new_artifacts": [
   {
    "family": "AC",
@@ -42,7 +59,7 @@
   },
   {
    "family": "CC",
-   "code": "book_library_mgmt::CC_CLAIM_BOOK_IDENTITY_V0",
+   "code": "book_library_mgmt::CC_CLAIM_BOOK_IDENTITY_V1",
    "summary": "Claim a book's identity key",
    "owner_subdomain": "catalog",
    "status": "NEW",
@@ -50,7 +67,7 @@
   },
   {
    "family": "CC",
-   "code": "book_library_mgmt::CC_CLAIM_COPY_BARCODE_V0",
+   "code": "book_library_mgmt::CC_CLAIM_COPY_BARCODE_V1",
    "summary": "Claim a physical copy's barcode",
    "owner_subdomain": "catalog",
    "status": "NEW",
@@ -58,7 +75,7 @@
   },
   {
    "family": "CC",
-   "code": "book_library_mgmt::CC_CLAIM_WORK_IDENTITY_V0",
+   "code": "book_library_mgmt::CC_CLAIM_WORK_IDENTITY_V1",
    "summary": "Claim a work's work key",
    "owner_subdomain": "catalog",
    "status": "NEW",
@@ -106,7 +123,7 @@
   },
   {
    "family": "CC",
-   "code": "book_library_mgmt::CC_RESOLVE_WORK_V0",
+   "code": "book_library_mgmt::CC_RESOLVE_WORK_V1",
    "summary": "Answer which work its identity names, and refuse when none does",
    "owner_subdomain": "catalog",
    "status": "NEW",
@@ -114,7 +131,7 @@
   },
   {
    "family": "CC",
-   "code": "book_library_mgmt::CC_RESOLVE_BOOK_IDENTITY_V0",
+   "code": "book_library_mgmt::CC_RESOLVE_BOOK_IDENTITY_V1",
    "summary": "Answer which book its identity names, and refuse when none does",
    "owner_subdomain": "catalog",
    "status": "NEW",
@@ -122,7 +139,7 @@
   },
   {
    "family": "CC",
-   "code": "book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
+   "code": "book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
    "summary": "Prepare a corrected book under the identity its correction names",
    "owner_subdomain": "catalog",
    "status": "NEW",
@@ -194,7 +211,7 @@
   },
   {
    "family": "CC",
-   "code": "book_library_mgmt::CC_SEARCH_CATALOG_V0",
+   "code": "book_library_mgmt::CC_SEARCH_CATALOG_V1",
    "summary": "Answer the books matching the criteria named",
    "owner_subdomain": "catalog",
    "status": "NEW",
@@ -202,7 +219,7 @@
   },
   {
    "family": "WF",
-   "code": "book_library_mgmt::WF_REGISTER_BOOK_V0",
+   "code": "book_library_mgmt::WF_REGISTER_BOOK_V1",
    "summary": "The governed sequence that performs: register book",
    "owner_subdomain": "catalog",
    "status": "NEW",
@@ -218,7 +235,7 @@
   },
   {
    "family": "WF",
-   "code": "book_library_mgmt::WF_REGISTER_ADDITIONAL_EDITION_V0",
+   "code": "book_library_mgmt::WF_REGISTER_ADDITIONAL_EDITION_V1",
    "summary": "The governed sequence that performs: register additional edition",
    "owner_subdomain": "catalog",
    "status": "NEW",
@@ -234,7 +251,7 @@
   },
   {
    "family": "WF",
-   "code": "book_library_mgmt::WF_REGISTER_PHYSICAL_COPY_V0",
+   "code": "book_library_mgmt::WF_REGISTER_PHYSICAL_COPY_V1",
    "summary": "The governed sequence that performs: register physical copy",
    "owner_subdomain": "catalog",
    "status": "NEW",
@@ -250,7 +267,7 @@
   },
   {
    "family": "WF",
-   "code": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
+   "code": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
    "summary": "The governed sequence that performs: update bibliographic information",
    "owner_subdomain": "catalog",
    "status": "NEW",
@@ -266,7 +283,7 @@
   },
   {
    "family": "WF",
-   "code": "book_library_mgmt::WF_RETIRE_BOOK_RECORD_V0",
+   "code": "book_library_mgmt::WF_RETIRE_BOOK_RECORD_V1",
    "summary": "The governed sequence that performs: retire book record",
    "owner_subdomain": "catalog",
    "status": "NEW",
@@ -282,7 +299,7 @@
   },
   {
    "family": "WF",
-   "code": "book_library_mgmt::WF_REINSTATE_BOOK_RECORD_V0",
+   "code": "book_library_mgmt::WF_REINSTATE_BOOK_RECORD_V1",
    "summary": "The governed sequence that performs: reinstate book record",
    "owner_subdomain": "catalog",
    "status": "NEW",
@@ -298,7 +315,7 @@
   },
   {
    "family": "WF",
-   "code": "book_library_mgmt::WF_RETIRE_PHYSICAL_COPY_V0",
+   "code": "book_library_mgmt::WF_RETIRE_PHYSICAL_COPY_V1",
    "summary": "The governed sequence that performs: retire physical copy",
    "owner_subdomain": "catalog",
    "status": "NEW",
@@ -314,7 +331,7 @@
   },
   {
    "family": "WF",
-   "code": "book_library_mgmt::WF_REINSTATE_PHYSICAL_COPY_V0",
+   "code": "book_library_mgmt::WF_REINSTATE_PHYSICAL_COPY_V1",
    "summary": "The governed sequence that performs: reinstate physical copy",
    "owner_subdomain": "catalog",
    "status": "NEW",
@@ -330,7 +347,7 @@
   },
   {
    "family": "WF",
-   "code": "book_library_mgmt::WF_RETRIEVE_BOOK_DETAILS_V0",
+   "code": "book_library_mgmt::WF_RETRIEVE_BOOK_DETAILS_V1",
    "summary": "The governed sequence that performs: retrieve book details",
    "owner_subdomain": "catalog",
    "status": "NEW",
@@ -346,7 +363,7 @@
   },
   {
    "family": "WF",
-   "code": "book_library_mgmt::WF_SEARCH_CATALOG_V0",
+   "code": "book_library_mgmt::WF_SEARCH_CATALOG_V1",
    "summary": "The governed sequence that performs: search catalog",
    "owner_subdomain": "catalog",
    "status": "NEW",
@@ -378,7 +395,7 @@
   },
   {
    "family": "EV",
-   "code": "book_library_mgmt::EV_PHYSICAL_COPY_REGISTERED_V0",
+   "code": "book_library_mgmt::EV_PHYSICAL_COPY_REGISTERED_V1",
    "summary": "A physical copy registered",
    "owner_subdomain": "catalog",
    "status": "NEW",
@@ -460,7 +477,7 @@
  "rb_declarations": [
   {
    "rb_code": "book_library_mgmt::RB_CATALOG_BINDINGS_V0",
-   "binds_wf": "book_library_mgmt::WF_REGISTER_BOOK_V0",
+   "binds_wf": "book_library_mgmt::WF_REGISTER_BOOK_V1",
    "cs_bindings": [
     "capability_side_effects::CS_MUTABLE_JSON_V0",
     "capability_side_effects::CS_REGISTRY_V0",
@@ -471,7 +488,7 @@
   },
   {
    "rb_code": "book_library_mgmt::RB_CATALOG_BINDINGS_V0",
-   "binds_wf": "book_library_mgmt::WF_REGISTER_ADDITIONAL_EDITION_V0",
+   "binds_wf": "book_library_mgmt::WF_REGISTER_ADDITIONAL_EDITION_V1",
    "cs_bindings": [
     "capability_side_effects::CS_MUTABLE_JSON_V0",
     "capability_side_effects::CS_REGISTRY_V0",
@@ -482,7 +499,7 @@
   },
   {
    "rb_code": "book_library_mgmt::RB_CATALOG_BINDINGS_V0",
-   "binds_wf": "book_library_mgmt::WF_REGISTER_PHYSICAL_COPY_V0",
+   "binds_wf": "book_library_mgmt::WF_REGISTER_PHYSICAL_COPY_V1",
    "cs_bindings": [
     "capability_side_effects::CS_MUTABLE_JSON_V0",
     "capability_side_effects::CS_REGISTRY_V0",
@@ -493,7 +510,7 @@
   },
   {
    "rb_code": "book_library_mgmt::RB_CATALOG_BINDINGS_V0",
-   "binds_wf": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
+   "binds_wf": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
    "cs_bindings": [
     "capability_side_effects::CS_MUTABLE_JSON_V0",
     "capability_side_effects::CS_REGISTRY_V0",
@@ -504,7 +521,7 @@
   },
   {
    "rb_code": "book_library_mgmt::RB_CATALOG_BINDINGS_V0",
-   "binds_wf": "book_library_mgmt::WF_RETIRE_BOOK_RECORD_V0",
+   "binds_wf": "book_library_mgmt::WF_RETIRE_BOOK_RECORD_V1",
    "cs_bindings": [
     "capability_side_effects::CS_MUTABLE_JSON_V0",
     "capability_side_effects::CS_REGISTRY_V0",
@@ -515,7 +532,7 @@
   },
   {
    "rb_code": "book_library_mgmt::RB_CATALOG_BINDINGS_V0",
-   "binds_wf": "book_library_mgmt::WF_REINSTATE_BOOK_RECORD_V0",
+   "binds_wf": "book_library_mgmt::WF_REINSTATE_BOOK_RECORD_V1",
    "cs_bindings": [
     "capability_side_effects::CS_MUTABLE_JSON_V0",
     "capability_side_effects::CS_REGISTRY_V0",
@@ -526,7 +543,7 @@
   },
   {
    "rb_code": "book_library_mgmt::RB_CATALOG_BINDINGS_V0",
-   "binds_wf": "book_library_mgmt::WF_RETIRE_PHYSICAL_COPY_V0",
+   "binds_wf": "book_library_mgmt::WF_RETIRE_PHYSICAL_COPY_V1",
    "cs_bindings": [
     "capability_side_effects::CS_MUTABLE_JSON_V0",
     "capability_side_effects::CS_REGISTRY_V0",
@@ -537,7 +554,7 @@
   },
   {
    "rb_code": "book_library_mgmt::RB_CATALOG_BINDINGS_V0",
-   "binds_wf": "book_library_mgmt::WF_REINSTATE_PHYSICAL_COPY_V0",
+   "binds_wf": "book_library_mgmt::WF_REINSTATE_PHYSICAL_COPY_V1",
    "cs_bindings": [
     "capability_side_effects::CS_MUTABLE_JSON_V0",
     "capability_side_effects::CS_REGISTRY_V0",
@@ -548,7 +565,7 @@
   },
   {
    "rb_code": "book_library_mgmt::RB_CATALOG_BINDINGS_V0",
-   "binds_wf": "book_library_mgmt::WF_RETRIEVE_BOOK_DETAILS_V0",
+   "binds_wf": "book_library_mgmt::WF_RETRIEVE_BOOK_DETAILS_V1",
    "cs_bindings": [
     "capability_side_effects::CS_MUTABLE_JSON_V0",
     "capability_side_effects::CS_REGISTRY_V0",
@@ -559,7 +576,7 @@
   },
   {
    "rb_code": "book_library_mgmt::RB_CATALOG_BINDINGS_V0",
-   "binds_wf": "book_library_mgmt::WF_SEARCH_CATALOG_V0",
+   "binds_wf": "book_library_mgmt::WF_SEARCH_CATALOG_V1",
    "cs_bindings": [
     "capability_side_effects::CS_MUTABLE_JSON_V0",
     "capability_side_effects::CS_REGISTRY_V0",
@@ -571,7 +588,7 @@
  ],
  "execution_topology": [
   {
-   "workflow": "book_library_mgmt::WF_REGISTER_BOOK_V0",
+   "workflow": "book_library_mgmt::WF_REGISTER_BOOK_V1",
    "node": "IN_REGISTER_BOOK_V0",
    "node_type": "IN",
    "routing": {
@@ -581,7 +598,7 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_REGISTER_BOOK_V0",
+   "workflow": "book_library_mgmt::WF_REGISTER_BOOK_V1",
    "node": "CC_CONFIRM_STAFF_AUTHORIZED_V0",
    "node_type": "CC",
    "routing": {
@@ -591,7 +608,7 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_REGISTER_BOOK_V0",
+   "workflow": "book_library_mgmt::WF_REGISTER_BOOK_V1",
    "node": "CC_CHECK_REGISTER_BOOK_SUBMISSION_V0",
    "node_type": "CC",
    "routing": {
@@ -601,22 +618,22 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_REGISTER_BOOK_V0",
+   "workflow": "book_library_mgmt::WF_REGISTER_BOOK_V1",
    "node": "CC_REQUIRE_COPY_BARCODE_FREE_V0",
    "node_type": "CC",
    "routing": {
-    "SUCCESS": "CC_CLAIM_BOOK_IDENTITY_V0",
+    "SUCCESS": "CC_CLAIM_BOOK_IDENTITY_V1",
     "VIOLATION": "EXIT_REJECTED",
     "BACKEND_ERROR": "EXIT_REJECTED"
    },
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_REGISTER_BOOK_V0",
-   "node": "CC_CLAIM_BOOK_IDENTITY_V0",
+   "workflow": "book_library_mgmt::WF_REGISTER_BOOK_V1",
+   "node": "CC_CLAIM_BOOK_IDENTITY_V1",
    "node_type": "CC",
    "routing": {
-    "SUCCESS": "CC_CLAIM_COPY_BARCODE_V0",
+    "SUCCESS": "CC_CLAIM_COPY_BARCODE_V1",
     "VIOLATION": "EXIT_REJECTED",
     "ALREADY_EXISTS": "EXIT_REJECTED",
     "BACKEND_ERROR": "EXIT_REJECTED"
@@ -624,11 +641,11 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_REGISTER_BOOK_V0",
-   "node": "CC_CLAIM_COPY_BARCODE_V0",
+   "workflow": "book_library_mgmt::WF_REGISTER_BOOK_V1",
+   "node": "CC_CLAIM_COPY_BARCODE_V1",
    "node_type": "CC",
    "routing": {
-    "SUCCESS": "CC_CLAIM_WORK_IDENTITY_V0",
+    "SUCCESS": "CC_CLAIM_WORK_IDENTITY_V1",
     "ALREADY_EXISTS": "EXIT_REJECTED",
     "VIOLATION": "EXIT_REJECTED",
     "BACKEND_ERROR": "EXIT_REJECTED"
@@ -636,8 +653,8 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_REGISTER_BOOK_V0",
-   "node": "CC_CLAIM_WORK_IDENTITY_V0",
+   "workflow": "book_library_mgmt::WF_REGISTER_BOOK_V1",
+   "node": "CC_CLAIM_WORK_IDENTITY_V1",
    "node_type": "CC",
    "routing": {
     "SUCCESS": "CC_WRITE_BOOK_V0",
@@ -648,7 +665,7 @@
    "_from": "ledger:things/work/identity"
   },
   {
-   "workflow": "book_library_mgmt::WF_REGISTER_BOOK_V0",
+   "workflow": "book_library_mgmt::WF_REGISTER_BOOK_V1",
    "node": "CC_WRITE_BOOK_V0",
    "node_type": "CC",
    "routing": {
@@ -659,7 +676,7 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_REGISTER_BOOK_V0",
+   "workflow": "book_library_mgmt::WF_REGISTER_BOOK_V1",
    "node": "CC_WRITE_PHYSICAL_COPY_V0",
    "node_type": "CC",
    "routing": {
@@ -670,7 +687,7 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_REGISTER_BOOK_V0",
+   "workflow": "book_library_mgmt::WF_REGISTER_BOOK_V1",
    "node": "CC_RECORD_CATALOG_MOMENT_V0",
    "node_type": "CC",
    "routing": {
@@ -681,21 +698,21 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_REGISTER_BOOK_V0",
+   "workflow": "book_library_mgmt::WF_REGISTER_BOOK_V1",
    "node": "EXIT_COMPLETED",
    "node_type": "EXIT",
    "routing": null,
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_REGISTER_BOOK_V0",
+   "workflow": "book_library_mgmt::WF_REGISTER_BOOK_V1",
    "node": "EXIT_REJECTED",
    "node_type": "EXIT",
    "routing": null,
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_REGISTER_ADDITIONAL_EDITION_V0",
+   "workflow": "book_library_mgmt::WF_REGISTER_ADDITIONAL_EDITION_V1",
    "node": "IN_REGISTER_ADDITIONAL_EDITION_V0",
    "node_type": "IN",
    "routing": {
@@ -705,7 +722,7 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_REGISTER_ADDITIONAL_EDITION_V0",
+   "workflow": "book_library_mgmt::WF_REGISTER_ADDITIONAL_EDITION_V1",
    "node": "CC_CONFIRM_STAFF_AUTHORIZED_V0",
    "node_type": "CC",
    "routing": {
@@ -715,21 +732,21 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_REGISTER_ADDITIONAL_EDITION_V0",
+   "workflow": "book_library_mgmt::WF_REGISTER_ADDITIONAL_EDITION_V1",
    "node": "CC_CHECK_REGISTER_ADDITIONAL_EDITION_SUBMISSION_V0",
    "node_type": "CC",
    "routing": {
-    "SUCCESS": "CC_RESOLVE_WORK_V0",
+    "SUCCESS": "CC_RESOLVE_WORK_V1",
     "VIOLATION": "EXIT_REJECTED"
    },
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_REGISTER_ADDITIONAL_EDITION_V0",
-   "node": "CC_RESOLVE_WORK_V0",
+   "workflow": "book_library_mgmt::WF_REGISTER_ADDITIONAL_EDITION_V1",
+   "node": "CC_RESOLVE_WORK_V1",
    "node_type": "CC",
    "routing": {
-    "SUCCESS": "CC_CLAIM_BOOK_IDENTITY_V0",
+    "SUCCESS": "CC_CLAIM_BOOK_IDENTITY_V1",
     "VIOLATION": "EXIT_REJECTED",
     "NOT_FOUND": "EXIT_REJECTED",
     "BACKEND_ERROR": "EXIT_REJECTED"
@@ -737,8 +754,8 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_REGISTER_ADDITIONAL_EDITION_V0",
-   "node": "CC_CLAIM_BOOK_IDENTITY_V0",
+   "workflow": "book_library_mgmt::WF_REGISTER_ADDITIONAL_EDITION_V1",
+   "node": "CC_CLAIM_BOOK_IDENTITY_V1",
    "node_type": "CC",
    "routing": {
     "SUCCESS": "CC_WRITE_BOOK_V0",
@@ -749,7 +766,7 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_REGISTER_ADDITIONAL_EDITION_V0",
+   "workflow": "book_library_mgmt::WF_REGISTER_ADDITIONAL_EDITION_V1",
    "node": "CC_WRITE_BOOK_V0",
    "node_type": "CC",
    "routing": {
@@ -760,7 +777,7 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_REGISTER_ADDITIONAL_EDITION_V0",
+   "workflow": "book_library_mgmt::WF_REGISTER_ADDITIONAL_EDITION_V1",
    "node": "CC_RECORD_CATALOG_MOMENT_V0",
    "node_type": "CC",
    "routing": {
@@ -771,21 +788,21 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_REGISTER_ADDITIONAL_EDITION_V0",
+   "workflow": "book_library_mgmt::WF_REGISTER_ADDITIONAL_EDITION_V1",
    "node": "EXIT_COMPLETED",
    "node_type": "EXIT",
    "routing": null,
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_REGISTER_ADDITIONAL_EDITION_V0",
+   "workflow": "book_library_mgmt::WF_REGISTER_ADDITIONAL_EDITION_V1",
    "node": "EXIT_REJECTED",
    "node_type": "EXIT",
    "routing": null,
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_REGISTER_PHYSICAL_COPY_V0",
+   "workflow": "book_library_mgmt::WF_REGISTER_PHYSICAL_COPY_V1",
    "node": "IN_REGISTER_PHYSICAL_COPY_V0",
    "node_type": "IN",
    "routing": {
@@ -795,21 +812,21 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_REGISTER_PHYSICAL_COPY_V0",
+   "workflow": "book_library_mgmt::WF_REGISTER_PHYSICAL_COPY_V1",
    "node": "CC_CONFIRM_STAFF_AUTHORIZED_V0",
    "node_type": "CC",
    "routing": {
-    "SUCCESS": "CC_RESOLVE_BOOK_IDENTITY_V0",
+    "SUCCESS": "CC_RESOLVE_BOOK_IDENTITY_V1",
     "VIOLATION": "EXIT_REJECTED"
    },
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_REGISTER_PHYSICAL_COPY_V0",
-   "node": "CC_RESOLVE_BOOK_IDENTITY_V0",
+   "workflow": "book_library_mgmt::WF_REGISTER_PHYSICAL_COPY_V1",
+   "node": "CC_RESOLVE_BOOK_IDENTITY_V1",
    "node_type": "CC",
    "routing": {
-    "SUCCESS": "CC_CLAIM_COPY_BARCODE_V0",
+    "SUCCESS": "CC_CLAIM_COPY_BARCODE_V1",
     "NOT_FOUND": "EXIT_REJECTED",
     "VIOLATION": "EXIT_REJECTED",
     "BACKEND_ERROR": "EXIT_REJECTED"
@@ -817,8 +834,8 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_REGISTER_PHYSICAL_COPY_V0",
-   "node": "CC_CLAIM_COPY_BARCODE_V0",
+   "workflow": "book_library_mgmt::WF_REGISTER_PHYSICAL_COPY_V1",
+   "node": "CC_CLAIM_COPY_BARCODE_V1",
    "node_type": "CC",
    "routing": {
     "SUCCESS": "CC_WRITE_PHYSICAL_COPY_V0",
@@ -829,7 +846,7 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_REGISTER_PHYSICAL_COPY_V0",
+   "workflow": "book_library_mgmt::WF_REGISTER_PHYSICAL_COPY_V1",
    "node": "CC_WRITE_PHYSICAL_COPY_V0",
    "node_type": "CC",
    "routing": {
@@ -840,7 +857,7 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_REGISTER_PHYSICAL_COPY_V0",
+   "workflow": "book_library_mgmt::WF_REGISTER_PHYSICAL_COPY_V1",
    "node": "CC_RECORD_CATALOG_MOMENT_V0",
    "node_type": "CC",
    "routing": {
@@ -851,21 +868,21 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_REGISTER_PHYSICAL_COPY_V0",
+   "workflow": "book_library_mgmt::WF_REGISTER_PHYSICAL_COPY_V1",
    "node": "EXIT_COMPLETED",
    "node_type": "EXIT",
    "routing": null,
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_REGISTER_PHYSICAL_COPY_V0",
+   "workflow": "book_library_mgmt::WF_REGISTER_PHYSICAL_COPY_V1",
    "node": "EXIT_REJECTED",
    "node_type": "EXIT",
    "routing": null,
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
+   "workflow": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
    "node": "IN_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
    "node_type": "IN",
    "routing": {
@@ -875,21 +892,21 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
+   "workflow": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
    "node": "CC_CONFIRM_STAFF_AUTHORIZED_V0",
    "node_type": "CC",
    "routing": {
-    "SUCCESS": "CC_RESOLVE_BOOK_IDENTITY_V0",
+    "SUCCESS": "CC_RESOLVE_BOOK_IDENTITY_V1",
     "VIOLATION": "EXIT_REJECTED"
    },
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
-   "node": "CC_RESOLVE_BOOK_IDENTITY_V0",
+   "workflow": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
+   "node": "CC_RESOLVE_BOOK_IDENTITY_V1",
    "node_type": "CC",
    "routing": {
-    "SUCCESS": "CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
+    "SUCCESS": "CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
     "NOT_FOUND": "EXIT_REJECTED",
     "VIOLATION": "EXIT_REJECTED",
     "BACKEND_ERROR": "EXIT_REJECTED"
@@ -897,8 +914,8 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
-   "node": "CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
+   "workflow": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
+   "node": "CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
    "node_type": "CC",
    "routing": {
     "SUCCESS": "CC_CONFIRM_BOOK_IDENTITY_UNCHANGED_V0",
@@ -909,17 +926,17 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
+   "workflow": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
    "node": "CC_CONFIRM_BOOK_IDENTITY_UNCHANGED_V0",
    "node_type": "CC",
    "routing": {
     "SUCCESS": "CC_WRITE_CORRECTED_BOOK_RECORD_V0",
-    "VIOLATION": "CC_CLAIM_BOOK_IDENTITY_V0"
+    "VIOLATION": "CC_CLAIM_BOOK_IDENTITY_V1"
    },
    "_from": "ledger:operations/update bibliographic information"
   },
   {
-   "workflow": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
+   "workflow": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
    "node": "CC_WRITE_CORRECTED_BOOK_RECORD_V0",
    "node_type": "CC",
    "routing": {
@@ -930,11 +947,11 @@
    "_from": "ledger:operations/update bibliographic information"
   },
   {
-   "workflow": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
-   "node": "CC_CLAIM_BOOK_IDENTITY_V0",
+   "workflow": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
+   "node": "CC_CLAIM_BOOK_IDENTITY_V1",
    "node_type": "CC",
    "routing": {
-    "SUCCESS": "CC_CLAIM_WORK_IDENTITY_V0",
+    "SUCCESS": "CC_CLAIM_WORK_IDENTITY_V1",
     "VIOLATION": "EXIT_REJECTED",
     "ALREADY_EXISTS": "EXIT_REJECTED",
     "BACKEND_ERROR": "EXIT_REJECTED"
@@ -942,8 +959,8 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
-   "node": "CC_CLAIM_WORK_IDENTITY_V0",
+   "workflow": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
+   "node": "CC_CLAIM_WORK_IDENTITY_V1",
    "node_type": "CC",
    "routing": {
     "SUCCESS": "CC_REKEY_BOOK_V0",
@@ -954,7 +971,7 @@
    "_from": "ledger:operations/update bibliographic information/on_identity_change/work"
   },
   {
-   "workflow": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
+   "workflow": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
    "node": "CC_REKEY_BOOK_V0",
    "node_type": "CC",
    "routing": {
@@ -966,7 +983,7 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
+   "workflow": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
    "node": "CC_RECORD_CATALOG_MOMENT_V0",
    "node_type": "CC",
    "routing": {
@@ -977,21 +994,21 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
+   "workflow": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
    "node": "EXIT_COMPLETED",
    "node_type": "EXIT",
    "routing": null,
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
+   "workflow": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
    "node": "EXIT_REJECTED",
    "node_type": "EXIT",
    "routing": null,
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_RETIRE_BOOK_RECORD_V0",
+   "workflow": "book_library_mgmt::WF_RETIRE_BOOK_RECORD_V1",
    "node": "IN_RETIRE_BOOK_RECORD_V0",
    "node_type": "IN",
    "routing": {
@@ -1001,7 +1018,7 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_RETIRE_BOOK_RECORD_V0",
+   "workflow": "book_library_mgmt::WF_RETIRE_BOOK_RECORD_V1",
    "node": "CC_CONFIRM_STAFF_AUTHORIZED_V0",
    "node_type": "CC",
    "routing": {
@@ -1011,7 +1028,7 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_RETIRE_BOOK_RECORD_V0",
+   "workflow": "book_library_mgmt::WF_RETIRE_BOOK_RECORD_V1",
    "node": "CC_MOVE_BOOK_FROM_REGISTERED_V0",
    "node_type": "CC",
    "routing": {
@@ -1022,7 +1039,7 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_RETIRE_BOOK_RECORD_V0",
+   "workflow": "book_library_mgmt::WF_RETIRE_BOOK_RECORD_V1",
    "node": "CC_RECORD_CATALOG_MOMENT_V0",
    "node_type": "CC",
    "routing": {
@@ -1033,21 +1050,21 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_RETIRE_BOOK_RECORD_V0",
+   "workflow": "book_library_mgmt::WF_RETIRE_BOOK_RECORD_V1",
    "node": "EXIT_COMPLETED",
    "node_type": "EXIT",
    "routing": null,
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_RETIRE_BOOK_RECORD_V0",
+   "workflow": "book_library_mgmt::WF_RETIRE_BOOK_RECORD_V1",
    "node": "EXIT_REJECTED",
    "node_type": "EXIT",
    "routing": null,
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_REINSTATE_BOOK_RECORD_V0",
+   "workflow": "book_library_mgmt::WF_REINSTATE_BOOK_RECORD_V1",
    "node": "IN_REINSTATE_BOOK_RECORD_V0",
    "node_type": "IN",
    "routing": {
@@ -1057,7 +1074,7 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_REINSTATE_BOOK_RECORD_V0",
+   "workflow": "book_library_mgmt::WF_REINSTATE_BOOK_RECORD_V1",
    "node": "CC_CONFIRM_STAFF_AUTHORIZED_V0",
    "node_type": "CC",
    "routing": {
@@ -1067,7 +1084,7 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_REINSTATE_BOOK_RECORD_V0",
+   "workflow": "book_library_mgmt::WF_REINSTATE_BOOK_RECORD_V1",
    "node": "CC_MOVE_BOOK_FROM_RETIRED_V0",
    "node_type": "CC",
    "routing": {
@@ -1078,7 +1095,7 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_REINSTATE_BOOK_RECORD_V0",
+   "workflow": "book_library_mgmt::WF_REINSTATE_BOOK_RECORD_V1",
    "node": "CC_RECORD_CATALOG_MOMENT_V0",
    "node_type": "CC",
    "routing": {
@@ -1089,21 +1106,21 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_REINSTATE_BOOK_RECORD_V0",
+   "workflow": "book_library_mgmt::WF_REINSTATE_BOOK_RECORD_V1",
    "node": "EXIT_COMPLETED",
    "node_type": "EXIT",
    "routing": null,
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_REINSTATE_BOOK_RECORD_V0",
+   "workflow": "book_library_mgmt::WF_REINSTATE_BOOK_RECORD_V1",
    "node": "EXIT_REJECTED",
    "node_type": "EXIT",
    "routing": null,
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_RETIRE_PHYSICAL_COPY_V0",
+   "workflow": "book_library_mgmt::WF_RETIRE_PHYSICAL_COPY_V1",
    "node": "IN_RETIRE_PHYSICAL_COPY_V0",
    "node_type": "IN",
    "routing": {
@@ -1113,7 +1130,7 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_RETIRE_PHYSICAL_COPY_V0",
+   "workflow": "book_library_mgmt::WF_RETIRE_PHYSICAL_COPY_V1",
    "node": "CC_CONFIRM_STAFF_AUTHORIZED_V0",
    "node_type": "CC",
    "routing": {
@@ -1123,7 +1140,7 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_RETIRE_PHYSICAL_COPY_V0",
+   "workflow": "book_library_mgmt::WF_RETIRE_PHYSICAL_COPY_V1",
    "node": "CC_MOVE_PHYSICAL_COPY_FROM_REGISTERED_V0",
    "node_type": "CC",
    "routing": {
@@ -1134,7 +1151,7 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_RETIRE_PHYSICAL_COPY_V0",
+   "workflow": "book_library_mgmt::WF_RETIRE_PHYSICAL_COPY_V1",
    "node": "CC_RECORD_CATALOG_MOMENT_V0",
    "node_type": "CC",
    "routing": {
@@ -1145,21 +1162,21 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_RETIRE_PHYSICAL_COPY_V0",
+   "workflow": "book_library_mgmt::WF_RETIRE_PHYSICAL_COPY_V1",
    "node": "EXIT_COMPLETED",
    "node_type": "EXIT",
    "routing": null,
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_RETIRE_PHYSICAL_COPY_V0",
+   "workflow": "book_library_mgmt::WF_RETIRE_PHYSICAL_COPY_V1",
    "node": "EXIT_REJECTED",
    "node_type": "EXIT",
    "routing": null,
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_REINSTATE_PHYSICAL_COPY_V0",
+   "workflow": "book_library_mgmt::WF_REINSTATE_PHYSICAL_COPY_V1",
    "node": "IN_REINSTATE_PHYSICAL_COPY_V0",
    "node_type": "IN",
    "routing": {
@@ -1169,7 +1186,7 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_REINSTATE_PHYSICAL_COPY_V0",
+   "workflow": "book_library_mgmt::WF_REINSTATE_PHYSICAL_COPY_V1",
    "node": "CC_CONFIRM_STAFF_AUTHORIZED_V0",
    "node_type": "CC",
    "routing": {
@@ -1179,7 +1196,7 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_REINSTATE_PHYSICAL_COPY_V0",
+   "workflow": "book_library_mgmt::WF_REINSTATE_PHYSICAL_COPY_V1",
    "node": "CC_MOVE_PHYSICAL_COPY_FROM_RETIRED_V0",
    "node_type": "CC",
    "routing": {
@@ -1190,7 +1207,7 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_REINSTATE_PHYSICAL_COPY_V0",
+   "workflow": "book_library_mgmt::WF_REINSTATE_PHYSICAL_COPY_V1",
    "node": "CC_RECORD_CATALOG_MOMENT_V0",
    "node_type": "CC",
    "routing": {
@@ -1201,21 +1218,21 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_REINSTATE_PHYSICAL_COPY_V0",
+   "workflow": "book_library_mgmt::WF_REINSTATE_PHYSICAL_COPY_V1",
    "node": "EXIT_COMPLETED",
    "node_type": "EXIT",
    "routing": null,
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_REINSTATE_PHYSICAL_COPY_V0",
+   "workflow": "book_library_mgmt::WF_REINSTATE_PHYSICAL_COPY_V1",
    "node": "EXIT_REJECTED",
    "node_type": "EXIT",
    "routing": null,
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_RETRIEVE_BOOK_DETAILS_V0",
+   "workflow": "book_library_mgmt::WF_RETRIEVE_BOOK_DETAILS_V1",
    "node": "IN_RETRIEVE_BOOK_DETAILS_V0",
    "node_type": "IN",
    "routing": {
@@ -1225,7 +1242,7 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_RETRIEVE_BOOK_DETAILS_V0",
+   "workflow": "book_library_mgmt::WF_RETRIEVE_BOOK_DETAILS_V1",
    "node": "CC_CONFIRM_STAFF_AUTHORIZED_V0",
    "node_type": "CC",
    "routing": {
@@ -1235,7 +1252,7 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_RETRIEVE_BOOK_DETAILS_V0",
+   "workflow": "book_library_mgmt::WF_RETRIEVE_BOOK_DETAILS_V1",
    "node": "CC_RECORD_CATALOG_MOMENT_V0",
    "node_type": "CC",
    "routing": {
@@ -1246,7 +1263,7 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_RETRIEVE_BOOK_DETAILS_V0",
+   "workflow": "book_library_mgmt::WF_RETRIEVE_BOOK_DETAILS_V1",
    "node": "CC_RETRIEVE_BOOK_DETAILS_V0",
    "node_type": "CC",
    "routing": {
@@ -1258,21 +1275,21 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_RETRIEVE_BOOK_DETAILS_V0",
+   "workflow": "book_library_mgmt::WF_RETRIEVE_BOOK_DETAILS_V1",
    "node": "EXIT_COMPLETED",
    "node_type": "EXIT",
    "routing": null,
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_RETRIEVE_BOOK_DETAILS_V0",
+   "workflow": "book_library_mgmt::WF_RETRIEVE_BOOK_DETAILS_V1",
    "node": "EXIT_REJECTED",
    "node_type": "EXIT",
    "routing": null,
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_SEARCH_CATALOG_V0",
+   "workflow": "book_library_mgmt::WF_SEARCH_CATALOG_V1",
    "node": "IN_SEARCH_CATALOG_V0",
    "node_type": "IN",
    "routing": {
@@ -1282,7 +1299,7 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_SEARCH_CATALOG_V0",
+   "workflow": "book_library_mgmt::WF_SEARCH_CATALOG_V1",
    "node": "CC_CONFIRM_STAFF_AUTHORIZED_V0",
    "node_type": "CC",
    "routing": {
@@ -1292,19 +1309,19 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_SEARCH_CATALOG_V0",
+   "workflow": "book_library_mgmt::WF_SEARCH_CATALOG_V1",
    "node": "CC_RECORD_CATALOG_MOMENT_V0",
    "node_type": "CC",
    "routing": {
-    "SUCCESS": "CC_SEARCH_CATALOG_V0",
+    "SUCCESS": "CC_SEARCH_CATALOG_V1",
     "VIOLATION": "EXIT_REJECTED",
     "BACKEND_ERROR": "EXIT_REJECTED"
    },
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_SEARCH_CATALOG_V0",
-   "node": "CC_SEARCH_CATALOG_V0",
+   "workflow": "book_library_mgmt::WF_SEARCH_CATALOG_V1",
+   "node": "CC_SEARCH_CATALOG_V1",
    "node_type": "CC",
    "routing": {
     "SUCCESS": "EXIT_COMPLETED",
@@ -1314,14 +1331,14 @@
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_SEARCH_CATALOG_V0",
+   "workflow": "book_library_mgmt::WF_SEARCH_CATALOG_V1",
    "node": "EXIT_COMPLETED",
    "node_type": "EXIT",
    "routing": null,
    "_from": "doctrine:order"
   },
   {
-   "workflow": "book_library_mgmt::WF_SEARCH_CATALOG_V0",
+   "workflow": "book_library_mgmt::WF_SEARCH_CATALOG_V1",
    "node": "EXIT_REJECTED",
    "node_type": "EXIT",
    "routing": null,
@@ -1492,7 +1509,7 @@
    "_from": "doctrine:order"
   },
   {
-   "cc_code": "book_library_mgmt::CC_CLAIM_BOOK_IDENTITY_V0",
+   "cc_code": "book_library_mgmt::CC_CLAIM_BOOK_IDENTITY_V1",
    "step": "1",
    "step_name": "form_identity_key",
    "capability": "book_library_mgmt::CT_PURE_FORM_BOOK_IDENTITY_KEY_V0",
@@ -1526,7 +1543,7 @@
    "_from": "ledger:things/book/identity"
   },
   {
-   "cc_code": "book_library_mgmt::CC_CLAIM_BOOK_IDENTITY_V0",
+   "cc_code": "book_library_mgmt::CC_CLAIM_BOOK_IDENTITY_V1",
    "step": "2",
    "step_name": "claim_identity_key",
    "capability": "capability_side_effects::CS_REGISTRY_V0",
@@ -1564,7 +1581,7 @@
    "_from": "ledger:things/book/identity"
   },
   {
-   "cc_code": "book_library_mgmt::CC_CLAIM_COPY_BARCODE_V0",
+   "cc_code": "book_library_mgmt::CC_CLAIM_COPY_BARCODE_V1",
    "step": "1",
    "step_name": "claim_barcode",
    "capability": "capability_side_effects::CS_REGISTRY_V0",
@@ -1602,7 +1619,7 @@
    "_from": "ledger:things/physical copy/identity"
   },
   {
-   "cc_code": "book_library_mgmt::CC_CLAIM_WORK_IDENTITY_V0",
+   "cc_code": "book_library_mgmt::CC_CLAIM_WORK_IDENTITY_V1",
    "step": "1",
    "step_name": "form_work_key",
    "capability": "book_library_mgmt::CT_PURE_FORM_WORK_IDENTITY_KEY_V0",
@@ -1634,7 +1651,7 @@
    "_from": "ledger:things/work/identity"
   },
   {
-   "cc_code": "book_library_mgmt::CC_CLAIM_WORK_IDENTITY_V0",
+   "cc_code": "book_library_mgmt::CC_CLAIM_WORK_IDENTITY_V1",
    "step": "2",
    "step_name": "claim_key",
    "capability": "capability_side_effects::CS_REGISTRY_V0",
@@ -1672,7 +1689,7 @@
    "_from": "ledger:things/work/identity"
   },
   {
-   "cc_code": "book_library_mgmt::CC_CLAIM_WORK_IDENTITY_V0",
+   "cc_code": "book_library_mgmt::CC_CLAIM_WORK_IDENTITY_V1",
    "step": "3",
    "step_name": "assemble_work_record",
    "capability": "capability_transforms::CT_PURE_ASSEMBLE_RECORD_V0",
@@ -1702,7 +1719,7 @@
    "_from": "ledger:things/work/identity"
   },
   {
-   "cc_code": "book_library_mgmt::CC_CLAIM_WORK_IDENTITY_V0",
+   "cc_code": "book_library_mgmt::CC_CLAIM_WORK_IDENTITY_V1",
    "step": "4",
    "step_name": "write_work_record",
    "capability": "capability_side_effects::CS_MUTABLE_JSON_V0",
@@ -2054,7 +2071,7 @@
    "_from": "ledger:operations/register additional edition/required"
   },
   {
-   "cc_code": "book_library_mgmt::CC_RESOLVE_WORK_V0",
+   "cc_code": "book_library_mgmt::CC_RESOLVE_WORK_V1",
    "step": "1",
    "step_name": "form_work_key",
    "capability": "book_library_mgmt::CT_PURE_FORM_WORK_IDENTITY_KEY_V0",
@@ -2086,7 +2103,7 @@
    "_from": "ledger:things/work/identity"
   },
   {
-   "cc_code": "book_library_mgmt::CC_RESOLVE_WORK_V0",
+   "cc_code": "book_library_mgmt::CC_RESOLVE_WORK_V1",
    "step": "2",
    "step_name": "resolve_identity",
    "capability": "capability_side_effects::CS_REGISTRY_V0",
@@ -2120,7 +2137,7 @@
    "_from": "ledger:things/work/identity"
   },
   {
-   "cc_code": "book_library_mgmt::CC_RESOLVE_WORK_V0",
+   "cc_code": "book_library_mgmt::CC_RESOLVE_WORK_V1",
    "step": "3",
    "step_name": "read_work_record",
    "capability": "capability_side_effects::CS_MUTABLE_JSON_V0",
@@ -2154,7 +2171,7 @@
    "_from": "ledger:things/work/identity"
   },
   {
-   "cc_code": "book_library_mgmt::CC_RESOLVE_BOOK_IDENTITY_V0",
+   "cc_code": "book_library_mgmt::CC_RESOLVE_BOOK_IDENTITY_V1",
    "step": "1",
    "step_name": "resolve_identity",
    "capability": "capability_side_effects::CS_REGISTRY_V0",
@@ -2188,7 +2205,7 @@
    "_from": "ledger:things/book/identity"
   },
   {
-   "cc_code": "book_library_mgmt::CC_RESOLVE_BOOK_IDENTITY_V0",
+   "cc_code": "book_library_mgmt::CC_RESOLVE_BOOK_IDENTITY_V1",
    "step": "2",
    "step_name": "read_book_record",
    "capability": "capability_side_effects::CS_MUTABLE_JSON_V0",
@@ -2222,7 +2239,7 @@
    "_from": "ledger:things/book/identity"
   },
   {
-   "cc_code": "book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
+   "cc_code": "book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
    "step": "1",
    "step_name": "read_book_record",
    "capability": "capability_side_effects::CS_MUTABLE_JSON_V0",
@@ -2256,7 +2273,7 @@
    "_from": "ledger:operations/update bibliographic information"
   },
   {
-   "cc_code": "book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
+   "cc_code": "book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
    "step": "2",
    "step_name": "form_updated_identity_key",
    "capability": "book_library_mgmt::CT_PURE_FORM_BOOK_IDENTITY_KEY_V0",
@@ -2290,7 +2307,7 @@
    "_from": "ledger:things/book/identity"
   },
   {
-   "cc_code": "book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
+   "cc_code": "book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
    "step": "3",
    "step_name": "form_work_key",
    "capability": "book_library_mgmt::CT_PURE_FORM_WORK_IDENTITY_KEY_V0",
@@ -2322,7 +2339,7 @@
    "_from": "ledger:operations/update bibliographic information/on_identity_change/work"
   },
   {
-   "cc_code": "book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
+   "cc_code": "book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
    "step": "4",
    "step_name": "assemble_updated_record",
    "capability": "capability_transforms::CT_PURE_ASSEMBLE_RECORD_V0",
@@ -2352,7 +2369,7 @@
    "_from": "ledger:operations/update bibliographic information/keeps"
   },
   {
-   "cc_code": "book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
+   "cc_code": "book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
    "step": "5",
    "step_name": "check_corrected_record",
    "capability": "capability_transforms::CT_PURE_VALIDATE_RECORD_STRUCTURE_V0",
@@ -2384,7 +2401,7 @@
    "_from": "ledger:things/book/required"
   },
   {
-   "cc_code": "book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
+   "cc_code": "book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
    "step": "6",
    "step_name": "refuse_incomplete_correction",
    "capability": "capability_transforms::CT_PURE_VALIDATE_PARAMETER_RULES_V0",
@@ -3083,7 +3100,7 @@
    "_from": "ledger:operations/retrieve book details"
   },
   {
-   "cc_code": "book_library_mgmt::CC_SEARCH_CATALOG_V0",
+   "cc_code": "book_library_mgmt::CC_SEARCH_CATALOG_V1",
    "step": "1",
    "step_name": "select_book_records",
    "capability": "capability_side_effects::CS_MUTABLE_JSON_V0",
@@ -3111,7 +3128,7 @@
    "_from": "ledger:operations/search catalog"
   },
   {
-   "cc_code": "book_library_mgmt::CC_SEARCH_CATALOG_V0",
+   "cc_code": "book_library_mgmt::CC_SEARCH_CATALOG_V1",
    "step": "2",
    "step_name": "select_registered_books",
    "capability": "book_library_mgmt::CT_PURE_SELECT_RECORDS_V0",
@@ -3143,7 +3160,7 @@
    "_from": "ledger:operations/search catalog/always_exclude"
   },
   {
-   "cc_code": "book_library_mgmt::CC_SEARCH_CATALOG_V0",
+   "cc_code": "book_library_mgmt::CC_SEARCH_CATALOG_V1",
    "step": "3",
    "step_name": "select_matching_books",
    "capability": "capability_transforms::CT_PURE_FILTER_RECORDS_V0",
@@ -3175,7 +3192,7 @@
    "_from": "ledger:operations/search catalog/criteria"
   },
   {
-   "cc_code": "book_library_mgmt::CC_SEARCH_CATALOG_V0",
+   "cc_code": "book_library_mgmt::CC_SEARCH_CATALOG_V1",
    "step": "4",
    "step_name": "group_books_by_work",
    "capability": "book_library_mgmt::CT_PURE_GROUP_RECORDS_V0",
@@ -3401,7 +3418,7 @@
    "_from": "doctrine:order"
   },
   {
-   "owner": "book_library_mgmt::CC_CLAIM_BOOK_IDENTITY_V0",
+   "owner": "book_library_mgmt::CC_CLAIM_BOOK_IDENTITY_V1",
    "step": "form_identity_key",
    "direction": "INPUT",
    "field": "title",
@@ -3409,7 +3426,7 @@
    "_from": "ledger:things/book/identity"
   },
   {
-   "owner": "book_library_mgmt::CC_CLAIM_BOOK_IDENTITY_V0",
+   "owner": "book_library_mgmt::CC_CLAIM_BOOK_IDENTITY_V1",
    "step": "form_identity_key",
    "direction": "INPUT",
    "field": "author",
@@ -3417,7 +3434,7 @@
    "_from": "ledger:things/book/identity"
   },
   {
-   "owner": "book_library_mgmt::CC_CLAIM_BOOK_IDENTITY_V0",
+   "owner": "book_library_mgmt::CC_CLAIM_BOOK_IDENTITY_V1",
    "step": "form_identity_key",
    "direction": "INPUT",
    "field": "publication_year",
@@ -3425,7 +3442,7 @@
    "_from": "ledger:things/book/identity"
   },
   {
-   "owner": "book_library_mgmt::CC_CLAIM_BOOK_IDENTITY_V0",
+   "owner": "book_library_mgmt::CC_CLAIM_BOOK_IDENTITY_V1",
    "step": "form_identity_key",
    "direction": "OUTPUT",
    "field": "identity_key",
@@ -3433,7 +3450,7 @@
    "_from": "ledger:things/book/identity"
   },
   {
-   "owner": "book_library_mgmt::CC_CLAIM_BOOK_IDENTITY_V0",
+   "owner": "book_library_mgmt::CC_CLAIM_BOOK_IDENTITY_V1",
    "step": "claim_identity_key",
    "direction": "INPUT",
    "field": "key",
@@ -3441,7 +3458,7 @@
    "_from": "ledger:things/book/identity"
   },
   {
-   "owner": "book_library_mgmt::CC_CLAIM_BOOK_IDENTITY_V0",
+   "owner": "book_library_mgmt::CC_CLAIM_BOOK_IDENTITY_V1",
    "step": "claim_identity_key",
    "direction": "INPUT",
    "field": "target_cs",
@@ -3451,7 +3468,7 @@
    "_from": "ledger:things/book/identity"
   },
   {
-   "owner": "book_library_mgmt::CC_CLAIM_BOOK_IDENTITY_V0",
+   "owner": "book_library_mgmt::CC_CLAIM_BOOK_IDENTITY_V1",
    "step": "claim_identity_key",
    "direction": "INPUT",
    "field": "target_ref",
@@ -3461,7 +3478,7 @@
    "_from": "ledger:things/book/identity"
   },
   {
-   "owner": "book_library_mgmt::CC_CLAIM_BOOK_IDENTITY_V0",
+   "owner": "book_library_mgmt::CC_CLAIM_BOOK_IDENTITY_V1",
    "step": "claim_identity_key",
    "direction": "OUTPUT",
    "field": "address",
@@ -3469,7 +3486,7 @@
    "_from": "ledger:things/book/identity"
   },
   {
-   "owner": "book_library_mgmt::CC_CLAIM_BOOK_IDENTITY_V0",
+   "owner": "book_library_mgmt::CC_CLAIM_BOOK_IDENTITY_V1",
    "step": "claim_identity_key",
    "direction": "OUTPUT",
    "field": "result_status",
@@ -3477,7 +3494,7 @@
    "_from": "ledger:things/book/identity"
   },
   {
-   "owner": "book_library_mgmt::CC_CLAIM_COPY_BARCODE_V0",
+   "owner": "book_library_mgmt::CC_CLAIM_COPY_BARCODE_V1",
    "step": "claim_barcode",
    "direction": "INPUT",
    "field": "key",
@@ -3485,7 +3502,7 @@
    "_from": "ledger:things/physical copy/identity"
   },
   {
-   "owner": "book_library_mgmt::CC_CLAIM_COPY_BARCODE_V0",
+   "owner": "book_library_mgmt::CC_CLAIM_COPY_BARCODE_V1",
    "step": "claim_barcode",
    "direction": "INPUT",
    "field": "target_cs",
@@ -3495,7 +3512,7 @@
    "_from": "ledger:things/physical copy/identity"
   },
   {
-   "owner": "book_library_mgmt::CC_CLAIM_COPY_BARCODE_V0",
+   "owner": "book_library_mgmt::CC_CLAIM_COPY_BARCODE_V1",
    "step": "claim_barcode",
    "direction": "INPUT",
    "field": "target_ref",
@@ -3505,7 +3522,7 @@
    "_from": "ledger:things/physical copy/identity"
   },
   {
-   "owner": "book_library_mgmt::CC_CLAIM_COPY_BARCODE_V0",
+   "owner": "book_library_mgmt::CC_CLAIM_COPY_BARCODE_V1",
    "step": "claim_barcode",
    "direction": "OUTPUT",
    "field": "address",
@@ -3513,7 +3530,7 @@
    "_from": "ledger:things/physical copy/identity"
   },
   {
-   "owner": "book_library_mgmt::CC_CLAIM_COPY_BARCODE_V0",
+   "owner": "book_library_mgmt::CC_CLAIM_COPY_BARCODE_V1",
    "step": "claim_barcode",
    "direction": "OUTPUT",
    "field": "result_status",
@@ -3521,7 +3538,7 @@
    "_from": "ledger:things/physical copy/identity"
   },
   {
-   "owner": "book_library_mgmt::CC_CLAIM_WORK_IDENTITY_V0",
+   "owner": "book_library_mgmt::CC_CLAIM_WORK_IDENTITY_V1",
    "step": "form_work_key",
    "direction": "INPUT",
    "field": "title",
@@ -3529,7 +3546,7 @@
    "_from": "ledger:things/work/identity"
   },
   {
-   "owner": "book_library_mgmt::CC_CLAIM_WORK_IDENTITY_V0",
+   "owner": "book_library_mgmt::CC_CLAIM_WORK_IDENTITY_V1",
    "step": "form_work_key",
    "direction": "INPUT",
    "field": "author",
@@ -3537,7 +3554,7 @@
    "_from": "ledger:things/work/identity"
   },
   {
-   "owner": "book_library_mgmt::CC_CLAIM_WORK_IDENTITY_V0",
+   "owner": "book_library_mgmt::CC_CLAIM_WORK_IDENTITY_V1",
    "step": "form_work_key",
    "direction": "OUTPUT",
    "field": "work_key",
@@ -3545,7 +3562,7 @@
    "_from": "ledger:things/work/identity"
   },
   {
-   "owner": "book_library_mgmt::CC_CLAIM_WORK_IDENTITY_V0",
+   "owner": "book_library_mgmt::CC_CLAIM_WORK_IDENTITY_V1",
    "step": "claim_key",
    "direction": "INPUT",
    "field": "key",
@@ -3553,7 +3570,7 @@
    "_from": "ledger:things/work/identity"
   },
   {
-   "owner": "book_library_mgmt::CC_CLAIM_WORK_IDENTITY_V0",
+   "owner": "book_library_mgmt::CC_CLAIM_WORK_IDENTITY_V1",
    "step": "claim_key",
    "direction": "INPUT",
    "field": "target_cs",
@@ -3563,7 +3580,7 @@
    "_from": "ledger:things/work/identity"
   },
   {
-   "owner": "book_library_mgmt::CC_CLAIM_WORK_IDENTITY_V0",
+   "owner": "book_library_mgmt::CC_CLAIM_WORK_IDENTITY_V1",
    "step": "claim_key",
    "direction": "INPUT",
    "field": "target_ref",
@@ -3573,7 +3590,7 @@
    "_from": "ledger:things/work/identity"
   },
   {
-   "owner": "book_library_mgmt::CC_CLAIM_WORK_IDENTITY_V0",
+   "owner": "book_library_mgmt::CC_CLAIM_WORK_IDENTITY_V1",
    "step": "claim_key",
    "direction": "OUTPUT",
    "field": "address",
@@ -3581,7 +3598,7 @@
    "_from": "ledger:things/work/identity"
   },
   {
-   "owner": "book_library_mgmt::CC_CLAIM_WORK_IDENTITY_V0",
+   "owner": "book_library_mgmt::CC_CLAIM_WORK_IDENTITY_V1",
    "step": "claim_key",
    "direction": "OUTPUT",
    "field": "result_status",
@@ -3589,7 +3606,7 @@
    "_from": "ledger:things/work/identity"
   },
   {
-   "owner": "book_library_mgmt::CC_CLAIM_WORK_IDENTITY_V0",
+   "owner": "book_library_mgmt::CC_CLAIM_WORK_IDENTITY_V1",
    "step": "assemble_work_record",
    "direction": "INPUT",
    "field": "fields",
@@ -3597,7 +3614,7 @@
    "_from": "ledger:things/work/identity"
   },
   {
-   "owner": "book_library_mgmt::CC_CLAIM_WORK_IDENTITY_V0",
+   "owner": "book_library_mgmt::CC_CLAIM_WORK_IDENTITY_V1",
    "step": "assemble_work_record",
    "direction": "OUTPUT",
    "field": "work_record",
@@ -3605,7 +3622,7 @@
    "_from": "ledger:things/work/identity"
   },
   {
-   "owner": "book_library_mgmt::CC_CLAIM_WORK_IDENTITY_V0",
+   "owner": "book_library_mgmt::CC_CLAIM_WORK_IDENTITY_V1",
    "step": "write_work_record",
    "direction": "INPUT",
    "field": "key",
@@ -3613,7 +3630,7 @@
    "_from": "ledger:things/work/identity"
   },
   {
-   "owner": "book_library_mgmt::CC_CLAIM_WORK_IDENTITY_V0",
+   "owner": "book_library_mgmt::CC_CLAIM_WORK_IDENTITY_V1",
    "step": "write_work_record",
    "direction": "INPUT",
    "field": "value",
@@ -3621,7 +3638,7 @@
    "_from": "ledger:things/work/identity"
   },
   {
-   "owner": "book_library_mgmt::CC_CLAIM_WORK_IDENTITY_V0",
+   "owner": "book_library_mgmt::CC_CLAIM_WORK_IDENTITY_V1",
    "step": "write_work_record",
    "direction": "OUTPUT",
    "field": "result_status",
@@ -3926,7 +3943,7 @@
    "_from": "ledger:operations/register additional edition/required"
   },
   {
-   "owner": "book_library_mgmt::CC_RESOLVE_WORK_V0",
+   "owner": "book_library_mgmt::CC_RESOLVE_WORK_V1",
    "step": "form_work_key",
    "direction": "INPUT",
    "field": "title",
@@ -3934,7 +3951,7 @@
    "_from": "ledger:things/work/identity"
   },
   {
-   "owner": "book_library_mgmt::CC_RESOLVE_WORK_V0",
+   "owner": "book_library_mgmt::CC_RESOLVE_WORK_V1",
    "step": "form_work_key",
    "direction": "INPUT",
    "field": "author",
@@ -3942,7 +3959,7 @@
    "_from": "ledger:things/work/identity"
   },
   {
-   "owner": "book_library_mgmt::CC_RESOLVE_WORK_V0",
+   "owner": "book_library_mgmt::CC_RESOLVE_WORK_V1",
    "step": "form_work_key",
    "direction": "OUTPUT",
    "field": "work_key",
@@ -3950,7 +3967,7 @@
    "_from": "ledger:things/work/identity"
   },
   {
-   "owner": "book_library_mgmt::CC_RESOLVE_WORK_V0",
+   "owner": "book_library_mgmt::CC_RESOLVE_WORK_V1",
    "step": "resolve_identity",
    "direction": "INPUT",
    "field": "key_or_address",
@@ -3958,7 +3975,7 @@
    "_from": "ledger:things/work/identity"
   },
   {
-   "owner": "book_library_mgmt::CC_RESOLVE_WORK_V0",
+   "owner": "book_library_mgmt::CC_RESOLVE_WORK_V1",
    "step": "resolve_identity",
    "direction": "OUTPUT",
    "field": "target_ref",
@@ -3966,7 +3983,7 @@
    "_from": "ledger:things/work/identity"
   },
   {
-   "owner": "book_library_mgmt::CC_RESOLVE_WORK_V0",
+   "owner": "book_library_mgmt::CC_RESOLVE_WORK_V1",
    "step": "resolve_identity",
    "direction": "OUTPUT",
    "field": "result_status",
@@ -3974,7 +3991,7 @@
    "_from": "ledger:things/work/identity"
   },
   {
-   "owner": "book_library_mgmt::CC_RESOLVE_WORK_V0",
+   "owner": "book_library_mgmt::CC_RESOLVE_WORK_V1",
    "step": "read_work_record",
    "direction": "INPUT",
    "field": "key",
@@ -3982,7 +3999,7 @@
    "_from": "ledger:things/work/identity"
   },
   {
-   "owner": "book_library_mgmt::CC_RESOLVE_WORK_V0",
+   "owner": "book_library_mgmt::CC_RESOLVE_WORK_V1",
    "step": "read_work_record",
    "direction": "OUTPUT",
    "field": "work_record",
@@ -3990,7 +4007,7 @@
    "_from": "ledger:things/work/identity"
   },
   {
-   "owner": "book_library_mgmt::CC_RESOLVE_WORK_V0",
+   "owner": "book_library_mgmt::CC_RESOLVE_WORK_V1",
    "step": "read_work_record",
    "direction": "OUTPUT",
    "field": "result_status",
@@ -3998,7 +4015,7 @@
    "_from": "ledger:things/work/identity"
   },
   {
-   "owner": "book_library_mgmt::CC_RESOLVE_BOOK_IDENTITY_V0",
+   "owner": "book_library_mgmt::CC_RESOLVE_BOOK_IDENTITY_V1",
    "step": "resolve_identity",
    "direction": "INPUT",
    "field": "key_or_address",
@@ -4006,7 +4023,7 @@
    "_from": "ledger:things/book/identity"
   },
   {
-   "owner": "book_library_mgmt::CC_RESOLVE_BOOK_IDENTITY_V0",
+   "owner": "book_library_mgmt::CC_RESOLVE_BOOK_IDENTITY_V1",
    "step": "resolve_identity",
    "direction": "OUTPUT",
    "field": "target_ref",
@@ -4014,7 +4031,7 @@
    "_from": "ledger:things/book/identity"
   },
   {
-   "owner": "book_library_mgmt::CC_RESOLVE_BOOK_IDENTITY_V0",
+   "owner": "book_library_mgmt::CC_RESOLVE_BOOK_IDENTITY_V1",
    "step": "resolve_identity",
    "direction": "OUTPUT",
    "field": "result_status",
@@ -4022,7 +4039,7 @@
    "_from": "ledger:things/book/identity"
   },
   {
-   "owner": "book_library_mgmt::CC_RESOLVE_BOOK_IDENTITY_V0",
+   "owner": "book_library_mgmt::CC_RESOLVE_BOOK_IDENTITY_V1",
    "step": "read_book_record",
    "direction": "INPUT",
    "field": "key",
@@ -4030,7 +4047,7 @@
    "_from": "ledger:things/book/identity"
   },
   {
-   "owner": "book_library_mgmt::CC_RESOLVE_BOOK_IDENTITY_V0",
+   "owner": "book_library_mgmt::CC_RESOLVE_BOOK_IDENTITY_V1",
    "step": "read_book_record",
    "direction": "OUTPUT",
    "field": "book_record",
@@ -4038,7 +4055,7 @@
    "_from": "ledger:things/book/identity"
   },
   {
-   "owner": "book_library_mgmt::CC_RESOLVE_BOOK_IDENTITY_V0",
+   "owner": "book_library_mgmt::CC_RESOLVE_BOOK_IDENTITY_V1",
    "step": "read_book_record",
    "direction": "OUTPUT",
    "field": "result_status",
@@ -4046,7 +4063,7 @@
    "_from": "ledger:things/book/identity"
   },
   {
-   "owner": "book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
+   "owner": "book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
    "step": "read_book_record",
    "direction": "INPUT",
    "field": "key",
@@ -4054,7 +4071,7 @@
    "_from": "ledger:operations/update bibliographic information"
   },
   {
-   "owner": "book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
+   "owner": "book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
    "step": "read_book_record",
    "direction": "OUTPUT",
    "field": "book_record",
@@ -4062,7 +4079,7 @@
    "_from": "ledger:operations/update bibliographic information"
   },
   {
-   "owner": "book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
+   "owner": "book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
    "step": "read_book_record",
    "direction": "OUTPUT",
    "field": "result_status",
@@ -4070,7 +4087,7 @@
    "_from": "ledger:operations/update bibliographic information"
   },
   {
-   "owner": "book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
+   "owner": "book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
    "step": "form_updated_identity_key",
    "direction": "INPUT",
    "field": "title",
@@ -4078,7 +4095,7 @@
    "_from": "ledger:things/book/identity"
   },
   {
-   "owner": "book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
+   "owner": "book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
    "step": "form_updated_identity_key",
    "direction": "INPUT",
    "field": "author",
@@ -4086,7 +4103,7 @@
    "_from": "ledger:things/book/identity"
   },
   {
-   "owner": "book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
+   "owner": "book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
    "step": "form_updated_identity_key",
    "direction": "INPUT",
    "field": "publication_year",
@@ -4094,7 +4111,7 @@
    "_from": "ledger:things/book/identity"
   },
   {
-   "owner": "book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
+   "owner": "book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
    "step": "form_updated_identity_key",
    "direction": "OUTPUT",
    "field": "updated_identity_key",
@@ -4102,7 +4119,7 @@
    "_from": "ledger:things/book/identity"
   },
   {
-   "owner": "book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
+   "owner": "book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
    "step": "form_work_key",
    "direction": "INPUT",
    "field": "title",
@@ -4110,7 +4127,7 @@
    "_from": "ledger:operations/update bibliographic information/on_identity_change/work"
   },
   {
-   "owner": "book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
+   "owner": "book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
    "step": "form_work_key",
    "direction": "INPUT",
    "field": "author",
@@ -4118,7 +4135,7 @@
    "_from": "ledger:operations/update bibliographic information/on_identity_change/work"
   },
   {
-   "owner": "book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
+   "owner": "book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
    "step": "form_work_key",
    "direction": "OUTPUT",
    "field": "work_key",
@@ -4126,7 +4143,7 @@
    "_from": "ledger:operations/update bibliographic information/on_identity_change/work"
   },
   {
-   "owner": "book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
+   "owner": "book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
    "step": "assemble_updated_record",
    "direction": "INPUT",
    "field": "fields",
@@ -4144,7 +4161,7 @@
    "_from": "ledger:operations/update bibliographic information/keeps"
   },
   {
-   "owner": "book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
+   "owner": "book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
    "step": "assemble_updated_record",
    "direction": "OUTPUT",
    "field": "updated_record",
@@ -4152,7 +4169,7 @@
    "_from": "ledger:operations/update bibliographic information/keeps"
   },
   {
-   "owner": "book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
+   "owner": "book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
    "step": "check_corrected_record",
    "direction": "INPUT",
    "field": "record",
@@ -4160,7 +4177,7 @@
    "_from": "ledger:things/book/required"
   },
   {
-   "owner": "book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
+   "owner": "book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
    "step": "check_corrected_record",
    "direction": "INPUT",
    "field": "schema",
@@ -4187,7 +4204,7 @@
    "_from": "ledger:things/book/required"
   },
   {
-   "owner": "book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
+   "owner": "book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
    "step": "check_corrected_record",
    "direction": "OUTPUT",
    "field": "violations",
@@ -4195,7 +4212,7 @@
    "_from": "ledger:things/book/required"
   },
   {
-   "owner": "book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
+   "owner": "book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
    "step": "refuse_incomplete_correction",
    "direction": "INPUT",
    "field": "parameters",
@@ -4208,7 +4225,7 @@
    "_from": "ledger:things/book/required"
   },
   {
-   "owner": "book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
+   "owner": "book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
    "step": "refuse_incomplete_correction",
    "direction": "INPUT",
    "field": "rules",
@@ -4229,7 +4246,7 @@
    "_from": "ledger:things/book/required"
   },
   {
-   "owner": "book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
+   "owner": "book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
    "step": "refuse_incomplete_correction",
    "direction": "OUTPUT",
    "field": "valid",
@@ -4849,7 +4866,7 @@
    "_from": "ledger:operations/retrieve book details"
   },
   {
-   "owner": "book_library_mgmt::CC_SEARCH_CATALOG_V0",
+   "owner": "book_library_mgmt::CC_SEARCH_CATALOG_V1",
    "step": "select_book_records",
    "direction": "OUTPUT",
    "field": "records",
@@ -4857,7 +4874,7 @@
    "_from": "ledger:operations/search catalog"
   },
   {
-   "owner": "book_library_mgmt::CC_SEARCH_CATALOG_V0",
+   "owner": "book_library_mgmt::CC_SEARCH_CATALOG_V1",
    "step": "select_book_records",
    "direction": "OUTPUT",
    "field": "result_status",
@@ -4865,7 +4882,7 @@
    "_from": "ledger:operations/search catalog"
   },
   {
-   "owner": "book_library_mgmt::CC_SEARCH_CATALOG_V0",
+   "owner": "book_library_mgmt::CC_SEARCH_CATALOG_V1",
    "step": "select_registered_books",
    "direction": "INPUT",
    "field": "source",
@@ -4873,7 +4890,7 @@
    "_from": "ledger:operations/search catalog/always_exclude"
   },
   {
-   "owner": "book_library_mgmt::CC_SEARCH_CATALOG_V0",
+   "owner": "book_library_mgmt::CC_SEARCH_CATALOG_V1",
    "step": "select_registered_books",
    "direction": "INPUT",
    "field": "filter",
@@ -4885,7 +4902,7 @@
    "_from": "ledger:operations/search catalog/always_exclude"
   },
   {
-   "owner": "book_library_mgmt::CC_SEARCH_CATALOG_V0",
+   "owner": "book_library_mgmt::CC_SEARCH_CATALOG_V1",
    "step": "select_registered_books",
    "direction": "OUTPUT",
    "field": "registered_books",
@@ -4893,7 +4910,7 @@
    "_from": "ledger:operations/search catalog/always_exclude"
   },
   {
-   "owner": "book_library_mgmt::CC_SEARCH_CATALOG_V0",
+   "owner": "book_library_mgmt::CC_SEARCH_CATALOG_V1",
    "step": "select_matching_books",
    "direction": "INPUT",
    "field": "source",
@@ -4901,7 +4918,7 @@
    "_from": "ledger:operations/search catalog/criteria"
   },
   {
-   "owner": "book_library_mgmt::CC_SEARCH_CATALOG_V0",
+   "owner": "book_library_mgmt::CC_SEARCH_CATALOG_V1",
    "step": "select_matching_books",
    "direction": "INPUT",
    "field": "filter",
@@ -4909,7 +4926,7 @@
    "_from": "ledger:operations/search catalog/criteria"
   },
   {
-   "owner": "book_library_mgmt::CC_SEARCH_CATALOG_V0",
+   "owner": "book_library_mgmt::CC_SEARCH_CATALOG_V1",
    "step": "select_matching_books",
    "direction": "OUTPUT",
    "field": "matching_books",
@@ -4917,7 +4934,7 @@
    "_from": "ledger:operations/search catalog/criteria"
   },
   {
-   "owner": "book_library_mgmt::CC_SEARCH_CATALOG_V0",
+   "owner": "book_library_mgmt::CC_SEARCH_CATALOG_V1",
    "step": "group_books_by_work",
    "direction": "INPUT",
    "field": "source",
@@ -4925,7 +4942,7 @@
    "_from": "ledger:operations/search catalog/group_by"
   },
   {
-   "owner": "book_library_mgmt::CC_SEARCH_CATALOG_V0",
+   "owner": "book_library_mgmt::CC_SEARCH_CATALOG_V1",
    "step": "group_books_by_work",
    "direction": "INPUT",
    "field": "attribute",
@@ -4935,7 +4952,7 @@
    "_from": "ledger:operations/search catalog/group_by"
   },
   {
-   "owner": "book_library_mgmt::CC_SEARCH_CATALOG_V0",
+   "owner": "book_library_mgmt::CC_SEARCH_CATALOG_V1",
    "step": "group_books_by_work",
    "direction": "OUTPUT",
    "field": "matching_works",
@@ -4943,7 +4960,7 @@
    "_from": "ledger:operations/search catalog/group_by"
   },
   {
-   "owner": "book_library_mgmt::WF_REGISTER_BOOK_V0",
+   "owner": "book_library_mgmt::WF_REGISTER_BOOK_V1",
    "step": "CC_CONFIRM_STAFF_AUTHORIZED_V0",
    "direction": "INPUT",
    "field": "staff_credentials",
@@ -4951,7 +4968,7 @@
    "_from": "ledger:actor"
   },
   {
-   "owner": "book_library_mgmt::WF_REGISTER_BOOK_V0",
+   "owner": "book_library_mgmt::WF_REGISTER_BOOK_V1",
    "step": "CC_CHECK_REGISTER_BOOK_SUBMISSION_V0",
    "direction": "INPUT",
    "field": "book_fields",
@@ -4966,7 +4983,7 @@
    "_from": "ledger:operations/register book/required"
   },
   {
-   "owner": "book_library_mgmt::WF_REGISTER_BOOK_V0",
+   "owner": "book_library_mgmt::WF_REGISTER_BOOK_V1",
    "step": "CC_CHECK_REGISTER_BOOK_SUBMISSION_V0",
    "direction": "INPUT",
    "field": "barcode",
@@ -4974,7 +4991,7 @@
    "_from": "ledger:operations/register book/required"
   },
   {
-   "owner": "book_library_mgmt::WF_REGISTER_BOOK_V0",
+   "owner": "book_library_mgmt::WF_REGISTER_BOOK_V1",
    "step": "CC_CHECK_REGISTER_BOOK_SUBMISSION_V0",
    "direction": "INPUT",
    "field": "work_fields",
@@ -4987,7 +5004,7 @@
    "_from": "ledger:operations/register book/required"
   },
   {
-   "owner": "book_library_mgmt::WF_REGISTER_BOOK_V0",
+   "owner": "book_library_mgmt::WF_REGISTER_BOOK_V1",
    "step": "CC_REQUIRE_COPY_BARCODE_FREE_V0",
    "direction": "INPUT",
    "field": "barcode",
@@ -4995,56 +5012,56 @@
    "_from": "doctrine:order"
   },
   {
-   "owner": "book_library_mgmt::WF_REGISTER_BOOK_V0",
-   "step": "CC_CLAIM_BOOK_IDENTITY_V0",
+   "owner": "book_library_mgmt::WF_REGISTER_BOOK_V1",
+   "step": "CC_CLAIM_BOOK_IDENTITY_V1",
    "direction": "INPUT",
    "field": "title",
    "bound_to": "payload.title",
    "_from": "ledger:things/book/identity"
   },
   {
-   "owner": "book_library_mgmt::WF_REGISTER_BOOK_V0",
-   "step": "CC_CLAIM_BOOK_IDENTITY_V0",
+   "owner": "book_library_mgmt::WF_REGISTER_BOOK_V1",
+   "step": "CC_CLAIM_BOOK_IDENTITY_V1",
    "direction": "INPUT",
    "field": "author",
    "bound_to": "payload.author",
    "_from": "ledger:things/book/identity"
   },
   {
-   "owner": "book_library_mgmt::WF_REGISTER_BOOK_V0",
-   "step": "CC_CLAIM_BOOK_IDENTITY_V0",
+   "owner": "book_library_mgmt::WF_REGISTER_BOOK_V1",
+   "step": "CC_CLAIM_BOOK_IDENTITY_V1",
    "direction": "INPUT",
    "field": "publication_year",
    "bound_to": "payload.publication_year",
    "_from": "ledger:things/book/identity"
   },
   {
-   "owner": "book_library_mgmt::WF_REGISTER_BOOK_V0",
-   "step": "CC_CLAIM_COPY_BARCODE_V0",
+   "owner": "book_library_mgmt::WF_REGISTER_BOOK_V1",
+   "step": "CC_CLAIM_COPY_BARCODE_V1",
    "direction": "INPUT",
    "field": "barcode",
    "bound_to": "payload.barcode",
    "_from": "ledger:things/physical copy/identity"
   },
   {
-   "owner": "book_library_mgmt::WF_REGISTER_BOOK_V0",
-   "step": "CC_CLAIM_WORK_IDENTITY_V0",
+   "owner": "book_library_mgmt::WF_REGISTER_BOOK_V1",
+   "step": "CC_CLAIM_WORK_IDENTITY_V1",
    "direction": "INPUT",
    "field": "title",
    "bound_to": "payload.title",
    "_from": "ledger:things/work/identity"
   },
   {
-   "owner": "book_library_mgmt::WF_REGISTER_BOOK_V0",
-   "step": "CC_CLAIM_WORK_IDENTITY_V0",
+   "owner": "book_library_mgmt::WF_REGISTER_BOOK_V1",
+   "step": "CC_CLAIM_WORK_IDENTITY_V1",
    "direction": "INPUT",
    "field": "author",
    "bound_to": "payload.author",
    "_from": "ledger:things/work/identity"
   },
   {
-   "owner": "book_library_mgmt::WF_REGISTER_BOOK_V0",
-   "step": "CC_CLAIM_WORK_IDENTITY_V0",
+   "owner": "book_library_mgmt::WF_REGISTER_BOOK_V1",
+   "step": "CC_CLAIM_WORK_IDENTITY_V1",
    "direction": "INPUT",
    "field": "work_fields",
    "bound_to": {
@@ -5056,15 +5073,15 @@
    "_from": "ledger:things/work/identity"
   },
   {
-   "owner": "book_library_mgmt::WF_REGISTER_BOOK_V0",
+   "owner": "book_library_mgmt::WF_REGISTER_BOOK_V1",
    "step": "CC_WRITE_BOOK_V0",
    "direction": "INPUT",
    "field": "identity_key",
-   "bound_to": "results.CC_CLAIM_BOOK_IDENTITY_V0.identity_key",
+   "bound_to": "results.CC_CLAIM_BOOK_IDENTITY_V1.identity_key",
    "_from": "ledger:operations/register book"
   },
   {
-   "owner": "book_library_mgmt::WF_REGISTER_BOOK_V0",
+   "owner": "book_library_mgmt::WF_REGISTER_BOOK_V1",
    "step": "CC_WRITE_BOOK_V0",
    "direction": "INPUT",
    "field": "submission",
@@ -5079,7 +5096,7 @@
    "_from": "ledger:operations/register book"
   },
   {
-   "owner": "book_library_mgmt::WF_REGISTER_BOOK_V0",
+   "owner": "book_library_mgmt::WF_REGISTER_BOOK_V1",
    "step": "CC_WRITE_PHYSICAL_COPY_V0",
    "direction": "INPUT",
    "field": "barcode",
@@ -5087,15 +5104,15 @@
    "_from": "ledger:operations/register book"
   },
   {
-   "owner": "book_library_mgmt::WF_REGISTER_BOOK_V0",
+   "owner": "book_library_mgmt::WF_REGISTER_BOOK_V1",
    "step": "CC_WRITE_PHYSICAL_COPY_V0",
    "direction": "INPUT",
    "field": "identity_key",
-   "bound_to": "results.CC_CLAIM_BOOK_IDENTITY_V0.identity_key",
+   "bound_to": "results.CC_CLAIM_BOOK_IDENTITY_V1.identity_key",
    "_from": "ledger:operations/register book"
   },
   {
-   "owner": "book_library_mgmt::WF_REGISTER_BOOK_V0",
+   "owner": "book_library_mgmt::WF_REGISTER_BOOK_V1",
    "step": "CC_RECORD_CATALOG_MOMENT_V0",
    "direction": "INPUT",
    "field": "occurrence",
@@ -5105,7 +5122,7 @@
    "_from": "ledger:trail"
   },
   {
-   "owner": "book_library_mgmt::WF_REGISTER_BOOK_V0",
+   "owner": "book_library_mgmt::WF_REGISTER_BOOK_V1",
    "step": "CC_RECORD_CATALOG_MOMENT_V0",
    "direction": "INPUT",
    "field": "staff_id",
@@ -5113,15 +5130,15 @@
    "_from": "ledger:trail"
   },
   {
-   "owner": "book_library_mgmt::WF_REGISTER_BOOK_V0",
+   "owner": "book_library_mgmt::WF_REGISTER_BOOK_V1",
    "step": "CC_RECORD_CATALOG_MOMENT_V0",
    "direction": "INPUT",
    "field": "subject",
-   "bound_to": "results.CC_CLAIM_BOOK_IDENTITY_V0.identity_key",
+   "bound_to": "results.CC_CLAIM_BOOK_IDENTITY_V1.identity_key",
    "_from": "ledger:trail"
   },
   {
-   "owner": "book_library_mgmt::WF_REGISTER_ADDITIONAL_EDITION_V0",
+   "owner": "book_library_mgmt::WF_REGISTER_ADDITIONAL_EDITION_V1",
    "step": "CC_CONFIRM_STAFF_AUTHORIZED_V0",
    "direction": "INPUT",
    "field": "staff_credentials",
@@ -5129,7 +5146,7 @@
    "_from": "ledger:actor"
   },
   {
-   "owner": "book_library_mgmt::WF_REGISTER_ADDITIONAL_EDITION_V0",
+   "owner": "book_library_mgmt::WF_REGISTER_ADDITIONAL_EDITION_V1",
    "step": "CC_CHECK_REGISTER_ADDITIONAL_EDITION_SUBMISSION_V0",
    "direction": "INPUT",
    "field": "submission",
@@ -5144,55 +5161,55 @@
    "_from": "ledger:operations/register additional edition/required"
   },
   {
-   "owner": "book_library_mgmt::WF_REGISTER_ADDITIONAL_EDITION_V0",
-   "step": "CC_RESOLVE_WORK_V0",
+   "owner": "book_library_mgmt::WF_REGISTER_ADDITIONAL_EDITION_V1",
+   "step": "CC_RESOLVE_WORK_V1",
    "direction": "INPUT",
    "field": "title",
    "bound_to": "payload.title",
    "_from": "ledger:operations/register additional edition/precondition"
   },
   {
-   "owner": "book_library_mgmt::WF_REGISTER_ADDITIONAL_EDITION_V0",
-   "step": "CC_RESOLVE_WORK_V0",
+   "owner": "book_library_mgmt::WF_REGISTER_ADDITIONAL_EDITION_V1",
+   "step": "CC_RESOLVE_WORK_V1",
    "direction": "INPUT",
    "field": "author",
    "bound_to": "payload.author",
    "_from": "ledger:operations/register additional edition/precondition"
   },
   {
-   "owner": "book_library_mgmt::WF_REGISTER_ADDITIONAL_EDITION_V0",
-   "step": "CC_CLAIM_BOOK_IDENTITY_V0",
+   "owner": "book_library_mgmt::WF_REGISTER_ADDITIONAL_EDITION_V1",
+   "step": "CC_CLAIM_BOOK_IDENTITY_V1",
    "direction": "INPUT",
    "field": "title",
    "bound_to": "payload.title",
    "_from": "ledger:things/book/identity"
   },
   {
-   "owner": "book_library_mgmt::WF_REGISTER_ADDITIONAL_EDITION_V0",
-   "step": "CC_CLAIM_BOOK_IDENTITY_V0",
+   "owner": "book_library_mgmt::WF_REGISTER_ADDITIONAL_EDITION_V1",
+   "step": "CC_CLAIM_BOOK_IDENTITY_V1",
    "direction": "INPUT",
    "field": "author",
    "bound_to": "payload.author",
    "_from": "ledger:things/book/identity"
   },
   {
-   "owner": "book_library_mgmt::WF_REGISTER_ADDITIONAL_EDITION_V0",
-   "step": "CC_CLAIM_BOOK_IDENTITY_V0",
+   "owner": "book_library_mgmt::WF_REGISTER_ADDITIONAL_EDITION_V1",
+   "step": "CC_CLAIM_BOOK_IDENTITY_V1",
    "direction": "INPUT",
    "field": "publication_year",
    "bound_to": "payload.publication_year",
    "_from": "ledger:things/book/identity"
   },
   {
-   "owner": "book_library_mgmt::WF_REGISTER_ADDITIONAL_EDITION_V0",
+   "owner": "book_library_mgmt::WF_REGISTER_ADDITIONAL_EDITION_V1",
    "step": "CC_WRITE_BOOK_V0",
    "direction": "INPUT",
    "field": "identity_key",
-   "bound_to": "results.CC_CLAIM_BOOK_IDENTITY_V0.identity_key",
+   "bound_to": "results.CC_CLAIM_BOOK_IDENTITY_V1.identity_key",
    "_from": "ledger:operations/register additional edition"
   },
   {
-   "owner": "book_library_mgmt::WF_REGISTER_ADDITIONAL_EDITION_V0",
+   "owner": "book_library_mgmt::WF_REGISTER_ADDITIONAL_EDITION_V1",
    "step": "CC_WRITE_BOOK_V0",
    "direction": "INPUT",
    "field": "submission",
@@ -5207,7 +5224,7 @@
    "_from": "ledger:operations/register additional edition"
   },
   {
-   "owner": "book_library_mgmt::WF_REGISTER_ADDITIONAL_EDITION_V0",
+   "owner": "book_library_mgmt::WF_REGISTER_ADDITIONAL_EDITION_V1",
    "step": "CC_RECORD_CATALOG_MOMENT_V0",
    "direction": "INPUT",
    "field": "occurrence",
@@ -5217,7 +5234,7 @@
    "_from": "ledger:trail"
   },
   {
-   "owner": "book_library_mgmt::WF_REGISTER_ADDITIONAL_EDITION_V0",
+   "owner": "book_library_mgmt::WF_REGISTER_ADDITIONAL_EDITION_V1",
    "step": "CC_RECORD_CATALOG_MOMENT_V0",
    "direction": "INPUT",
    "field": "staff_id",
@@ -5225,15 +5242,15 @@
    "_from": "ledger:trail"
   },
   {
-   "owner": "book_library_mgmt::WF_REGISTER_ADDITIONAL_EDITION_V0",
+   "owner": "book_library_mgmt::WF_REGISTER_ADDITIONAL_EDITION_V1",
    "step": "CC_RECORD_CATALOG_MOMENT_V0",
    "direction": "INPUT",
    "field": "subject",
-   "bound_to": "results.CC_CLAIM_BOOK_IDENTITY_V0.identity_key",
+   "bound_to": "results.CC_CLAIM_BOOK_IDENTITY_V1.identity_key",
    "_from": "ledger:trail"
   },
   {
-   "owner": "book_library_mgmt::WF_REGISTER_PHYSICAL_COPY_V0",
+   "owner": "book_library_mgmt::WF_REGISTER_PHYSICAL_COPY_V1",
    "step": "CC_CONFIRM_STAFF_AUTHORIZED_V0",
    "direction": "INPUT",
    "field": "staff_credentials",
@@ -5241,23 +5258,23 @@
    "_from": "ledger:actor"
   },
   {
-   "owner": "book_library_mgmt::WF_REGISTER_PHYSICAL_COPY_V0",
-   "step": "CC_RESOLVE_BOOK_IDENTITY_V0",
+   "owner": "book_library_mgmt::WF_REGISTER_PHYSICAL_COPY_V1",
+   "step": "CC_RESOLVE_BOOK_IDENTITY_V1",
    "direction": "INPUT",
    "field": "identity_key",
    "bound_to": "payload.identity_key",
    "_from": "ledger:operations/register physical copy/precondition"
   },
   {
-   "owner": "book_library_mgmt::WF_REGISTER_PHYSICAL_COPY_V0",
-   "step": "CC_CLAIM_COPY_BARCODE_V0",
+   "owner": "book_library_mgmt::WF_REGISTER_PHYSICAL_COPY_V1",
+   "step": "CC_CLAIM_COPY_BARCODE_V1",
    "direction": "INPUT",
    "field": "barcode",
    "bound_to": "payload.barcode",
    "_from": "ledger:things/physical copy/identity"
   },
   {
-   "owner": "book_library_mgmt::WF_REGISTER_PHYSICAL_COPY_V0",
+   "owner": "book_library_mgmt::WF_REGISTER_PHYSICAL_COPY_V1",
    "step": "CC_WRITE_PHYSICAL_COPY_V0",
    "direction": "INPUT",
    "field": "barcode",
@@ -5265,7 +5282,7 @@
    "_from": "ledger:operations/register physical copy"
   },
   {
-   "owner": "book_library_mgmt::WF_REGISTER_PHYSICAL_COPY_V0",
+   "owner": "book_library_mgmt::WF_REGISTER_PHYSICAL_COPY_V1",
    "step": "CC_WRITE_PHYSICAL_COPY_V0",
    "direction": "INPUT",
    "field": "identity_key",
@@ -5273,7 +5290,7 @@
    "_from": "ledger:operations/register physical copy"
   },
   {
-   "owner": "book_library_mgmt::WF_REGISTER_PHYSICAL_COPY_V0",
+   "owner": "book_library_mgmt::WF_REGISTER_PHYSICAL_COPY_V1",
    "step": "CC_RECORD_CATALOG_MOMENT_V0",
    "direction": "INPUT",
    "field": "occurrence",
@@ -5283,7 +5300,7 @@
    "_from": "ledger:trail"
   },
   {
-   "owner": "book_library_mgmt::WF_REGISTER_PHYSICAL_COPY_V0",
+   "owner": "book_library_mgmt::WF_REGISTER_PHYSICAL_COPY_V1",
    "step": "CC_RECORD_CATALOG_MOMENT_V0",
    "direction": "INPUT",
    "field": "staff_id",
@@ -5291,7 +5308,7 @@
    "_from": "ledger:trail"
   },
   {
-   "owner": "book_library_mgmt::WF_REGISTER_PHYSICAL_COPY_V0",
+   "owner": "book_library_mgmt::WF_REGISTER_PHYSICAL_COPY_V1",
    "step": "CC_RECORD_CATALOG_MOMENT_V0",
    "direction": "INPUT",
    "field": "subject",
@@ -5299,7 +5316,7 @@
    "_from": "ledger:trail"
   },
   {
-   "owner": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
+   "owner": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
    "step": "CC_CONFIRM_STAFF_AUTHORIZED_V0",
    "direction": "INPUT",
    "field": "staff_credentials",
@@ -5307,31 +5324,31 @@
    "_from": "ledger:actor"
   },
   {
-   "owner": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
-   "step": "CC_RESOLVE_BOOK_IDENTITY_V0",
+   "owner": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
+   "step": "CC_RESOLVE_BOOK_IDENTITY_V1",
    "direction": "INPUT",
    "field": "identity_key",
    "bound_to": "payload.identity_key",
    "_from": "ledger:operations/update bibliographic information/precondition"
   },
   {
-   "owner": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
-   "step": "CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
+   "owner": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
+   "step": "CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
    "direction": "INPUT",
    "field": "identity_key",
    "bound_to": "payload.identity_key",
    "_from": "ledger:operations/update bibliographic information"
   },
   {
-   "owner": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
-   "step": "CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
+   "owner": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
+   "step": "CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
    "direction": "INPUT",
    "field": "updated_fields",
    "bound_to": "payload.updated_fields",
    "_from": "ledger:operations/update bibliographic information"
   },
   {
-   "owner": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
+   "owner": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
    "step": "CC_CONFIRM_BOOK_IDENTITY_UNCHANGED_V0",
    "direction": "INPUT",
    "field": "identity_key",
@@ -5339,15 +5356,15 @@
    "_from": "ledger:operations/update bibliographic information"
   },
   {
-   "owner": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
+   "owner": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
    "step": "CC_CONFIRM_BOOK_IDENTITY_UNCHANGED_V0",
    "direction": "INPUT",
    "field": "updated_identity_key",
-   "bound_to": "results.CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0.updated_identity_key",
+   "bound_to": "results.CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1.updated_identity_key",
    "_from": "ledger:operations/update bibliographic information"
   },
   {
-   "owner": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
+   "owner": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
    "step": "CC_WRITE_CORRECTED_BOOK_RECORD_V0",
    "direction": "INPUT",
    "field": "identity_key",
@@ -5355,56 +5372,56 @@
    "_from": "ledger:operations/update bibliographic information"
   },
   {
-   "owner": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
+   "owner": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
    "step": "CC_WRITE_CORRECTED_BOOK_RECORD_V0",
    "direction": "INPUT",
    "field": "updated_record",
-   "bound_to": "results.CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0.updated_record",
+   "bound_to": "results.CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1.updated_record",
    "_from": "ledger:operations/update bibliographic information"
   },
   {
-   "owner": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
-   "step": "CC_CLAIM_BOOK_IDENTITY_V0",
+   "owner": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
+   "step": "CC_CLAIM_BOOK_IDENTITY_V1",
    "direction": "INPUT",
    "field": "title",
    "bound_to": "payload.updated_fields.title",
    "_from": "ledger:operations/update bibliographic information/refuse_if"
   },
   {
-   "owner": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
-   "step": "CC_CLAIM_BOOK_IDENTITY_V0",
+   "owner": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
+   "step": "CC_CLAIM_BOOK_IDENTITY_V1",
    "direction": "INPUT",
    "field": "author",
    "bound_to": "payload.updated_fields.author",
    "_from": "ledger:operations/update bibliographic information/refuse_if"
   },
   {
-   "owner": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
-   "step": "CC_CLAIM_BOOK_IDENTITY_V0",
+   "owner": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
+   "step": "CC_CLAIM_BOOK_IDENTITY_V1",
    "direction": "INPUT",
    "field": "publication_year",
    "bound_to": "payload.updated_fields.publication_year",
    "_from": "ledger:operations/update bibliographic information/refuse_if"
   },
   {
-   "owner": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
-   "step": "CC_CLAIM_WORK_IDENTITY_V0",
+   "owner": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
+   "step": "CC_CLAIM_WORK_IDENTITY_V1",
    "direction": "INPUT",
    "field": "title",
    "bound_to": "payload.updated_fields.title",
    "_from": "ledger:operations/update bibliographic information/on_identity_change/work"
   },
   {
-   "owner": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
-   "step": "CC_CLAIM_WORK_IDENTITY_V0",
+   "owner": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
+   "step": "CC_CLAIM_WORK_IDENTITY_V1",
    "direction": "INPUT",
    "field": "author",
    "bound_to": "payload.updated_fields.author",
    "_from": "ledger:operations/update bibliographic information/on_identity_change/work"
   },
   {
-   "owner": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
-   "step": "CC_CLAIM_WORK_IDENTITY_V0",
+   "owner": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
+   "step": "CC_CLAIM_WORK_IDENTITY_V1",
    "direction": "INPUT",
    "field": "work_fields",
    "bound_to": {
@@ -5416,7 +5433,7 @@
    "_from": "ledger:operations/update bibliographic information/on_identity_change/work"
   },
   {
-   "owner": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
+   "owner": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
    "step": "CC_REKEY_BOOK_V0",
    "direction": "INPUT",
    "field": "identity_key",
@@ -5424,23 +5441,23 @@
    "_from": "ledger:operations/update bibliographic information/on_identity_change"
   },
   {
-   "owner": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
+   "owner": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
    "step": "CC_REKEY_BOOK_V0",
    "direction": "INPUT",
    "field": "updated_identity_key",
-   "bound_to": "results.CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0.updated_identity_key",
+   "bound_to": "results.CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1.updated_identity_key",
    "_from": "ledger:operations/update bibliographic information/on_identity_change"
   },
   {
-   "owner": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
+   "owner": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
    "step": "CC_REKEY_BOOK_V0",
    "direction": "INPUT",
    "field": "updated_record",
-   "bound_to": "results.CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0.updated_record",
+   "bound_to": "results.CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1.updated_record",
    "_from": "ledger:operations/update bibliographic information/on_identity_change"
   },
   {
-   "owner": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
+   "owner": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
    "step": "CC_RECORD_CATALOG_MOMENT_V0",
    "direction": "INPUT",
    "field": "occurrence",
@@ -5450,7 +5467,7 @@
    "_from": "ledger:trail"
   },
   {
-   "owner": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
+   "owner": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
    "step": "CC_RECORD_CATALOG_MOMENT_V0",
    "direction": "INPUT",
    "field": "staff_id",
@@ -5458,7 +5475,7 @@
    "_from": "ledger:trail"
   },
   {
-   "owner": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
+   "owner": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
    "step": "CC_RECORD_CATALOG_MOMENT_V0",
    "direction": "INPUT",
    "field": "subject",
@@ -5466,7 +5483,7 @@
    "_from": "ledger:trail"
   },
   {
-   "owner": "book_library_mgmt::WF_RETIRE_BOOK_RECORD_V0",
+   "owner": "book_library_mgmt::WF_RETIRE_BOOK_RECORD_V1",
    "step": "CC_CONFIRM_STAFF_AUTHORIZED_V0",
    "direction": "INPUT",
    "field": "staff_credentials",
@@ -5474,7 +5491,7 @@
    "_from": "ledger:actor"
   },
   {
-   "owner": "book_library_mgmt::WF_RETIRE_BOOK_RECORD_V0",
+   "owner": "book_library_mgmt::WF_RETIRE_BOOK_RECORD_V1",
    "step": "CC_MOVE_BOOK_FROM_REGISTERED_V0",
    "direction": "INPUT",
    "field": "to_state",
@@ -5484,7 +5501,7 @@
    "_from": "ledger:operations/retire book record"
   },
   {
-   "owner": "book_library_mgmt::WF_RETIRE_BOOK_RECORD_V0",
+   "owner": "book_library_mgmt::WF_RETIRE_BOOK_RECORD_V1",
    "step": "CC_MOVE_BOOK_FROM_REGISTERED_V0",
    "direction": "INPUT",
    "field": "identity_key",
@@ -5492,7 +5509,7 @@
    "_from": "ledger:operations/retire book record"
   },
   {
-   "owner": "book_library_mgmt::WF_RETIRE_BOOK_RECORD_V0",
+   "owner": "book_library_mgmt::WF_RETIRE_BOOK_RECORD_V1",
    "step": "CC_RECORD_CATALOG_MOMENT_V0",
    "direction": "INPUT",
    "field": "occurrence",
@@ -5502,7 +5519,7 @@
    "_from": "ledger:trail"
   },
   {
-   "owner": "book_library_mgmt::WF_RETIRE_BOOK_RECORD_V0",
+   "owner": "book_library_mgmt::WF_RETIRE_BOOK_RECORD_V1",
    "step": "CC_RECORD_CATALOG_MOMENT_V0",
    "direction": "INPUT",
    "field": "staff_id",
@@ -5510,7 +5527,7 @@
    "_from": "ledger:trail"
   },
   {
-   "owner": "book_library_mgmt::WF_RETIRE_BOOK_RECORD_V0",
+   "owner": "book_library_mgmt::WF_RETIRE_BOOK_RECORD_V1",
    "step": "CC_RECORD_CATALOG_MOMENT_V0",
    "direction": "INPUT",
    "field": "subject",
@@ -5518,7 +5535,7 @@
    "_from": "ledger:trail"
   },
   {
-   "owner": "book_library_mgmt::WF_REINSTATE_BOOK_RECORD_V0",
+   "owner": "book_library_mgmt::WF_REINSTATE_BOOK_RECORD_V1",
    "step": "CC_CONFIRM_STAFF_AUTHORIZED_V0",
    "direction": "INPUT",
    "field": "staff_credentials",
@@ -5526,7 +5543,7 @@
    "_from": "ledger:actor"
   },
   {
-   "owner": "book_library_mgmt::WF_REINSTATE_BOOK_RECORD_V0",
+   "owner": "book_library_mgmt::WF_REINSTATE_BOOK_RECORD_V1",
    "step": "CC_MOVE_BOOK_FROM_RETIRED_V0",
    "direction": "INPUT",
    "field": "to_state",
@@ -5536,7 +5553,7 @@
    "_from": "ledger:operations/reinstate book record"
   },
   {
-   "owner": "book_library_mgmt::WF_REINSTATE_BOOK_RECORD_V0",
+   "owner": "book_library_mgmt::WF_REINSTATE_BOOK_RECORD_V1",
    "step": "CC_MOVE_BOOK_FROM_RETIRED_V0",
    "direction": "INPUT",
    "field": "identity_key",
@@ -5544,7 +5561,7 @@
    "_from": "ledger:operations/reinstate book record"
   },
   {
-   "owner": "book_library_mgmt::WF_REINSTATE_BOOK_RECORD_V0",
+   "owner": "book_library_mgmt::WF_REINSTATE_BOOK_RECORD_V1",
    "step": "CC_RECORD_CATALOG_MOMENT_V0",
    "direction": "INPUT",
    "field": "occurrence",
@@ -5554,7 +5571,7 @@
    "_from": "ledger:trail"
   },
   {
-   "owner": "book_library_mgmt::WF_REINSTATE_BOOK_RECORD_V0",
+   "owner": "book_library_mgmt::WF_REINSTATE_BOOK_RECORD_V1",
    "step": "CC_RECORD_CATALOG_MOMENT_V0",
    "direction": "INPUT",
    "field": "staff_id",
@@ -5562,7 +5579,7 @@
    "_from": "ledger:trail"
   },
   {
-   "owner": "book_library_mgmt::WF_REINSTATE_BOOK_RECORD_V0",
+   "owner": "book_library_mgmt::WF_REINSTATE_BOOK_RECORD_V1",
    "step": "CC_RECORD_CATALOG_MOMENT_V0",
    "direction": "INPUT",
    "field": "subject",
@@ -5570,7 +5587,7 @@
    "_from": "ledger:trail"
   },
   {
-   "owner": "book_library_mgmt::WF_RETIRE_PHYSICAL_COPY_V0",
+   "owner": "book_library_mgmt::WF_RETIRE_PHYSICAL_COPY_V1",
    "step": "CC_CONFIRM_STAFF_AUTHORIZED_V0",
    "direction": "INPUT",
    "field": "staff_credentials",
@@ -5578,7 +5595,7 @@
    "_from": "ledger:actor"
   },
   {
-   "owner": "book_library_mgmt::WF_RETIRE_PHYSICAL_COPY_V0",
+   "owner": "book_library_mgmt::WF_RETIRE_PHYSICAL_COPY_V1",
    "step": "CC_MOVE_PHYSICAL_COPY_FROM_REGISTERED_V0",
    "direction": "INPUT",
    "field": "to_state",
@@ -5588,7 +5605,7 @@
    "_from": "ledger:operations/retire physical copy"
   },
   {
-   "owner": "book_library_mgmt::WF_RETIRE_PHYSICAL_COPY_V0",
+   "owner": "book_library_mgmt::WF_RETIRE_PHYSICAL_COPY_V1",
    "step": "CC_MOVE_PHYSICAL_COPY_FROM_REGISTERED_V0",
    "direction": "INPUT",
    "field": "barcode",
@@ -5596,7 +5613,7 @@
    "_from": "ledger:operations/retire physical copy"
   },
   {
-   "owner": "book_library_mgmt::WF_RETIRE_PHYSICAL_COPY_V0",
+   "owner": "book_library_mgmt::WF_RETIRE_PHYSICAL_COPY_V1",
    "step": "CC_RECORD_CATALOG_MOMENT_V0",
    "direction": "INPUT",
    "field": "occurrence",
@@ -5606,7 +5623,7 @@
    "_from": "ledger:trail"
   },
   {
-   "owner": "book_library_mgmt::WF_RETIRE_PHYSICAL_COPY_V0",
+   "owner": "book_library_mgmt::WF_RETIRE_PHYSICAL_COPY_V1",
    "step": "CC_RECORD_CATALOG_MOMENT_V0",
    "direction": "INPUT",
    "field": "staff_id",
@@ -5614,7 +5631,7 @@
    "_from": "ledger:trail"
   },
   {
-   "owner": "book_library_mgmt::WF_RETIRE_PHYSICAL_COPY_V0",
+   "owner": "book_library_mgmt::WF_RETIRE_PHYSICAL_COPY_V1",
    "step": "CC_RECORD_CATALOG_MOMENT_V0",
    "direction": "INPUT",
    "field": "subject",
@@ -5622,7 +5639,7 @@
    "_from": "ledger:trail"
   },
   {
-   "owner": "book_library_mgmt::WF_REINSTATE_PHYSICAL_COPY_V0",
+   "owner": "book_library_mgmt::WF_REINSTATE_PHYSICAL_COPY_V1",
    "step": "CC_CONFIRM_STAFF_AUTHORIZED_V0",
    "direction": "INPUT",
    "field": "staff_credentials",
@@ -5630,7 +5647,7 @@
    "_from": "ledger:actor"
   },
   {
-   "owner": "book_library_mgmt::WF_REINSTATE_PHYSICAL_COPY_V0",
+   "owner": "book_library_mgmt::WF_REINSTATE_PHYSICAL_COPY_V1",
    "step": "CC_MOVE_PHYSICAL_COPY_FROM_RETIRED_V0",
    "direction": "INPUT",
    "field": "to_state",
@@ -5640,7 +5657,7 @@
    "_from": "ledger:operations/reinstate physical copy"
   },
   {
-   "owner": "book_library_mgmt::WF_REINSTATE_PHYSICAL_COPY_V0",
+   "owner": "book_library_mgmt::WF_REINSTATE_PHYSICAL_COPY_V1",
    "step": "CC_MOVE_PHYSICAL_COPY_FROM_RETIRED_V0",
    "direction": "INPUT",
    "field": "barcode",
@@ -5648,7 +5665,7 @@
    "_from": "ledger:operations/reinstate physical copy"
   },
   {
-   "owner": "book_library_mgmt::WF_REINSTATE_PHYSICAL_COPY_V0",
+   "owner": "book_library_mgmt::WF_REINSTATE_PHYSICAL_COPY_V1",
    "step": "CC_RECORD_CATALOG_MOMENT_V0",
    "direction": "INPUT",
    "field": "occurrence",
@@ -5658,7 +5675,7 @@
    "_from": "ledger:trail"
   },
   {
-   "owner": "book_library_mgmt::WF_REINSTATE_PHYSICAL_COPY_V0",
+   "owner": "book_library_mgmt::WF_REINSTATE_PHYSICAL_COPY_V1",
    "step": "CC_RECORD_CATALOG_MOMENT_V0",
    "direction": "INPUT",
    "field": "staff_id",
@@ -5666,7 +5683,7 @@
    "_from": "ledger:trail"
   },
   {
-   "owner": "book_library_mgmt::WF_REINSTATE_PHYSICAL_COPY_V0",
+   "owner": "book_library_mgmt::WF_REINSTATE_PHYSICAL_COPY_V1",
    "step": "CC_RECORD_CATALOG_MOMENT_V0",
    "direction": "INPUT",
    "field": "subject",
@@ -5674,7 +5691,7 @@
    "_from": "ledger:trail"
   },
   {
-   "owner": "book_library_mgmt::WF_RETRIEVE_BOOK_DETAILS_V0",
+   "owner": "book_library_mgmt::WF_RETRIEVE_BOOK_DETAILS_V1",
    "step": "CC_CONFIRM_STAFF_AUTHORIZED_V0",
    "direction": "INPUT",
    "field": "staff_credentials",
@@ -5682,7 +5699,7 @@
    "_from": "ledger:actor"
   },
   {
-   "owner": "book_library_mgmt::WF_RETRIEVE_BOOK_DETAILS_V0",
+   "owner": "book_library_mgmt::WF_RETRIEVE_BOOK_DETAILS_V1",
    "step": "CC_RECORD_CATALOG_MOMENT_V0",
    "direction": "INPUT",
    "field": "occurrence",
@@ -5692,7 +5709,7 @@
    "_from": "ledger:trail + doctrine:order"
   },
   {
-   "owner": "book_library_mgmt::WF_RETRIEVE_BOOK_DETAILS_V0",
+   "owner": "book_library_mgmt::WF_RETRIEVE_BOOK_DETAILS_V1",
    "step": "CC_RECORD_CATALOG_MOMENT_V0",
    "direction": "INPUT",
    "field": "staff_id",
@@ -5700,7 +5717,7 @@
    "_from": "ledger:trail + doctrine:order"
   },
   {
-   "owner": "book_library_mgmt::WF_RETRIEVE_BOOK_DETAILS_V0",
+   "owner": "book_library_mgmt::WF_RETRIEVE_BOOK_DETAILS_V1",
    "step": "CC_RECORD_CATALOG_MOMENT_V0",
    "direction": "INPUT",
    "field": "subject",
@@ -5708,7 +5725,7 @@
    "_from": "ledger:trail + doctrine:order"
   },
   {
-   "owner": "book_library_mgmt::WF_RETRIEVE_BOOK_DETAILS_V0",
+   "owner": "book_library_mgmt::WF_RETRIEVE_BOOK_DETAILS_V1",
    "step": "CC_RETRIEVE_BOOK_DETAILS_V0",
    "direction": "INPUT",
    "field": "identity_key",
@@ -5716,7 +5733,7 @@
    "_from": "ledger:operations/retrieve book details"
   },
   {
-   "owner": "book_library_mgmt::WF_SEARCH_CATALOG_V0",
+   "owner": "book_library_mgmt::WF_SEARCH_CATALOG_V1",
    "step": "CC_CONFIRM_STAFF_AUTHORIZED_V0",
    "direction": "INPUT",
    "field": "staff_credentials",
@@ -5724,7 +5741,7 @@
    "_from": "ledger:actor"
   },
   {
-   "owner": "book_library_mgmt::WF_SEARCH_CATALOG_V0",
+   "owner": "book_library_mgmt::WF_SEARCH_CATALOG_V1",
    "step": "CC_RECORD_CATALOG_MOMENT_V0",
    "direction": "INPUT",
    "field": "occurrence",
@@ -5734,7 +5751,7 @@
    "_from": "ledger:trail + doctrine:order"
   },
   {
-   "owner": "book_library_mgmt::WF_SEARCH_CATALOG_V0",
+   "owner": "book_library_mgmt::WF_SEARCH_CATALOG_V1",
    "step": "CC_RECORD_CATALOG_MOMENT_V0",
    "direction": "INPUT",
    "field": "staff_id",
@@ -5742,7 +5759,7 @@
    "_from": "ledger:trail + doctrine:order"
   },
   {
-   "owner": "book_library_mgmt::WF_SEARCH_CATALOG_V0",
+   "owner": "book_library_mgmt::WF_SEARCH_CATALOG_V1",
    "step": "CC_RECORD_CATALOG_MOMENT_V0",
    "direction": "INPUT",
    "field": "subject",
@@ -5750,8 +5767,8 @@
    "_from": "ledger:trail + doctrine:order"
   },
   {
-   "owner": "book_library_mgmt::WF_SEARCH_CATALOG_V0",
-   "step": "CC_SEARCH_CATALOG_V0",
+   "owner": "book_library_mgmt::WF_SEARCH_CATALOG_V1",
+   "step": "CC_SEARCH_CATALOG_V1",
    "direction": "INPUT",
    "field": "search_criteria",
    "bound_to": "payload.search_criteria",
@@ -5840,7 +5857,7 @@
    "_from": "doctrine:interface"
   },
   {
-   "artifact": "book_library_mgmt::CC_CLAIM_BOOK_IDENTITY_V0",
+   "artifact": "book_library_mgmt::CC_CLAIM_BOOK_IDENTITY_V1",
    "direction": "INPUT",
    "field": "title",
    "type": "string",
@@ -5850,7 +5867,7 @@
    "_from": "ledger:things/book/identity"
   },
   {
-   "artifact": "book_library_mgmt::CC_CLAIM_BOOK_IDENTITY_V0",
+   "artifact": "book_library_mgmt::CC_CLAIM_BOOK_IDENTITY_V1",
    "direction": "INPUT",
    "field": "author",
    "type": "string",
@@ -5860,7 +5877,7 @@
    "_from": "ledger:things/book/identity"
   },
   {
-   "artifact": "book_library_mgmt::CC_CLAIM_BOOK_IDENTITY_V0",
+   "artifact": "book_library_mgmt::CC_CLAIM_BOOK_IDENTITY_V1",
    "direction": "INPUT",
    "field": "publication_year",
    "type": "integer",
@@ -5870,7 +5887,7 @@
    "_from": "ledger:things/book/identity"
   },
   {
-   "artifact": "book_library_mgmt::CC_CLAIM_BOOK_IDENTITY_V0",
+   "artifact": "book_library_mgmt::CC_CLAIM_BOOK_IDENTITY_V1",
    "direction": "OUTPUT",
    "field": "identity_key",
    "type": "string",
@@ -5880,7 +5897,7 @@
    "_from": "doctrine:interface"
   },
   {
-   "artifact": "book_library_mgmt::CC_CLAIM_COPY_BARCODE_V0",
+   "artifact": "book_library_mgmt::CC_CLAIM_COPY_BARCODE_V1",
    "direction": "INPUT",
    "field": "barcode",
    "type": "string",
@@ -5890,7 +5907,7 @@
    "_from": "ledger:things/physical copy/identity"
   },
   {
-   "artifact": "book_library_mgmt::CC_CLAIM_COPY_BARCODE_V0",
+   "artifact": "book_library_mgmt::CC_CLAIM_COPY_BARCODE_V1",
    "direction": "OUTPUT",
    "field": "barcode",
    "type": "string",
@@ -5900,7 +5917,7 @@
    "_from": "doctrine:interface"
   },
   {
-   "artifact": "book_library_mgmt::CC_CLAIM_COPY_BARCODE_V0",
+   "artifact": "book_library_mgmt::CC_CLAIM_COPY_BARCODE_V1",
    "direction": "OUTPUT",
    "field": "address",
    "type": "string",
@@ -5910,7 +5927,7 @@
    "_from": "doctrine:interface"
   },
   {
-   "artifact": "book_library_mgmt::CC_CLAIM_WORK_IDENTITY_V0",
+   "artifact": "book_library_mgmt::CC_CLAIM_WORK_IDENTITY_V1",
    "direction": "INPUT",
    "field": "title",
    "type": "string",
@@ -5920,7 +5937,7 @@
    "_from": "ledger:things/work/identity"
   },
   {
-   "artifact": "book_library_mgmt::CC_CLAIM_WORK_IDENTITY_V0",
+   "artifact": "book_library_mgmt::CC_CLAIM_WORK_IDENTITY_V1",
    "direction": "INPUT",
    "field": "author",
    "type": "string",
@@ -5930,7 +5947,7 @@
    "_from": "ledger:things/work/identity"
   },
   {
-   "artifact": "book_library_mgmt::CC_CLAIM_WORK_IDENTITY_V0",
+   "artifact": "book_library_mgmt::CC_CLAIM_WORK_IDENTITY_V1",
    "direction": "INPUT",
    "field": "work_fields",
    "type": "object",
@@ -5940,7 +5957,7 @@
    "_from": "ledger:things/work/identity"
   },
   {
-   "artifact": "book_library_mgmt::CC_CLAIM_WORK_IDENTITY_V0",
+   "artifact": "book_library_mgmt::CC_CLAIM_WORK_IDENTITY_V1",
    "direction": "OUTPUT",
    "field": "work_key",
    "type": "string",
@@ -6090,7 +6107,7 @@
    "_from": "doctrine:interface"
   },
   {
-   "artifact": "book_library_mgmt::CC_RESOLVE_WORK_V0",
+   "artifact": "book_library_mgmt::CC_RESOLVE_WORK_V1",
    "direction": "INPUT",
    "field": "title",
    "type": "string",
@@ -6100,7 +6117,7 @@
    "_from": "ledger:things/work/identity"
   },
   {
-   "artifact": "book_library_mgmt::CC_RESOLVE_WORK_V0",
+   "artifact": "book_library_mgmt::CC_RESOLVE_WORK_V1",
    "direction": "INPUT",
    "field": "author",
    "type": "string",
@@ -6110,7 +6127,7 @@
    "_from": "ledger:things/work/identity"
   },
   {
-   "artifact": "book_library_mgmt::CC_RESOLVE_WORK_V0",
+   "artifact": "book_library_mgmt::CC_RESOLVE_WORK_V1",
    "direction": "OUTPUT",
    "field": "work_record",
    "type": "object",
@@ -6120,7 +6137,7 @@
    "_from": "doctrine:interface"
   },
   {
-   "artifact": "book_library_mgmt::CC_RESOLVE_BOOK_IDENTITY_V0",
+   "artifact": "book_library_mgmt::CC_RESOLVE_BOOK_IDENTITY_V1",
    "direction": "INPUT",
    "field": "identity_key",
    "type": "string",
@@ -6130,7 +6147,7 @@
    "_from": "ledger:things/book/identity"
   },
   {
-   "artifact": "book_library_mgmt::CC_RESOLVE_BOOK_IDENTITY_V0",
+   "artifact": "book_library_mgmt::CC_RESOLVE_BOOK_IDENTITY_V1",
    "direction": "OUTPUT",
    "field": "book_record",
    "type": "object",
@@ -6140,7 +6157,7 @@
    "_from": "doctrine:interface"
   },
   {
-   "artifact": "book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
+   "artifact": "book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
    "direction": "INPUT",
    "field": "identity_key",
    "type": "string",
@@ -6150,7 +6167,7 @@
    "_from": "ledger:operations/update bibliographic information"
   },
   {
-   "artifact": "book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
+   "artifact": "book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
    "direction": "INPUT",
    "field": "updated_fields",
    "type": "object",
@@ -6160,7 +6177,7 @@
    "_from": "ledger:operations/update bibliographic information"
   },
   {
-   "artifact": "book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
+   "artifact": "book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
    "direction": "OUTPUT",
    "field": "updated_record",
    "type": "object",
@@ -6170,7 +6187,7 @@
    "_from": "doctrine:interface"
   },
   {
-   "artifact": "book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
+   "artifact": "book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
    "direction": "OUTPUT",
    "field": "updated_identity_key",
    "type": "string",
@@ -6440,7 +6457,7 @@
    "_from": "doctrine:interface"
   },
   {
-   "artifact": "book_library_mgmt::CC_SEARCH_CATALOG_V0",
+   "artifact": "book_library_mgmt::CC_SEARCH_CATALOG_V1",
    "direction": "INPUT",
    "field": "search_criteria",
    "type": "object",
@@ -6450,7 +6467,7 @@
    "_from": "ledger:operations/search catalog"
   },
   {
-   "artifact": "book_library_mgmt::CC_SEARCH_CATALOG_V0",
+   "artifact": "book_library_mgmt::CC_SEARCH_CATALOG_V1",
    "direction": "OUTPUT",
    "field": "matching_works",
    "type": "array",
@@ -6460,7 +6477,7 @@
    "_from": "doctrine:interface"
   },
   {
-   "artifact": "book_library_mgmt::CC_SEARCH_CATALOG_V0",
+   "artifact": "book_library_mgmt::CC_SEARCH_CATALOG_V1",
    "direction": "OUTPUT",
    "field": "matching_books",
    "type": "array",
@@ -6992,7 +7009,7 @@
    "_from": "doctrine:interface"
   },
   {
-   "artifact": "book_library_mgmt::EV_PHYSICAL_COPY_REGISTERED_V0",
+   "artifact": "book_library_mgmt::EV_PHYSICAL_COPY_REGISTERED_V1",
    "direction": "OUTPUT",
    "field": "barcode",
    "type": "string",
@@ -7002,7 +7019,7 @@
    "_from": "doctrine:interface"
   },
   {
-   "artifact": "book_library_mgmt::EV_PHYSICAL_COPY_REGISTERED_V0",
+   "artifact": "book_library_mgmt::EV_PHYSICAL_COPY_REGISTERED_V1",
    "direction": "OUTPUT",
    "field": "staff_id",
    "type": "string",
@@ -7012,7 +7029,7 @@
    "_from": "doctrine:interface"
   },
   {
-   "artifact": "book_library_mgmt::EV_PHYSICAL_COPY_REGISTERED_V0",
+   "artifact": "book_library_mgmt::EV_PHYSICAL_COPY_REGISTERED_V1",
    "direction": "OUTPUT",
    "field": "timestamp",
    "type": "string",
@@ -7383,29 +7400,29 @@
    "_from": "doctrine:storage"
   },
   {
-   "artifact": "book_library_mgmt::WF_REGISTER_BOOK_V0",
+   "artifact": "book_library_mgmt::WF_REGISTER_BOOK_V1",
    "property": "actor_context",
    "value": "book_library_mgmt::AC_LIBRARY_STAFF_V0",
    "_from": "ledger:actor"
   },
   {
-   "artifact": "book_library_mgmt::WF_REGISTER_BOOK_V0",
+   "artifact": "book_library_mgmt::WF_REGISTER_BOOK_V1",
    "property": "emit.EXIT_COMPLETED",
    "value": [
     "book_library_mgmt::EV_WORK_REGISTERED_V0",
     "book_library_mgmt::EV_BOOK_REGISTERED_V0",
-    "book_library_mgmt::EV_PHYSICAL_COPY_REGISTERED_V0"
+    "book_library_mgmt::EV_PHYSICAL_COPY_REGISTERED_V1"
    ],
    "_from": "ledger:announces"
   },
   {
-   "artifact": "book_library_mgmt::WF_REGISTER_ADDITIONAL_EDITION_V0",
+   "artifact": "book_library_mgmt::WF_REGISTER_ADDITIONAL_EDITION_V1",
    "property": "actor_context",
    "value": "book_library_mgmt::AC_LIBRARY_STAFF_V0",
    "_from": "ledger:actor"
   },
   {
-   "artifact": "book_library_mgmt::WF_REGISTER_ADDITIONAL_EDITION_V0",
+   "artifact": "book_library_mgmt::WF_REGISTER_ADDITIONAL_EDITION_V1",
    "property": "emit.EXIT_COMPLETED",
    "value": [
     "book_library_mgmt::EV_BOOK_REGISTERED_V0"
@@ -7413,27 +7430,27 @@
    "_from": "ledger:announces"
   },
   {
-   "artifact": "book_library_mgmt::WF_REGISTER_PHYSICAL_COPY_V0",
+   "artifact": "book_library_mgmt::WF_REGISTER_PHYSICAL_COPY_V1",
    "property": "actor_context",
    "value": "book_library_mgmt::AC_LIBRARY_STAFF_V0",
    "_from": "ledger:actor"
   },
   {
-   "artifact": "book_library_mgmt::WF_REGISTER_PHYSICAL_COPY_V0",
+   "artifact": "book_library_mgmt::WF_REGISTER_PHYSICAL_COPY_V1",
    "property": "emit.EXIT_COMPLETED",
    "value": [
-    "book_library_mgmt::EV_PHYSICAL_COPY_REGISTERED_V0"
+    "book_library_mgmt::EV_PHYSICAL_COPY_REGISTERED_V1"
    ],
    "_from": "ledger:announces"
   },
   {
-   "artifact": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
+   "artifact": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
    "property": "actor_context",
    "value": "book_library_mgmt::AC_LIBRARY_STAFF_V0",
    "_from": "ledger:actor"
   },
   {
-   "artifact": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
+   "artifact": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
    "property": "emit.EXIT_COMPLETED",
    "value": [
     "book_library_mgmt::EV_BIBLIOGRAPHIC_INFORMATION_UPDATED_V0"
@@ -7441,13 +7458,13 @@
    "_from": "ledger:announces"
   },
   {
-   "artifact": "book_library_mgmt::WF_RETIRE_BOOK_RECORD_V0",
+   "artifact": "book_library_mgmt::WF_RETIRE_BOOK_RECORD_V1",
    "property": "actor_context",
    "value": "book_library_mgmt::AC_LIBRARY_STAFF_V0",
    "_from": "ledger:actor"
   },
   {
-   "artifact": "book_library_mgmt::WF_RETIRE_BOOK_RECORD_V0",
+   "artifact": "book_library_mgmt::WF_RETIRE_BOOK_RECORD_V1",
    "property": "emit.EXIT_COMPLETED",
    "value": [
     "book_library_mgmt::EV_BOOK_RETIRED_V0"
@@ -7455,13 +7472,13 @@
    "_from": "ledger:announces"
   },
   {
-   "artifact": "book_library_mgmt::WF_REINSTATE_BOOK_RECORD_V0",
+   "artifact": "book_library_mgmt::WF_REINSTATE_BOOK_RECORD_V1",
    "property": "actor_context",
    "value": "book_library_mgmt::AC_LIBRARY_STAFF_V0",
    "_from": "ledger:actor"
   },
   {
-   "artifact": "book_library_mgmt::WF_REINSTATE_BOOK_RECORD_V0",
+   "artifact": "book_library_mgmt::WF_REINSTATE_BOOK_RECORD_V1",
    "property": "emit.EXIT_COMPLETED",
    "value": [
     "book_library_mgmt::EV_BOOK_REINSTATED_V0"
@@ -7469,13 +7486,13 @@
    "_from": "ledger:announces"
   },
   {
-   "artifact": "book_library_mgmt::WF_RETIRE_PHYSICAL_COPY_V0",
+   "artifact": "book_library_mgmt::WF_RETIRE_PHYSICAL_COPY_V1",
    "property": "actor_context",
    "value": "book_library_mgmt::AC_LIBRARY_STAFF_V0",
    "_from": "ledger:actor"
   },
   {
-   "artifact": "book_library_mgmt::WF_RETIRE_PHYSICAL_COPY_V0",
+   "artifact": "book_library_mgmt::WF_RETIRE_PHYSICAL_COPY_V1",
    "property": "emit.EXIT_COMPLETED",
    "value": [
     "book_library_mgmt::EV_PHYSICAL_COPY_RETIRED_V0"
@@ -7483,13 +7500,13 @@
    "_from": "ledger:announces"
   },
   {
-   "artifact": "book_library_mgmt::WF_REINSTATE_PHYSICAL_COPY_V0",
+   "artifact": "book_library_mgmt::WF_REINSTATE_PHYSICAL_COPY_V1",
    "property": "actor_context",
    "value": "book_library_mgmt::AC_LIBRARY_STAFF_V0",
    "_from": "ledger:actor"
   },
   {
-   "artifact": "book_library_mgmt::WF_REINSTATE_PHYSICAL_COPY_V0",
+   "artifact": "book_library_mgmt::WF_REINSTATE_PHYSICAL_COPY_V1",
    "property": "emit.EXIT_COMPLETED",
    "value": [
     "book_library_mgmt::EV_PHYSICAL_COPY_REINSTATED_V0"
@@ -7497,13 +7514,13 @@
    "_from": "ledger:announces"
   },
   {
-   "artifact": "book_library_mgmt::WF_RETRIEVE_BOOK_DETAILS_V0",
+   "artifact": "book_library_mgmt::WF_RETRIEVE_BOOK_DETAILS_V1",
    "property": "actor_context",
    "value": "book_library_mgmt::AC_LIBRARY_STAFF_V0",
    "_from": "ledger:actor"
   },
   {
-   "artifact": "book_library_mgmt::WF_SEARCH_CATALOG_V0",
+   "artifact": "book_library_mgmt::WF_SEARCH_CATALOG_V1",
    "property": "actor_context",
    "value": "book_library_mgmt::AC_LIBRARY_STAFF_V0",
    "_from": "ledger:actor"
@@ -7514,7 +7531,7 @@
    "store_name": "COPY_BARCODE_REGISTRY",
    "storage_type": "CS_REGISTRY_V0",
    "proposed_path": "book_library_mgmt/catalog/copy_barcode_registry.jsonl",
-   "used_by": "book_library_mgmt::CC_CLAIM_COPY_BARCODE_V0, book_library_mgmt::CC_REQUIRE_COPY_BARCODE_FREE_V0",
+   "used_by": "book_library_mgmt::CC_CLAIM_COPY_BARCODE_V1, book_library_mgmt::CC_REQUIRE_COPY_BARCODE_FREE_V0",
    "structure": "book_library_mgmt::STRUCTURE_CATALOG_STORAGE_V0",
    "_from": "ledger:things/physical copy/identity + doctrine:storage"
   },
@@ -7522,7 +7539,7 @@
    "store_name": "BOOK_IDENTITY_REGISTRY",
    "storage_type": "CS_REGISTRY_V0",
    "proposed_path": "book_library_mgmt/catalog/book_identity_registry.jsonl",
-   "used_by": "book_library_mgmt::CC_CLAIM_BOOK_IDENTITY_V0, book_library_mgmt::CC_REKEY_BOOK_V0, book_library_mgmt::CC_RESOLVE_BOOK_IDENTITY_V0",
+   "used_by": "book_library_mgmt::CC_CLAIM_BOOK_IDENTITY_V1, book_library_mgmt::CC_REKEY_BOOK_V0, book_library_mgmt::CC_RESOLVE_BOOK_IDENTITY_V1",
    "structure": "book_library_mgmt::STRUCTURE_CATALOG_STORAGE_V0",
    "_from": "ledger:things/book/identity + doctrine:storage"
   },
@@ -7530,7 +7547,7 @@
    "store_name": "BOOKS",
    "storage_type": "CS_MUTABLE_JSON_V0",
    "proposed_path": "book_library_mgmt/catalog/books.json",
-   "used_by": "book_library_mgmt::CC_MOVE_BOOK_FROM_REGISTERED_V0, book_library_mgmt::CC_MOVE_BOOK_FROM_RETIRED_V0, book_library_mgmt::CC_REKEY_BOOK_V0, book_library_mgmt::CC_RESOLVE_BOOK_IDENTITY_V0, book_library_mgmt::CC_RETRIEVE_BOOK_DETAILS_V0, book_library_mgmt::CC_SEARCH_CATALOG_V0, book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0, book_library_mgmt::CC_WRITE_BOOK_V0, book_library_mgmt::CC_WRITE_CORRECTED_BOOK_RECORD_V0",
+   "used_by": "book_library_mgmt::CC_MOVE_BOOK_FROM_REGISTERED_V0, book_library_mgmt::CC_MOVE_BOOK_FROM_RETIRED_V0, book_library_mgmt::CC_REKEY_BOOK_V0, book_library_mgmt::CC_RESOLVE_BOOK_IDENTITY_V1, book_library_mgmt::CC_RETRIEVE_BOOK_DETAILS_V0, book_library_mgmt::CC_SEARCH_CATALOG_V1, book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1, book_library_mgmt::CC_WRITE_BOOK_V0, book_library_mgmt::CC_WRITE_CORRECTED_BOOK_RECORD_V0",
    "structure": "book_library_mgmt::STRUCTURE_CATALOG_STORAGE_V0",
    "_from": "ledger:things/book + doctrine:storage"
   },
@@ -7546,7 +7563,7 @@
    "store_name": "WORK_IDENTITY_REGISTRY",
    "storage_type": "CS_REGISTRY_V0",
    "proposed_path": "book_library_mgmt/catalog/work_identity_registry.jsonl",
-   "used_by": "book_library_mgmt::CC_CLAIM_WORK_IDENTITY_V0, book_library_mgmt::CC_RESOLVE_WORK_V0",
+   "used_by": "book_library_mgmt::CC_CLAIM_WORK_IDENTITY_V1, book_library_mgmt::CC_RESOLVE_WORK_V1",
    "structure": "book_library_mgmt::STRUCTURE_CATALOG_STORAGE_V0",
    "_from": "ledger:things/work/identity + doctrine:storage"
   },
@@ -7554,7 +7571,7 @@
    "store_name": "WORKS",
    "storage_type": "CS_MUTABLE_JSON_V0",
    "proposed_path": "book_library_mgmt/catalog/works.json",
-   "used_by": "book_library_mgmt::CC_CLAIM_WORK_IDENTITY_V0, book_library_mgmt::CC_RESOLVE_WORK_V0, book_library_mgmt::CC_RETRIEVE_BOOK_DETAILS_V0",
+   "used_by": "book_library_mgmt::CC_CLAIM_WORK_IDENTITY_V1, book_library_mgmt::CC_RESOLVE_WORK_V1, book_library_mgmt::CC_RETRIEVE_BOOK_DETAILS_V0",
    "structure": "book_library_mgmt::STRUCTURE_CATALOG_STORAGE_V0",
    "_from": "ledger:things/work + doctrine:storage"
   },
@@ -7784,5 +7801,104 @@
  "_unrealized": [
   "search catalog: nothing_found=empty needs a filter that answers empty; the platform's (CT_PURE_FILTER_RECORDS_V0) refuses an empty result. Realized with it; an empty answer is still refused."
  ],
- "_conflicts": []
+ "_conflicts": [],
+ "_replaces": {},
+ "_identity": {
+  "kept": [
+   "book_library_mgmt::AC_LIBRARY_STAFF_V0",
+   "book_library_mgmt::CC_CONFIRM_STAFF_AUTHORIZED_V0",
+   "book_library_mgmt::CT_PURE_FORM_BOOK_IDENTITY_KEY_V0",
+   "book_library_mgmt::CT_PURE_FORM_WORK_IDENTITY_KEY_V0",
+   "book_library_mgmt::CT_PURE_GROUP_RECORDS_V0",
+   "book_library_mgmt::CT_PURE_SELECT_RECORDS_V0",
+   "book_library_mgmt::EV_BIBLIOGRAPHIC_INFORMATION_UPDATED_V0",
+   "book_library_mgmt::EV_BOOK_REGISTERED_V0",
+   "book_library_mgmt::EV_BOOK_RETIRED_V0",
+   "book_library_mgmt::EV_PHYSICAL_COPY_RETIRED_V0",
+   "book_library_mgmt::EV_WORK_REGISTERED_V0",
+   "book_library_mgmt::IN_REGISTER_ADDITIONAL_EDITION_V0",
+   "book_library_mgmt::IN_REGISTER_BOOK_V0",
+   "book_library_mgmt::IN_REGISTER_PHYSICAL_COPY_V0",
+   "book_library_mgmt::IN_REINSTATE_BOOK_RECORD_V0",
+   "book_library_mgmt::IN_REINSTATE_PHYSICAL_COPY_V0",
+   "book_library_mgmt::IN_RETIRE_BOOK_RECORD_V0",
+   "book_library_mgmt::IN_RETIRE_PHYSICAL_COPY_V0",
+   "book_library_mgmt::IN_RETRIEVE_BOOK_DETAILS_V0",
+   "book_library_mgmt::IN_SEARCH_CATALOG_V0",
+   "book_library_mgmt::IN_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0",
+   "book_library_mgmt::RB_CATALOG_BINDINGS_V0",
+   "book_library_mgmt::STRUCTURE_CATALOG_STORAGE_V0"
+  ],
+  "new": [
+   "book_library_mgmt::CC_CHECK_REGISTER_ADDITIONAL_EDITION_SUBMISSION_V0",
+   "book_library_mgmt::CC_CHECK_REGISTER_BOOK_SUBMISSION_V0",
+   "book_library_mgmt::CC_CONFIRM_BOOK_IDENTITY_UNCHANGED_V0",
+   "book_library_mgmt::CC_MOVE_BOOK_FROM_REGISTERED_V0",
+   "book_library_mgmt::CC_MOVE_BOOK_FROM_RETIRED_V0",
+   "book_library_mgmt::CC_MOVE_PHYSICAL_COPY_FROM_REGISTERED_V0",
+   "book_library_mgmt::CC_MOVE_PHYSICAL_COPY_FROM_RETIRED_V0",
+   "book_library_mgmt::CC_RECORD_CATALOG_MOMENT_V0",
+   "book_library_mgmt::CC_REKEY_BOOK_V0",
+   "book_library_mgmt::CC_REQUIRE_COPY_BARCODE_FREE_V0",
+   "book_library_mgmt::CC_RETRIEVE_BOOK_DETAILS_V0",
+   "book_library_mgmt::CC_WRITE_BOOK_V0",
+   "book_library_mgmt::CC_WRITE_CORRECTED_BOOK_RECORD_V0",
+   "book_library_mgmt::CC_WRITE_PHYSICAL_COPY_V0",
+   "book_library_mgmt::EV_BOOK_REINSTATED_V0",
+   "book_library_mgmt::EV_PHYSICAL_COPY_REINSTATED_V0"
+  ],
+  "superseded": {
+   "book_library_mgmt::CC_CLAIM_BOOK_IDENTITY_V0": "book_library_mgmt::CC_CLAIM_BOOK_IDENTITY_V1",
+   "book_library_mgmt::CC_CLAIM_COPY_BARCODE_V0": "book_library_mgmt::CC_CLAIM_COPY_BARCODE_V1",
+   "book_library_mgmt::CC_CLAIM_WORK_IDENTITY_V0": "book_library_mgmt::CC_CLAIM_WORK_IDENTITY_V1",
+   "book_library_mgmt::CC_RESOLVE_BOOK_IDENTITY_V0": "book_library_mgmt::CC_RESOLVE_BOOK_IDENTITY_V1",
+   "book_library_mgmt::CC_RESOLVE_WORK_V0": "book_library_mgmt::CC_RESOLVE_WORK_V1",
+   "book_library_mgmt::CC_SEARCH_CATALOG_V0": "book_library_mgmt::CC_SEARCH_CATALOG_V1",
+   "book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0": "book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1",
+   "book_library_mgmt::EV_PHYSICAL_COPY_REGISTERED_V0": "book_library_mgmt::EV_PHYSICAL_COPY_REGISTERED_V1",
+   "book_library_mgmt::WF_REGISTER_ADDITIONAL_EDITION_V0": "book_library_mgmt::WF_REGISTER_ADDITIONAL_EDITION_V1",
+   "book_library_mgmt::WF_REGISTER_BOOK_V0": "book_library_mgmt::WF_REGISTER_BOOK_V1",
+   "book_library_mgmt::WF_REGISTER_PHYSICAL_COPY_V0": "book_library_mgmt::WF_REGISTER_PHYSICAL_COPY_V1",
+   "book_library_mgmt::WF_REINSTATE_BOOK_RECORD_V0": "book_library_mgmt::WF_REINSTATE_BOOK_RECORD_V1",
+   "book_library_mgmt::WF_REINSTATE_PHYSICAL_COPY_V0": "book_library_mgmt::WF_REINSTATE_PHYSICAL_COPY_V1",
+   "book_library_mgmt::WF_RETIRE_BOOK_RECORD_V0": "book_library_mgmt::WF_RETIRE_BOOK_RECORD_V1",
+   "book_library_mgmt::WF_RETIRE_PHYSICAL_COPY_V0": "book_library_mgmt::WF_RETIRE_PHYSICAL_COPY_V1",
+   "book_library_mgmt::WF_RETRIEVE_BOOK_DETAILS_V0": "book_library_mgmt::WF_RETRIEVE_BOOK_DETAILS_V1",
+   "book_library_mgmt::WF_SEARCH_CATALOG_V0": "book_library_mgmt::WF_SEARCH_CATALOG_V1",
+   "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0": "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V1"
+  },
+  "changed_at": {
+   "book_library_mgmt::CC_CLAIM_BOOK_IDENTITY_V0": 30,
+   "book_library_mgmt::CC_CLAIM_COPY_BARCODE_V0": 2,
+   "book_library_mgmt::CC_CLAIM_WORK_IDENTITY_V0": 28,
+   "book_library_mgmt::CC_RESOLVE_BOOK_IDENTITY_V0": 17,
+   "book_library_mgmt::CC_RESOLVE_WORK_V0": 27,
+   "book_library_mgmt::CC_SEARCH_CATALOG_V0": 25,
+   "book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0": 46,
+   "book_library_mgmt::EV_PHYSICAL_COPY_REGISTERED_V0": 2,
+   "book_library_mgmt::WF_REGISTER_ADDITIONAL_EDITION_V0": 61,
+   "book_library_mgmt::WF_REGISTER_BOOK_V0": 87,
+   "book_library_mgmt::WF_REGISTER_PHYSICAL_COPY_V0": 43,
+   "book_library_mgmt::WF_REINSTATE_BOOK_RECORD_V0": 33,
+   "book_library_mgmt::WF_REINSTATE_PHYSICAL_COPY_V0": 33,
+   "book_library_mgmt::WF_RETIRE_BOOK_RECORD_V0": 32,
+   "book_library_mgmt::WF_RETIRE_PHYSICAL_COPY_V0": 32,
+   "book_library_mgmt::WF_RETRIEVE_BOOK_DETAILS_V0": 34,
+   "book_library_mgmt::WF_SEARCH_CATALOG_V0": 19,
+   "book_library_mgmt::WF_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0": 60
+  },
+  "replaced": {},
+  "retired": [
+   "book_library_mgmt::CC_APPEND_CATALOG_OPERATION_V0",
+   "book_library_mgmt::CC_ASSEMBLE_BOOK_DETAILS_V0",
+   "book_library_mgmt::CC_REGISTER_ADDITIONAL_EDITION_V0",
+   "book_library_mgmt::CC_REGISTER_BOOK_V0",
+   "book_library_mgmt::CC_REGISTER_PHYSICAL_COPY_V0",
+   "book_library_mgmt::CC_REINSTATE_BOOK_RECORD_V0",
+   "book_library_mgmt::CC_REINSTATE_PHYSICAL_COPY_V0",
+   "book_library_mgmt::CC_RETIRE_BOOK_RECORD_V0",
+   "book_library_mgmt::CC_RETIRE_PHYSICAL_COPY_V0",
+   "book_library_mgmt::CC_VALIDATE_BOOK_SUBMISSION_V0"
+  ]
+ }
 }

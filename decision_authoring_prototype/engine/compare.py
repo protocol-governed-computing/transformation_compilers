@@ -7,8 +7,7 @@ import json
 import sys
 from collections import Counter
 
-sys.path.insert(0, __import__("os").path.dirname(__file__))
-from p7_slice import cut, load, short  # noqa: E402
+from p7_slice import cut, load, short
 
 KEYS = {
     "new_artifacts": ("code",),
