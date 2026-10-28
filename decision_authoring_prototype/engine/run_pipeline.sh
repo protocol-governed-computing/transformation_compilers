@@ -15,7 +15,7 @@ DOMAIN="$W/business_domains/$NAME"
 BASELINE="$(ls "$DOMAIN"/design/p7_*.md)"
 cd "$W"
 
-python "$ENGINE/generate_domain.py" "$HERE/ledger.yaml" "$BASELINE" > "$HERE/generated.json"
+(cd "$ENGINE" && python compose.py "$HERE/ledger.yaml" "$BASELINE") > "$HERE/generated.json"
 rm -rf "$S/dossier" "$S/domain" "$S/snapshot"
 python "$ENGINE/splice.py" "$DOMAIN/design" "$HERE/generated.json" "$S/dossier" whole
 
@@ -31,7 +31,8 @@ import json, sys
 from pathlib import Path
 live = {r["code"].split("::")[-1] for r in json.load(open(sys.argv[1]))["new_artifacts"]}
 for p in Path(sys.argv[2]).rglob("*_V[0-9]*.md"):
-    if p.parent.name not in ("structures",) and p.stem not in live and not p.stem.startswith(("TEST_DATA_", "STRUCTURE_BUILD")):
+    kept = p.stem.startswith("STRUCTURE_BUILD") or (p.stem.startswith("TEST_DATA_") and p.stem[10:] in live)
+    if p.parent.name not in ("structures",) and p.stem not in live and not kept:
         print("  removed", p.stem); p.unlink()
 PY
 tc construction emit "$S/dossier" --root "$S/domain/$NAME" --force | tail -1

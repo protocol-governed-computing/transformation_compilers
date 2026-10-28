@@ -1,4 +1,5 @@
-# The library catalog ledger, whole domain, in closed shapes.
+# The library catalog ledger, whole domain, in closed shapes. Each operation says what it does
+# (create, change, read, query) and to which things; engine/compose.py selects the blocks.
 # Normalized by hand from LEDGER_BRIEF_RUN_LIBRARY_CATALOG.yaml and
 # LEDGER_OWNER_ANSWERS_LIBRARY_CATALOG.yaml. `from` names the entry each value comes from.
 
@@ -35,22 +36,24 @@ things:
 
 operations:
   register book:
-    kind: register_with_first_child
-    thing: book
-    child: physical copy
+    does: create
+    creates: [book, physical copy]
+    parent: create_or_reuse
     from: "brief-run precondition / register_book_with_first_copy"
   register additional edition:
-    kind: register_into_existing_parent
-    thing: book
+    does: create
+    creates: [book]
+    parent: existing
     from: "brief-run precondition / register_further_edition"
   register physical copy:
-    kind: create
-    thing: physical copy
-    precondition: {exists: book}
+    does: create
+    creates: [physical copy]
+    parent: existing
     from: "brief-run precondition / register_copy"
   update bibliographic information:
-    kind: update
+    does: change
     thing: book
+    precondition: exists
     may_change: [title, author, publication_year, subject]
     refuse_if: duplicate
     keeps: [state]
@@ -58,39 +61,40 @@ operations:
     seed: "cr_01 P0 §3: An update to bibliographic information may change the title, author or publication year. The update is refused when the changed title, author and publication year would match another registered book."
     from: "owner, 2026-10-27: keep P0's rule (replaces the earlier answer that identity may not change); the edition moves to the work its new title and author name; the old identity is freed and its copies follow"
   retire book record:
-    kind: transition
+    does: change
     thing: book
     from_state: registered
     to_state: retired
     from: "brief-run states / book; precondition / retire_book (owner: wrong-state transition refused)"
   reinstate book record:
-    kind: transition
+    does: change
     thing: book
     from_state: retired
     to_state: registered
     from: "brief-run states / book; precondition / reinstate_book"
   retire physical copy:
-    kind: transition
+    does: change
     thing: physical copy
     from_state: registered
     to_state: retired
     from: "brief-run states / copy; owner confirmed"
   reinstate physical copy:
-    kind: transition
+    does: change
     thing: physical copy
     from_state: retired
     to_state: registered
     from: "brief-run states / copy"
   retrieve book details:
-    kind: details
+    does: read
     thing: book
     with: [work, physical copy]
     from: "brief-run query_returns / retrieve_book_details; owner answers / nothing_found retrieve"
   search catalog:
-    kind: search
+    does: query
     thing: book
     always_exclude: {state: retired}
     caller_may_override: false
+    criteria: caller
     group_by: work
     nothing_found: empty
     from: "brief-run query_returns / search; owner answers / search override, empty search"
@@ -98,6 +102,7 @@ operations:
 trail:
   records: [operation, staff_id, subject]
   subject: identity
+  moment: operation
   reads: true
   from: "owner answers / trail detail; baseline (reads trailed, not decided by the owner)"
 

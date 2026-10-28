@@ -42,15 +42,23 @@
   },
   {
    "family": "CC",
-   "code": "blockchain::CC_VALIDATE_REGISTER_ACTOR_V0",
-   "summary": "Refuse a register lacking what a actor requires",
+   "code": "blockchain::CC_CHECK_REGISTER_ACTOR_SUBMISSION_V0",
+   "summary": "Refuse a request to register actor that lacks what it requires",
    "owner_subdomain": "identity",
    "status": "NEW",
-   "_from": "ledger:things/actor/required"
+   "_from": "ledger:operations/register actor/required"
   },
   {
    "family": "CC",
-   "code": "blockchain::CC_REGISTER_ACTOR_V0",
+   "code": "blockchain::CC_CLAIM_ACTOR_CONTACT_ADDRESS_V0",
+   "summary": "Claim a actor's contact address",
+   "owner_subdomain": "identity",
+   "status": "NEW",
+   "_from": "ledger:things/actor/identity"
+  },
+  {
+   "family": "CC",
+   "code": "blockchain::CC_WRITE_ACTOR_V0",
    "summary": "Write a new actor in its first state",
    "owner_subdomain": "identity",
    "status": "NEW",
@@ -66,40 +74,32 @@
   },
   {
    "family": "CC",
-   "code": "blockchain::CC_RECORD_REPEATED_REGISTER_ACTOR_V0",
-   "summary": "Record a repeated register actor on the identity's trail, with the details it submitted",
+   "code": "blockchain::CC_RECORD_IDENTITY_REPEATED_MOMENT_V0",
+   "summary": "Record a moment on the identity's own trail",
    "owner_subdomain": "identity",
    "status": "NEW",
-   "_from": "ledger:operations/register actor/on_repeat"
+   "_from": "ledger:trail"
   },
   {
    "family": "CC",
-   "code": "blockchain::CC_CLAIM_ACTOR_CONTACT_ADDRESS_V0",
-   "summary": "Claim a actor's contact_address so a second actor carrying it is refused",
+   "code": "blockchain::CC_RESOLVE_ACTOR_IDENTITY_V0",
+   "summary": "Answer which actor its identity names, and refuse when none does",
    "owner_subdomain": "identity",
    "status": "NEW",
    "_from": "ledger:things/actor/identity"
   },
   {
    "family": "CC",
-   "code": "blockchain::CC_RECORD_ACTOR_DECISION_V0",
-   "summary": "Refuse a decision the business does not admit, and record the one it does, changing only state, verifying_authority, grounds",
+   "code": "blockchain::CC_MOVE_ACTOR_FROM_UNVERIFIED_V0",
+   "summary": "Move a actor from unverified to a state the business admits",
    "owner_subdomain": "identity",
    "status": "NEW",
    "_from": "ledger:operations/accept actor"
   },
   {
    "family": "CC",
-   "code": "blockchain::CC_RESOLVE_ACTOR_V0",
-   "summary": "Answer which actor a contact address names, and refuse when none does",
-   "owner_subdomain": "identity",
-   "status": "NEW",
-   "_from": "ledger:things/actor/identity"
-  },
-  {
-   "family": "CC",
    "code": "blockchain::CC_REQUIRE_GROUNDS_TO_REJECT_ACTOR_V0",
-   "summary": "Refuse to reject actor without grounds, before anything is read or recorded",
+   "summary": "Refuse to reject actor without grounds",
    "owner_subdomain": "identity",
    "status": "NEW",
    "_from": "ledger:operations/reject actor/required"
@@ -107,7 +107,7 @@
   {
    "family": "CC",
    "code": "blockchain::CC_LIST_ACTORS_V0",
-   "summary": "Answer every actor matching the named state",
+   "summary": "Answer the actors matching the criteria named",
    "owner_subdomain": "identity",
    "status": "NEW",
    "_from": "ledger:operations/list actors"
@@ -115,23 +115,15 @@
   {
    "family": "CC",
    "code": "blockchain::CC_REQUIRE_ACCEPTED_ACTOR_V0",
-   "summary": "Refuse a wallet for a actor who is not accepted, before anything is claimed",
+   "summary": "Refuse a wallet for a actor who is not accepted",
    "owner_subdomain": "wallet",
    "status": "NEW",
    "_from": "ledger:things/wallet/held_by"
   },
   {
    "family": "CC",
-   "code": "blockchain::CC_FORM_WALLET_IDENTITY_V0",
-   "summary": "Form a wallet's identity from its holder",
-   "owner_subdomain": "wallet",
-   "status": "NEW",
-   "_from": "ledger:things/wallet/identity"
-  },
-  {
-   "family": "CC",
    "code": "blockchain::CC_DERIVE_WALLET_ADDRESS_V0",
-   "summary": "Derive the wallet's address from the key material supplied with the request",
+   "summary": "Derive a wallet's address from the key material supplied",
    "owner_subdomain": "wallet",
    "status": "NEW",
    "_from": "ledger:things/wallet/derived/address"
@@ -139,34 +131,34 @@
   {
    "family": "CC",
    "code": "blockchain::CC_REQUIRE_WALLET_ADDRESS_FREE_V0",
-   "summary": "Refuse when a wallet's address is already held, before any identity is claimed",
+   "summary": "Refuse when a wallet's address is already held, before any is claimed",
    "owner_subdomain": "wallet",
    "status": "NEW",
    "_from": "doctrine:order"
   },
   {
    "family": "CC",
-   "code": "blockchain::CC_CLAIM_WALLET_ADDRESS_V0",
-   "summary": "Claim a wallet's address so a second wallet carrying it is refused",
+   "code": "blockchain::CC_CLAIM_WALLET_IDENTITY_V0",
+   "summary": "Claim a wallet's wallet id",
    "owner_subdomain": "wallet",
    "status": "NEW",
    "_from": "ledger:things/wallet/identity"
   },
   {
    "family": "CC",
-   "code": "blockchain::CC_CREATE_WALLET_V0",
-   "summary": "Record a new wallet with the values the business fixes",
+   "code": "blockchain::CC_CLAIM_WALLET_ADDRESS_V0",
+   "summary": "Claim a wallet's address",
+   "owner_subdomain": "wallet",
+   "status": "NEW",
+   "_from": "ledger:things/wallet/derived/address"
+  },
+  {
+   "family": "CC",
+   "code": "blockchain::CC_WRITE_WALLET_V0",
+   "summary": "Write a new wallet in its first state",
    "owner_subdomain": "wallet",
    "status": "NEW",
    "_from": "ledger:operations/create wallet"
-  },
-  {
-   "family": "CC",
-   "code": "blockchain::CC_CLAIM_WALLET_ID_V0",
-   "summary": "Claim a wallet's wallet_id so a second wallet carrying it is refused",
-   "owner_subdomain": "wallet",
-   "status": "NEW",
-   "_from": "ledger:things/wallet/identity"
   },
   {
    "family": "CC",
@@ -428,14 +420,14 @@
    "node": "IN_REGISTER_ACTOR_V0",
    "node_type": "IN",
    "routing": {
-    "ACK": "CC_VALIDATE_REGISTER_ACTOR_V0",
+    "ACK": "CC_CHECK_REGISTER_ACTOR_SUBMISSION_V0",
     "NACK": "EXIT_REJECTED"
    },
    "_from": "doctrine:order"
   },
   {
    "workflow": "blockchain::WF_REGISTER_ACTOR_V0",
-   "node": "CC_VALIDATE_REGISTER_ACTOR_V0",
+   "node": "CC_CHECK_REGISTER_ACTOR_SUBMISSION_V0",
    "node_type": "CC",
    "routing": {
     "SUCCESS": "CC_CLAIM_ACTOR_CONTACT_ADDRESS_V0",
@@ -448,8 +440,8 @@
    "node": "CC_CLAIM_ACTOR_CONTACT_ADDRESS_V0",
    "node_type": "CC",
    "routing": {
-    "SUCCESS": "CC_REGISTER_ACTOR_V0",
-    "ALREADY_EXISTS": "CC_RECORD_REPEATED_REGISTER_ACTOR_V0",
+    "SUCCESS": "CC_WRITE_ACTOR_V0",
+    "ALREADY_EXISTS": "CC_RECORD_IDENTITY_REPEATED_MOMENT_V0",
     "VIOLATION": "EXIT_REJECTED",
     "BACKEND_ERROR": "EXIT_REJECTED"
    },
@@ -457,7 +449,7 @@
   },
   {
    "workflow": "blockchain::WF_REGISTER_ACTOR_V0",
-   "node": "CC_REGISTER_ACTOR_V0",
+   "node": "CC_WRITE_ACTOR_V0",
    "node_type": "CC",
    "routing": {
     "SUCCESS": "CC_RECORD_IDENTITY_MOMENT_V0",
@@ -479,7 +471,7 @@
   },
   {
    "workflow": "blockchain::WF_REGISTER_ACTOR_V0",
-   "node": "CC_RECORD_REPEATED_REGISTER_ACTOR_V0",
+   "node": "CC_RECORD_IDENTITY_REPEATED_MOMENT_V0",
    "node_type": "CC",
    "routing": {
     "SUCCESS": "EXIT_REPEATED",
@@ -514,17 +506,17 @@
    "node": "IN_ACCEPT_ACTOR_V0",
    "node_type": "IN",
    "routing": {
-    "ACK": "CC_RESOLVE_ACTOR_V0",
+    "ACK": "CC_RESOLVE_ACTOR_IDENTITY_V0",
     "NACK": "EXIT_REJECTED"
    },
    "_from": "doctrine:order"
   },
   {
    "workflow": "blockchain::WF_ACCEPT_ACTOR_V0",
-   "node": "CC_RESOLVE_ACTOR_V0",
+   "node": "CC_RESOLVE_ACTOR_IDENTITY_V0",
    "node_type": "CC",
    "routing": {
-    "SUCCESS": "CC_RECORD_ACTOR_DECISION_V0",
+    "SUCCESS": "CC_MOVE_ACTOR_FROM_UNVERIFIED_V0",
     "NOT_FOUND": "EXIT_REJECTED",
     "VIOLATION": "EXIT_REJECTED",
     "BACKEND_ERROR": "EXIT_REJECTED"
@@ -533,7 +525,7 @@
   },
   {
    "workflow": "blockchain::WF_ACCEPT_ACTOR_V0",
-   "node": "CC_RECORD_ACTOR_DECISION_V0",
+   "node": "CC_MOVE_ACTOR_FROM_UNVERIFIED_V0",
    "node_type": "CC",
    "routing": {
     "SUCCESS": "CC_RECORD_IDENTITY_MOMENT_V0",
@@ -582,17 +574,17 @@
    "node": "CC_REQUIRE_GROUNDS_TO_REJECT_ACTOR_V0",
    "node_type": "CC",
    "routing": {
-    "SUCCESS": "CC_RESOLVE_ACTOR_V0",
+    "SUCCESS": "CC_RESOLVE_ACTOR_IDENTITY_V0",
     "VIOLATION": "EXIT_REJECTED"
    },
    "_from": "doctrine:order"
   },
   {
    "workflow": "blockchain::WF_REJECT_ACTOR_V0",
-   "node": "CC_RESOLVE_ACTOR_V0",
+   "node": "CC_RESOLVE_ACTOR_IDENTITY_V0",
    "node_type": "CC",
    "routing": {
-    "SUCCESS": "CC_RECORD_ACTOR_DECISION_V0",
+    "SUCCESS": "CC_MOVE_ACTOR_FROM_UNVERIFIED_V0",
     "NOT_FOUND": "EXIT_REJECTED",
     "VIOLATION": "EXIT_REJECTED",
     "BACKEND_ERROR": "EXIT_REJECTED"
@@ -601,7 +593,7 @@
   },
   {
    "workflow": "blockchain::WF_REJECT_ACTOR_V0",
-   "node": "CC_RECORD_ACTOR_DECISION_V0",
+   "node": "CC_MOVE_ACTOR_FROM_UNVERIFIED_V0",
    "node_type": "CC",
    "routing": {
     "SUCCESS": "CC_RECORD_IDENTITY_MOMENT_V0",
@@ -686,14 +678,14 @@
    "node": "IN_CREATE_WALLET_V0",
    "node_type": "IN",
    "routing": {
-    "ACK": "CC_RESOLVE_ACTOR_V0",
+    "ACK": "CC_RESOLVE_ACTOR_IDENTITY_V0",
     "NACK": "EXIT_REJECTED"
    },
    "_from": "doctrine:order"
   },
   {
    "workflow": "blockchain::WF_CREATE_WALLET_V0",
-   "node": "CC_RESOLVE_ACTOR_V0",
+   "node": "CC_RESOLVE_ACTOR_IDENTITY_V0",
    "node_type": "CC",
    "routing": {
     "SUCCESS": "CC_REQUIRE_ACCEPTED_ACTOR_V0",
@@ -706,16 +698,6 @@
   {
    "workflow": "blockchain::WF_CREATE_WALLET_V0",
    "node": "CC_REQUIRE_ACCEPTED_ACTOR_V0",
-   "node_type": "CC",
-   "routing": {
-    "SUCCESS": "CC_FORM_WALLET_IDENTITY_V0",
-    "VIOLATION": "EXIT_REJECTED"
-   },
-   "_from": "doctrine:order"
-  },
-  {
-   "workflow": "blockchain::WF_CREATE_WALLET_V0",
-   "node": "CC_FORM_WALLET_IDENTITY_V0",
    "node_type": "CC",
    "routing": {
     "SUCCESS": "CC_DERIVE_WALLET_ADDRESS_V0",
@@ -738,7 +720,7 @@
    "node": "CC_REQUIRE_WALLET_ADDRESS_FREE_V0",
    "node_type": "CC",
    "routing": {
-    "SUCCESS": "CC_CLAIM_WALLET_ID_V0",
+    "SUCCESS": "CC_CLAIM_WALLET_IDENTITY_V0",
     "VIOLATION": "EXIT_REJECTED",
     "BACKEND_ERROR": "EXIT_REJECTED"
    },
@@ -746,12 +728,12 @@
   },
   {
    "workflow": "blockchain::WF_CREATE_WALLET_V0",
-   "node": "CC_CLAIM_WALLET_ID_V0",
+   "node": "CC_CLAIM_WALLET_IDENTITY_V0",
    "node_type": "CC",
    "routing": {
     "SUCCESS": "CC_CLAIM_WALLET_ADDRESS_V0",
-    "ALREADY_EXISTS": "EXIT_REJECTED",
     "VIOLATION": "EXIT_REJECTED",
+    "ALREADY_EXISTS": "EXIT_REJECTED",
     "BACKEND_ERROR": "EXIT_REJECTED"
    },
    "_from": "doctrine:order"
@@ -761,7 +743,7 @@
    "node": "CC_CLAIM_WALLET_ADDRESS_V0",
    "node_type": "CC",
    "routing": {
-    "SUCCESS": "CC_CREATE_WALLET_V0",
+    "SUCCESS": "CC_WRITE_WALLET_V0",
     "ALREADY_EXISTS": "EXIT_REJECTED",
     "VIOLATION": "EXIT_REJECTED",
     "BACKEND_ERROR": "EXIT_REJECTED"
@@ -770,7 +752,7 @@
   },
   {
    "workflow": "blockchain::WF_CREATE_WALLET_V0",
-   "node": "CC_CREATE_WALLET_V0",
+   "node": "CC_WRITE_WALLET_V0",
    "node_type": "CC",
    "routing": {
     "SUCCESS": "CC_RECORD_WALLET_MOMENT_V0",
@@ -807,9 +789,9 @@
  ],
  "cc_composition": [
   {
-   "cc_code": "blockchain::CC_VALIDATE_REGISTER_ACTOR_V0",
+   "cc_code": "blockchain::CC_CHECK_REGISTER_ACTOR_SUBMISSION_V0",
    "step": "1",
-   "step_name": "read_submission",
+   "step_name": "check_actor_fields",
    "capability": "capability_transforms::CT_PURE_VALIDATE_RECORD_STRUCTURE_V0",
    "kind": "CT",
    "operation": null,
@@ -839,7 +821,7 @@
    "_from": "ledger:things/actor/required"
   },
   {
-   "cc_code": "blockchain::CC_VALIDATE_REGISTER_ACTOR_V0",
+   "cc_code": "blockchain::CC_CHECK_REGISTER_ACTOR_SUBMISSION_V0",
    "step": "2",
    "step_name": "refuse_incomplete_submission",
    "capability": "capability_transforms::CT_PURE_VALIDATE_PARAMETER_RULES_V0",
@@ -868,12 +850,50 @@
      "valid": "valid"
     }
    },
-   "_from": "ledger:things/actor/required"
+   "_from": "ledger:operations/register actor/required"
   },
   {
-   "cc_code": "blockchain::CC_REGISTER_ACTOR_V0",
+   "cc_code": "blockchain::CC_CLAIM_ACTOR_CONTACT_ADDRESS_V0",
    "step": "1",
-   "step_name": "assemble_actor",
+   "step_name": "claim_contact_address",
+   "capability": "capability_side_effects::CS_REGISTRY_V0",
+   "kind": "CS",
+   "operation": "REGISTER",
+   "store": "CONTACT_ADDRESS_REGISTRY",
+   "consumes": [
+    "key",
+    "target_cs",
+    "target_ref"
+   ],
+   "produces": [
+    "address",
+    "result_status"
+   ],
+   "routing": {
+    "SUCCESS": "exit",
+    "ALREADY_EXISTS": "exit",
+    "VIOLATION": "exit",
+    "BACKEND_ERROR": "exit"
+   },
+   "interpreted_by": null,
+   "semantic_status": "SUCCESS",
+   "interface": {
+    "in": {
+     "key": "key",
+     "target_cs": "target_cs",
+     "target_ref": "target_ref"
+    },
+    "out": {
+     "address": "address",
+     "result_status": "result_status"
+    }
+   },
+   "_from": "ledger:things/actor/identity"
+  },
+  {
+   "cc_code": "blockchain::CC_WRITE_ACTOR_V0",
+   "step": "1",
+   "step_name": "assemble_actor_record",
    "capability": "capability_transforms::CT_PURE_ASSEMBLE_RECORD_V0",
    "kind": "CT",
    "operation": null,
@@ -882,7 +902,7 @@
     "fields"
    ],
    "produces": [
-    "record"
+    "actor_record"
    ],
    "routing": {
     "SUCCESS": "continue",
@@ -895,15 +915,15 @@
      "fields": "fields"
     },
     "out": {
-     "record": "record"
+     "actor_record": "actor_record"
     }
    },
-   "_from": "ledger:things/actor/states + doctrine:own_values"
+   "_from": "ledger:things/actor + doctrine:own_values"
   },
   {
-   "cc_code": "blockchain::CC_REGISTER_ACTOR_V0",
+   "cc_code": "blockchain::CC_WRITE_ACTOR_V0",
    "step": "2",
-   "step_name": "write_actor",
+   "step_name": "write_actor_record",
    "capability": "capability_side_effects::CS_MUTABLE_JSON_V0",
    "kind": "CS",
    "operation": "WRITE",
@@ -1023,7 +1043,7 @@
    "_from": "ledger:trail + doctrine:own_values"
   },
   {
-   "cc_code": "blockchain::CC_RECORD_REPEATED_REGISTER_ACTOR_V0",
+   "cc_code": "blockchain::CC_RECORD_IDENTITY_REPEATED_MOMENT_V0",
    "step": "1",
    "step_name": "read_now",
    "capability": "capability_side_effects::CS_CLOCK_V0",
@@ -1049,7 +1069,7 @@
    "_from": "doctrine:own_values"
   },
   {
-   "cc_code": "blockchain::CC_RECORD_REPEATED_REGISTER_ACTOR_V0",
+   "cc_code": "blockchain::CC_RECORD_IDENTITY_REPEATED_MOMENT_V0",
    "step": "2",
    "step_name": "assemble_occurrence",
    "capability": "capability_transforms::CT_PURE_ASSEMBLE_RECORD_V0",
@@ -1079,7 +1099,7 @@
    "_from": "ledger:trail"
   },
   {
-   "cc_code": "blockchain::CC_RECORD_REPEATED_REGISTER_ACTOR_V0",
+   "cc_code": "blockchain::CC_RECORD_IDENTITY_REPEATED_MOMENT_V0",
    "step": "3",
    "step_name": "append_occurrence",
    "capability": "capability_side_effects::CS_APPENDONLY_JSONL_V0",
@@ -1112,25 +1132,23 @@
    "_from": "ledger:trail + doctrine:own_values"
   },
   {
-   "cc_code": "blockchain::CC_CLAIM_ACTOR_CONTACT_ADDRESS_V0",
+   "cc_code": "blockchain::CC_RESOLVE_ACTOR_IDENTITY_V0",
    "step": "1",
-   "step_name": "claim_contact_address",
+   "step_name": "resolve_identity",
    "capability": "capability_side_effects::CS_REGISTRY_V0",
    "kind": "CS",
-   "operation": "REGISTER",
+   "operation": "RESOLVE",
    "store": "CONTACT_ADDRESS_REGISTRY",
    "consumes": [
-    "key",
-    "target_cs",
-    "target_ref"
+    "key_or_address"
    ],
    "produces": [
-    "address",
+    "target_ref",
     "result_status"
    ],
    "routing": {
-    "SUCCESS": "exit",
-    "ALREADY_EXISTS": "exit",
+    "SUCCESS": "continue",
+    "NOT_FOUND": "exit",
     "VIOLATION": "exit",
     "BACKEND_ERROR": "exit"
    },
@@ -1138,84 +1156,52 @@
    "semantic_status": "SUCCESS",
    "interface": {
     "in": {
-     "key": "key",
-     "target_cs": "target_cs",
-     "target_ref": "target_ref"
+     "key_or_address": "key_or_address"
     },
     "out": {
-     "address": "address",
+     "target_ref": "target_ref",
      "result_status": "result_status"
     }
    },
    "_from": "ledger:things/actor/identity"
   },
   {
-   "cc_code": "blockchain::CC_RECORD_ACTOR_DECISION_V0",
-   "step": "1",
-   "step_name": "read_state_admits_decision",
-   "capability": "capability_transforms::CT_PURE_VALIDATE_SET_MEMBERSHIP_V0",
-   "kind": "CT",
-   "operation": null,
-   "store": null,
-   "consumes": [
-    "value",
-    "allowed_set"
-   ],
-   "produces": [
-    "is_member"
-   ],
-   "routing": {
-    "SUCCESS": "continue",
-    "VIOLATION": "exit"
-   },
-   "interpreted_by": null,
-   "semantic_status": "SUCCESS",
-   "interface": {
-    "in": {
-     "value": "value",
-     "allowed_set": "allowed_set"
-    },
-    "out": {
-     "is_member": "is_member"
-    }
-   },
-   "_from": "ledger:operations/accept actor/from_state + doctrine:rules_held"
-  },
-  {
-   "cc_code": "blockchain::CC_RECORD_ACTOR_DECISION_V0",
+   "cc_code": "blockchain::CC_RESOLVE_ACTOR_IDENTITY_V0",
    "step": "2",
-   "step_name": "read_outcome_admitted",
-   "capability": "capability_transforms::CT_PURE_VALIDATE_SET_MEMBERSHIP_V0",
-   "kind": "CT",
-   "operation": null,
-   "store": null,
+   "step_name": "read_actor_record",
+   "capability": "capability_side_effects::CS_MUTABLE_JSON_V0",
+   "kind": "CS",
+   "operation": "READ",
+   "store": "ACTORS",
    "consumes": [
-    "value",
-    "allowed_set"
+    "key"
    ],
    "produces": [
-    "is_member"
+    "actor_record",
+    "result_status"
    ],
    "routing": {
-    "SUCCESS": "continue",
-    "VIOLATION": "exit"
+    "SUCCESS": "exit",
+    "NOT_FOUND": "exit",
+    "VIOLATION": "exit",
+    "BACKEND_ERROR": "exit"
    },
    "interpreted_by": null,
    "semantic_status": "SUCCESS",
    "interface": {
     "in": {
-     "value": "value",
-     "allowed_set": "allowed_set"
+     "key": "key"
     },
     "out": {
-     "is_member": "is_member"
+     "actor_record": "actor_record",
+     "result_status": "result_status"
     }
    },
-   "_from": "ledger:things/actor/states + doctrine:rules_held"
+   "_from": "ledger:things/actor/identity"
   },
   {
-   "cc_code": "blockchain::CC_RECORD_ACTOR_DECISION_V0",
-   "step": "3",
+   "cc_code": "blockchain::CC_MOVE_ACTOR_FROM_UNVERIFIED_V0",
+   "step": "1",
    "step_name": "compare_verifying_authority_to_actor",
    "capability": "capability_transforms::CT_PURE_COMPARE_EQUAL_V0",
    "kind": "CT",
@@ -1246,8 +1232,8 @@
    "_from": "ledger:operations/accept actor/not_self"
   },
   {
-   "cc_code": "blockchain::CC_RECORD_ACTOR_DECISION_V0",
-   "step": "4",
+   "cc_code": "blockchain::CC_MOVE_ACTOR_FROM_UNVERIFIED_V0",
+   "step": "2",
    "step_name": "refuse_self_decision",
    "capability": "capability_transforms::CT_PURE_VALIDATE_PARAMETER_RULES_V0",
    "kind": "CT",
@@ -1278,18 +1264,19 @@
    "_from": "ledger:operations/accept actor/not_self + doctrine:rules_held"
   },
   {
-   "cc_code": "blockchain::CC_RECORD_ACTOR_DECISION_V0",
-   "step": "5",
-   "step_name": "assemble_decided_actor",
-   "capability": "capability_transforms::CT_PURE_ASSEMBLE_RECORD_V0",
+   "cc_code": "blockchain::CC_MOVE_ACTOR_FROM_UNVERIFIED_V0",
+   "step": "3",
+   "step_name": "read_outcome_admitted",
+   "capability": "capability_transforms::CT_PURE_VALIDATE_SET_MEMBERSHIP_V0",
    "kind": "CT",
    "operation": null,
    "store": null,
    "consumes": [
-    "fields"
+    "value",
+    "allowed_set"
    ],
    "produces": [
-    "record"
+    "is_member"
    ],
    "routing": {
     "SUCCESS": "continue",
@@ -1299,27 +1286,30 @@
    "semantic_status": "SUCCESS",
    "interface": {
     "in": {
-     "fields": "fields"
+     "value": "value",
+     "allowed_set": "allowed_set"
     },
     "out": {
-     "record": "record"
+     "is_member": "is_member"
     }
    },
-   "_from": "ledger:operations/accept actor/may_change"
+   "_from": "ledger:things/actor/states + doctrine:rules_held"
   },
   {
-   "cc_code": "blockchain::CC_RECORD_ACTOR_DECISION_V0",
-   "step": "6",
-   "step_name": "write_decided_actor",
+   "cc_code": "blockchain::CC_MOVE_ACTOR_FROM_UNVERIFIED_V0",
+   "step": "4",
+   "step_name": "set_record_state",
    "capability": "capability_side_effects::CS_MUTABLE_JSON_V0",
    "kind": "CS",
-   "operation": "UPDATE",
+   "operation": "UPDATE_WHERE",
    "store": "ACTORS",
    "consumes": [
-    "key",
+    "filter",
     "updates"
    ],
    "produces": [
+    "matched_keys",
+    "updated_count",
     "result_status"
    ],
    "routing": {
@@ -1331,78 +1321,16 @@
    "semantic_status": "SUCCESS",
    "interface": {
     "in": {
-     "key": "key",
+     "filter": "filter",
      "updates": "updates"
     },
     "out": {
+     "matched_keys": "matched_keys",
+     "updated_count": "updated_count",
      "result_status": "result_status"
     }
    },
-   "_from": "ledger:operations/accept actor/may_change"
-  },
-  {
-   "cc_code": "blockchain::CC_RESOLVE_ACTOR_V0",
-   "step": "1",
-   "step_name": "resolve_identity",
-   "capability": "capability_side_effects::CS_REGISTRY_V0",
-   "kind": "CS",
-   "operation": "RESOLVE",
-   "store": "CONTACT_ADDRESS_REGISTRY",
-   "consumes": [
-    "key_or_address"
-   ],
-   "produces": [
-    "target_ref"
-   ],
-   "routing": {
-    "SUCCESS": "continue",
-    "NOT_FOUND": "exit",
-    "VIOLATION": "exit",
-    "BACKEND_ERROR": "exit"
-   },
-   "interpreted_by": null,
-   "semantic_status": "SUCCESS",
-   "interface": {
-    "in": {
-     "key_or_address": "key_or_address"
-    },
-    "out": {
-     "target_ref": "target_ref"
-    }
-   },
-   "_from": "ledger:things/actor/identity"
-  },
-  {
-   "cc_code": "blockchain::CC_RESOLVE_ACTOR_V0",
-   "step": "2",
-   "step_name": "read_actor",
-   "capability": "capability_side_effects::CS_MUTABLE_JSON_V0",
-   "kind": "CS",
-   "operation": "READ",
-   "store": "ACTORS",
-   "consumes": [
-    "key"
-   ],
-   "produces": [
-    "value"
-   ],
-   "routing": {
-    "SUCCESS": "exit",
-    "NOT_FOUND": "exit",
-    "VIOLATION": "exit",
-    "BACKEND_ERROR": "exit"
-   },
-   "interpreted_by": null,
-   "semantic_status": "SUCCESS",
-   "interface": {
-    "in": {
-     "key": "key"
-    },
-    "out": {
-     "value": "value"
-    }
-   },
-   "_from": "ledger:things/actor/identity"
+   "_from": "ledger:operations/accept actor/from_state + doctrine:rules_held"
   },
   {
    "cc_code": "blockchain::CC_REQUIRE_GROUNDS_TO_REJECT_ACTOR_V0",
@@ -1446,7 +1374,8 @@
    "store": "ACTORS",
    "consumes": null,
    "produces": [
-    "records"
+    "records",
+    "result_status"
    ],
    "routing": {
     "SUCCESS": "continue",
@@ -1457,7 +1386,8 @@
    "interface": {
     "in": {},
     "out": {
-     "records": "records"
+     "records": "records",
+     "result_status": "result_status"
     }
    },
    "_from": "ledger:operations/list actors"
@@ -1475,7 +1405,7 @@
     "filter"
    ],
    "produces": [
-    "actors"
+    "matching_actors"
    ],
    "routing": {
     "SUCCESS": "exit",
@@ -1489,7 +1419,7 @@
      "filter": "filter"
     },
     "out": {
-     "actors": "actors"
+     "matching_actors": "matching_actors"
     }
    },
    "_from": "ledger:operations/list actors/criteria"
@@ -1525,38 +1455,6 @@
     }
    },
    "_from": "ledger:things/wallet/held_by + doctrine:own_values"
-  },
-  {
-   "cc_code": "blockchain::CC_FORM_WALLET_IDENTITY_V0",
-   "step": "1",
-   "step_name": "form_wallet_id",
-   "capability": "capability_transforms::CT_PURE_GENERATE_ID_V0",
-   "kind": "CT",
-   "operation": null,
-   "store": null,
-   "consumes": [
-    "data",
-    "prefix"
-   ],
-   "produces": [
-    "id"
-   ],
-   "routing": {
-    "SUCCESS": "exit",
-    "VIOLATION": "exit"
-   },
-   "interpreted_by": null,
-   "semantic_status": "SUCCESS",
-   "interface": {
-    "in": {
-     "data": "data",
-     "prefix": "prefix"
-    },
-    "out": {
-     "id": "id"
-    }
-   },
-   "_from": "ledger:things/wallet/identity + doctrine:own_values"
   },
   {
    "cc_code": "blockchain::CC_DERIVE_WALLET_ADDRESS_V0",
@@ -1655,6 +1553,76 @@
    "_from": "doctrine:order"
   },
   {
+   "cc_code": "blockchain::CC_CLAIM_WALLET_IDENTITY_V0",
+   "step": "1",
+   "step_name": "form_wallet_id",
+   "capability": "capability_transforms::CT_PURE_GENERATE_ID_V0",
+   "kind": "CT",
+   "operation": null,
+   "store": null,
+   "consumes": [
+    "data",
+    "prefix"
+   ],
+   "produces": [
+    "wallet_id"
+   ],
+   "routing": {
+    "SUCCESS": "continue",
+    "VIOLATION": "exit"
+   },
+   "interpreted_by": null,
+   "semantic_status": "SUCCESS",
+   "interface": {
+    "in": {
+     "data": "data",
+     "prefix": "prefix"
+    },
+    "out": {
+     "wallet_id": "wallet_id"
+    }
+   },
+   "_from": "ledger:things/wallet/identity + doctrine:own_values"
+  },
+  {
+   "cc_code": "blockchain::CC_CLAIM_WALLET_IDENTITY_V0",
+   "step": "2",
+   "step_name": "claim_id",
+   "capability": "capability_side_effects::CS_REGISTRY_V0",
+   "kind": "CS",
+   "operation": "REGISTER",
+   "store": "WALLET_IDENTITIES",
+   "consumes": [
+    "key",
+    "target_cs",
+    "target_ref"
+   ],
+   "produces": [
+    "address",
+    "result_status"
+   ],
+   "routing": {
+    "SUCCESS": "exit",
+    "ALREADY_EXISTS": "exit",
+    "VIOLATION": "exit",
+    "BACKEND_ERROR": "exit"
+   },
+   "interpreted_by": null,
+   "semantic_status": "SUCCESS",
+   "interface": {
+    "in": {
+     "key": "key",
+     "target_cs": "target_cs",
+     "target_ref": "target_ref"
+    },
+    "out": {
+     "address": "address",
+     "result_status": "result_status"
+    }
+   },
+   "_from": "ledger:things/wallet/identity"
+  },
+  {
    "cc_code": "blockchain::CC_CLAIM_WALLET_ADDRESS_V0",
    "step": "1",
    "step_name": "claim_address",
@@ -1690,12 +1658,12 @@
      "result_status": "result_status"
     }
    },
-   "_from": "ledger:things/wallet/identity"
+   "_from": "ledger:things/wallet/derived/address"
   },
   {
-   "cc_code": "blockchain::CC_CREATE_WALLET_V0",
+   "cc_code": "blockchain::CC_WRITE_WALLET_V0",
    "step": "1",
-   "step_name": "assemble_wallet",
+   "step_name": "assemble_wallet_record",
    "capability": "capability_transforms::CT_PURE_ASSEMBLE_RECORD_V0",
    "kind": "CT",
    "operation": null,
@@ -1704,7 +1672,7 @@
     "fields"
    ],
    "produces": [
-    "record"
+    "wallet_record"
    ],
    "routing": {
     "SUCCESS": "continue",
@@ -1717,15 +1685,15 @@
      "fields": "fields"
     },
     "out": {
-     "record": "record"
+     "wallet_record": "wallet_record"
     }
    },
-   "_from": "ledger:things/wallet/fixed + doctrine:own_values"
+   "_from": "ledger:things/wallet + doctrine:own_values"
   },
   {
-   "cc_code": "blockchain::CC_CREATE_WALLET_V0",
+   "cc_code": "blockchain::CC_WRITE_WALLET_V0",
    "step": "2",
-   "step_name": "write_wallet",
+   "step_name": "write_wallet_record",
    "capability": "capability_side_effects::CS_MUTABLE_JSON_V0",
    "kind": "CS",
    "operation": "WRITE",
@@ -1754,44 +1722,6 @@
     }
    },
    "_from": "ledger:operations/create wallet"
-  },
-  {
-   "cc_code": "blockchain::CC_CLAIM_WALLET_ID_V0",
-   "step": "1",
-   "step_name": "claim_wallet_id",
-   "capability": "capability_side_effects::CS_REGISTRY_V0",
-   "kind": "CS",
-   "operation": "REGISTER",
-   "store": "WALLET_IDENTITIES",
-   "consumes": [
-    "key",
-    "target_cs",
-    "target_ref"
-   ],
-   "produces": [
-    "address",
-    "result_status"
-   ],
-   "routing": {
-    "SUCCESS": "exit",
-    "ALREADY_EXISTS": "exit",
-    "VIOLATION": "exit",
-    "BACKEND_ERROR": "exit"
-   },
-   "interpreted_by": null,
-   "semantic_status": "SUCCESS",
-   "interface": {
-    "in": {
-     "key": "key",
-     "target_cs": "target_cs",
-     "target_ref": "target_ref"
-    },
-    "out": {
-     "address": "address",
-     "result_status": "result_status"
-    }
-   },
-   "_from": "ledger:things/wallet/identity"
   },
   {
    "cc_code": "blockchain::CC_RECORD_WALLET_MOMENT_V0",
@@ -1859,16 +1789,16 @@
  ],
  "step_bindings": [
   {
-   "owner": "blockchain::CC_VALIDATE_REGISTER_ACTOR_V0",
-   "step": "read_submission",
+   "owner": "blockchain::CC_CHECK_REGISTER_ACTOR_SUBMISSION_V0",
+   "step": "check_actor_fields",
    "direction": "INPUT",
    "field": "record",
    "bound_to": "inputs.submission",
    "_from": "ledger:things/actor/required"
   },
   {
-   "owner": "blockchain::CC_VALIDATE_REGISTER_ACTOR_V0",
-   "step": "read_submission",
+   "owner": "blockchain::CC_CHECK_REGISTER_ACTOR_SUBMISSION_V0",
+   "step": "check_actor_fields",
    "direction": "INPUT",
    "field": "schema",
    "bound_to": {
@@ -1886,215 +1816,48 @@
    "_from": "ledger:things/actor/required"
   },
   {
-   "owner": "blockchain::CC_VALIDATE_REGISTER_ACTOR_V0",
-   "step": "read_submission",
+   "owner": "blockchain::CC_CHECK_REGISTER_ACTOR_SUBMISSION_V0",
+   "step": "check_actor_fields",
    "direction": "OUTPUT",
    "field": "violations",
    "bound_to": "capability_result.violations",
    "_from": "ledger:things/actor/required"
   },
   {
-   "owner": "blockchain::CC_VALIDATE_REGISTER_ACTOR_V0",
+   "owner": "blockchain::CC_CHECK_REGISTER_ACTOR_SUBMISSION_V0",
    "step": "refuse_incomplete_submission",
    "direction": "INPUT",
    "field": "parameters",
    "bound_to": {
     "literal": {
-     "violations": "$.results.read_submission.violations"
+     "actor_violations": "$.results.check_actor_fields.violations"
     }
    },
-   "_from": "ledger:things/actor/required"
+   "_from": "ledger:operations/register actor/required"
   },
   {
-   "owner": "blockchain::CC_VALIDATE_REGISTER_ACTOR_V0",
+   "owner": "blockchain::CC_CHECK_REGISTER_ACTOR_SUBMISSION_V0",
    "step": "refuse_incomplete_submission",
    "direction": "INPUT",
    "field": "rules",
    "bound_to": {
     "literal": [
      {
-      "field": "violations",
+      "field": "actor_violations",
       "op": "eq",
       "value": []
      }
     ]
    },
-   "_from": "ledger:things/actor/required"
+   "_from": "ledger:operations/register actor/required"
   },
   {
-   "owner": "blockchain::CC_VALIDATE_REGISTER_ACTOR_V0",
+   "owner": "blockchain::CC_CHECK_REGISTER_ACTOR_SUBMISSION_V0",
    "step": "refuse_incomplete_submission",
    "direction": "OUTPUT",
    "field": "valid",
    "bound_to": "capability_result.valid",
-   "_from": "ledger:things/actor/required"
-  },
-  {
-   "owner": "blockchain::CC_REGISTER_ACTOR_V0",
-   "step": "assemble_actor",
-   "direction": "INPUT",
-   "field": "fields",
-   "bound_to": {
-    "literal": {
-     "name": "$.inputs.submission.name",
-     "contact_address": "$.inputs.submission.contact_address",
-     "currency_preference": "$.inputs.submission.currency_preference",
-     "language": "$.inputs.submission.language",
-     "state": "UNVERIFIED"
-    }
-   },
-   "_from": "ledger:things/actor/states + doctrine:own_values"
-  },
-  {
-   "owner": "blockchain::CC_REGISTER_ACTOR_V0",
-   "step": "assemble_actor",
-   "direction": "OUTPUT",
-   "field": "record",
-   "bound_to": "capability_result.record",
-   "_from": "ledger:things/actor/states + doctrine:own_values"
-  },
-  {
-   "owner": "blockchain::CC_REGISTER_ACTOR_V0",
-   "step": "write_actor",
-   "direction": "INPUT",
-   "field": "key",
-   "bound_to": "inputs.contact_address",
-   "_from": "ledger:operations/register actor"
-  },
-  {
-   "owner": "blockchain::CC_REGISTER_ACTOR_V0",
-   "step": "write_actor",
-   "direction": "INPUT",
-   "field": "value",
-   "bound_to": "results.assemble_actor.record",
-   "_from": "ledger:operations/register actor"
-  },
-  {
-   "owner": "blockchain::CC_REGISTER_ACTOR_V0",
-   "step": "write_actor",
-   "direction": "OUTPUT",
-   "field": "result_status",
-   "bound_to": "result_status",
-   "_from": "ledger:operations/register actor"
-  },
-  {
-   "owner": "blockchain::CC_RECORD_IDENTITY_MOMENT_V0",
-   "step": "read_now",
-   "direction": "OUTPUT",
-   "field": "timestamp",
-   "bound_to": "capability_result.timestamp",
-   "_from": "doctrine:own_values"
-  },
-  {
-   "owner": "blockchain::CC_RECORD_IDENTITY_MOMENT_V0",
-   "step": "assemble_occurrence",
-   "direction": "INPUT",
-   "field": "fields",
-   "bound_to": {
-    "literal": {
-     "occurrence": "$.inputs.occurrence",
-     "contact_address": "$.inputs.contact_address",
-     "verifying_authority": "$.inputs.verifying_authority",
-     "grounds": "$.inputs.grounds",
-     "occurred_at": "$.results.read_now.timestamp"
-    }
-   },
-   "_from": "ledger:trail"
-  },
-  {
-   "owner": "blockchain::CC_RECORD_IDENTITY_MOMENT_V0",
-   "step": "assemble_occurrence",
-   "direction": "OUTPUT",
-   "field": "record",
-   "bound_to": "capability_result.record",
-   "_from": "ledger:trail"
-  },
-  {
-   "owner": "blockchain::CC_RECORD_IDENTITY_MOMENT_V0",
-   "step": "append_occurrence",
-   "direction": "INPUT",
-   "field": "record",
-   "bound_to": "results.assemble_occurrence.record",
-   "_from": "ledger:trail + doctrine:own_values"
-  },
-  {
-   "owner": "blockchain::CC_RECORD_IDENTITY_MOMENT_V0",
-   "step": "append_occurrence",
-   "direction": "INPUT",
-   "field": "stream_id",
-   "bound_to": {
-    "literal": "ACTOR_OCCURRENCES"
-   },
-   "_from": "ledger:trail + doctrine:own_values"
-  },
-  {
-   "owner": "blockchain::CC_RECORD_IDENTITY_MOMENT_V0",
-   "step": "append_occurrence",
-   "direction": "OUTPUT",
-   "field": "sequence_number",
-   "bound_to": "capability_result.sequence_number",
-   "_from": "ledger:trail + doctrine:own_values"
-  },
-  {
-   "owner": "blockchain::CC_RECORD_REPEATED_REGISTER_ACTOR_V0",
-   "step": "read_now",
-   "direction": "OUTPUT",
-   "field": "timestamp",
-   "bound_to": "capability_result.timestamp",
-   "_from": "doctrine:own_values"
-  },
-  {
-   "owner": "blockchain::CC_RECORD_REPEATED_REGISTER_ACTOR_V0",
-   "step": "assemble_occurrence",
-   "direction": "INPUT",
-   "field": "fields",
-   "bound_to": {
-    "literal": {
-     "occurrence": "$.inputs.occurrence",
-     "contact_address": "$.inputs.contact_address",
-     "verifying_authority": "$.inputs.verifying_authority",
-     "grounds": "$.inputs.grounds",
-     "name": "$.inputs.name",
-     "currency_preference": "$.inputs.currency_preference",
-     "language": "$.inputs.language",
-     "occurred_at": "$.results.read_now.timestamp"
-    }
-   },
-   "_from": "ledger:trail"
-  },
-  {
-   "owner": "blockchain::CC_RECORD_REPEATED_REGISTER_ACTOR_V0",
-   "step": "assemble_occurrence",
-   "direction": "OUTPUT",
-   "field": "record",
-   "bound_to": "capability_result.record",
-   "_from": "ledger:trail"
-  },
-  {
-   "owner": "blockchain::CC_RECORD_REPEATED_REGISTER_ACTOR_V0",
-   "step": "append_occurrence",
-   "direction": "INPUT",
-   "field": "record",
-   "bound_to": "results.assemble_occurrence.record",
-   "_from": "ledger:trail + doctrine:own_values"
-  },
-  {
-   "owner": "blockchain::CC_RECORD_REPEATED_REGISTER_ACTOR_V0",
-   "step": "append_occurrence",
-   "direction": "INPUT",
-   "field": "stream_id",
-   "bound_to": {
-    "literal": "ACTOR_OCCURRENCES"
-   },
-   "_from": "ledger:trail + doctrine:own_values"
-  },
-  {
-   "owner": "blockchain::CC_RECORD_REPEATED_REGISTER_ACTOR_V0",
-   "step": "append_occurrence",
-   "direction": "OUTPUT",
-   "field": "sequence_number",
-   "bound_to": "capability_result.sequence_number",
-   "_from": "ledger:trail + doctrine:own_values"
+   "_from": "ledger:operations/register actor/required"
   },
   {
    "owner": "blockchain::CC_CLAIM_ACTOR_CONTACT_ADDRESS_V0",
@@ -2141,64 +1904,222 @@
    "_from": "ledger:things/actor/identity"
   },
   {
-   "owner": "blockchain::CC_RECORD_ACTOR_DECISION_V0",
-   "step": "read_state_admits_decision",
+   "owner": "blockchain::CC_WRITE_ACTOR_V0",
+   "step": "assemble_actor_record",
+   "direction": "INPUT",
+   "field": "fields",
+   "bound_to": {
+    "literal": {
+     "contact_address": "$.inputs.submission.contact_address",
+     "name": "$.inputs.submission.name",
+     "currency_preference": "$.inputs.submission.currency_preference",
+     "language": "$.inputs.submission.language",
+     "state": "UNVERIFIED"
+    }
+   },
+   "_from": "ledger:things/actor + doctrine:own_values"
+  },
+  {
+   "owner": "blockchain::CC_WRITE_ACTOR_V0",
+   "step": "assemble_actor_record",
+   "direction": "OUTPUT",
+   "field": "actor_record",
+   "bound_to": "capability_result.record",
+   "_from": "ledger:things/actor + doctrine:own_values"
+  },
+  {
+   "owner": "blockchain::CC_WRITE_ACTOR_V0",
+   "step": "write_actor_record",
+   "direction": "INPUT",
+   "field": "key",
+   "bound_to": "inputs.contact_address",
+   "_from": "ledger:operations/register actor"
+  },
+  {
+   "owner": "blockchain::CC_WRITE_ACTOR_V0",
+   "step": "write_actor_record",
    "direction": "INPUT",
    "field": "value",
-   "bound_to": "inputs.current_state",
-   "_from": "ledger:operations/accept actor/from_state + doctrine:rules_held"
+   "bound_to": "results.assemble_actor_record.actor_record",
+   "_from": "ledger:operations/register actor"
   },
   {
-   "owner": "blockchain::CC_RECORD_ACTOR_DECISION_V0",
-   "step": "read_state_admits_decision",
-   "direction": "INPUT",
-   "field": "allowed_set",
-   "bound_to": {
-    "literal": [
-     "UNVERIFIED"
-    ]
-   },
-   "_from": "ledger:operations/accept actor/from_state + doctrine:rules_held"
-  },
-  {
-   "owner": "blockchain::CC_RECORD_ACTOR_DECISION_V0",
-   "step": "read_state_admits_decision",
+   "owner": "blockchain::CC_WRITE_ACTOR_V0",
+   "step": "write_actor_record",
    "direction": "OUTPUT",
-   "field": "is_member",
-   "bound_to": "capability_result.is_member",
-   "_from": "ledger:operations/accept actor/from_state + doctrine:rules_held"
+   "field": "result_status",
+   "bound_to": "result_status",
+   "_from": "ledger:operations/register actor"
   },
   {
-   "owner": "blockchain::CC_RECORD_ACTOR_DECISION_V0",
-   "step": "read_outcome_admitted",
-   "direction": "INPUT",
-   "field": "value",
-   "bound_to": "inputs.decision",
-   "_from": "ledger:things/actor/states + doctrine:rules_held"
-  },
-  {
-   "owner": "blockchain::CC_RECORD_ACTOR_DECISION_V0",
-   "step": "read_outcome_admitted",
-   "direction": "INPUT",
-   "field": "allowed_set",
-   "bound_to": {
-    "literal": [
-     "ACCEPTED",
-     "REJECTED"
-    ]
-   },
-   "_from": "ledger:things/actor/states + doctrine:rules_held"
-  },
-  {
-   "owner": "blockchain::CC_RECORD_ACTOR_DECISION_V0",
-   "step": "read_outcome_admitted",
+   "owner": "blockchain::CC_RECORD_IDENTITY_MOMENT_V0",
+   "step": "read_now",
    "direction": "OUTPUT",
-   "field": "is_member",
-   "bound_to": "capability_result.is_member",
-   "_from": "ledger:things/actor/states + doctrine:rules_held"
+   "field": "timestamp",
+   "bound_to": "capability_result.timestamp",
+   "_from": "doctrine:own_values"
   },
   {
-   "owner": "blockchain::CC_RECORD_ACTOR_DECISION_V0",
+   "owner": "blockchain::CC_RECORD_IDENTITY_MOMENT_V0",
+   "step": "assemble_occurrence",
+   "direction": "INPUT",
+   "field": "fields",
+   "bound_to": {
+    "literal": {
+     "occurrence": "$.inputs.occurrence",
+     "contact_address": "$.inputs.contact_address",
+     "verifying_authority": "$.inputs.verifying_authority",
+     "grounds": "$.inputs.grounds",
+     "occurred_at": "$.results.read_now.timestamp"
+    }
+   },
+   "_from": "ledger:trail"
+  },
+  {
+   "owner": "blockchain::CC_RECORD_IDENTITY_MOMENT_V0",
+   "step": "assemble_occurrence",
+   "direction": "OUTPUT",
+   "field": "record",
+   "bound_to": "capability_result.record",
+   "_from": "ledger:trail"
+  },
+  {
+   "owner": "blockchain::CC_RECORD_IDENTITY_MOMENT_V0",
+   "step": "append_occurrence",
+   "direction": "INPUT",
+   "field": "record",
+   "bound_to": "results.assemble_occurrence.record",
+   "_from": "ledger:trail + doctrine:own_values"
+  },
+  {
+   "owner": "blockchain::CC_RECORD_IDENTITY_MOMENT_V0",
+   "step": "append_occurrence",
+   "direction": "INPUT",
+   "field": "stream_id",
+   "bound_to": {
+    "literal": "ACTOR_OCCURRENCES"
+   },
+   "_from": "ledger:trail + doctrine:own_values"
+  },
+  {
+   "owner": "blockchain::CC_RECORD_IDENTITY_MOMENT_V0",
+   "step": "append_occurrence",
+   "direction": "OUTPUT",
+   "field": "sequence_number",
+   "bound_to": "capability_result.sequence_number",
+   "_from": "ledger:trail + doctrine:own_values"
+  },
+  {
+   "owner": "blockchain::CC_RECORD_IDENTITY_REPEATED_MOMENT_V0",
+   "step": "read_now",
+   "direction": "OUTPUT",
+   "field": "timestamp",
+   "bound_to": "capability_result.timestamp",
+   "_from": "doctrine:own_values"
+  },
+  {
+   "owner": "blockchain::CC_RECORD_IDENTITY_REPEATED_MOMENT_V0",
+   "step": "assemble_occurrence",
+   "direction": "INPUT",
+   "field": "fields",
+   "bound_to": {
+    "literal": {
+     "occurrence": "$.inputs.occurrence",
+     "contact_address": "$.inputs.contact_address",
+     "verifying_authority": "$.inputs.verifying_authority",
+     "grounds": "$.inputs.grounds",
+     "name": "$.inputs.name",
+     "currency_preference": "$.inputs.currency_preference",
+     "language": "$.inputs.language",
+     "occurred_at": "$.results.read_now.timestamp"
+    }
+   },
+   "_from": "ledger:trail"
+  },
+  {
+   "owner": "blockchain::CC_RECORD_IDENTITY_REPEATED_MOMENT_V0",
+   "step": "assemble_occurrence",
+   "direction": "OUTPUT",
+   "field": "record",
+   "bound_to": "capability_result.record",
+   "_from": "ledger:trail"
+  },
+  {
+   "owner": "blockchain::CC_RECORD_IDENTITY_REPEATED_MOMENT_V0",
+   "step": "append_occurrence",
+   "direction": "INPUT",
+   "field": "record",
+   "bound_to": "results.assemble_occurrence.record",
+   "_from": "ledger:trail + doctrine:own_values"
+  },
+  {
+   "owner": "blockchain::CC_RECORD_IDENTITY_REPEATED_MOMENT_V0",
+   "step": "append_occurrence",
+   "direction": "INPUT",
+   "field": "stream_id",
+   "bound_to": {
+    "literal": "ACTOR_OCCURRENCES"
+   },
+   "_from": "ledger:trail + doctrine:own_values"
+  },
+  {
+   "owner": "blockchain::CC_RECORD_IDENTITY_REPEATED_MOMENT_V0",
+   "step": "append_occurrence",
+   "direction": "OUTPUT",
+   "field": "sequence_number",
+   "bound_to": "capability_result.sequence_number",
+   "_from": "ledger:trail + doctrine:own_values"
+  },
+  {
+   "owner": "blockchain::CC_RESOLVE_ACTOR_IDENTITY_V0",
+   "step": "resolve_identity",
+   "direction": "INPUT",
+   "field": "key_or_address",
+   "bound_to": "inputs.contact_address",
+   "_from": "ledger:things/actor/identity"
+  },
+  {
+   "owner": "blockchain::CC_RESOLVE_ACTOR_IDENTITY_V0",
+   "step": "resolve_identity",
+   "direction": "OUTPUT",
+   "field": "target_ref",
+   "bound_to": "capability_result.target_ref",
+   "_from": "ledger:things/actor/identity"
+  },
+  {
+   "owner": "blockchain::CC_RESOLVE_ACTOR_IDENTITY_V0",
+   "step": "resolve_identity",
+   "direction": "OUTPUT",
+   "field": "result_status",
+   "bound_to": "result_status",
+   "_from": "ledger:things/actor/identity"
+  },
+  {
+   "owner": "blockchain::CC_RESOLVE_ACTOR_IDENTITY_V0",
+   "step": "read_actor_record",
+   "direction": "INPUT",
+   "field": "key",
+   "bound_to": "inputs.contact_address",
+   "_from": "ledger:things/actor/identity"
+  },
+  {
+   "owner": "blockchain::CC_RESOLVE_ACTOR_IDENTITY_V0",
+   "step": "read_actor_record",
+   "direction": "OUTPUT",
+   "field": "actor_record",
+   "bound_to": "capability_result.value",
+   "_from": "ledger:things/actor/identity"
+  },
+  {
+   "owner": "blockchain::CC_RESOLVE_ACTOR_IDENTITY_V0",
+   "step": "read_actor_record",
+   "direction": "OUTPUT",
+   "field": "result_status",
+   "bound_to": "result_status",
+   "_from": "ledger:things/actor/identity"
+  },
+  {
+   "owner": "blockchain::CC_MOVE_ACTOR_FROM_UNVERIFIED_V0",
    "step": "compare_verifying_authority_to_actor",
    "direction": "INPUT",
    "field": "left",
@@ -2206,7 +2127,7 @@
    "_from": "ledger:operations/accept actor/not_self"
   },
   {
-   "owner": "blockchain::CC_RECORD_ACTOR_DECISION_V0",
+   "owner": "blockchain::CC_MOVE_ACTOR_FROM_UNVERIFIED_V0",
    "step": "compare_verifying_authority_to_actor",
    "direction": "INPUT",
    "field": "right",
@@ -2214,7 +2135,7 @@
    "_from": "ledger:operations/accept actor/not_self"
   },
   {
-   "owner": "blockchain::CC_RECORD_ACTOR_DECISION_V0",
+   "owner": "blockchain::CC_MOVE_ACTOR_FROM_UNVERIFIED_V0",
    "step": "compare_verifying_authority_to_actor",
    "direction": "OUTPUT",
    "field": "is_self",
@@ -2222,7 +2143,7 @@
    "_from": "ledger:operations/accept actor/not_self"
   },
   {
-   "owner": "blockchain::CC_RECORD_ACTOR_DECISION_V0",
+   "owner": "blockchain::CC_MOVE_ACTOR_FROM_UNVERIFIED_V0",
    "step": "refuse_self_decision",
    "direction": "INPUT",
    "field": "parameters",
@@ -2234,7 +2155,7 @@
    "_from": "ledger:operations/accept actor/not_self + doctrine:rules_held"
   },
   {
-   "owner": "blockchain::CC_RECORD_ACTOR_DECISION_V0",
+   "owner": "blockchain::CC_MOVE_ACTOR_FROM_UNVERIFIED_V0",
    "step": "refuse_self_decision",
    "direction": "INPUT",
    "field": "rules",
@@ -2250,7 +2171,7 @@
    "_from": "ledger:operations/accept actor/not_self + doctrine:rules_held"
   },
   {
-   "owner": "blockchain::CC_RECORD_ACTOR_DECISION_V0",
+   "owner": "blockchain::CC_MOVE_ACTOR_FROM_UNVERIFIED_V0",
    "step": "refuse_self_decision",
    "direction": "OUTPUT",
    "field": "valid",
@@ -2258,83 +2179,84 @@
    "_from": "ledger:operations/accept actor/not_self + doctrine:rules_held"
   },
   {
-   "owner": "blockchain::CC_RECORD_ACTOR_DECISION_V0",
-   "step": "assemble_decided_actor",
+   "owner": "blockchain::CC_MOVE_ACTOR_FROM_UNVERIFIED_V0",
+   "step": "read_outcome_admitted",
    "direction": "INPUT",
-   "field": "fields",
+   "field": "value",
+   "bound_to": "inputs.to_state",
+   "_from": "ledger:things/actor/states + doctrine:rules_held"
+  },
+  {
+   "owner": "blockchain::CC_MOVE_ACTOR_FROM_UNVERIFIED_V0",
+   "step": "read_outcome_admitted",
+   "direction": "INPUT",
+   "field": "allowed_set",
+   "bound_to": {
+    "literal": [
+     "ACCEPTED",
+     "REJECTED"
+    ]
+   },
+   "_from": "ledger:things/actor/states + doctrine:rules_held"
+  },
+  {
+   "owner": "blockchain::CC_MOVE_ACTOR_FROM_UNVERIFIED_V0",
+   "step": "read_outcome_admitted",
+   "direction": "OUTPUT",
+   "field": "is_member",
+   "bound_to": "capability_result.is_member",
+   "_from": "ledger:things/actor/states + doctrine:rules_held"
+  },
+  {
+   "owner": "blockchain::CC_MOVE_ACTOR_FROM_UNVERIFIED_V0",
+   "step": "set_record_state",
+   "direction": "INPUT",
+   "field": "filter",
    "bound_to": {
     "literal": {
      "contact_address": "$.inputs.contact_address",
-     "state": "$.inputs.decision",
+     "state": "UNVERIFIED"
+    }
+   },
+   "_from": "ledger:operations/accept actor/from_state + doctrine:rules_held"
+  },
+  {
+   "owner": "blockchain::CC_MOVE_ACTOR_FROM_UNVERIFIED_V0",
+   "step": "set_record_state",
+   "direction": "INPUT",
+   "field": "updates",
+   "bound_to": {
+    "literal": {
+     "state": "$.inputs.to_state",
      "verifying_authority": "$.inputs.verifying_authority",
      "grounds": "$.inputs.grounds"
     }
    },
-   "_from": "ledger:operations/accept actor/may_change"
+   "_from": "ledger:operations/accept actor/from_state + doctrine:rules_held"
   },
   {
-   "owner": "blockchain::CC_RECORD_ACTOR_DECISION_V0",
-   "step": "assemble_decided_actor",
+   "owner": "blockchain::CC_MOVE_ACTOR_FROM_UNVERIFIED_V0",
+   "step": "set_record_state",
    "direction": "OUTPUT",
-   "field": "record",
-   "bound_to": "capability_result.record",
-   "_from": "ledger:operations/accept actor/may_change"
+   "field": "matched_keys",
+   "bound_to": "capability_result.matched_keys",
+   "_from": "ledger:operations/accept actor/from_state + doctrine:rules_held"
   },
   {
-   "owner": "blockchain::CC_RECORD_ACTOR_DECISION_V0",
-   "step": "write_decided_actor",
-   "direction": "INPUT",
-   "field": "key",
-   "bound_to": "inputs.contact_address",
-   "_from": "ledger:operations/accept actor/may_change"
+   "owner": "blockchain::CC_MOVE_ACTOR_FROM_UNVERIFIED_V0",
+   "step": "set_record_state",
+   "direction": "OUTPUT",
+   "field": "updated_count",
+   "bound_to": "capability_result.updated_count",
+   "_from": "ledger:operations/accept actor/from_state + doctrine:rules_held"
   },
   {
-   "owner": "blockchain::CC_RECORD_ACTOR_DECISION_V0",
-   "step": "write_decided_actor",
-   "direction": "INPUT",
-   "field": "updates",
-   "bound_to": "results.assemble_decided_actor.record",
-   "_from": "ledger:operations/accept actor/may_change"
-  },
-  {
-   "owner": "blockchain::CC_RECORD_ACTOR_DECISION_V0",
-   "step": "write_decided_actor",
+   "owner": "blockchain::CC_MOVE_ACTOR_FROM_UNVERIFIED_V0",
+   "step": "set_record_state",
    "direction": "OUTPUT",
    "field": "result_status",
    "bound_to": "result_status",
-   "_from": "ledger:operations/accept actor/may_change"
-  },
-  {
-   "owner": "blockchain::CC_RESOLVE_ACTOR_V0",
-   "step": "resolve_identity",
-   "direction": "INPUT",
-   "field": "key_or_address",
-   "bound_to": "inputs.contact_address",
-   "_from": "ledger:things/actor/identity"
-  },
-  {
-   "owner": "blockchain::CC_RESOLVE_ACTOR_V0",
-   "step": "resolve_identity",
-   "direction": "OUTPUT",
-   "field": "target_ref",
-   "bound_to": "capability_result.target_ref",
-   "_from": "ledger:things/actor/identity"
-  },
-  {
-   "owner": "blockchain::CC_RESOLVE_ACTOR_V0",
-   "step": "read_actor",
-   "direction": "INPUT",
-   "field": "key",
-   "bound_to": "inputs.contact_address",
-   "_from": "ledger:things/actor/identity"
-  },
-  {
-   "owner": "blockchain::CC_RESOLVE_ACTOR_V0",
-   "step": "read_actor",
-   "direction": "OUTPUT",
-   "field": "value",
-   "bound_to": "capability_result.value",
-   "_from": "ledger:things/actor/identity"
+   "_from": "ledger:operations/accept actor/from_state + doctrine:rules_held"
   },
   {
    "owner": "blockchain::CC_REQUIRE_GROUNDS_TO_REJECT_ACTOR_V0",
@@ -2386,6 +2308,14 @@
   },
   {
    "owner": "blockchain::CC_LIST_ACTORS_V0",
+   "step": "select_actor_records",
+   "direction": "OUTPUT",
+   "field": "result_status",
+   "bound_to": "result_status",
+   "_from": "ledger:operations/list actors"
+  },
+  {
+   "owner": "blockchain::CC_LIST_ACTORS_V0",
    "step": "select_matching_actors",
    "direction": "INPUT",
    "field": "source",
@@ -2408,7 +2338,7 @@
    "owner": "blockchain::CC_LIST_ACTORS_V0",
    "step": "select_matching_actors",
    "direction": "OUTPUT",
-   "field": "actors",
+   "field": "matching_actors",
    "bound_to": "capability_result.extracted",
    "_from": "ledger:operations/list actors/criteria"
   },
@@ -2439,32 +2369,6 @@
    "field": "is_member",
    "bound_to": "capability_result.is_member",
    "_from": "ledger:things/wallet/held_by + doctrine:own_values"
-  },
-  {
-   "owner": "blockchain::CC_FORM_WALLET_IDENTITY_V0",
-   "step": "form_wallet_id",
-   "direction": "INPUT",
-   "field": "data",
-   "bound_to": "inputs.holder",
-   "_from": "ledger:things/wallet/identity + doctrine:own_values"
-  },
-  {
-   "owner": "blockchain::CC_FORM_WALLET_IDENTITY_V0",
-   "step": "form_wallet_id",
-   "direction": "INPUT",
-   "field": "prefix",
-   "bound_to": {
-    "literal": "wal"
-   },
-   "_from": "ledger:things/wallet/identity + doctrine:own_values"
-  },
-  {
-   "owner": "blockchain::CC_FORM_WALLET_IDENTITY_V0",
-   "step": "form_wallet_id",
-   "direction": "OUTPUT",
-   "field": "id",
-   "bound_to": "capability_result.id",
-   "_from": "ledger:things/wallet/identity + doctrine:own_values"
   },
   {
    "owner": "blockchain::CC_DERIVE_WALLET_ADDRESS_V0",
@@ -2543,12 +2447,82 @@
    "_from": "doctrine:order"
   },
   {
+   "owner": "blockchain::CC_CLAIM_WALLET_IDENTITY_V0",
+   "step": "form_wallet_id",
+   "direction": "INPUT",
+   "field": "data",
+   "bound_to": "inputs.holder",
+   "_from": "ledger:things/wallet/identity + doctrine:own_values"
+  },
+  {
+   "owner": "blockchain::CC_CLAIM_WALLET_IDENTITY_V0",
+   "step": "form_wallet_id",
+   "direction": "INPUT",
+   "field": "prefix",
+   "bound_to": {
+    "literal": "wal"
+   },
+   "_from": "ledger:things/wallet/identity + doctrine:own_values"
+  },
+  {
+   "owner": "blockchain::CC_CLAIM_WALLET_IDENTITY_V0",
+   "step": "form_wallet_id",
+   "direction": "OUTPUT",
+   "field": "wallet_id",
+   "bound_to": "capability_result.id",
+   "_from": "ledger:things/wallet/identity + doctrine:own_values"
+  },
+  {
+   "owner": "blockchain::CC_CLAIM_WALLET_IDENTITY_V0",
+   "step": "claim_id",
+   "direction": "INPUT",
+   "field": "key",
+   "bound_to": "results.form_wallet_id.wallet_id",
+   "_from": "ledger:things/wallet/identity"
+  },
+  {
+   "owner": "blockchain::CC_CLAIM_WALLET_IDENTITY_V0",
+   "step": "claim_id",
+   "direction": "INPUT",
+   "field": "target_cs",
+   "bound_to": {
+    "literal": "capability_side_effects::CS_MUTABLE_JSON_V0"
+   },
+   "_from": "ledger:things/wallet/identity"
+  },
+  {
+   "owner": "blockchain::CC_CLAIM_WALLET_IDENTITY_V0",
+   "step": "claim_id",
+   "direction": "INPUT",
+   "field": "target_ref",
+   "bound_to": {
+    "literal": "WALLETS"
+   },
+   "_from": "ledger:things/wallet/identity"
+  },
+  {
+   "owner": "blockchain::CC_CLAIM_WALLET_IDENTITY_V0",
+   "step": "claim_id",
+   "direction": "OUTPUT",
+   "field": "address",
+   "bound_to": "capability_result.address",
+   "_from": "ledger:things/wallet/identity"
+  },
+  {
+   "owner": "blockchain::CC_CLAIM_WALLET_IDENTITY_V0",
+   "step": "claim_id",
+   "direction": "OUTPUT",
+   "field": "result_status",
+   "bound_to": "result_status",
+   "_from": "ledger:things/wallet/identity"
+  },
+  {
    "owner": "blockchain::CC_CLAIM_WALLET_ADDRESS_V0",
    "step": "claim_address",
    "direction": "INPUT",
    "field": "key",
    "bound_to": "inputs.address",
-   "_from": "ledger:things/wallet/identity"
+   "_from": "ledger:things/wallet/derived/address"
   },
   {
    "owner": "blockchain::CC_CLAIM_WALLET_ADDRESS_V0",
@@ -2558,7 +2532,7 @@
    "bound_to": {
     "literal": "capability_side_effects::CS_MUTABLE_JSON_V0"
    },
-   "_from": "ledger:things/wallet/identity"
+   "_from": "ledger:things/wallet/derived/address"
   },
   {
    "owner": "blockchain::CC_CLAIM_WALLET_ADDRESS_V0",
@@ -2568,7 +2542,7 @@
    "bound_to": {
     "literal": "WALLETS"
    },
-   "_from": "ledger:things/wallet/identity"
+   "_from": "ledger:things/wallet/derived/address"
   },
   {
    "owner": "blockchain::CC_CLAIM_WALLET_ADDRESS_V0",
@@ -2576,7 +2550,7 @@
    "direction": "OUTPUT",
    "field": "address",
    "bound_to": "capability_result.address",
-   "_from": "ledger:things/wallet/identity"
+   "_from": "ledger:things/wallet/derived/address"
   },
   {
    "owner": "blockchain::CC_CLAIM_WALLET_ADDRESS_V0",
@@ -2584,11 +2558,11 @@
    "direction": "OUTPUT",
    "field": "result_status",
    "bound_to": "result_status",
-   "_from": "ledger:things/wallet/identity"
+   "_from": "ledger:things/wallet/derived/address"
   },
   {
-   "owner": "blockchain::CC_CREATE_WALLET_V0",
-   "step": "assemble_wallet",
+   "owner": "blockchain::CC_WRITE_WALLET_V0",
+   "step": "assemble_wallet_record",
    "direction": "INPUT",
    "field": "fields",
    "bound_to": {
@@ -2600,83 +2574,39 @@
      "state": "ACTIVE"
     }
    },
-   "_from": "ledger:things/wallet/fixed + doctrine:own_values"
+   "_from": "ledger:things/wallet + doctrine:own_values"
   },
   {
-   "owner": "blockchain::CC_CREATE_WALLET_V0",
-   "step": "assemble_wallet",
+   "owner": "blockchain::CC_WRITE_WALLET_V0",
+   "step": "assemble_wallet_record",
    "direction": "OUTPUT",
-   "field": "record",
+   "field": "wallet_record",
    "bound_to": "capability_result.record",
-   "_from": "ledger:things/wallet/fixed + doctrine:own_values"
+   "_from": "ledger:things/wallet + doctrine:own_values"
   },
   {
-   "owner": "blockchain::CC_CREATE_WALLET_V0",
-   "step": "write_wallet",
+   "owner": "blockchain::CC_WRITE_WALLET_V0",
+   "step": "write_wallet_record",
    "direction": "INPUT",
    "field": "key",
    "bound_to": "inputs.wallet_id",
    "_from": "ledger:operations/create wallet"
   },
   {
-   "owner": "blockchain::CC_CREATE_WALLET_V0",
-   "step": "write_wallet",
+   "owner": "blockchain::CC_WRITE_WALLET_V0",
+   "step": "write_wallet_record",
    "direction": "INPUT",
    "field": "value",
-   "bound_to": "results.assemble_wallet.record",
+   "bound_to": "results.assemble_wallet_record.wallet_record",
    "_from": "ledger:operations/create wallet"
   },
   {
-   "owner": "blockchain::CC_CREATE_WALLET_V0",
-   "step": "write_wallet",
+   "owner": "blockchain::CC_WRITE_WALLET_V0",
+   "step": "write_wallet_record",
    "direction": "OUTPUT",
    "field": "result_status",
    "bound_to": "result_status",
    "_from": "ledger:operations/create wallet"
-  },
-  {
-   "owner": "blockchain::CC_CLAIM_WALLET_ID_V0",
-   "step": "claim_wallet_id",
-   "direction": "INPUT",
-   "field": "key",
-   "bound_to": "inputs.wallet_id",
-   "_from": "ledger:things/wallet/identity"
-  },
-  {
-   "owner": "blockchain::CC_CLAIM_WALLET_ID_V0",
-   "step": "claim_wallet_id",
-   "direction": "INPUT",
-   "field": "target_cs",
-   "bound_to": {
-    "literal": "capability_side_effects::CS_MUTABLE_JSON_V0"
-   },
-   "_from": "ledger:things/wallet/identity"
-  },
-  {
-   "owner": "blockchain::CC_CLAIM_WALLET_ID_V0",
-   "step": "claim_wallet_id",
-   "direction": "INPUT",
-   "field": "target_ref",
-   "bound_to": {
-    "literal": "WALLETS"
-   },
-   "_from": "ledger:things/wallet/identity"
-  },
-  {
-   "owner": "blockchain::CC_CLAIM_WALLET_ID_V0",
-   "step": "claim_wallet_id",
-   "direction": "OUTPUT",
-   "field": "address",
-   "bound_to": "capability_result.address",
-   "_from": "ledger:things/wallet/identity"
-  },
-  {
-   "owner": "blockchain::CC_CLAIM_WALLET_ID_V0",
-   "step": "claim_wallet_id",
-   "direction": "OUTPUT",
-   "field": "result_status",
-   "bound_to": "result_status",
-   "_from": "ledger:things/wallet/identity"
   },
   {
    "owner": "blockchain::CC_RECORD_WALLET_MOMENT_V0",
@@ -2725,11 +2655,11 @@
   },
   {
    "owner": "blockchain::WF_REGISTER_ACTOR_V0",
-   "step": "CC_VALIDATE_REGISTER_ACTOR_V0",
+   "step": "CC_CHECK_REGISTER_ACTOR_SUBMISSION_V0",
    "direction": "INPUT",
    "field": "submission",
    "bound_to": "payload.actor_record",
-   "_from": "ledger:things/actor/required"
+   "_from": "ledger:operations/register actor/required"
   },
   {
    "owner": "blockchain::WF_REGISTER_ACTOR_V0",
@@ -2741,7 +2671,7 @@
   },
   {
    "owner": "blockchain::WF_REGISTER_ACTOR_V0",
-   "step": "CC_REGISTER_ACTOR_V0",
+   "step": "CC_WRITE_ACTOR_V0",
    "direction": "INPUT",
    "field": "contact_address",
    "bound_to": "payload.actor_record.contact_address",
@@ -2749,7 +2679,7 @@
   },
   {
    "owner": "blockchain::WF_REGISTER_ACTOR_V0",
-   "step": "CC_REGISTER_ACTOR_V0",
+   "step": "CC_WRITE_ACTOR_V0",
    "direction": "INPUT",
    "field": "submission",
    "bound_to": "payload.actor_record",
@@ -2775,7 +2705,23 @@
   },
   {
    "owner": "blockchain::WF_REGISTER_ACTOR_V0",
-   "step": "CC_RECORD_REPEATED_REGISTER_ACTOR_V0",
+   "step": "CC_RECORD_IDENTITY_MOMENT_V0",
+   "direction": "INPUT",
+   "field": "verifying_authority",
+   "bound_to": "payload.actor_record.verifying_authority",
+   "_from": "ledger:trail"
+  },
+  {
+   "owner": "blockchain::WF_REGISTER_ACTOR_V0",
+   "step": "CC_RECORD_IDENTITY_MOMENT_V0",
+   "direction": "INPUT",
+   "field": "grounds",
+   "bound_to": "payload.actor_record.grounds",
+   "_from": "ledger:trail"
+  },
+  {
+   "owner": "blockchain::WF_REGISTER_ACTOR_V0",
+   "step": "CC_RECORD_IDENTITY_REPEATED_MOMENT_V0",
    "direction": "INPUT",
    "field": "occurrence",
    "bound_to": {
@@ -2785,7 +2731,7 @@
   },
   {
    "owner": "blockchain::WF_REGISTER_ACTOR_V0",
-   "step": "CC_RECORD_REPEATED_REGISTER_ACTOR_V0",
+   "step": "CC_RECORD_IDENTITY_REPEATED_MOMENT_V0",
    "direction": "INPUT",
    "field": "contact_address",
    "bound_to": "payload.actor_record.contact_address",
@@ -2793,7 +2739,23 @@
   },
   {
    "owner": "blockchain::WF_REGISTER_ACTOR_V0",
-   "step": "CC_RECORD_REPEATED_REGISTER_ACTOR_V0",
+   "step": "CC_RECORD_IDENTITY_REPEATED_MOMENT_V0",
+   "direction": "INPUT",
+   "field": "verifying_authority",
+   "bound_to": "payload.actor_record.verifying_authority",
+   "_from": "ledger:operations/register actor/on_repeat"
+  },
+  {
+   "owner": "blockchain::WF_REGISTER_ACTOR_V0",
+   "step": "CC_RECORD_IDENTITY_REPEATED_MOMENT_V0",
+   "direction": "INPUT",
+   "field": "grounds",
+   "bound_to": "payload.actor_record.grounds",
+   "_from": "ledger:operations/register actor/on_repeat"
+  },
+  {
+   "owner": "blockchain::WF_REGISTER_ACTOR_V0",
+   "step": "CC_RECORD_IDENTITY_REPEATED_MOMENT_V0",
    "direction": "INPUT",
    "field": "name",
    "bound_to": "payload.actor_record.name",
@@ -2801,7 +2763,7 @@
   },
   {
    "owner": "blockchain::WF_REGISTER_ACTOR_V0",
-   "step": "CC_RECORD_REPEATED_REGISTER_ACTOR_V0",
+   "step": "CC_RECORD_IDENTITY_REPEATED_MOMENT_V0",
    "direction": "INPUT",
    "field": "currency_preference",
    "bound_to": "payload.actor_record.currency_preference",
@@ -2809,7 +2771,7 @@
   },
   {
    "owner": "blockchain::WF_REGISTER_ACTOR_V0",
-   "step": "CC_RECORD_REPEATED_REGISTER_ACTOR_V0",
+   "step": "CC_RECORD_IDENTITY_REPEATED_MOMENT_V0",
    "direction": "INPUT",
    "field": "language",
    "bound_to": "payload.actor_record.language",
@@ -2817,7 +2779,7 @@
   },
   {
    "owner": "blockchain::WF_ACCEPT_ACTOR_V0",
-   "step": "CC_RESOLVE_ACTOR_V0",
+   "step": "CC_RESOLVE_ACTOR_IDENTITY_V0",
    "direction": "INPUT",
    "field": "contact_address",
    "bound_to": "payload.contact_address",
@@ -2825,17 +2787,9 @@
   },
   {
    "owner": "blockchain::WF_ACCEPT_ACTOR_V0",
-   "step": "CC_RECORD_ACTOR_DECISION_V0",
+   "step": "CC_MOVE_ACTOR_FROM_UNVERIFIED_V0",
    "direction": "INPUT",
-   "field": "current_state",
-   "bound_to": "results.CC_RESOLVE_ACTOR_V0.value.state",
-   "_from": "ledger:operations/accept actor"
-  },
-  {
-   "owner": "blockchain::WF_ACCEPT_ACTOR_V0",
-   "step": "CC_RECORD_ACTOR_DECISION_V0",
-   "direction": "INPUT",
-   "field": "decision",
+   "field": "to_state",
    "bound_to": {
     "literal": "ACCEPTED"
    },
@@ -2843,7 +2797,7 @@
   },
   {
    "owner": "blockchain::WF_ACCEPT_ACTOR_V0",
-   "step": "CC_RECORD_ACTOR_DECISION_V0",
+   "step": "CC_MOVE_ACTOR_FROM_UNVERIFIED_V0",
    "direction": "INPUT",
    "field": "contact_address",
    "bound_to": "payload.contact_address",
@@ -2851,7 +2805,7 @@
   },
   {
    "owner": "blockchain::WF_ACCEPT_ACTOR_V0",
-   "step": "CC_RECORD_ACTOR_DECISION_V0",
+   "step": "CC_MOVE_ACTOR_FROM_UNVERIFIED_V0",
    "direction": "INPUT",
    "field": "verifying_authority",
    "bound_to": "payload.verifying_authority",
@@ -2859,7 +2813,7 @@
   },
   {
    "owner": "blockchain::WF_ACCEPT_ACTOR_V0",
-   "step": "CC_RECORD_ACTOR_DECISION_V0",
+   "step": "CC_MOVE_ACTOR_FROM_UNVERIFIED_V0",
    "direction": "INPUT",
    "field": "grounds",
    "bound_to": "payload.grounds",
@@ -2909,7 +2863,7 @@
   },
   {
    "owner": "blockchain::WF_REJECT_ACTOR_V0",
-   "step": "CC_RESOLVE_ACTOR_V0",
+   "step": "CC_RESOLVE_ACTOR_IDENTITY_V0",
    "direction": "INPUT",
    "field": "contact_address",
    "bound_to": "payload.contact_address",
@@ -2917,17 +2871,9 @@
   },
   {
    "owner": "blockchain::WF_REJECT_ACTOR_V0",
-   "step": "CC_RECORD_ACTOR_DECISION_V0",
+   "step": "CC_MOVE_ACTOR_FROM_UNVERIFIED_V0",
    "direction": "INPUT",
-   "field": "current_state",
-   "bound_to": "results.CC_RESOLVE_ACTOR_V0.value.state",
-   "_from": "ledger:operations/reject actor"
-  },
-  {
-   "owner": "blockchain::WF_REJECT_ACTOR_V0",
-   "step": "CC_RECORD_ACTOR_DECISION_V0",
-   "direction": "INPUT",
-   "field": "decision",
+   "field": "to_state",
    "bound_to": {
     "literal": "REJECTED"
    },
@@ -2935,7 +2881,7 @@
   },
   {
    "owner": "blockchain::WF_REJECT_ACTOR_V0",
-   "step": "CC_RECORD_ACTOR_DECISION_V0",
+   "step": "CC_MOVE_ACTOR_FROM_UNVERIFIED_V0",
    "direction": "INPUT",
    "field": "contact_address",
    "bound_to": "payload.contact_address",
@@ -2943,7 +2889,7 @@
   },
   {
    "owner": "blockchain::WF_REJECT_ACTOR_V0",
-   "step": "CC_RECORD_ACTOR_DECISION_V0",
+   "step": "CC_MOVE_ACTOR_FROM_UNVERIFIED_V0",
    "direction": "INPUT",
    "field": "verifying_authority",
    "bound_to": "payload.verifying_authority",
@@ -2951,7 +2897,7 @@
   },
   {
    "owner": "blockchain::WF_REJECT_ACTOR_V0",
-   "step": "CC_RECORD_ACTOR_DECISION_V0",
+   "step": "CC_MOVE_ACTOR_FROM_UNVERIFIED_V0",
    "direction": "INPUT",
    "field": "grounds",
    "bound_to": "payload.grounds",
@@ -3011,7 +2957,7 @@
   },
   {
    "owner": "blockchain::WF_CREATE_WALLET_V0",
-   "step": "CC_RESOLVE_ACTOR_V0",
+   "step": "CC_RESOLVE_ACTOR_IDENTITY_V0",
    "direction": "INPUT",
    "field": "contact_address",
    "bound_to": "payload.contact_address",
@@ -3022,16 +2968,8 @@
    "step": "CC_REQUIRE_ACCEPTED_ACTOR_V0",
    "direction": "INPUT",
    "field": "state",
-   "bound_to": "results.CC_RESOLVE_ACTOR_V0.value.state",
+   "bound_to": "results.CC_RESOLVE_ACTOR_IDENTITY_V0.actor_record.state",
    "_from": "ledger:things/wallet/held_by"
-  },
-  {
-   "owner": "blockchain::WF_CREATE_WALLET_V0",
-   "step": "CC_FORM_WALLET_IDENTITY_V0",
-   "direction": "INPUT",
-   "field": "holder",
-   "bound_to": "results.CC_RESOLVE_ACTOR_V0.value.contact_address",
-   "_from": "ledger:things/wallet/identity"
   },
   {
    "owner": "blockchain::WF_CREATE_WALLET_V0",
@@ -3051,10 +2989,10 @@
   },
   {
    "owner": "blockchain::WF_CREATE_WALLET_V0",
-   "step": "CC_CLAIM_WALLET_ID_V0",
+   "step": "CC_CLAIM_WALLET_IDENTITY_V0",
    "direction": "INPUT",
-   "field": "wallet_id",
-   "bound_to": "results.CC_FORM_WALLET_IDENTITY_V0.id",
+   "field": "holder",
+   "bound_to": "results.CC_RESOLVE_ACTOR_IDENTITY_V0.actor_record.contact_address",
    "_from": "ledger:things/wallet/identity"
   },
   {
@@ -3063,22 +3001,22 @@
    "direction": "INPUT",
    "field": "address",
    "bound_to": "results.CC_DERIVE_WALLET_ADDRESS_V0.address",
-   "_from": "ledger:things/wallet/derived/address/unique"
+   "_from": "ledger:things/wallet/identity"
   },
   {
    "owner": "blockchain::WF_CREATE_WALLET_V0",
-   "step": "CC_CREATE_WALLET_V0",
+   "step": "CC_WRITE_WALLET_V0",
    "direction": "INPUT",
    "field": "wallet_id",
-   "bound_to": "results.CC_FORM_WALLET_IDENTITY_V0.id",
+   "bound_to": "results.CC_CLAIM_WALLET_IDENTITY_V0.wallet_id",
    "_from": "ledger:operations/create wallet"
   },
   {
    "owner": "blockchain::WF_CREATE_WALLET_V0",
-   "step": "CC_CREATE_WALLET_V0",
+   "step": "CC_WRITE_WALLET_V0",
    "direction": "INPUT",
    "field": "holder",
-   "bound_to": "results.CC_RESOLVE_ACTOR_V0.value.contact_address",
+   "bound_to": "results.CC_RESOLVE_ACTOR_IDENTITY_V0.actor_record.contact_address",
    "_from": "ledger:operations/create wallet"
   },
   {
@@ -3095,16 +3033,16 @@
    "owner": "blockchain::WF_CREATE_WALLET_V0",
    "step": "CC_RECORD_WALLET_MOMENT_V0",
    "direction": "INPUT",
-   "field": "wallet_id",
-   "bound_to": "results.CC_FORM_WALLET_IDENTITY_V0.id",
+   "field": "holder",
+   "bound_to": "results.CC_RESOLVE_ACTOR_IDENTITY_V0.actor_record.contact_address",
    "_from": "ledger:trail"
   },
   {
    "owner": "blockchain::WF_CREATE_WALLET_V0",
    "step": "CC_RECORD_WALLET_MOMENT_V0",
    "direction": "INPUT",
-   "field": "holder",
-   "bound_to": "results.CC_RESOLVE_ACTOR_V0.value.contact_address",
+   "field": "wallet_id",
+   "bound_to": "results.CC_CLAIM_WALLET_IDENTITY_V0.wallet_id",
    "_from": "ledger:trail"
   }
  ],
@@ -3150,183 +3088,23 @@
    "_from": "ledger:actor"
   },
   {
-   "artifact": "blockchain::CC_VALIDATE_REGISTER_ACTOR_V0",
+   "artifact": "blockchain::CC_CHECK_REGISTER_ACTOR_SUBMISSION_V0",
    "direction": "INPUT",
    "field": "submission",
    "type": "object",
    "required": "YES",
    "default": null,
    "meaning": "submission",
-   "_from": "ledger:things/actor/required"
+   "_from": "ledger:operations/register actor/required"
   },
   {
-   "artifact": "blockchain::CC_VALIDATE_REGISTER_ACTOR_V0",
+   "artifact": "blockchain::CC_CHECK_REGISTER_ACTOR_SUBMISSION_V0",
    "direction": "OUTPUT",
    "field": "valid",
    "type": "boolean",
    "required": "YES",
    "default": null,
    "meaning": "valid",
-   "_from": "doctrine:interface"
-  },
-  {
-   "artifact": "blockchain::CC_REGISTER_ACTOR_V0",
-   "direction": "INPUT",
-   "field": "contact_address",
-   "type": "string",
-   "required": "YES",
-   "default": null,
-   "meaning": "contact address",
-   "_from": "ledger:operations/register actor"
-  },
-  {
-   "artifact": "blockchain::CC_REGISTER_ACTOR_V0",
-   "direction": "INPUT",
-   "field": "submission",
-   "type": "object",
-   "required": "YES",
-   "default": null,
-   "meaning": "submission",
-   "_from": "ledger:operations/register actor"
-  },
-  {
-   "artifact": "blockchain::CC_REGISTER_ACTOR_V0",
-   "direction": "OUTPUT",
-   "field": "result_status",
-   "type": "string",
-   "required": "YES",
-   "default": null,
-   "meaning": "result status",
-   "_from": "doctrine:interface"
-  },
-  {
-   "artifact": "blockchain::CC_RECORD_IDENTITY_MOMENT_V0",
-   "direction": "INPUT",
-   "field": "occurrence",
-   "type": "string",
-   "required": "YES",
-   "default": null,
-   "meaning": "occurrence",
-   "_from": "ledger:trail"
-  },
-  {
-   "artifact": "blockchain::CC_RECORD_IDENTITY_MOMENT_V0",
-   "direction": "INPUT",
-   "field": "contact_address",
-   "type": "string",
-   "required": "NO",
-   "default": null,
-   "meaning": "contact address",
-   "_from": "ledger:trail"
-  },
-  {
-   "artifact": "blockchain::CC_RECORD_IDENTITY_MOMENT_V0",
-   "direction": "INPUT",
-   "field": "verifying_authority",
-   "type": "string",
-   "required": "NO",
-   "default": null,
-   "meaning": "verifying authority",
-   "_from": "ledger:trail"
-  },
-  {
-   "artifact": "blockchain::CC_RECORD_IDENTITY_MOMENT_V0",
-   "direction": "INPUT",
-   "field": "grounds",
-   "type": "string",
-   "required": "NO",
-   "default": null,
-   "meaning": "grounds",
-   "_from": "ledger:trail"
-  },
-  {
-   "artifact": "blockchain::CC_RECORD_IDENTITY_MOMENT_V0",
-   "direction": "OUTPUT",
-   "field": "sequence_number",
-   "type": "integer",
-   "required": "YES",
-   "default": null,
-   "meaning": "sequence number",
-   "_from": "doctrine:interface"
-  },
-  {
-   "artifact": "blockchain::CC_RECORD_REPEATED_REGISTER_ACTOR_V0",
-   "direction": "INPUT",
-   "field": "occurrence",
-   "type": "string",
-   "required": "YES",
-   "default": null,
-   "meaning": "occurrence",
-   "_from": "ledger:operations/register actor/on_repeat"
-  },
-  {
-   "artifact": "blockchain::CC_RECORD_REPEATED_REGISTER_ACTOR_V0",
-   "direction": "INPUT",
-   "field": "contact_address",
-   "type": "string",
-   "required": "NO",
-   "default": null,
-   "meaning": "contact address",
-   "_from": "ledger:operations/register actor/on_repeat"
-  },
-  {
-   "artifact": "blockchain::CC_RECORD_REPEATED_REGISTER_ACTOR_V0",
-   "direction": "INPUT",
-   "field": "verifying_authority",
-   "type": "string",
-   "required": "NO",
-   "default": null,
-   "meaning": "verifying authority",
-   "_from": "ledger:operations/register actor/on_repeat"
-  },
-  {
-   "artifact": "blockchain::CC_RECORD_REPEATED_REGISTER_ACTOR_V0",
-   "direction": "INPUT",
-   "field": "grounds",
-   "type": "string",
-   "required": "NO",
-   "default": null,
-   "meaning": "grounds",
-   "_from": "ledger:operations/register actor/on_repeat"
-  },
-  {
-   "artifact": "blockchain::CC_RECORD_REPEATED_REGISTER_ACTOR_V0",
-   "direction": "INPUT",
-   "field": "name",
-   "type": "string",
-   "required": "NO",
-   "default": null,
-   "meaning": "name",
-   "_from": "ledger:operations/register actor/on_repeat"
-  },
-  {
-   "artifact": "blockchain::CC_RECORD_REPEATED_REGISTER_ACTOR_V0",
-   "direction": "INPUT",
-   "field": "currency_preference",
-   "type": "string",
-   "required": "NO",
-   "default": null,
-   "meaning": "currency preference",
-   "_from": "ledger:operations/register actor/on_repeat"
-  },
-  {
-   "artifact": "blockchain::CC_RECORD_REPEATED_REGISTER_ACTOR_V0",
-   "direction": "INPUT",
-   "field": "language",
-   "type": "string",
-   "required": "NO",
-   "default": null,
-   "meaning": "language",
-   "_from": "ledger:operations/register actor/on_repeat"
-  },
-  {
-   "artifact": "blockchain::CC_RECORD_REPEATED_REGISTER_ACTOR_V0",
-   "direction": "OUTPUT",
-   "field": "sequence_number",
-   "type": "integer",
-   "required": "YES",
-   "default": null,
-   "meaning": "sequence number",
    "_from": "doctrine:interface"
   },
   {
@@ -3338,6 +3116,16 @@
    "default": null,
    "meaning": "contact address",
    "_from": "ledger:things/actor/identity"
+  },
+  {
+   "artifact": "blockchain::CC_CLAIM_ACTOR_CONTACT_ADDRESS_V0",
+   "direction": "OUTPUT",
+   "field": "contact_address",
+   "type": "string",
+   "required": "YES",
+   "default": null,
+   "meaning": "contact address",
+   "_from": "doctrine:interface"
   },
   {
    "artifact": "blockchain::CC_CLAIM_ACTOR_CONTACT_ADDRESS_V0",
@@ -3350,57 +3138,27 @@
    "_from": "doctrine:interface"
   },
   {
-   "artifact": "blockchain::CC_RECORD_ACTOR_DECISION_V0",
-   "direction": "INPUT",
-   "field": "current_state",
-   "type": "string",
-   "required": "YES",
-   "default": null,
-   "meaning": "current state",
-   "_from": "ledger:operations/accept actor"
-  },
-  {
-   "artifact": "blockchain::CC_RECORD_ACTOR_DECISION_V0",
-   "direction": "INPUT",
-   "field": "decision",
-   "type": "string",
-   "required": "YES",
-   "default": null,
-   "meaning": "decision",
-   "_from": "ledger:operations/accept actor"
-  },
-  {
-   "artifact": "blockchain::CC_RECORD_ACTOR_DECISION_V0",
+   "artifact": "blockchain::CC_WRITE_ACTOR_V0",
    "direction": "INPUT",
    "field": "contact_address",
    "type": "string",
    "required": "YES",
    "default": null,
    "meaning": "contact address",
-   "_from": "ledger:operations/accept actor"
+   "_from": "ledger:operations/register actor"
   },
   {
-   "artifact": "blockchain::CC_RECORD_ACTOR_DECISION_V0",
+   "artifact": "blockchain::CC_WRITE_ACTOR_V0",
    "direction": "INPUT",
-   "field": "verifying_authority",
-   "type": "string",
+   "field": "submission",
+   "type": "object",
    "required": "YES",
    "default": null,
-   "meaning": "verifying authority",
-   "_from": "ledger:operations/accept actor"
+   "meaning": "submission",
+   "_from": "ledger:operations/register actor"
   },
   {
-   "artifact": "blockchain::CC_RECORD_ACTOR_DECISION_V0",
-   "direction": "INPUT",
-   "field": "grounds",
-   "type": "string",
-   "required": "NO",
-   "default": null,
-   "meaning": "grounds",
-   "_from": "ledger:operations/accept actor"
-  },
-  {
-   "artifact": "blockchain::CC_RECORD_ACTOR_DECISION_V0",
+   "artifact": "blockchain::CC_WRITE_ACTOR_V0",
    "direction": "OUTPUT",
    "field": "result_status",
    "type": "string",
@@ -3410,7 +3168,137 @@
    "_from": "doctrine:interface"
   },
   {
-   "artifact": "blockchain::CC_RESOLVE_ACTOR_V0",
+   "artifact": "blockchain::CC_RECORD_IDENTITY_MOMENT_V0",
+   "direction": "INPUT",
+   "field": "occurrence",
+   "type": "string",
+   "required": "YES",
+   "default": null,
+   "meaning": "occurrence",
+   "_from": "ledger:trail"
+  },
+  {
+   "artifact": "blockchain::CC_RECORD_IDENTITY_MOMENT_V0",
+   "direction": "INPUT",
+   "field": "contact_address",
+   "type": "string",
+   "required": "NO",
+   "default": null,
+   "meaning": "contact address",
+   "_from": "ledger:trail"
+  },
+  {
+   "artifact": "blockchain::CC_RECORD_IDENTITY_MOMENT_V0",
+   "direction": "INPUT",
+   "field": "verifying_authority",
+   "type": "string",
+   "required": "NO",
+   "default": null,
+   "meaning": "verifying authority",
+   "_from": "ledger:trail"
+  },
+  {
+   "artifact": "blockchain::CC_RECORD_IDENTITY_MOMENT_V0",
+   "direction": "INPUT",
+   "field": "grounds",
+   "type": "string",
+   "required": "NO",
+   "default": null,
+   "meaning": "grounds",
+   "_from": "ledger:trail"
+  },
+  {
+   "artifact": "blockchain::CC_RECORD_IDENTITY_MOMENT_V0",
+   "direction": "OUTPUT",
+   "field": "sequence_number",
+   "type": "integer",
+   "required": "YES",
+   "default": null,
+   "meaning": "sequence number",
+   "_from": "doctrine:interface"
+  },
+  {
+   "artifact": "blockchain::CC_RECORD_IDENTITY_REPEATED_MOMENT_V0",
+   "direction": "INPUT",
+   "field": "occurrence",
+   "type": "string",
+   "required": "YES",
+   "default": null,
+   "meaning": "occurrence",
+   "_from": "ledger:trail"
+  },
+  {
+   "artifact": "blockchain::CC_RECORD_IDENTITY_REPEATED_MOMENT_V0",
+   "direction": "INPUT",
+   "field": "contact_address",
+   "type": "string",
+   "required": "NO",
+   "default": null,
+   "meaning": "contact address",
+   "_from": "ledger:trail"
+  },
+  {
+   "artifact": "blockchain::CC_RECORD_IDENTITY_REPEATED_MOMENT_V0",
+   "direction": "INPUT",
+   "field": "verifying_authority",
+   "type": "string",
+   "required": "NO",
+   "default": null,
+   "meaning": "verifying authority",
+   "_from": "ledger:trail"
+  },
+  {
+   "artifact": "blockchain::CC_RECORD_IDENTITY_REPEATED_MOMENT_V0",
+   "direction": "INPUT",
+   "field": "grounds",
+   "type": "string",
+   "required": "NO",
+   "default": null,
+   "meaning": "grounds",
+   "_from": "ledger:trail"
+  },
+  {
+   "artifact": "blockchain::CC_RECORD_IDENTITY_REPEATED_MOMENT_V0",
+   "direction": "INPUT",
+   "field": "name",
+   "type": "string",
+   "required": "NO",
+   "default": null,
+   "meaning": "name",
+   "_from": "ledger:trail"
+  },
+  {
+   "artifact": "blockchain::CC_RECORD_IDENTITY_REPEATED_MOMENT_V0",
+   "direction": "INPUT",
+   "field": "currency_preference",
+   "type": "string",
+   "required": "NO",
+   "default": null,
+   "meaning": "currency preference",
+   "_from": "ledger:trail"
+  },
+  {
+   "artifact": "blockchain::CC_RECORD_IDENTITY_REPEATED_MOMENT_V0",
+   "direction": "INPUT",
+   "field": "language",
+   "type": "string",
+   "required": "NO",
+   "default": null,
+   "meaning": "language",
+   "_from": "ledger:trail"
+  },
+  {
+   "artifact": "blockchain::CC_RECORD_IDENTITY_REPEATED_MOMENT_V0",
+   "direction": "OUTPUT",
+   "field": "sequence_number",
+   "type": "integer",
+   "required": "YES",
+   "default": null,
+   "meaning": "sequence number",
+   "_from": "doctrine:interface"
+  },
+  {
+   "artifact": "blockchain::CC_RESOLVE_ACTOR_IDENTITY_V0",
    "direction": "INPUT",
    "field": "contact_address",
    "type": "string",
@@ -3420,13 +3308,63 @@
    "_from": "ledger:things/actor/identity"
   },
   {
-   "artifact": "blockchain::CC_RESOLVE_ACTOR_V0",
+   "artifact": "blockchain::CC_RESOLVE_ACTOR_IDENTITY_V0",
    "direction": "OUTPUT",
-   "field": "value",
+   "field": "actor_record",
    "type": "object",
    "required": "YES",
    "default": null,
-   "meaning": "value",
+   "meaning": "actor record",
+   "_from": "doctrine:interface"
+  },
+  {
+   "artifact": "blockchain::CC_MOVE_ACTOR_FROM_UNVERIFIED_V0",
+   "direction": "INPUT",
+   "field": "contact_address",
+   "type": "string",
+   "required": "YES",
+   "default": null,
+   "meaning": "contact address",
+   "_from": "ledger:operations/accept actor"
+  },
+  {
+   "artifact": "blockchain::CC_MOVE_ACTOR_FROM_UNVERIFIED_V0",
+   "direction": "INPUT",
+   "field": "to_state",
+   "type": "string",
+   "required": "YES",
+   "default": null,
+   "meaning": "to state",
+   "_from": "ledger:operations/accept actor"
+  },
+  {
+   "artifact": "blockchain::CC_MOVE_ACTOR_FROM_UNVERIFIED_V0",
+   "direction": "INPUT",
+   "field": "verifying_authority",
+   "type": "string",
+   "required": "YES",
+   "default": null,
+   "meaning": "verifying authority",
+   "_from": "ledger:operations/accept actor"
+  },
+  {
+   "artifact": "blockchain::CC_MOVE_ACTOR_FROM_UNVERIFIED_V0",
+   "direction": "INPUT",
+   "field": "grounds",
+   "type": "string",
+   "required": "NO",
+   "default": null,
+   "meaning": "grounds",
+   "_from": "ledger:operations/accept actor"
+  },
+  {
+   "artifact": "blockchain::CC_MOVE_ACTOR_FROM_UNVERIFIED_V0",
+   "direction": "OUTPUT",
+   "field": "updated_count",
+   "type": "integer",
+   "required": "YES",
+   "default": null,
+   "meaning": "updated count",
    "_from": "doctrine:interface"
   },
   {
@@ -3462,11 +3400,11 @@
   {
    "artifact": "blockchain::CC_LIST_ACTORS_V0",
    "direction": "OUTPUT",
-   "field": "actors",
+   "field": "matching_actors",
    "type": "array",
    "required": "YES",
    "default": null,
-   "meaning": "actors",
+   "meaning": "matching actors",
    "_from": "doctrine:interface"
   },
   {
@@ -3487,26 +3425,6 @@
    "required": "YES",
    "default": null,
    "meaning": "is member",
-   "_from": "doctrine:interface"
-  },
-  {
-   "artifact": "blockchain::CC_FORM_WALLET_IDENTITY_V0",
-   "direction": "INPUT",
-   "field": "holder",
-   "type": "string",
-   "required": "YES",
-   "default": null,
-   "meaning": "holder",
-   "_from": "ledger:things/wallet/identity"
-  },
-  {
-   "artifact": "blockchain::CC_FORM_WALLET_IDENTITY_V0",
-   "direction": "OUTPUT",
-   "field": "id",
-   "type": "string",
-   "required": "YES",
-   "default": null,
-   "meaning": "id",
    "_from": "doctrine:interface"
   },
   {
@@ -3550,6 +3468,26 @@
    "_from": "doctrine:interface"
   },
   {
+   "artifact": "blockchain::CC_CLAIM_WALLET_IDENTITY_V0",
+   "direction": "INPUT",
+   "field": "holder",
+   "type": "string",
+   "required": "YES",
+   "default": null,
+   "meaning": "holder",
+   "_from": "ledger:things/wallet/identity"
+  },
+  {
+   "artifact": "blockchain::CC_CLAIM_WALLET_IDENTITY_V0",
+   "direction": "OUTPUT",
+   "field": "wallet_id",
+   "type": "string",
+   "required": "YES",
+   "default": null,
+   "meaning": "wallet id",
+   "_from": "doctrine:interface"
+  },
+  {
    "artifact": "blockchain::CC_CLAIM_WALLET_ADDRESS_V0",
    "direction": "INPUT",
    "field": "address",
@@ -3557,7 +3495,7 @@
    "required": "YES",
    "default": null,
    "meaning": "address",
-   "_from": "ledger:things/wallet/identity"
+   "_from": "ledger:things/wallet/derived/address"
   },
   {
    "artifact": "blockchain::CC_CLAIM_WALLET_ADDRESS_V0",
@@ -3570,7 +3508,7 @@
    "_from": "doctrine:interface"
   },
   {
-   "artifact": "blockchain::CC_CREATE_WALLET_V0",
+   "artifact": "blockchain::CC_WRITE_WALLET_V0",
    "direction": "INPUT",
    "field": "wallet_id",
    "type": "string",
@@ -3580,7 +3518,7 @@
    "_from": "ledger:operations/create wallet"
   },
   {
-   "artifact": "blockchain::CC_CREATE_WALLET_V0",
+   "artifact": "blockchain::CC_WRITE_WALLET_V0",
    "direction": "INPUT",
    "field": "holder",
    "type": "string",
@@ -3590,33 +3528,13 @@
    "_from": "ledger:operations/create wallet"
   },
   {
-   "artifact": "blockchain::CC_CREATE_WALLET_V0",
+   "artifact": "blockchain::CC_WRITE_WALLET_V0",
    "direction": "OUTPUT",
    "field": "result_status",
    "type": "string",
    "required": "YES",
    "default": null,
    "meaning": "result status",
-   "_from": "doctrine:interface"
-  },
-  {
-   "artifact": "blockchain::CC_CLAIM_WALLET_ID_V0",
-   "direction": "INPUT",
-   "field": "wallet_id",
-   "type": "string",
-   "required": "YES",
-   "default": null,
-   "meaning": "wallet id",
-   "_from": "ledger:things/wallet/identity"
-  },
-  {
-   "artifact": "blockchain::CC_CLAIM_WALLET_ID_V0",
-   "direction": "OUTPUT",
-   "field": "address",
-   "type": "string",
-   "required": "YES",
-   "default": null,
-   "meaning": "address",
    "_from": "doctrine:interface"
   },
   {
@@ -4339,10 +4257,18 @@
  ],
  "structure_stores": [
   {
+   "store_name": "CONTACT_ADDRESS_REGISTRY",
+   "storage_type": "CS_REGISTRY_V0",
+   "proposed_path": "blockchain/identity/contact_address_registry.jsonl",
+   "used_by": "blockchain::CC_CLAIM_ACTOR_CONTACT_ADDRESS_V0, blockchain::CC_RESOLVE_ACTOR_IDENTITY_V0",
+   "structure": "blockchain::STRUCTURE_IDENTITY_STORAGE_V0",
+   "_from": "ledger:things/actor/identity + doctrine:storage + carried:surface"
+  },
+  {
    "store_name": "ACTORS",
    "storage_type": "CS_MUTABLE_JSON_V0",
    "proposed_path": "blockchain/identity/actors.json",
-   "used_by": "blockchain::CC_LIST_ACTORS_V0, blockchain::CC_RECORD_ACTOR_DECISION_V0, blockchain::CC_REGISTER_ACTOR_V0, blockchain::CC_RESOLVE_ACTOR_V0",
+   "used_by": "blockchain::CC_LIST_ACTORS_V0, blockchain::CC_MOVE_ACTOR_FROM_UNVERIFIED_V0, blockchain::CC_RESOLVE_ACTOR_IDENTITY_V0, blockchain::CC_WRITE_ACTOR_V0",
    "structure": "blockchain::STRUCTURE_IDENTITY_STORAGE_V0",
    "_from": "ledger:things/actor + doctrine:storage"
   },
@@ -4350,17 +4276,9 @@
    "store_name": "ACTOR_OCCURRENCES",
    "storage_type": "CS_APPENDONLY_JSONL_V0",
    "proposed_path": "blockchain/identity/actor_occurrences.jsonl",
-   "used_by": "blockchain::CC_RECORD_IDENTITY_MOMENT_V0, blockchain::CC_RECORD_REPEATED_REGISTER_ACTOR_V0",
+   "used_by": "blockchain::CC_RECORD_IDENTITY_MOMENT_V0, blockchain::CC_RECORD_IDENTITY_REPEATED_MOMENT_V0",
    "structure": "blockchain::STRUCTURE_IDENTITY_STORAGE_V0",
    "_from": "ledger:trail + doctrine:storage + carried:surface"
-  },
-  {
-   "store_name": "CONTACT_ADDRESS_REGISTRY",
-   "storage_type": "CS_REGISTRY_V0",
-   "proposed_path": "blockchain/identity/contact_address_registry.jsonl",
-   "used_by": "blockchain::CC_CLAIM_ACTOR_CONTACT_ADDRESS_V0, blockchain::CC_RESOLVE_ACTOR_V0",
-   "structure": "blockchain::STRUCTURE_IDENTITY_STORAGE_V0",
-   "_from": "ledger:things/actor/identity + doctrine:storage + carried:surface"
   },
   {
    "store_name": "WALLET_ADDRESS_REGISTRY",
@@ -4371,20 +4289,20 @@
    "_from": "ledger:things/wallet/identity + doctrine:storage"
   },
   {
-   "store_name": "WALLETS",
-   "storage_type": "CS_MUTABLE_JSON_V0",
-   "proposed_path": "blockchain/wallet/wallets.json",
-   "used_by": "blockchain::CC_CREATE_WALLET_V0",
-   "structure": "blockchain::STRUCTURE_WALLET_STORAGE_V0",
-   "_from": "ledger:things/wallet + doctrine:storage"
-  },
-  {
    "store_name": "WALLET_IDENTITIES",
    "storage_type": "CS_REGISTRY_V0",
    "proposed_path": "blockchain/wallet/wallet_identity_registry.jsonl",
-   "used_by": "blockchain::CC_CLAIM_WALLET_ID_V0",
+   "used_by": "blockchain::CC_CLAIM_WALLET_IDENTITY_V0",
    "structure": "blockchain::STRUCTURE_WALLET_STORAGE_V0",
    "_from": "ledger:things/wallet/identity + doctrine:storage + carried:surface"
+  },
+  {
+   "store_name": "WALLETS",
+   "storage_type": "CS_MUTABLE_JSON_V0",
+   "proposed_path": "blockchain/wallet/wallets.json",
+   "used_by": "blockchain::CC_WRITE_WALLET_V0",
+   "structure": "blockchain::STRUCTURE_WALLET_STORAGE_V0",
+   "_from": "ledger:things/wallet + doctrine:storage"
   },
   {
    "store_name": "WALLET_OCCURRENCES",
@@ -4759,7 +4677,7 @@
  ],
  "_unrealized": [
   "register actor: defaults {'currency_preference': 'BACHI', 'language': 'en'} apply when a request leaves a field out. No platform transform supplies a default; the entrance supplies them for callers outside, and a direct request that leaves one out records none.",
-  "list actors: nothing_found=empty needs a filter that answers empty; the platform's (CT_PURE_FILTER_RECORDS_V0) refuses an empty result. Realized with it; listing a state no actor is in is still refused."
+  "list actors: nothing_found=empty needs a filter that answers empty; the platform's (CT_PURE_FILTER_RECORDS_V0) refuses an empty result. Realized with it; an empty answer is still refused."
  ],
  "_conflicts": []
 }

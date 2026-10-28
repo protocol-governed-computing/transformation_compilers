@@ -1,4 +1,5 @@
-# The blockchain ledger, whole domain, in closed shapes.
+# The blockchain ledger, whole domain, in closed shapes. Each operation says what it does
+# (create, change, read, query) and to which things; engine/compose.py selects the blocks.
 # Normalized by hand from LEDGER_BRIEF_RUN_BLOCKCHAIN.yaml (the blind run, "brief-run") and
 # LEDGER_OWNER_ANSWERS_BLOCKCHAIN.yaml ("owner"). `from` names the entries each value comes from.
 # Doctrine (engine/doctrine.yaml) is not restated here: own_values, rules_held and
@@ -32,15 +33,16 @@ parts:
         from: "brief-run required / registration; value_source / registration; identity / actor; states / actor; owner / normalization"
     operations:
       register actor:
-        kind: register
-        thing: actor
+        does: create
+        creates: [actor]
         on_repeat:
           records: [name, currency_preference, language]
           announces: actor registered again
         from: "brief-run precondition / register; on_repeat / register; owner / repeated registration records and announces"
       accept actor:
-        kind: decide
+        does: change
         thing: actor
+        precondition: exists
         from_state: unverified
         to_state: accepted
         decided_by: verifying_authority
@@ -48,8 +50,9 @@ parts:
         may_change: [state, verifying_authority, grounds]
         from: "brief-run precondition / accept; invariant_on_change / accept; required_when / decision (grounds optional)"
       reject actor:
-        kind: decide
+        does: change
         thing: actor
+        precondition: exists
         from_state: unverified
         to_state: rejected
         decided_by: verifying_authority
@@ -58,7 +61,7 @@ parts:
         required: [grounds]
         from: "brief-run precondition / reject; invariant_on_change / reject; required_when / decision"
       list actors:
-        kind: list
+        does: query
         thing: actor
         criteria: [state]
         nothing_found: empty
@@ -66,6 +69,7 @@ parts:
     trail:
       records: [contact_address, verifying_authority, grounds]
       subject: contact_address
+      moment: event
       from: "brief-run trail / blockchain; owner / refused acts record nothing"
     announces:
       register actor: [actor registered unverified]
@@ -95,12 +99,13 @@ parts:
         from: "brief-run identity / wallet; value_source / wallet; derived_value / wallet address; allowed_values / wallet classification; states / wallet; owner / wallet identity format, unreadable key, shared key"
     operations:
       create wallet:
-        kind: create_held
-        thing: wallet
+        does: create
+        creates: [wallet]
         from: "brief-run precondition / create wallet; owner / separate request, second wallet refused"
     trail:
       records: [holder]
       subject: wallet_id
+      moment: event
       from: "brief-run trail / blockchain (one creation moment per wallet)"
     announces:
       create wallet: [wallet created]

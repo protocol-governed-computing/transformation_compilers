@@ -97,8 +97,8 @@ def splice_p8(reg8, reg7, gen):
     # A workflow depends on its nodes, its binding, its actor and the moments it announces.
     ns = gen["new_artifacts"][0]["code"].split("::")[0] + "::"
     for wf in {r["workflow"] for r in gen.get("execution_topology", [])}:
-        nodes = [ns + r["node"] for r in reg7["execution_topology"]
-                 if r["workflow"] == wf and r["node_type"] in ("IN", "CC")]
+        nodes = list(dict.fromkeys(ns + r.get("runs", r["node"]) for r in reg7["execution_topology"]
+                                   if r["workflow"] == wf and r["node_type"] in ("IN", "CC")))
         emits = [v for r in reg7["artifact_properties"] if r["artifact"] == wf
                  and r["property"].startswith("emit.") for v in r["value"]]
         rb = next(r["rb_code"] for r in reg7["rb_declarations"] if r["binds_wf"] == wf)
@@ -112,6 +112,10 @@ def splice_p8(reg8, reg7, gen):
     reg8["mandate_artifact_summary"] = [{**reg8["mandate_artifact_summary"][0], "count": str(total),
                                          "description": ", ".join(f"{n} {f}" for f, n in counts.items())}]
     # A request the derived design names that the mandate does not yet hold.
+    entrance = {t["node"]: short(t["workflow"]) for t in gen.get("execution_topology", []) if t["node_type"] == "IN"}
+    if gen.get("execution_topology"):
+        reg8["new_intents"] = [{**r, "workflow": entrance[short(r["code"])]}
+                               for r in reg8.get("new_intents") or [] if short(r["code"]) in entrance]
     held = {r["code"] for r in reg8.get("new_intents") or []}
     for r in gen.get("new_artifacts", []):
         if r["family"] == "IN" and r["code"] not in held:

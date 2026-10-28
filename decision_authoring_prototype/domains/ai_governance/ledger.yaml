@@ -1,0 +1,175 @@
+# The ai_governance ledger, whole domain, in closed shapes. Each operation says what it does
+# (create, change, read, query) and to which things; engine/compose.py selects the blocks.
+# Normalized by hand from LEDGER_OWNER_ANSWERS_AI_GOVERNANCE.yaml ("owner") and
+# LEDGER_BRIEF_RUN_AI_GOVERNANCE.yaml ("brief-run"). No business statement exists for this domain:
+# the owner is the authority for every answer.
+
+domain: ai_governance
+
+actor:
+  name: system
+  authorization: none
+  kind: system
+  attributes: {role: string}
+
+actors:
+  employee:
+    kind: human
+    part: ai_licensing
+    summary: A person the business may license for AI tools
+    attributes: {employee_id: string}
+  system:
+    kind: system
+    part: ai_licensing
+    summary: The business's own authority, which registers, trains, sets the cap and reclaims
+    attributes: {role: string}
+  agent:
+    kind: agent
+    part: agent_governance
+    summary: An AI agent proposing an action on a user's behalf
+    attributes: {agent_id: string, requesting_user_id: string}
+  from: "owner / enterprise runtime dropped; brief-run actor answers"
+
+parts:
+  ai_licensing:
+    from: "brief-run parts / ai licensing"
+    things:
+      employee:
+        plural: employees
+        identity: {field: employee_id, on_duplicate: refuse}
+        fixed: {training_completed: false}
+        from: "owner / employees; brief-run identity / employee"
+      license cap:
+        plural: license caps
+        identity: {field: cap_key, fixed: current}
+        required: {cap: integer}
+        from: "owner / cap set by an act; setting it again replaces it"
+      license:
+        plural: licenses
+        identity: {field: license_id, from: employee_id, prefix: lic, on_duplicate: refuse}
+        required: {employee_id: string, tier: string}
+        fixed: {state: active}
+        clock: [last_used_at]
+        states: [active, reclaimed]
+        from: "owner / license identity, tier named by request, never used counts from provisioning"
+    operations:
+      register employee:
+        does: create
+        creates: [employee]
+        actor: system
+        from: "owner / register act, required"
+      record training completed:
+        does: change
+        thing: employee
+        actor: system
+        precondition: exists
+        sets: {training_completed: true}
+        from: "owner / record training act"
+      set license cap:
+        does: create
+        creates: [license cap]
+        actor: system
+        from: "owner / cap set by an act"
+      provision license:
+        does: create
+        creates: [license]
+        actor: employee
+        checks:
+          - {name: training completed, requires: {thing: employee, by: employee_id, holds: {training_completed: true}}}
+          - {name: tier admitted, allowed: {field: tier, values: [standard, enterprise]}}
+          - {name: cap set, exists: {thing: license cap}}
+          - {name: under the cap, count: {thing: license, holds: {state: active}, below: {thing: license cap, field: cap}}}
+        on_refusal: {announces: provision denied}
+        from: "owner / training record, tier, cap, one active per employee, deny act dropped"
+      record license usage:
+        does: change
+        thing: license
+        actor: employee
+        precondition: exists
+        holds: {state: active}
+        sets: {last_used_at: clock}
+        from: "owner / record usage act; the moment it is recorded"
+      reclaim license:
+        does: change
+        thing: license
+        actor: system
+        precondition: exists
+        from_state: active
+        to_state: reclaimed
+        when: {unused_for_days: 30, since: last_used_at}
+        otherwise: still active
+        releases: identity
+        from: "owner / 30 days fixed, one license at a time, by the system; cr_02 refused removal"
+    trail:
+      records: [employee_id, license_id, tier, reason]
+      subject: employee_id
+      moment: event
+      from: "brief-run trail / records"
+    announces:
+      register employee: [employee registered]
+      record training completed: [training completed]
+      set license cap: [license cap set]
+      provision license: [license provisioned]
+      record license usage: [usage recorded]
+      reclaim license: [license revoked]
+      from: "owner; brief-run announces"
+    events:
+      employee registered: {carries: [employee_id]}
+      training completed: {carries: [employee_id]}
+      license cap set: {carries: [cap]}
+      license provisioned: {carries: [employee_id, license_id, tier]}
+      provision denied: {carries: [employee_id, reason]}
+      usage recorded: {carries: [employee_id, license_id]}
+      license revoked: {carries: [employee_id, license_id]}
+      from: "brief-run announces"
+
+  agent_governance:
+    from: "brief-run parts / agent governance"
+    tables:
+      tier tools:
+        standard: [READ_RECORD, PROVISION_STANDARD_LICENSE]
+        enterprise: [READ_RECORD, PROVISION_STANDARD_LICENSE, PROVISION_PREMIUM_LICENSE]
+      tool rules:
+        READ_RECORD: [{field: record_type, op: in, allowed: [license_pool, user_profile]}, {field: id, op: not_null}]
+        PROVISION_STANDARD_LICENSE: [{field: tier, op: eq, value: standard}, {field: quantity, op: lte, value: 100}]
+        PROVISION_PREMIUM_LICENSE: [{field: tier, op: eq, value: premium}, {field: quantity, op: lte, value: 50}]
+      from: "owner / agent governance tables kept as today"
+    things:
+      action:
+        plural: actions
+        identity: {field: action_id, from: [tool_name, requesting_user_id, domain_context], prefix: AGOV, on_duplicate: reuse}
+        required: {tool_name: string, requesting_user_id: string}
+        derived:
+          request_identity: {from: [tool_name, requesting_user_id, domain_context], rule: generated id, prefix: AREQ}
+        from: "owner / prefixes AREQ and AGOV; brief: the same action proposed again is registered once"
+    operations:
+      govern agent action:
+        does: create
+        creates: [action]
+        actor: agent
+        checks:
+          - {name: tool declared, allowed: {field: tool_name, values: [READ_RECORD, PROVISION_STANDARD_LICENSE, PROVISION_PREMIUM_LICENSE]}}
+          - {name: license active, requires: {thing: license, by: requesting_user_id, holds: {state: active}}}
+          - {name: tier grants tool, look_up: {table: tier tools, key: license.tier, contains: tool_name}}
+          - {name: parameters satisfy rules, look_up: {table: tool rules, key: tool_name, rules_on: parameters}}
+        on_refusal:
+          announces: agent action denied
+          reasons: {tool declared: UNDECLARED_TOOL, license active: UNAUTHORIZED_ACTOR,
+                    tier grants tool: UNAUTHORIZED_TOOL, parameters satisfy rules: PARAMETER_VIOLATION}
+        from: "owner / tables, order and denial reasons kept; reads licensing's license (reads_other_part)"
+    trail:
+      records: [tool_name, requesting_user_id, reason]
+      subject: requesting_user_id
+      moment: event
+      from: "brief: every judgment is audited"
+    announces:
+      govern agent action: [agent action authorized]
+      from: "brief"
+    events:
+      agent action authorized: {carries: [tool_name, requesting_user_id]}
+      agent action denied: {carries: [tool_name, requesting_user_id, reason]}
+      from: "brief"
+
+reads_other_part:
+  govern agent action: {part: ai_licensing, reads: [license], writes: never}
+  from: "owner / agent governance reads licensing's license"
