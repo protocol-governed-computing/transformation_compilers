@@ -12,8 +12,8 @@
   },
   "catalog": {
    "id": "transformation.decision.CATALOG_V0",
-   "revision": 2,
-   "digest": "sha256:8fbe0c355b3b3f828e612d8023036ec91cc5502f5a2340dd462fb7440d96eab5"
+   "revision": 3,
+   "digest": "sha256:d9635de6390f9f3185edda82f1a641ccda5892cd89e1cf0aa9071cc44d06b1c4"
   }
  },
  "new_artifacts": [
@@ -3163,7 +3163,7 @@
    "cc_code": "book_library_mgmt::CC_SEARCH_CATALOG_V1",
    "step": "3",
    "step_name": "select_matching_books",
-   "capability": "capability_transforms::CT_PURE_FILTER_RECORDS_V0",
+   "capability": "capability_transforms::CT_PURE_SELECT_RECORDS_V0",
    "kind": "CT",
    "operation": null,
    "store": null,
@@ -3189,7 +3189,7 @@
      "matching_books": "matching_books"
     }
    },
-   "_from": "ledger:operations/search catalog/criteria"
+   "_from": "ledger:operations/search catalog/nothing_found"
   },
   {
    "cc_code": "book_library_mgmt::CC_SEARCH_CATALOG_V1",
@@ -4915,7 +4915,7 @@
    "direction": "INPUT",
    "field": "source",
    "bound_to": "results.select_registered_books.registered_books",
-   "_from": "ledger:operations/search catalog/criteria"
+   "_from": "ledger:operations/search catalog/nothing_found"
   },
   {
    "owner": "book_library_mgmt::CC_SEARCH_CATALOG_V1",
@@ -4923,7 +4923,7 @@
    "direction": "INPUT",
    "field": "filter",
    "bound_to": "inputs.search_criteria",
-   "_from": "ledger:operations/search catalog/criteria"
+   "_from": "ledger:operations/search catalog/nothing_found"
   },
   {
    "owner": "book_library_mgmt::CC_SEARCH_CATALOG_V1",
@@ -4931,7 +4931,7 @@
    "direction": "OUTPUT",
    "field": "matching_books",
    "bound_to": "capability_result.extracted",
-   "_from": "ledger:operations/search catalog/criteria"
+   "_from": "ledger:operations/search catalog/nothing_found"
   },
   {
    "owner": "book_library_mgmt::CC_SEARCH_CATALOG_V1",
@@ -7798,9 +7798,7 @@
    "_from": "carried:realization"
   }
  ],
- "_unrealized": [
-  "search catalog: nothing_found=empty needs a filter that answers empty; the platform's (CT_PURE_FILTER_RECORDS_V0) refuses an empty result. Realized with it; an empty answer is still refused."
- ],
+ "_unrealized": [],
  "_conflicts": [],
  "_replaces": {},
  "_identity": {
@@ -7873,7 +7871,7 @@
    "book_library_mgmt::CC_CLAIM_WORK_IDENTITY_V0": 28,
    "book_library_mgmt::CC_RESOLVE_BOOK_IDENTITY_V0": 17,
    "book_library_mgmt::CC_RESOLVE_WORK_V0": 27,
-   "book_library_mgmt::CC_SEARCH_CATALOG_V0": 25,
+   "book_library_mgmt::CC_SEARCH_CATALOG_V0": 26,
    "book_library_mgmt::CC_UPDATE_BIBLIOGRAPHIC_INFORMATION_V0": 46,
    "book_library_mgmt::EV_PHYSICAL_COPY_REGISTERED_V0": 2,
    "book_library_mgmt::WF_REGISTER_ADDITIONAL_EDITION_V0": 61,

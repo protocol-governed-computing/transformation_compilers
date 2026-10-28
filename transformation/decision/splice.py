@@ -104,8 +104,8 @@ def identities(reg, identity):
 
     An artifact kept with its meaning is amended, not authored: it leaves `new_artifacts` and is
     named EXTEND. An artifact whose meaning changed is replaced, and its successor names it in
-    `supersedes`. One the ledger no longer derives is not stated: the design language has no
-    retirement without a successor, so the build deletes it and records the deletion.
+    `supersedes`. One the ledger no longer derives is retired (RETIRE), with no successor; the
+    person delivering the change deletes it and records the deletion.
     """
     summary = {r["code"]: r["summary"] for r in reg["new_artifacts"]}
     kept = set(identity["kept"])
@@ -121,7 +121,11 @@ def identities(reg, identity):
          for old, new in identity["superseded"].items()] +
         [{"fqdn": old, "action": "REPLACE", "summary": "",
           "reason": f"The ledger says {short(new)} takes its place.", "source_finding": cite(old)}
-         for old, new in identity.get("replaced", {}).items()])
+         for old, new in identity.get("replaced", {}).items()] +
+        [{"fqdn": old, "action": "RETIRE", "summary": "",
+          "reason": "The ledger no longer derives it, and no operation takes its place.",
+          "source_finding": cite(old)}
+         for old in identity["retired"]])
     named = {}
     for old, new in list(identity["superseded"].items()) + list(identity.get("replaced", {}).items()):
         named.setdefault(new, []).append(old)

@@ -30,6 +30,7 @@ SHAPE = CT + "CT_PURE_VALIDATE_RECORD_STRUCTURE_V0"
 EQUAL = CT + "CT_PURE_COMPARE_EQUAL_V0"
 ASSEMBLE = CT + "CT_PURE_ASSEMBLE_RECORD_V0"
 FILTER = CT + "CT_PURE_FILTER_RECORDS_V0"
+SELECT = CT + "CT_PURE_SELECT_RECORDS_V0"
 GENERATE = CT + "CT_PURE_GENERATE_ID_V0"
 LOOKUP = CT + "CT_PURE_LOOKUP_V0"
 # Conditions a ledger may name, and the carried transform that decides each.
@@ -925,7 +926,10 @@ class Composer(Domain):
             crit, inputs = "inputs.search_criteria", {"search_criteria": "object"}
         else:
             crit, inputs = {"literal": {c: f"$.inputs.{c}" for c in criteria}}, {c: "string" for c in criteria}
-        steps += narrow(f"select_matching_{plural}", FILTER, source, crit, f"matching_{plural}", src + "/criteria")
+        # Nothing found is an answer when the business says so; otherwise it refuses.
+        empty = op.get("nothing_found") == "empty"
+        steps += narrow(f"select_matching_{plural}", SELECT if empty else FILTER, source, crit,
+                        f"matching_{plural}", src + ("/nothing_found" if empty else "/criteria"))
         outputs = {f"matching_{plural}": "array"}
         if op.get("group_by"):
             g = op["group_by"]
@@ -933,11 +937,6 @@ class Composer(Domain):
                            f"results.select_matching_{plural}.matching_{plural}", self.key_of(g),
                            f"matching_{self.thing(g)['plural'].replace(' ', '_')}", src + "/group_by")
             outputs = {f"matching_{self.thing(g)['plural'].replace(' ', '_')}": "array", **outputs}
-        if op.get("nothing_found") == "empty":
-            self.unrealized.append(
-                f"{op_name}: nothing_found=empty needs a filter that answers empty; the platform's "
-                "(CT_PURE_FILTER_RECORDS_V0) refuses an empty result. Realized with it; an empty answer is "
-                "still refused.")
         q = self.add(Component(self.code("CC", op_name), f"Answer the {t['plural']} matching the criteria named",
                                steps, inputs, outputs, src))
         binds = {k: self.at(op_name, k) for k in inputs}
@@ -948,7 +947,7 @@ class Composer(Domain):
     def select_ct(self):
         """The transform that selects records and answers empty: the domain's, when it carries one."""
         own = f"{self.ns}CT_PURE_SELECT_RECORDS_V0"
-        return own if any(r["code"] == own for r in self.base["new_artifacts"]) else FILTER
+        return own if any(r["code"] == own for r in self.base["new_artifacts"]) else SELECT
 
     def carried_outputs(self, op_name, outputs, steps):
         """A read's answer keeps the names callers already read (carried:surface)."""

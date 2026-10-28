@@ -8,7 +8,8 @@ A derived design names every artifact of its domain. Compared with what the comp
   predecessor is replaced (REPLACE);
 - one the composition does not hold is new;
 - one the composition holds that an operation `replaces`, by the ledger's answer, is replaced by
-  that operation's workflow or entrance;
+  that operation's workflow or entrance. An artifact supersedes one predecessor, so of several
+  the first named is replaced and the rest are retired;
 - one the composition holds and the design no longer names is retired. A retirement is recorded:
   the build deletes it and writes the entry the retirement ledger takes.
 
@@ -120,7 +121,14 @@ def decide(dossier: Path, snapshot: Path, domain_root: Path, baseline: list[str]
         successor[code] = next_version(code, taken)
         taken.add(successor[code])
     derived = set(kept) | set(changed) | set(new)
-    replaced = {old: new for old, new in sorted((replaces or {}).items()) if old not in derived}
+    # An artifact supersedes one predecessor. Where an operation takes the place of several, the
+    # first it names is its predecessor and the others are retired with no successor.
+    replaced, succeeded = {}, set()
+    for old, new in (replaces or {}).items():
+        if old not in derived and new not in succeeded:
+            replaced[old] = new
+            succeeded.add(new)
+    replaced = dict(sorted(replaced.items()))
     retired = sorted(c for c in baseline if c not in derived and c not in replaced)
     return {"kept": sorted(kept), "new": sorted(new),
             "superseded": {c: successor[c] for c in sorted(changed)},

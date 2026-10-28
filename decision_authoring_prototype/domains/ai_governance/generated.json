@@ -12,8 +12,8 @@
   },
   "catalog": {
    "id": "transformation.decision.CATALOG_V0",
-   "revision": 2,
-   "digest": "sha256:8fbe0c355b3b3f828e612d8023036ec91cc5502f5a2340dd462fb7440d96eab5"
+   "revision": 3,
+   "digest": "sha256:d9635de6390f9f3185edda82f1a641ccda5892cd89e1cf0aa9071cc44d06b1c4"
   }
  },
  "new_artifacts": [
@@ -6701,46 +6701,42 @@
    "ai_governance::EV_EMPLOYEE_REGISTERED_V0"
   ],
   "new": [
-   "ai_governance::CC_CHECK_GOVERN_AGENT_ACTION_SUBMISSION_V0",
-   "ai_governance::CC_CHECK_PROVISION_LICENSE_SUBMISSION_V0",
-   "ai_governance::CC_CHECK_SET_LICENSE_CAP_SUBMISSION_V0",
-   "ai_governance::CC_CLAIM_ACTION_IDENTITY_V0",
-   "ai_governance::CC_CLAIM_EMPLOYEE_ID_V0",
-   "ai_governance::CC_CLAIM_LICENSE_IDENTITY_V0",
-   "ai_governance::CC_FORM_ACTION_REQUEST_IDENTITY_V0",
-   "ai_governance::CC_MOVE_LICENSE_FROM_ACTIVE_V0",
-   "ai_governance::CC_RECORD_AGENT_GOVERNANCE_MOMENT_V0",
-   "ai_governance::CC_RECORD_AI_LICENSING_MOMENT_V0",
-   "ai_governance::CC_RECORD_LICENSE_USAGE_V0",
-   "ai_governance::CC_RECORD_TRAINING_COMPLETED_V0",
-   "ai_governance::CC_RELEASE_LICENSE_IDENTITY_V0",
-   "ai_governance::CC_REQUIRE_CAP_SET_V0",
-   "ai_governance::CC_REQUIRE_LICENSE_ACTIVE_V0",
-   "ai_governance::CC_REQUIRE_LICENSE_UNUSED_FOR_DAYS_V0",
-   "ai_governance::CC_REQUIRE_PARAMETERS_SATISFY_RULES_V0",
-   "ai_governance::CC_REQUIRE_TIER_ADMITTED_V0",
-   "ai_governance::CC_REQUIRE_TIER_GRANTS_TOOL_V0",
-   "ai_governance::CC_REQUIRE_TOOL_DECLARED_V0",
-   "ai_governance::CC_REQUIRE_TRAINING_COMPLETED_V0",
-   "ai_governance::CC_RESOLVE_EMPLOYEE_IDENTITY_V0",
-   "ai_governance::CC_RESOLVE_LICENSE_V0",
-   "ai_governance::CC_WRITE_ACTION_V0",
-   "ai_governance::CC_WRITE_EMPLOYEE_V0",
-   "ai_governance::CC_WRITE_LICENSE_CAP_V0",
-   "ai_governance::CC_WRITE_LICENSE_V0",
-   "ai_governance::IN_GOVERN_AGENT_ACTION_V0",
-   "ai_governance::IN_PROVISION_LICENSE_V0",
-   "ai_governance::IN_RECORD_LICENSE_USAGE_V0",
-   "ai_governance::IN_RECORD_TRAINING_COMPLETED_V0",
-   "ai_governance::IN_REGISTER_EMPLOYEE_V0",
-   "ai_governance::IN_SET_LICENSE_CAP_V0",
-   "ai_governance::RB_AI_LICENSING_BINDINGS_V0",
-   "ai_governance::WF_PROVISION_LICENSE_V0",
-   "ai_governance::WF_RECLAIM_LICENSE_V0",
-   "ai_governance::WF_RECORD_LICENSE_USAGE_V0",
-   "ai_governance::WF_RECORD_TRAINING_COMPLETED_V0",
-   "ai_governance::WF_REGISTER_EMPLOYEE_V0",
-   "ai_governance::WF_SET_LICENSE_CAP_V0"
+   "0",
+   ":",
+   ":",
+   "A",
+   "C",
+   "C",
+   "E",
+   "E",
+   "E",
+   "I",
+   "I",
+   "I",
+   "L",
+   "L",
+   "M",
+   "N",
+   "N",
+   "R",
+   "S",
+   "V",
+   "_",
+   "_",
+   "_",
+   "_",
+   "a",
+   "a",
+   "c",
+   "e",
+   "e",
+   "g",
+   "i",
+   "n",
+   "n",
+   "o",
+   "r",
+   "v"
   ],
   "superseded": {
    "ai_governance::AC_EMPLOYEE_V0": "ai_governance::AC_EMPLOYEE_V1",
@@ -6775,10 +6771,8 @@
    "ai_governance::WF_GOVERN_AGENT_ACTION_V0": 211
   },
   "replaced": {
-   "ai_governance::IN_DENY_PROVISION_V0": "ai_governance::IN_PROVISION_LICENSE_V0",
    "ai_governance::IN_PROVISION_AI_LICENSE_V0": "ai_governance::IN_PROVISION_LICENSE_V0",
    "ai_governance::WF_AUTO_RECLAIM_V0": "ai_governance::WF_RECLAIM_LICENSE_V0",
-   "ai_governance::WF_DENY_PROVISION_V0": "ai_governance::WF_PROVISION_LICENSE_V0",
    "ai_governance::WF_PROVISION_AI_LICENSING_V0": "ai_governance::WF_PROVISION_LICENSE_V0"
   },
   "retired": [
@@ -6798,8 +6792,10 @@
    "ai_governance::CT_PURE_CHECK_QUOTA_AVAILABLE_V0",
    "ai_governance::CT_PURE_CHECK_TRAINING_STATUS_V0",
    "ai_governance::IN_AGENT_ACTION_REQUESTED_V0",
+   "ai_governance::IN_DENY_PROVISION_V0",
    "ai_governance::RB_LICENSE_BINDINGS_V0",
-   "ai_governance::VOCAB_AI_LICENSING_STATES_V0"
+   "ai_governance::VOCAB_AI_LICENSING_STATES_V0",
+   "ai_governance::WF_DENY_PROVISION_V0"
   ]
  }
 }

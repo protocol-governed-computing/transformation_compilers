@@ -120,6 +120,7 @@ inventory_action:
   - EXTEND
   - REPOINT
   - REVIEW
+  - RETIRE
 molecule_binding_role:
   casing: UPPER_SNAKE
   entries:

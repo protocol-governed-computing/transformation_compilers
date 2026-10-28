@@ -26,6 +26,12 @@
       "retroactive": false,
       "change": "artifact_properties states the actor a workflow runs as (actor_context), and the actor it names must be one the design declares or carries over (WORKFLOW_ACTOR_UNDECLARED).",
       "digest": "sha256:b7b88c26d7900524b288837c383784e16dd98e3c126d2d6eee9d7ef6354a52ce"
+    },
+    {
+      "revision": 5,
+      "retroactive": false,
+      "change": "An inventory row may RETIRE an artifact with no successor: it is refused for a family this design cannot author, and construction accounts its references and measures its reason.",
+      "digest": "sha256:0b1f4248a6d48147f06c1798dd538bdb7ee6d664471aacff642c13aa4aab3473"
     }
   ],
   "type": "object",
@@ -3836,6 +3842,33 @@
             "Code",
             "FQDN"
           ]
+        }
+      }
+    },
+    {
+      "x-register": "existing_inventory",
+      "x-finding": {
+        "code": "RETIRED_ARTIFACT_NOT_AUTHORABLE",
+        "intent": "a design retires only what it could have authored",
+        "detail": "retires {value!r}, whose family this design cannot author. The governance surface is authored, not constructed, and is retired the way it is authored"
+      },
+      "items": {
+        "if": {
+          "properties": {
+            "action": {
+              "const": "RETIRE"
+            }
+          },
+          "required": [
+            "action"
+          ]
+        },
+        "then": {
+          "properties": {
+            "fqdn": {
+              "pattern": "^[a-z][a-z0-9_.]*::(?:STRUCTURE|VOCAB|AC|IN|WF|CC|CT|RB|EV|TI|TE)_[A-Z0-9_]+_V\\d+$"
+            }
+          }
         }
       }
     }

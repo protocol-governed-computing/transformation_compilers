@@ -421,6 +421,7 @@ core:
             - EXTEND
             - REPOINT
             - REVIEW
+            - RETIRE
           intent: Action is a controlled vocabulary declared by the template
         - id: CELL_NOT_OF_TYPE
           identity: transformation.schemas.REGISTER_SCHEMA_P7_V0#/properties/registers/properties/existing_inventory/items/properties/source_finding/x-derived/CELL_OF_TYPE
@@ -3067,6 +3068,18 @@ core:
             - Code
             - FQDN
           intent: the actor a workflow runs as is one this design declares or carries over
+        - id: RETIRED_ARTIFACT_NOT_AUTHORABLE
+          identity: transformation.schemas.REGISTER_SCHEMA_P7_V0#/allOf/107
+          check: CELL_MATCHES
+          register: existing_inventory
+          params:
+            column: FQDN
+            pattern: ^[a-z][a-z0-9_.]*::(?:STRUCTURE|VOCAB|AC|IN|WF|CC|CT|RB|EV|TI|TE)_[A-Z0-9_]+_V\d+$
+            only_when_column: Action
+            only_when_value: RETIRE
+            detail: retires {value!r}, whose family this design cannot author. The governance surface is authored,
+              not constructed, and is retired the way it is authored
+          intent: a design retires only what it could have authored
       next:
         SUCCESS: EXIT_JUDGED
         VIOLATION: EXIT_REJECTED

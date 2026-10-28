@@ -17098,6 +17098,7 @@ registers:
           - EXTEND
           - REPOINT
           - REVIEW
+          - RETIRE
         intent: Action is a controlled vocabulary declared by the template
       - id: CELL_NOT_OF_TYPE
         identity: transformation.schemas.REGISTER_SCHEMA_P7_V0#/properties/registers/properties/existing_inventory/items/properties/source_finding/x-derived/CELL_OF_TYPE
@@ -23315,6 +23316,18 @@ registers:
           - Code
           - FQDN
         intent: the actor a workflow runs as is one this design declares or carries over
+      - id: RETIRED_ARTIFACT_NOT_AUTHORABLE
+        identity: transformation.schemas.REGISTER_SCHEMA_P7_V0#/allOf/107
+        check: CELL_MATCHES
+        register: existing_inventory
+        params:
+          column: FQDN
+          pattern: ^[a-z][a-z0-9_.]*::(?:STRUCTURE|VOCAB|AC|IN|WF|CC|CT|RB|EV|TI|TE)_[A-Z0-9_]+_V\d+$
+          only_when_column: Action
+          only_when_value: RETIRE
+          detail: retires {value!r}, whose family this design cannot author. The governance surface is
+            authored, not constructed, and is retired the way it is authored
+        intent: a design retires only what it could have authored
   - owner: transformation::WF_P8_AUTHORING_MANDATE_ADMISSIBILITY_V0
     step: CC_JUDGE_AGAINST_SNAPSHOT_V0
     direction: INPUT
@@ -24892,6 +24905,13 @@ registers:
     names_kind: null
     value: REVIEW
     meaning: REVIEW
+  - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
+    extends: null
+    group: inventory_action
+    casing: UPPER_SNAKE
+    names_kind: null
+    value: RETIRE
+    meaning: RETIRE
   - vocabulary_code: transformation::VOCAB_DESIGN_REGISTER_TERMS_V0
     extends: null
     group: molecule_binding_role

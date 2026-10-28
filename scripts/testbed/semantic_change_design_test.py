@@ -5,7 +5,8 @@ even that without the composition, and let a design withdraw facts; every change
 changed meaning under an old identity. It now compares the whole declaration by the platform's
 declaration of what carries no meaning, refuses an amendment it cannot compare, and refuses a
 withdrawal. A design may re-point a reference to what it replaces, and every live referrer of a
-replaced artifact must be replaced, amended or re-pointed by the design. Inspection answers who
+replaced or retired artifact must be replaced, retired, amended or re-pointed by the design. A
+retirement takes away an artifact with no successor; construction never deletes it. Inspection answers who
 refers to an artifact from the composition's record of references.
 
 Run:  python scripts/testbed/semantic_change_design_test.py
@@ -166,13 +167,13 @@ core:
 
 # --- the design phase --------------------------------------------------------------------------
 
-def _doc(action: str, withdrawal: bool) -> ParsedDocument:
+def _doc(action: str, withdrawal: bool, fqdn: str = "probe::CC_DECIDE_V0") -> ParsedDocument:
     text = machine.document(
         "Design Intent: probe / semantic change",
         machine.register("existing_inventory",
                          ["FQDN", "Action", "Summary", "Reason",
                           "Source Finding"],
-                         [("probe::CC_DECIDE_V0", action, "Decides", "Amended", "human decision")]),
+                         [(fqdn, action, "Decides", "Amended", "human decision")]),
         machine.register("withdrawn_facts", ["Artifact", "Fact", "Reason", "Source Finding"],
                          [("probe::CC_DECIDE_V0", ".core.inputs.allowed_set", "Gone", "human decision")]
                          if withdrawal else [], declared_empty=False),
@@ -188,6 +189,16 @@ def _findings(doc: ParsedDocument, *ids: str) -> list[str]:
 
 def test_a_design_may_re_point():
     assert _findings(_doc("REPOINT", False), "CELL_NOT_IN_VOCABULARY") == []
+
+
+def test_a_design_may_retire():
+    assert _findings(_doc("RETIRE", False), "CELL_NOT_IN_VOCABULARY") == []
+
+
+def test_a_design_retires_only_what_it_could_author():
+    assert _findings(_doc("RETIRE", False), "RETIRED_ARTIFACT_NOT_AUTHORABLE") == []
+    assert _findings(_doc("RETIRE", False, "workflow::CONSTITUTION_WORKFLOW_V0"),
+                     "RETIRED_ARTIFACT_NOT_AUTHORABLE") == ["RETIRED_ARTIFACT_NOT_AUTHORABLE"]
 
 
 def test_a_withdrawal_is_refused():
@@ -226,8 +237,43 @@ def test_a_route_to_a_place_is_not_a_referrer():
     p7 = _p7((target, "REPLACE"))
     refusals = _meaning_refusals(p7, {}, SNAPSHOT, Context(p7=p7, p8={}, snapshot_root=SNAPSHOT))
     assert refusals == [f"{target} is replaced and ai_governance::WF_GOVERN_AGENT_ACTION_V0 still "
-                        f"names it — REPLACE, EXTEND or REPOINT ai_governance::WF_GOVERN_AGENT_ACTION_V0 "
-                        f"in this design"], refusals
+                        f"names it — REPLACE, RETIRE, EXTEND or REPOINT "
+                        f"ai_governance::WF_GOVERN_AGENT_ACTION_V0 in this design"], refusals
+
+
+def test_a_retirement_names_every_referrer_it_leaves_unaccounted():
+    target = "ai_governance::CC_RECORD_GOVERNED_ACTION_V0"
+    p7 = _p7((target, "RETIRE"))
+    refusals = _meaning_refusals(p7, {}, SNAPSHOT, Context(p7=p7, p8={}, snapshot_root=SNAPSHOT))
+    assert refusals == [f"{target} is retired and ai_governance::WF_GOVERN_AGENT_ACTION_V0 still "
+                        f"names it — REPLACE, RETIRE, EXTEND or REPOINT "
+                        f"ai_governance::WF_GOVERN_AGENT_ACTION_V0 in this design"], refusals
+
+
+def test_a_retired_referrer_is_accounted_for():
+    # A replaced event, named by a contract the same design retires: the retirement accounts for it.
+    event, contract = "ai_governance::EV_AGENT_ACTION_AUTHORIZED_V0", "ai_governance::CC_RECORD_GOVERNED_ACTION_V0"
+    replaced_only = _p7((event, "REPLACE"))
+    before = _meaning_refusals(replaced_only, {}, SNAPSHOT,
+                               Context(p7=replaced_only, p8={}, snapshot_root=SNAPSHOT))
+    assert any(f"{event} is replaced and {contract} still names it" in r for r in before), before
+    p7 = _p7((event, "REPLACE"), (contract, "RETIRE"))
+    after = _meaning_refusals(p7, {}, SNAPSHOT, Context(p7=p7, p8={}, snapshot_root=SNAPSHOT))
+    assert not any(f"and {contract} still names it" in r for r in after), after
+
+
+def test_a_retired_transform_takes_its_test_data_with_it():
+    target = "ai_governance::CT_PURE_CHECK_QUOTA_AVAILABLE_V0"
+    p7 = _p7((target, "RETIRE"))
+    refusals = _meaning_refusals(p7, {}, SNAPSHOT, Context(p7=p7, p8={}, snapshot_root=SNAPSHOT))
+    assert not any("TEST_DATA_CT_PURE_CHECK_QUOTA_AVAILABLE_V0" in r for r in refusals), refusals
+
+
+def test_a_retirement_of_what_the_composition_does_not_hold_is_refused():
+    p7 = _p7(("ai_governance::CC_NEVER_HELD_V0", "RETIRE"))
+    refusals = _meaning_refusals(p7, {}, SNAPSHOT, Context(p7=p7, p8={}, snapshot_root=SNAPSHOT))
+    assert refusals == ["ai_governance::CC_NEVER_HELD_V0 is retired and the composition does not "
+                        "hold it"], refusals
 
 
 def test_a_referrer_the_design_re_points_is_accounted_for():

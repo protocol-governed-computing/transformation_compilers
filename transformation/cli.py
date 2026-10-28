@@ -36,6 +36,7 @@ from transformation.build.render import (
     rows,
     mark_superseded,
     generated,
+    retired,
     implementation_namespace,
     render_all,
     retirements,
@@ -662,16 +663,17 @@ def _meaning_refusals(p7: dict, p8: dict, snapshot_root: Path | None,
     A change of meaning is a new identity (`4c` ID-5, `4e` SU-11). Each amendment, rendered or
     generated, is compared with the artifact the composition holds, by the platform's declaration
     of what carries no meaning; each re-point is checked to move references and nothing else; and
-    each replacement's live referrers must be replaced, amended or re-pointed by this design. None
-    of it can be asked without the composition, so a design that amends, replaces or re-points is
-    refused without one rather than built uncompared.
+    each replacement's or retirement's live referrers must be replaced, retired, amended or
+    re-pointed by this design. None of it can be asked without the composition, so a design that
+    amends, replaces, re-points or retires is refused without one rather than built uncompared.
     """
     acts = _inventory(p7)
-    touched = acts.get("EXTEND", []) + acts.get("REPLACE", []) + acts.get("REPOINT", [])
+    touched = (acts.get("EXTEND", []) + acts.get("REPLACE", []) + acts.get("REPOINT", [])
+               + acts.get("RETIRE", []))
     if not touched:
         return []
     if snapshot_root is None:
-        return [f"this design amends, replaces or re-points {len(touched)} artifact(s) and no "
+        return [f"this design amends, replaces, re-points or retires {len(touched)} artifact(s) and no "
                 f"composition was given — pass --snapshot; an amendment built uncompared could "
                 f"change meaning unseen"]
     try:
@@ -740,18 +742,39 @@ def _meaning_refusals(p7: dict, p8: dict, snapshot_root: Path | None,
             out.append(f"{fqdn} would change more than its references if re-pointed, at "
                        f"{', '.join(changed[:4])} — restate it as an amendment or replace it")
 
+    # A retirement takes away an artifact the composition holds, with nothing in its place.
+    for fqdn in acts.get("RETIRE", []):
+        if _held(fqdn, snapshot_root) is None:
+            out.append(f"{fqdn} is retired and the composition does not hold it")
+
     accounted = set(touched)
     retired: set[str] | None = None
-    for fqdn in acts.get("REPLACE", []):
+    for fqdn, verb in ([(f, "replaced") for f in acts.get("REPLACE", [])]
+                       + [(f, "retired") for f in acts.get("RETIRE", [])]):
         for referrer in _referrers(fqdn, snapshot_root):
             if referrer in accounted:
+                continue
+            # A transform's test data belongs to it, and goes with a transform that is retired.
+            if verb == "retired" and bare(referrer) == f"TEST_DATA_{bare(fqdn)}":
                 continue
             if retired is None:
                 retired = _superseded(snapshot_root)
             if referrer not in retired:
-                out.append(f"{fqdn} is replaced and {referrer} still names it — REPLACE, EXTEND "
-                           f"or REPOINT {referrer} in this design")
+                out.append(f"{fqdn} is {verb} and {referrer} still names it — REPLACE, RETIRE, "
+                           f"EXTEND or REPOINT {referrer} in this design")
     return out
+
+
+def _report_retired(p7: dict) -> None:
+    """What the design retires. Construction never deletes: the person delivering the change deletes
+    each one and records it in the retirement ledger (`4e` SU-12)."""
+    going = retired(p7)
+    if going:
+        click.echo(f"\n  RETIRED — this design retires {len(going)} artifact(s) with no successor; delete "
+                   f"each and record it in the retirement ledger when the change is delivered:")
+        for code, reason in sorted(going.items()):
+            with_data = f" (with TEST_DATA_{code})" if code.startswith("CT_") else ""
+            click.echo(f"      {code}{with_data}   — {reason or 'NO REASON STATED'}")
 
 
 def _report_refusals(refusals: list[str]) -> None:
@@ -835,6 +858,7 @@ def construction_check(dossier: Path, threshold: float, as_json: bool,
                    "deletes them:")
         for code, successors in sorted(retiring.items()):
             click.echo(f"      {code}   ← {', '.join(successors) or 'NOTHING DECLARED'}")
+    _report_retired(p7)
 
     if pending:
         click.echo("\n  PENDING GENERATION — this design determines these and the composition does not "
@@ -1059,6 +1083,10 @@ def construction_emit(dossier: Path, domain_root: Path, force: bool, threshold: 
             target.write_text(mark_superseded(target.read_text(encoding="utf-8"), successors),
                               encoding="utf-8")
             click.echo(f"    {target.relative_to(domain_root)}   ← {', '.join(successors)}")
+
+    # A retired artifact is left as it is. Construction does not delete; the report names what the
+    # person delivering the change deletes and records.
+    _report_retired(p7)
 
     # A re-point rewrites the names of what this design replaces, in a document it otherwise leaves
     # alone. Checked above against the composition; its targets were found before anything was written.

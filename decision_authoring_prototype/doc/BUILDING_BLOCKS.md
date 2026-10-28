@@ -98,7 +98,7 @@ are compositions, except for one:
 | count the licenses assigned | **no block.** The registry counts internally, but declares no operation for it |
 
 So ai_governance needs no new block, only one missing platform capability. That capability sits
-beside the parked empty-answer filter.
+beside the empty answer, which the platform now gives (`CT_PURE_SELECT_RECORDS_V0`).
 
 ## What the ledger's questions select
 

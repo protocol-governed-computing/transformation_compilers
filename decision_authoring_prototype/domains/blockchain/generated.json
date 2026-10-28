@@ -12,8 +12,8 @@
   },
   "catalog": {
    "id": "transformation.decision.CATALOG_V0",
-   "revision": 2,
-   "digest": "sha256:8fbe0c355b3b3f828e612d8023036ec91cc5502f5a2340dd462fb7440d96eab5"
+   "revision": 3,
+   "digest": "sha256:d9635de6390f9f3185edda82f1a641ccda5892cd89e1cf0aa9071cc44d06b1c4"
   }
  },
  "new_artifacts": [
@@ -1413,7 +1413,7 @@
    "cc_code": "blockchain::CC_LIST_ACTORS_V0",
    "step": "2",
    "step_name": "select_matching_actors",
-   "capability": "capability_transforms::CT_PURE_FILTER_RECORDS_V0",
+   "capability": "capability_transforms::CT_PURE_SELECT_RECORDS_V0",
    "kind": "CT",
    "operation": null,
    "store": null,
@@ -1439,7 +1439,7 @@
      "matching_actors": "matching_actors"
     }
    },
-   "_from": "ledger:operations/list actors/criteria"
+   "_from": "ledger:operations/list actors/nothing_found"
   },
   {
    "cc_code": "blockchain::CC_REQUIRE_ACCEPTED_ACTOR_V0",
@@ -2337,7 +2337,7 @@
    "direction": "INPUT",
    "field": "source",
    "bound_to": "results.select_actor_records.records",
-   "_from": "ledger:operations/list actors/criteria"
+   "_from": "ledger:operations/list actors/nothing_found"
   },
   {
    "owner": "blockchain::CC_LIST_ACTORS_V0",
@@ -2349,7 +2349,7 @@
      "state": "$.inputs.state"
     }
    },
-   "_from": "ledger:operations/list actors/criteria"
+   "_from": "ledger:operations/list actors/nothing_found"
   },
   {
    "owner": "blockchain::CC_LIST_ACTORS_V0",
@@ -2357,7 +2357,7 @@
    "direction": "OUTPUT",
    "field": "matching_actors",
    "bound_to": "capability_result.extracted",
-   "_from": "ledger:operations/list actors/criteria"
+   "_from": "ledger:operations/list actors/nothing_found"
   },
   {
    "owner": "blockchain::CC_REQUIRE_ACCEPTED_ACTOR_V0",
@@ -4693,8 +4693,7 @@
   }
  ],
  "_unrealized": [
-  "register actor: defaults {'currency_preference': 'BACHI', 'language': 'en'} apply when a request leaves a field out. No platform transform supplies a default; the entrance supplies them for callers outside, and a direct request that leaves one out records none.",
-  "list actors: nothing_found=empty needs a filter that answers empty; the platform's (CT_PURE_FILTER_RECORDS_V0) refuses an empty result. Realized with it; an empty answer is still refused."
+  "register actor: defaults {'currency_preference': 'BACHI', 'language': 'en'} apply when a request leaves a field out. No platform transform supplies a default; the entrance supplies them for callers outside, and a direct request that leaves one out records none."
  ],
  "_conflicts": [],
  "_replaces": {},

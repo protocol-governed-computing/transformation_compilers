@@ -227,6 +227,9 @@ def requirements(p7: dict, p8: dict, provenance: dict) -> list[tuple[str, str, b
     # that is the one fact measured, exactly as a generated artifact owes its generator.
     for code, successors in retirements(p7).items():
         out.append((code, "<superseded by>", bool(successors)))
+    # A retired artifact has no successor; what the design owes is why it goes.
+    for code, reason in retired(p7).items():
+        out.append((code, "<retired because>", bool(reason)))
     return out
 
 
@@ -293,6 +296,18 @@ def retirements(p7: dict) -> dict[str, list[str]]:
     superseded = supersessions(p7)
     return {bare(cell(r, "FQDN")): superseded.get(bare(cell(r, "FQDN")), ("", []))[1]
             for r in rows(p7, "existing_inventory") if cell(r, "Action") == "REPLACE"}
+
+
+def retired(p7: dict) -> dict[str, str]:
+    """Every artifact this design retires with no successor, and why.
+
+    A RETIRE is a declaration, not an act of construction. Construction neither renders nor marks a
+    retired artifact: "superseded by nothing" is a deletion, and a deletion is a human act recorded
+    in the retirement ledger. What the design states is that the artifact goes and why, so that the
+    references it holds and the references to it can be accounted for before anything is built.
+    """
+    return {bare(cell(r, "FQDN")): cell(r, "Reason") for r in rows(p7, "existing_inventory")
+            if cell(r, "Action") == "RETIRE"}
 
 
 def _scheduled(p7: dict, p8: dict) -> list[tuple[str, str, str]]:

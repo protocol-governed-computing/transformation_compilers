@@ -340,7 +340,7 @@ Register `design_resolution` in the Machine block.
 
 ## 2. Artifact Inventory — Existing Artifacts
 
-*All existing PPS artifacts touched by this CR. Action ∈ REPLACE | REUSE | EXTEND | REPOINT | REVIEW. `fqdn` is the existing artifact, cited by exact FQDN.*
+*All existing PPS artifacts touched by this CR. Action ∈ REPLACE | REUSE | EXTEND | REPOINT | REVIEW | RETIRE. `fqdn` is the existing artifact, cited by exact FQDN.*
 
 **An `EXTEND` is a whole redeclaration, not a delta.** Construction renders an amended artifact from
 this design alone and the result replaces its predecessor, so every register that describes it must
@@ -358,12 +358,17 @@ removed. A change of meaning is a new identity — a new artifact that the old o
 
 *A `REPOINT` is an artifact that names one this design replaces. Construction rewrites each such
 name in it to the replaced artifact's declared successor and changes nothing else; the artifact
-keeps its identity. Every live artifact that names one this design replaces is `REPLACE`d,
-`EXTEND`ed or `REPOINT`ed here, or construction refuses the design and names it.*
+keeps its identity. Every live artifact that names one this design replaces or retires is
+`REPLACE`d, `RETIRE`d, `EXTEND`ed or `REPOINT`ed here, or construction refuses the design and names
+it.*
+
+*A `RETIRE` is an artifact this design takes away with nothing in its place. `Reason` says why.
+Construction neither renders nor marks it: a deletion is a human act. The person delivering the
+change deletes it and records it in the retirement ledger.*
 
 *`Summary` states what the artifact **is**, where `Reason` states why this change touches it. It is
 required for an `EXTEND`, because a rendered artifact without its summary is one this change
-silently emptied. A `REUSE`, `REPOINT` or `REVIEW` row is not rendered and may leave it blank.*
+silently emptied. A `REUSE`, `REPOINT`, `REVIEW` or `RETIRE` row is not rendered and may leave it blank.*
 
 Register `existing_inventory` in the Machine block.
 
