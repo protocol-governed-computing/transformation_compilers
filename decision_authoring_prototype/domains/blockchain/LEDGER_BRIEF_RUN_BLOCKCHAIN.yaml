@@ -1,0 +1,762 @@
+domain: blockchain
+purpose: >
+  The business decides who an actor is and whether it trusts them, and gives each person it has
+  accepted one wallet where they hold value.
+
+answers:
+
+  # ---------------------------------------------------------------- parts
+  - ask: parts
+    new_question: true
+    why_new: >
+      The catalog has `purpose` for one domain, but no question that splits a domain into parts
+      and says which part owns each thing and each operation. The brief has two parts with a
+      one-way dependency between them, and ownership decides who may write what.
+    about: blockchain
+    answer:
+      parts:
+        - name: identity
+          says: who an actor is and whether the business trusts them
+          owns_things: [actor, registration, decision]
+          owns_operations: [register, accept, reject, list actors by state, show actor]
+        - name: wallet
+          says: where a person the business has accepted holds value
+          owns_things: [wallet]
+          owns_operations: [create wallet]
+    decided_by: business owner
+
+  # ---------------------------------------------------------------- operations
+  - ask: operations
+    about: identity
+    answer:
+      - register
+      - accept
+      - reject
+      - list actors by state
+      - show actor
+    decided_by: business owner
+    basis: >
+      inferred — "show actor" is inferred from the brief's statements of how an accepted or
+      rejected actor, and an actor registered twice, is shown. Accept and reject are two
+      operations because the entrance offers them as two acts.
+
+  - ask: operations
+    about: wallet
+    answer:
+      - create wallet
+    decided_by: business owner
+
+  # ---------------------------------------------------------------- actors
+  - ask: actor
+    about: register
+    answer:
+      who: the person registering, about themselves
+      authorized_by: nothing; no account or login is needed
+    decided_by: business owner
+
+  - ask: actor
+    about: accept
+    open: true
+    waits_on: identity owner
+    note: >
+      The brief says "an authority" decides and that the decision names it, and that no caller
+      needs an account or login. It does not say who counts as an authority or what proves a
+      caller is one. Until answered, accept is refused at admission.
+
+  - ask: actor
+    about: reject
+    open: true
+    waits_on: identity owner
+    note: Same gap as accept.
+
+  - ask: actor
+    about: list actors by state
+    open: true
+    waits_on: identity owner
+    note: The brief says "the business can list"; it does not say which caller may.
+
+  - ask: actor
+    about: show actor
+    open: true
+    waits_on: identity owner
+
+  - ask: actor
+    about: create wallet
+    answer:
+      who: the accepted person the wallet is for
+      authorized_by: their accepted state in identity's records
+    decided_by: wallet owner
+    basis: inferred — "a person the business has accepted asks for a wallet"
+
+  # ---------------------------------------------------------------- things
+  - ask: things
+    about: blockchain
+    answer:
+      - name: actor
+        part: identity
+        relates: has one or more registrations; has at most one decision
+      - name: registration
+        part: identity
+        relates: belongs to one actor, the one its contact address names
+      - name: decision
+        part: identity
+        relates: about one actor; names the authority that made it
+      - name: wallet
+        part: wallet
+        relates: held by one accepted actor; an actor holds at most one
+    decided_by: business owner
+
+  # ---------------------------------------------------------------- required
+  - ask: required
+    about: registration
+    answer:
+      - {field: name, type: text, requirement: required}
+      - {field: contact address, type: text, requirement: required}
+      - {field: preferred currency, type: text, requirement: optional}
+      - {field: preferred language, type: text, requirement: optional}
+    decided_by: identity owner
+
+  - ask: required
+    about: decision
+    answer:
+      - {field: person, type: reference to actor, requirement: required}
+      - {field: authority, type: text, requirement: required}
+      - {field: grounds, type: text, requirement: optional}
+    decided_by: identity owner
+
+  - ask: required_when
+    new_question: true
+    why_new: >
+      `required` gives each field one fixed requirement. The brief makes grounds required for a
+      rejection and optional for an acceptance: a requirement that depends on which act is done.
+    about: decision
+    answer:
+      - field: grounds
+        required_for: [reject]
+        optional_for: [accept]
+        on_missing: refuse
+    decided_by: identity owner
+
+  - ask: required
+    about: wallet
+    answer:
+      - {field: holder, type: reference to actor, requirement: required}
+      - {field: public key, type: text, requirement: required}
+    decided_by: wallet owner
+
+  # ---------------------------------------------------------------- value sources
+  - ask: value_source
+    new_question: true
+    why_new: >
+      No catalog question says where a field's value comes from when it is not the caller's
+      word: a default used when the caller gives none, a value the business fixes whatever the
+      caller states, or a value the clock supplies. The brief has all three.
+    about: registration
+    answer:
+      - {field: preferred currency, source: default_when_absent, value: BACHI}
+      - {field: preferred language, source: default_when_absent, value: English}
+      - {field: state, source: fixed, value: unverified, request_value: ignored}
+      - {field: time, source: clock, request_value: ignored}
+    decided_by: identity owner
+
+  - ask: value_source
+    new_question: true
+    why_new: see the same question about registration
+    about: wallet
+    answer:
+      - {field: balance, source: fixed, value: 0, request_value: ignored}
+      - {field: currency, source: fixed, value: BACHI, request_value: ignored}
+      - {field: classification, source: fixed, value: DEFAULT, request_value: ignored}
+      - {field: state, source: fixed, value: active, request_value: ignored}
+      - {field: holder, source: fixed, value: the accepted person asking, request_value: ignored}
+      - {field: identity prefix, source: fixed, value: wal, request_value: ignored}
+      - {field: address, source: derived, from: public key}
+      - {field: time, source: clock, request_value: ignored}
+    decided_by: wallet owner
+
+  - ask: value_source
+    new_question: true
+    why_new: see the same question about registration
+    about: decision
+    answer:
+      - {field: time, source: clock, request_value: ignored}
+    decided_by: identity owner
+
+  - ask: allowed_values
+    new_question: true
+    why_new: >
+      The brief names a closed set of values for a field and a narrower subset that may be
+      created. `required` gives a type but no named value set, and `states` is for a lifecycle,
+      which classification is not.
+    about: wallet classification
+    answer:
+      named: [default, private, business, savings]
+      creatable: [default]
+    decided_by: wallet owner
+
+  # ---------------------------------------------------------------- derived value
+  - ask: derived_value
+    new_question: true
+    why_new: >
+      The catalog has no question for a value computed from supplied material by a fixed
+      method, with the method's input normalization and the sameness it guarantees.
+    about: wallet address
+    answer:
+      from: public key
+      method: last 20 bytes of the Keccak-256 hash of the key (Ethereum address rule)
+      input_normalization:
+        - strip a leading "0x"
+        - strip a leading "04" uncompressed-key tag
+      deterministic: true
+      same_when: the normalized keys are equal
+    decided_by: wallet owner
+
+  - ask: derived_value
+    about: wallet address on unreadable key
+    open: true
+    waits_on: wallet owner
+    note: >
+      The brief does not say what happens when the supplied key is not a key (wrong length, not
+      hex), nor whether two holders may supply the same key and so share an address.
+
+  # ---------------------------------------------------------------- identity
+  - ask: identity
+    about: actor
+    answer:
+      same_when: [contact address]
+      normalized: open
+      on_duplicate: keep_first
+    decided_by: identity owner
+    basis: >
+      "The same address registered twice is one actor ... the details the actor was first
+      admitted with prevail." Whether contact addresses are compared after normalizing case or
+      spacing is not decided; see the open question below.
+
+  - ask: identity
+    about: actor contact address normalization
+    open: true
+    waits_on: identity owner
+
+  - ask: on_repeat
+    new_question: true
+    why_new: >
+      `identity` offers an on-duplicate choice but no shape for a duplicate that succeeds: what
+      the repeat records, what it may not change, and how it is announced apart from a first
+      time.
+    about: register
+    answer:
+      fails: false
+      actor_changed: false
+      decision_reset: false
+      records: the details the repeat submitted, shown against the same actor
+      announced_as: registration again, distinct from first registration
+    decided_by: identity owner
+
+  - ask: identity
+    about: wallet
+    answer:
+      same_when: [holder]
+      formed_as: prefix "wal" with the holder
+      on_duplicate: refuse
+    decided_by: wallet owner
+
+  - ask: identity
+    about: wallet identity format
+    open: true
+    waits_on: wallet owner
+    note: >
+      The brief says the identity is formed from the holder and carries "wal", but not the exact
+      form (separator, which of the holder's details, any encoding).
+
+  # ---------------------------------------------------------------- states
+  - ask: states
+    about: actor
+    answer:
+      states: [unverified, accepted, rejected]
+      initial: unverified
+      moves:
+        - {from: unverified, to: accepted, by: accept}
+        - {from: unverified, to: rejected, by: reject}
+      terminal: [accepted, rejected]
+    decided_by: identity owner
+    basis: >
+      "A person is decided about once"; a decided person has no further move. A rejected actor
+      cannot be read as accepted by any means.
+
+  - ask: states
+    about: wallet
+    answer:
+      states: [active]
+      initial: active
+      moves: []
+    decided_by: wallet owner
+    basis: inferred — the brief names only "active" and no operation that changes a wallet
+
+  # ---------------------------------------------------------------- preconditions
+  - ask: precondition
+    about: accept
+    answer:
+      - {must: the person has registered, else: refuse}
+      - {must: the person is unverified, else: refuse, effect: no record changes}
+      - {must: the authority is not the person decided about, else: refuse}
+    decided_by: identity owner
+
+  - ask: precondition
+    about: reject
+    answer:
+      - {must: the person has registered, else: refuse}
+      - {must: the person is unverified, else: refuse, effect: no record changes}
+      - {must: the authority is not the person decided about, else: refuse}
+      - {must: grounds are stated, else: refuse}
+    decided_by: identity owner
+
+  - ask: precondition
+    about: create wallet
+    answer:
+      - {must: the person has registered, else: refuse}
+      - {must: the person is accepted, else: refuse, effect: no wallet recorded}
+      - {must: the person holds no wallet yet, else: refuse}
+    decided_by: wallet owner
+
+  - ask: precondition
+    about: register
+    answer:
+      - {must: a name is given, else: refuse, effect: no actor exists afterwards}
+      - {must: a contact address is given, else: refuse, effect: no actor exists afterwards}
+    decided_by: identity owner
+
+  # ---------------------------------------------------------------- invariants on change
+  - ask: invariant_on_change
+    about: accept
+    answer:
+      may_change: [state, authority, grounds, decision time]
+      may_not_change: [name, contact address, preferred currency, preferred language, registrations]
+    decided_by: identity owner
+
+  - ask: invariant_on_change
+    about: reject
+    answer:
+      may_change: [state, authority, grounds, decision time]
+      may_not_change: [name, contact address, preferred currency, preferred language, registrations]
+    decided_by: identity owner
+
+  - ask: invariant_on_change
+    about: register (repeat)
+    answer:
+      may_change: []
+      may_not_change: [the actor's name, preferences, state, authority, grounds]
+    decided_by: identity owner
+
+  # ---------------------------------------------------------------- cross-part read
+  - ask: reads_other_part
+    new_question: true
+    why_new: >
+      The catalog has no question for one part depending on another part's records: what it
+      reads, that it may never write, and that its acts, refused or not, leave the other part's
+      records exactly as they were.
+    about: wallet reading identity
+    answer:
+      reader: wallet
+      owner: identity
+      reads: [whether a person has registered, the person's state]
+      writes: never
+      other_part_unchanged_by: every wallet act, done or refused
+    decided_by: business owner
+
+  # ---------------------------------------------------------------- reads
+  - ask: query_excludes
+    about: list actors by state
+    answer:
+      always_exclude: none
+      caller_may_override: false
+    decided_by: identity owner
+    basis: "Listing the rejected shows exactly the rejected actors."
+
+  - ask: query_returns
+    about: list actors by state
+    answer:
+      returns: every actor in the named state, and no other
+      grouping: none
+    decided_by: identity owner
+
+  - ask: nothing_found
+    about: list actors by state
+    open: true
+    waits_on: identity owner
+    note: The brief does not say whether a state with no actors gives an empty list or a refusal.
+
+  - ask: query_returns
+    about: show actor
+    answer:
+      unverified: [name, contact address, preferences, state, registrations]
+      accepted: [name, contact address, preferences, state accepted, authority, decision time, registrations]
+      rejected: [name, contact address, preferences, state rejected, authority, grounds, decision time, registrations]
+      never: a rejected actor shown as accepted
+    decided_by: identity owner
+    basis: >
+      inferred — assembled from "shown as accepted, with the deciding authority and the time",
+      "shown as rejected, with the authority, the grounds and the time" and "two registrations
+      shown against them". Whether unverified actors show name and preferences is inferred.
+
+  - ask: nothing_found
+    about: show actor
+    open: true
+    waits_on: identity owner
+
+  # ---------------------------------------------------------------- trail
+  - ask: trail
+    about: blockchain
+    answer:
+      register: a moment with the time and the details submitted, first or repeat
+      accept: a moment with the time, the person, the authority and any grounds
+      reject: a moment with the time, the person, the authority and the grounds
+      create wallet: exactly one creation moment per wallet, with the time
+      list actors by state: open
+      show actor: open
+      moments_are: append-only; no act changes or removes one
+      distinct_times: two moments at different times carry different times
+      moment_and_trail_chosen_by: the act, whatever the request names
+    decided_by: business owner
+
+  - ask: trail
+    about: refused acts
+    open: true
+    waits_on: business owner
+    note: >
+      The brief says a refused decision changes no record and a refused wallet records none,
+      but not whether a refused act leaves a moment of its own refusal.
+
+  # ---------------------------------------------------------------- announces
+  - ask: announces
+    about: register
+    answer:
+      first: registration, carrying the actor and the details admitted
+      repeat: registration again, carrying the actor and the details submitted
+    decided_by: identity owner
+    basis: inferred for what each carries; the distinct names are in the brief
+
+  - ask: announces
+    about: accept
+    open: true
+    waits_on: identity owner
+
+  - ask: announces
+    about: reject
+    open: true
+    waits_on: identity owner
+
+  - ask: announces
+    about: create wallet
+    open: true
+    waits_on: wallet owner
+
+  # ---------------------------------------------------------------- entrance
+  - ask: public_acts
+    new_question: true
+    why_new: >
+      The catalog asks for operations but not which of them are offered from outside, under
+      what public name, and what happens to a request naming anything else.
+    about: public entrance
+    answer:
+      offered: [register, accept, reject]
+      not_offered: [create wallet, list actors by state, show actor]
+      unknown_act: turned away
+      caller_needs_login: false
+    decided_by: business owner
+
+  - ask: public_acts
+    about: public names
+    open: true
+    waits_on: business owner
+    note: >
+      Each offered act has "a public name", but the brief gives none. It also does not say how
+      the operations not offered from outside are reached.
+
+  - ask: entrance_turns_away
+    new_question: true
+    why_new: >
+      No catalog question bounds what a boundary may refuse before the act runs. The brief
+      limits the entrance to unreadable requests and requires it to name the detail.
+    about: public entrance
+    answer:
+      only_when: a detail is missing or not in the form asked for
+      tells_caller: which detail
+      never_decides: anything the business decides; that belongs to the act
+    decided_by: business owner
+
+  - ask: entrance_turns_away
+    about: missing name or contact address on register
+    open: true
+    waits_on: business owner
+    note: >
+      The brief says a registration with no name or contact address is refused (by the act), and
+      also that the entrance turns away a request missing a detail. Which one answers the caller,
+      and so whether the caller hears "turned away" or "decided against", is not decided.
+
+  - ask: outcome_classes
+    new_question: true
+    why_new: >
+      The catalog routes refusals but has no question fixing the closed set of answers a caller
+      can receive and which must be told apart.
+    about: public entrance
+    answer:
+      classes:
+        - done
+        - turned away
+        - went wrong inside the business
+      kept_apart: [turned away, decided against by the act]
+      decided_against_reported_as: open
+    decided_by: business owner
+    basis: >
+      The brief lists three things a caller is told yet requires "turned away" and "decided
+      against" to be told apart, which implies a fourth or a sub-class; how a decided-against
+      answer is reported is left open.
+
+  # ---------------------------------------------------------------- request overrides
+  - ask: request_cannot_override
+    new_question: true
+    why_new: >
+      No catalog question states which parts of the business's rules and recording a request
+      may try to restate, and what happens when it does: judged by the business's rules, not
+      refused for trying.
+    about: blockchain
+    answer:
+      request_stating_rules: judged by the business's rules, not refused for stating them
+      cannot_widen:
+        - who may be decided about
+        - which decisions are allowed
+        - the self-decision rule
+        - the grounds rule
+      ignored_from_request:
+        - the moment an act records
+        - the trail an act records on
+        - where the contact address sits, for the registration's claim
+        - initial actor state
+        - wallet holder, balance, currency, classification, state, identity prefix
+    decided_by: business owner
+
+  # ---------------------------------------------------------------- record failure
+  - ask: on_record_failure
+    new_question: true
+    why_new: >
+      The catalog does not ask what an act does when a record it needs cannot be read or
+      written. The brief fixes it: the act ends refused, nothing after happens, nothing is
+      recorded.
+    about: every act
+    answer:
+      outcome: refused
+      later_steps: none
+      recorded_by_act: nothing
+    decided_by: business owner
+
+cases:
+
+  # ---- registering
+  - when: register
+    given: no actor with contact address "ana@example.org"
+    request: {name: Ana, contact address: "ana@example.org"}
+    then: Ana is admitted unverified, preferring BACHI and English, and a registration is announced
+    because: a person who states no preferences prefers BACHI and English
+
+  - when: register
+    given: nothing
+    request: {name: Ana, contact address: "ana@example.org", preferred currency: EUR, preferred language: Spanish}
+    then: Ana is admitted unverified, preferring EUR and Spanish
+    because: stated preferences are kept
+
+  - when: register
+    given: nothing
+    request: {contact address: "ana@example.org"}
+    then: refused, and no actor exists afterwards
+    because: a registration with no name is refused
+
+  - when: register
+    given: nothing
+    request: {name: Ana}
+    then: refused, and no actor exists afterwards
+    because: a registration with no contact address is refused
+
+  - when: register
+    given: nothing
+    request: {name: Ana, contact address: "ana@example.org", state: accepted}
+    then: Ana is admitted unverified
+    because: a registration is held unverified whatever state the request gives it
+
+  - when: register
+    given: Ana registered with "ana@example.org", preferring EUR
+    request: {name: Anna, contact address: "ana@example.org", preferred currency: USD}
+    then: >
+      done; Ana is still named Ana and prefers EUR, two registrations are shown against her, the
+      second records Anna and USD, and a registration again is announced
+    because: a repeated registration does not fail and the first details prevail
+
+  - when: register
+    given: Ana registered and was rejected by Bo with grounds "fraud"
+    request: {name: Ana, contact address: "ana@example.org"}
+    then: done; Ana is still rejected, with Bo and "fraud"
+    because: a repeated registration does not reset a decision
+
+  - when: register
+    given: nothing
+    request: {name: Ana, contact address: "ana@example.org", moment: "last year", trail: "elsewhere"}
+    then: Ana is registered with the time it happened, on the registration's own trail
+    because: every act records its own moment on its own trail
+
+  # ---- deciding
+  - when: accept
+    given: Ana registered and unverified
+    request: {person: Ana, authority: Bo}
+    then: Ana is shown accepted, with Bo and the time; her name and preferences are unchanged
+    because: an acceptance may omit grounds and changes only state, authority and grounds
+
+  - when: reject
+    given: Ana registered and unverified
+    request: {person: Ana, authority: Bo, grounds: "documents forged"}
+    then: Ana is shown rejected, with Bo, "documents forged" and the time
+    because: a rejection with grounds is recorded
+
+  - when: reject
+    given: Ana registered and unverified
+    request: {person: Ana, authority: Bo}
+    then: refused, and Ana stays unverified
+    because: a rejection stating no grounds is refused
+
+  - when: accept
+    given: no actor "cy@example.org"
+    request: {person: "cy@example.org", authority: Bo}
+    then: refused
+    because: a decision about a person who never registered is refused
+
+  - when: reject
+    given: Ana accepted by Bo
+    request: {person: Ana, authority: Di, grounds: "changed mind"}
+    then: refused, and no record changes; Ana stays accepted by Bo
+    because: a person is decided about once
+
+  - when: accept
+    given: Ana rejected by Bo
+    request: {person: Ana, authority: Di}
+    then: refused, and Ana stays rejected
+    because: a person is decided about once, and a rejected actor cannot be read as accepted
+
+  - when: accept
+    given: Ana registered and unverified
+    request: {person: Ana, authority: Ana}
+    then: refused
+    because: a person never decides about themselves
+
+  - when: accept
+    given: Ana registered and unverified
+    request: {person: Ana, authority: Ana, rules: {self decision allowed: true}}
+    then: refused
+    because: a request cannot widen the self-decision rule; it is judged by the business's rule
+
+  - when: reject
+    given: Ana registered and unverified
+    request: {person: Ana, authority: Bo, rules: {grounds required: false}}
+    then: refused
+    because: a request cannot widen the grounds rule
+
+  - when: accept
+    given: Ana registered and unverified
+    request: {person: Ana, authority: Bo, rules: {decisions allowed: [accept]}}
+    then: Ana is accepted by Bo
+    because: a request stating rules of its own is judged by the business's rules, not refused for stating them
+
+  - when: accept
+    given: Ana registered and unverified; Ana's record cannot be read
+    request: {person: Ana, authority: Bo}
+    then: refused, and nothing is recorded
+    because: when a record an act needs cannot be read, the act ends refused
+
+  # ---- finding actors
+  - when: list actors by state
+    given: Ana rejected, Bo accepted, Cy unverified, Di rejected
+    request: {state: rejected}
+    then: returns Ana and Di
+    because: listing the rejected shows exactly the rejected actors
+
+  # ---- wallets
+  - when: create wallet
+    given: Ana accepted, holding no wallet
+    request: {person: Ana, public key: "0x04ab…"}
+    then: >
+      a wallet held by Ana, identity carrying "wal", balance 0 in BACHI, classified DEFAULT,
+      active, its address the last 20 bytes of the key's Keccak-256 hash, with one creation moment
+    because: a new wallet takes the business's values
+
+  - when: create wallet
+    given: Ana accepted, holding no wallet
+    request: {person: Ana, public key: "0x04ab…", balance: 500, currency: EUR, classification: savings, state: frozen, holder: Bo, prefix: "acc"}
+    then: >
+      a wallet held by Ana with balance 0 in BACHI, classified DEFAULT, active, identity carrying
+      "wal"
+    because: a new wallet's values are the business's, whatever the request states
+
+  - when: create wallet
+    given: nothing
+    request: {person: "cy@example.org", public key: "04ab…"}
+    then: refused, and no wallet is recorded
+    because: a wallet for a person who never registered is refused
+
+  - when: create wallet
+    given: Ana registered and unverified
+    request: {person: Ana, public key: "04ab…"}
+    then: refused, no wallet is recorded, and Ana's identity records are exactly as they were
+    because: a wallet for an unverified person is refused, and wallet never writes identity's records
+
+  - when: create wallet
+    given: Ana rejected
+    request: {person: Ana, public key: "04ab…"}
+    then: refused, no wallet is recorded, and Ana's identity records are exactly as they were
+    because: a wallet for a rejected person is refused
+
+  - when: create wallet
+    given: Ana accepted, already holding a wallet
+    request: {person: Ana, public key: "04cd…"}
+    then: refused; Ana keeps her one wallet with its one creation moment
+    because: one person holds one wallet
+
+  - when: create wallet
+    given: Ana accepted, holding no wallet
+    request: {person: Ana, public key: the same key written "0x04ab…", "04ab…", or "ab…"}
+    then: the wallet's address is the same whichever way the key is written
+    because: the same key always gives the same address, with or without its 0x prefix and 04 tag
+
+  - when: create wallet
+    given: Ana accepted, holding no wallet
+    request: {person: Ana, public key: "04ab…"}
+    then: Ana's actor record, state, decision and registrations are exactly as before
+    because: every wallet act leaves identity's records exactly as they were
+
+  # ---- entrance
+  - when: public entrance
+    given: anything
+    request: {act: "create wallet"}
+    then: turned away
+    because: only registering, accepting and rejecting are offered from outside
+
+  - when: public entrance
+    given: anything
+    request: {act: register, contact address: 42}
+    then: turned away, told the contact address is not in the form asked for
+    because: the entrance turns away a request it cannot read and says which detail
+
+  - when: public entrance
+    given: Ana accepted
+    request: {act: reject, person: Ana, authority: Di, grounds: "late"}
+    then: the caller is told the business decided against it, not that it was turned away
+    because: a request turned away and one the business decided against are told apart
+
+  - when: public entrance
+    given: a record the act needs cannot be written
+    request: {act: register, name: Ana, contact address: "ana@example.org"}
+    then: refused, nothing recorded; the caller is told something went wrong inside the business
+    because: a failed record ends the act refused, and an inside failure is its own answer
+
+  # ---- records
+  - when: register
+    given: Ana registered at 10:00
+    request: {name: Bo, contact address: "bo@example.org", arrives at: "10:05"}
+    then: Bo's moment carries 10:05 and Ana's moment still carries 10:00
+    because: moments at different times carry different times, and no act changes a recorded moment

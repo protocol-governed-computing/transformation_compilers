@@ -111,7 +111,7 @@ Findings 1–3 are what a ledger would expose: each is a question nobody answere
 
 ## Reproduce
 
-`python transformation_compilers/decision_authoring_prototype/engine/census.py business_domains/book_library_mgmt/design/p7_design_intent_book_library_mgmt_baseline.md`
+`python transformation_compilers/decision_authoring_prototype/engine/census.py business_domains/book_library_mgmt/design/p7_design_intent_book_library_mgmt_baseline.md transformation_compilers/decision_authoring_prototype/domains/book_library_mgmt/census_profile.yaml`
 
 The classifier rules are in the script: workflow, actor and event names; request, actor and event
 fields; rule, schema and state literals; identity-forming attributes; and emitted events count as

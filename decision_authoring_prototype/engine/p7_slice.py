@@ -23,6 +23,9 @@ OWNER = {
     "structure_stores": "store_name",
     "test_cases": "ct_code",
     "test_case_values": "ct_code",
+    "declared_reach": "act",
+    "transport_bindings": "artifact",
+    "vocabulary_extensions": "vocabulary_code",
 }
 
 

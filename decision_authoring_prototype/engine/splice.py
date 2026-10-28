@@ -39,7 +39,8 @@ def splice_p7(reg, gen, whole=False):
     if whole:
         # The derived design is the whole domain: every register it covers is replaced.
         for name in OWNER:
-            reg[name] = [clean(r) for r in gen.get(name, [])]
+            if name in gen or reg.get(name):
+                reg[name] = [clean(r) for r in gen.get(name, [])]
         codes = [r["code"] for r in reg["new_artifacts"]]
         reg["artifact_summary"] = [{**reg["artifact_summary"][0], "count": str(len(codes)),
                                     "artifacts": ", ".join(sorted(codes))}]
@@ -110,6 +111,14 @@ def splice_p8(reg8, reg7, gen):
     total = sum(counts.values())
     reg8["mandate_artifact_summary"] = [{**reg8["mandate_artifact_summary"][0], "count": str(total),
                                          "description": ", ".join(f"{n} {f}" for f, n in counts.items())}]
+    # A request the derived design names that the mandate does not yet hold.
+    held = {r["code"] for r in reg8.get("new_intents") or []}
+    for r in gen.get("new_artifacts", []):
+        if r["family"] == "IN" and r["code"] not in held:
+            wf = next(t["workflow"] for t in gen["execution_topology"]
+                      if t["node_type"] == "IN" and t["node"] == short(r["code"]))
+            reg8.setdefault("new_intents", []).append({"code": r["code"], "purpose": r["summary"],
+                                                       "workflow": short(wf), "inputs": ""})
     for r in reg8.get("new_intents", []):
         fields = [f"{x['field']}:{x['type']}" for x in reg7["interface_fields"]
                   if x["artifact"] == r["code"] and x["direction"] == "INPUT"]

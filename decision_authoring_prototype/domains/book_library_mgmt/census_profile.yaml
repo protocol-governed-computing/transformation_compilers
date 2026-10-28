@@ -1,0 +1,11 @@
+# What in this domain's P7 states a human decision. engine/census.py reads it.
+domain_fields: [title, author, publication_year, subject, barcode, book_fields, copy_fields, search_criteria, updated_fields]
+actor_fields: [staff_id, staff_credentials]
+# Steps whose rules or schema literal state a rule.
+rule_steps: [confirm_authorization, refuse_incomplete_record, require_submission_complete,
+             require_identity_unchanged, refuse_incomplete_correction, validate_book_fields,
+             validate_work_fields, validate_edition_fields, check_corrected_record]
+rule_fields: [rules, schema]
+# Transforms whose consumed attributes state what forms an identity.
+key_cts: [CT_PURE_FORM_BOOK_IDENTITY_KEY, CT_PURE_FORM_WORK_IDENTITY_KEY]
+states: [REGISTERED, RETIRED]

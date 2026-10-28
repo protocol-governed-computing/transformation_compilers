@@ -81,17 +81,42 @@ never sees it.
 
 Questions are asked in this order. A question that depends on an unanswered question is not asked.
 
+### Questions a second domain added
+
+The blind run of `blockchain` needed nine questions the book catalog lacked.
+
+| Question | Asked when | Answer shape | Derives |
+|---|---|---|---|
+| `parts` | always | parts, and the things and operations each owns | subdomains, their stores and bindings |
+| `required_when` | per field an operation reads | the operations that require it, and those where it is optional | a refusal step on the requiring operation only |
+| `allowed_values` | per field with a named set | the named values, and those that may be created | vocabulary, a fixed literal |
+| `derived_value` | per value formed from supplied material | the source, the named rule, the answer to unreadable material | a carried transform, refusal routing |
+| `on_repeat` | per operation whose identity may repeat | fails or not, what it records, what it announces | repeat routing, a trail step, an event |
+| `reads_other_part` | per operation reading another part | the part, what is read, never written | a resolve step, declared reach |
+| `public_acts` | always | the acts offered from outside, their public names | entrances, transport bindings |
+| `entrance_turns_away` | per public act | what an entrance may refuse, and what it tells the caller | entrance field requirements |
+| `outcome_classes` | per public act | the answers a caller can receive, and which are kept apart | exit classes |
+
+A `default` joins `required`: a field the request may leave out takes the value the business names.
+
 ## Doctrine, not questions
 
 Some P7 content looks like a decision but follows from PGC doctrine. The front end applies it
-without asking. Each rule is stated once and cited by every cell it produces.
+without asking. The rules are data, in `engine/doctrine.yaml`. Each is stated once and cited by
+every row it produces. A citation of a rule the file does not state is refused.
 
-- **Refusal precedence.** Authorization, then validation, then identity claim, then the write.
-  Census finding 4 is settled here as doctrine, and the author can override it with an answer.
-- **Storage mechanism.** A thing with identity gets a registry. A thing with a lifecycle gets a
-  mutable store. A trail gets an append-only store.
-- **Naming and versioning.** Codes come from the author's names. New artifacts start at `_V0`.
-- **Trail on every operation.** This applies unless a `trail` answer says otherwise.
+The author reads the doctrine and does not answer it. A brief does not state it as a requirement.
+The blind run of `blockchain` answered three rules as questions, because its brief stated them:
+
+| Rule | What it says | The question it replaces |
+|---|---|---|
+| `own_values` | an act states its own rules, states, trail, moment and fixed values | `value_source`, for a fixed value or the clock |
+| `rules_held` | a request cannot widen a rule, and is not refused for stating one | `request_cannot_override` |
+| `failed_record_ends` | a failed read or write ends the act refused, with nothing after it | `on_record_failure` |
+
+The other rules are `order`, `storage`, `naming`, `interface`, `binding` and `reuse`. `order`
+settles refusal precedence. Census finding 4 is settled there, and the author can override it with
+an answer.
 
 ## What the census predicts
 
@@ -105,7 +130,7 @@ without asking. Each rule is stated once and cited by every cell it produces.
 ## Open choices
 
 - **Answer shapes are closed.** An answer that does not fit its shape is refused. It is not
-  interpreted. This keeps derivation deterministic, at the cost of expressiveness. The prototype
-  tests whether the shapes cover a second domain.
+  interpreted. This keeps derivation deterministic, at the cost of expressiveness. A second
+  domain needed nine more shapes; each is now in the catalog.
 - **The catalog is PGC-owned and versioned.** Adding a question is a change to the front end,
   not to any domain.

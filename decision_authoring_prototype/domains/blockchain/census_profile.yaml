@@ -1,0 +1,12 @@
+# What in this domain's P7 states a human decision. engine/census.py reads it.
+domain_fields: [name, contact_address, verifying_authority, grounds, key_material, actor_record]
+# A participant acts for themselves; no field carries a separate actor.
+actor_fields: []
+event_mechanical_fields: [occurred_at]
+rule_steps: [refuse_self_decision, require_grounds_stated, read_registration, refuse_incomplete_registration]
+rule_fields: [rules, schema]
+# Literals that state a business value wherever they are bound.
+decision_fields: [allowed_set, decision, states_admitting_a_wallet, wallet_id_prefix, wallet_fields]
+# The transform whose input states how a wallet address is formed.
+key_cts: [CT_PURE_DERIVE_WALLET_ADDRESS]
+states: [UNVERIFIED, ACCEPTED, REJECTED, ACTIVE]

@@ -38,6 +38,37 @@ There are two options:
 The recommendation is option 1 first, because it changes no governance. Move to option 2 only
 where a projection proves to be ceremony.
 
+## Does the ledger make the author answer everything up front?
+
+Not for questions the catalog knows. The interview asks in rounds, and each answer decides the next
+question. An open question refuses only the behavior that depends on it. Derivation turns a
+conflict into a new question. The book run worked this way: nine open questions, then the update
+rule, then two follow-up questions that derivation raised. The current lifecycle front-loads too.
+The book domain's first seed already lists about fifteen answered clarifications.
+
+The catalog cannot ask a question it does not know. Discovery reframes a problem. In the book
+domain's second change, the deciding question was whether an edition is part of a book or a thing
+in its own right. P2 and P3 found it by exploring the problem against the existing system. No typed
+question would have asked it. Generating P1 to P3 would not move that work to the author. It would
+lose it.
+
+So the phases split by role:
+
+| Phases | Role | Mode |
+|---|---|---|
+| P0 | business words | authored, unchanged |
+| P1 to P3 | discovery: the problem, its concepts, what is unclear | dialog in business language; its output is ledger answers, and new question types when the catalog falls short |
+| P4 to P6 | consolidation, WHAT, WHERE | generated from the ledger |
+| P7 | HOW | generated |
+
+How much discovery a change needs depends on its kind:
+
+- **A defect fix or a small extension** needs little. A ledger delta carries it.
+- **A conceptual change** runs P1 to P3 in full, and they end in ledger answers.
+
+The test is whether the change needs a question the catalog lacks. If it does, it is a discovery
+change. Run P1 to P3, and add the new question type to the catalog.
+
 ## What changes
 
 | | Today | Ledger |

@@ -52,3 +52,9 @@ for t in "$DOMAIN"/testbed/*/execution_validation*.py; do
   echo "  ${t#$DOMAIN/testbed/}"
   python "$t" "$S/snapshot" | grep -E 'FAIL|criteria hold' | sed 's/^/  /'
 done
+# Criteria the owner's answers added, which the domain's own suites do not hold yet.
+for t in "$HERE"/checks/execution_validation*.py; do
+  [[ -f "$t" ]] || continue
+  echo "  prototype: ${t#$HERE/}"
+  python "$t" "$S/snapshot" | grep -E 'FAIL|criteria hold' | sed 's/^/  /'
+done
