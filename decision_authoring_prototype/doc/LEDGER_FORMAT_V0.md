@@ -99,6 +99,47 @@ The blind run of `blockchain` needed nine questions the book catalog lacked.
 
 A `default` joins `required`: a field the request may leave out takes the value the business names.
 
+`entrance_turns_away` and `outcome_classes` have no shape in the ledger. The carried surface answers
+both: an entrance and its exits keep what callers already meet. A domain whose owner changes them
+needs the shape first.
+
+### Questions a third domain added
+
+The blind run of `ai_governance` named five question types the catalog lacked. All five are added.
+Running the domain through the block composer added two more.
+
+| Question | Asked when | Answer shape | Derives |
+|---|---|---|---|
+| `refusal_order` | per operation with named checks | `checks`: the checks in order; the first that fails decides | one component per check, in that order |
+| `on_refusal` | per operation whose refusal is kept | the event a refusal announces, and the reason each check gives | a node per reason that records it, an emit on the denied exit |
+| `grants` | per value that unlocks a set of others | a table, and a check that looks up what a value grants | a look-up step, a membership check |
+| `value_rules` | per field whose rules depend on another | a table of rules, and a check that applies the rules a value names | a look-up step, a rules check |
+| `outcome_condition` | per change that waits on a measured condition | `when` the condition holds, `otherwise` where the operation ends | a carried transform, a second exit |
+| `values` | per thing | `fixed` values a new record takes, and `clock` values that are the time of the act | fields of the written record, a clock step |
+| `sets` | per operation recording a fact | the fields set on an existing record, to a value or to the time | a conditional update |
+
+`grants` and `value_rules` share one shape: a named table in the part, read by a `look_up` check.
+The blind author's `value_rules` named rules in words (`one_of`, `at_most`). The ledger writes them
+in the rule operators the platform evaluates (`in`, `lte`).
+
+A `fixed` identity joins `identity`: a thing the business holds once, such as the license cap, is
+written under one key and never claimed. `releases: identity` also joins `identity`: a change that
+frees what the thing claimed.
+
+## The ledger in closed shape
+
+The author's file above is the format the blind runs wrote. The ledger each domain derives from is
+`domains/<name>/ledger.yaml`, in closed shape. Three files hold the shape:
+
+- `engine/catalog.yaml` is the question catalog as data, 30 questions;
+- `engine/ledger_schema.yaml` is the shape, as JSON Schema. Every object is closed, and every answer
+  names the question it answers (`x-question`);
+- `engine/check_ledger.py` applies the schema and the references between answers that a schema
+  cannot state: a named thing, state, operation, actor, check, table or event must exist.
+
+`compose.py` refuses a ledger before it derives anything. `check_ledger.py --selftest` shows sixteen
+answers outside their shapes, each refused.
+
 ## Doctrine, not questions
 
 Some P7 content looks like a decision but follows from PGC doctrine. The front end applies it
@@ -131,6 +172,9 @@ an answer.
 
 - **Answer shapes are closed.** An answer that does not fit its shape is refused. It is not
   interpreted. This keeps derivation deterministic, at the cost of expressiveness. A second
-  domain needed nine more shapes; each is now in the catalog.
+  domain needed nine more shapes, and a third seven; each is now in the catalog and the schema.
+- **The closed ledger has no open question and no case.** The author's file marks an unanswered
+  question `open: true` and states cases. The closed ledger has neither yet. Open questions were
+  settled before each ledger was written, and cases live in each domain's checks.
 - **The catalog is PGC-owned and versioned.** Adding a question is a change to the front end,
   not to any domain.

@@ -9,8 +9,8 @@ criterion below holds. Each criterion states its evidence and where it stands to
 |---|---|---|---|
 | 1.1 | A block composer replaces the operation patterns | book and blockchain regenerate through it and pass every criterion they pass now | **holds**: `engine/compose.py`; book 23/23 and 27/27, blockchain 26/26, 6/6, 12/12 and 8/9, at 100% construction; one composition, `change_identity`, is still fitted |
 | 1.2 | A held-out domain derives with no new block | ai_governance passes its 21 owner-answer criteria, or fails only on a declared platform gap | **holds**: 100% construction; 17/21, and the four failures follow from the registry count, a declared gap (21/21 with it stood in); no new block; see `domains/ai_governance/FINDINGS_COMPOSER_RUN.md` |
-| 1.3 | The question catalog is closed for the three domains | every answer in the three ledgers fits a catalog question; the 5 ai_governance candidates are added or refused | 23 types; 5 candidates open; the composer run added answer shapes (`checks`, `on_refusal`, `sets`, `when`, `look_up`, a fixed identity) the catalog does not yet hold |
-| 1.4 | Ledgers are written in the closed shape, not normalized by hand | a ledger schema refuses an answer outside its shape | no schema; ledgers transcribed by hand |
+| 1.3 | The question catalog is closed for the three domains | every answer in the three ledgers fits a catalog question; the 5 ai_governance candidates are added or refused | **holds**: `engine/catalog.yaml`, 30 questions; all 5 candidates added, plus `values` and `sets` from the composer run; every ledger key names its question, and two questions are answered by the carried surface |
+| 1.4 | Ledgers are written in the closed shape, not normalized by hand | a ledger schema refuses an answer outside its shape | **holds**: `engine/ledger_schema.yaml` and `check_ledger.py`; the three ledgers are admitted, 16 answers outside their shapes are refused, and `compose.py` refuses before deriving. The closed ledger has no open question or case yet |
 
 ## 2. It obeys the repository's rules
 
@@ -54,5 +54,6 @@ criterion below holds. Each criterion states its evidence and where it stands to
 
 1. Build the block composer (1.1). Done.
 2. Run ai_governance through it (1.2). Done; the registry count stays a declared gap (5.1).
+   Close the catalog and the ledger shape (1.3, 1.4). Done.
 3. Then do the engineering in sections 2 and 4. It is mechanical once the design is stable.
 4. Write the standard text last (3.3–3.6). It describes a design proven to hold.

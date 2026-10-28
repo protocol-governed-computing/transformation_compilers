@@ -20,6 +20,7 @@ import sys
 
 import yaml
 
+from check_ledger import refuse
 from generate_domain import (APPENDONLY, CLOCK, CS, CT, MUTABLE, REGISTRY, Component, Domain, Step,
                              check_doctrine, head, load_p7, noun, short, up)
 
@@ -1007,4 +1008,5 @@ class Composer(Domain):
 
 if __name__ == "__main__":
     ledger = yaml.safe_load(open(sys.argv[1]))
+    refuse(ledger)
     json.dump(check_doctrine(Composer(ledger, load_p7(sys.argv[2])).run()), sys.stdout, indent=1)
