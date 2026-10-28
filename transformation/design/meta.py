@@ -345,7 +345,8 @@ def closure(rule_sets: dict[str, PhaseRules], snapshot_root: str) -> list[MetaFi
 
     - every `x-realises` resolves: to an invariant the composition carries and the design
       constitution names, or to a statement in DESIGN_LANGUAGE;
-    - every invariant the design constitution names is realised by some rule;
+    - every invariant the design constitution names is realised by some rule, of a phase or of the
+      derive route's doctrine;
     - every template's Machine skeleton names exactly its schema's registers, with the same keys,
       and a header the schema declares;
     - every rule set is the last revision its schema records;
@@ -383,13 +384,20 @@ def closure(rule_sets: dict[str, PhaseRules], snapshot_root: str) -> list[MetaFi
             else:
                 realised.add(target)
 
+    # The derive route is the Design Compiler's other sealed rule set: each doctrine rule names the
+    # invariant it realises, and the route's own meta check (`tc phase derive meta`) resolves them.
+    from transformation.design.derive import seal
+    for rule in seal.load("doctrine")["rules"].values():
+        cited = rule.get("realizes")
+        realised |= {c for c in (cited if isinstance(cited, list) else []) if c in in_force}
+
     for fqdn in sorted(in_force):
         if _artifact(fqdn, snapshot_root) is None:
             findings.append(MetaFinding("INVARIANT_UNRESOLVED", fqdn,
                                         f"is named by {DESIGN_CONSTITUTION} but is not in the composition"))
         elif fqdn not in realised:
             findings.append(MetaFinding("INVARIANT_UNREALISED", fqdn,
-                                        "is in force, and no rule of any phase realises it"))
+                                        "is in force, and no rule of any phase or of the derive doctrine realises it"))
 
     construction = _artifact(CONSTRUCTION_CONSTITUTION, snapshot_root)
     if construction is None:

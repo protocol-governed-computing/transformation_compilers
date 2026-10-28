@@ -29,7 +29,7 @@ from transformation.build import sameness
 from transformation.build.completeness import carry_forward, measure
 from transformation.build.provenance import of as provenance_of
 from transformation.machine_block import machine_yaml
-from transformation.decision.cli import decision
+from transformation.design.derive.cli import derive
 from transformation.build.render import (
     bare,
     cell,
@@ -1225,4 +1225,4 @@ def baseline_show(snapshot_root: Path) -> None:
     )
 
 
-main.add_command(decision)
+phase.add_command(derive)

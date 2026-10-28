@@ -23,6 +23,13 @@ A problem statement in business language is driven through gated phases into an 
 Mandate**; construction then materializes the artifacts that mandate schedules. It began as a rehost
 of RI-0's `pgs_change_mgmt`.
 
+**The Design Compiler has two routes to one outcome, a design.** The phases judge a design someone
+authored. The derive route (`transformation/design/derive/`, `tc phase derive`) derives the P7 design
+intent from a decision ledger: typed business answers in a closed shape, composed into building
+blocks by a sealed doctrine whose rules each realize a `lifecycle::` invariant. Its failures are
+design failures, so it is a route, not a third compiler. Its test ledgers are `testbed/ledgers/`, its
+build is `scripts/derive_build.sh`, and `doc/ASSIMILATION_READINESS.md` tracks what it still owes.
+
 **The two are separate compilers because they fail differently.** A *design failure* is "the mandate
 is incomplete or contradictory" — caught by a phase's rule set, fixed by re-authoring a register. A
 *construction failure* is "the mandate was valid and did not uniquely determine an artifact" —

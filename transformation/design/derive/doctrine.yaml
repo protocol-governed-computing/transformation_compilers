@@ -1,0 +1,92 @@
+# Doctrine: the rules every generated act follows. The author reads them and does not answer them.
+# A generated row that follows one cites it as `doctrine:<name>`. The composer refuses to
+# cite a rule this file does not state. Sealed by seal.py: a change records a revision.
+
+$id: transformation.design.derive.DOCTRINE_V0
+
+rules:
+  order:
+    statement: >
+      An act authorizes, then validates, then checks its preconditions, then claims, then writes,
+      and records its trail last. Every operation records its trail, unless a trail answer says
+      otherwise. A read is trailed before it reads, because a workflow answers
+      with its last component. After the first claim that can refuse, nothing else may refuse:
+      every later claim is checked first by resolving it. A refusal is a component that answers
+      VIOLATION, because a workflow reports its last component's answer.
+    realizes:
+      - lifecycle::INVARIANT_DERIVED_ACT_ORDERED_V0
+
+  storage:
+    statement: >
+      A thing with identity gets a registry. A thing with states or records gets a mutable store.
+      A trail gets an append-only store.
+    realizes:
+      - lifecycle::INVARIANT_DERIVED_STORAGE_BY_NEED_V0
+
+  naming:
+    statement: >
+      Codes come from the author's names. Records and registries are named by the thing's head
+      noun. A new artifact starts at V0. An artifact the composition holds keeps its identity when
+      its meaning is unchanged, and takes the next version never used when it is changed.
+    realizes:
+      - lifecycle::INVARIANT_MEANING_CHANGE_IS_NEW_IDENTITY_V0
+      - lifecycle::INVARIANT_NEW_IDENTITY_UNUSED_V0
+
+  interface:
+    statement: >
+      A request carries the actor's credentials and id, plus the operation's inputs. An event
+      carries the operation's identifying inputs, the actor and the time, unless the ledger lists
+      what it carries. Every component declares an output; one that only writes outputs what its
+      write reports.
+    realizes:
+      - lifecycle::INVARIANT_DERIVED_INTERFACE_STATED_V0
+
+  binding:
+    statement: >
+      One resource binding per part names every storage mechanism that part uses.
+    realizes:
+      - runtime_binding::INVARIANT_RB_STORAGE_SUBDOMAIN_OWNED_V0
+
+  reuse:
+    statement: >
+      One component per thing and purpose. Workflows share them.
+    realizes:
+      - lifecycle::INVARIANT_DERIVED_COMPONENT_SHARED_V0
+
+  own_values:
+    statement: >
+      An act states its own values: the rules it applies, the states it writes, the trail it
+      records on, the moment it records and every value the business fixes. None is taken from a
+      request.
+    replaces_question: value_source (fixed, clock)
+    realizes:
+      - lifecycle::INVARIANT_ACT_STATES_ITS_OWN_VALUES_V0
+
+  rules_held:
+    statement: >
+      A request that states rules of its own is judged by the business's rules. It is not refused
+      for stating them, and it cannot widen them.
+    replaces_question: request_cannot_override
+    realizes:
+      - lifecycle::INVARIANT_REQUEST_CANNOT_WIDEN_RULES_V0
+
+  failed_record_ends:
+    statement: >
+      When a record an act needs cannot be read or written, the act ends refused. Nothing after
+      that point runs, and nothing is recorded by it.
+    replaces_question: on_record_failure
+    realizes:
+      - execution_topology::INVARIANT_TOPOLOGY_ROUTING_COMPLETE_V0
+
+x-revisions:
+- revision: 1
+  change: Sealed as the prototype's rule set, as it derived book_library_mgmt, blockchain and ai_governance.
+  digest: sha256:2308c5c08a09ca718d246696eff65f5f0d7fa25b166cf9ae67207633b73dca1d
+- revision: 2
+  change: Each rule cites the invariants it realizes, or none with the reason; naming states that meaning
+    decides identity.
+  digest: sha256:87dbe1471dd784a340dbf60e8f3d96eed5ed09e6cdbd4ab2f31aebf78785fb7f
+- revision: 3
+  change: Moved into the Design Compiler as its derive route; every rule cites the lifecycle invariant
+    it realizes.
+  digest: sha256:334405a7e138775da0b7a3f7ad7e50ca16f207ab3d6c238b1ad8b8c6e5197bb9
