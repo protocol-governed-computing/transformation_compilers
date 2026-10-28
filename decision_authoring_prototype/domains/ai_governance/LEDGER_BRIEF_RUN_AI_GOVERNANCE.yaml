@@ -1,0 +1,765 @@
+domain: ai_governance
+purpose: >
+  The business grants its employees licenses for AI tools, takes back the ones nobody uses, and
+  judges every action an AI agent proposes on a person's behalf before any tool runs.
+
+# Doctrine the brief restates. Cited, not answered:
+# - "whatever the request says about their training / about the cap or the count"   -> rules_held
+# - "the day of use is the day it is recorded, never a day the request names"        -> own_values
+# - "nobody can record a denial with a reason of their own"                          -> own_values, rules_held
+# - "every act records what it did on its part's audit trail, with the time"         -> order, own_values
+# - "a refused act changes no record"                                                -> order
+# - "the first check that fails denies it" (precedence itself)                       -> order (overridden below by refusal_order)
+
+answers:
+
+  # ---------------------------------------------------------------- parts
+  - ask: parts
+    about: the business
+    answer:
+      - part: ai licensing
+        owns_things: [employee, training record, license cap, license, provisioning denial, license use]
+        owns_operations: [register employee, record training, set license cap, provision license,
+                          record usage, reclaim license]
+      - part: agent governance
+        owns_things: [agent action]
+        owns_operations: [judge agent action]
+    decided_by: business owner
+
+  # ---------------------------------------------------------------- operations
+  - ask: operations
+    about: ai licensing
+    answer: [register employee, record training, set license cap, provision license, record usage,
+             reclaim license]
+    decided_by: business owner
+
+  - ask: operations
+    about: agent governance
+    answer: [judge agent action]
+    decided_by: business owner
+
+  # ---------------------------------------------------------------- actor
+  - ask: actor
+    about: register employee
+    open: true
+    waits_on: licensing owner
+    note: The brief says only "the system registers"; who may ask, and what authorizes them, is not decided.
+
+  - ask: actor
+    about: record training
+    open: true
+    waits_on: licensing owner
+
+  - ask: actor
+    about: set license cap
+    open: true
+    waits_on: licensing owner
+
+  - ask: actor
+    about: provision license
+    open: true
+    waits_on: licensing owner
+
+  - ask: actor
+    about: record usage
+    open: true
+    waits_on: licensing owner
+
+  - ask: actor
+    about: reclaim license
+    open: true
+    waits_on: licensing owner
+
+  - ask: actor
+    about: judge agent action
+    answer:
+      who: an AI agent proposing an action for a user
+      authorized_by: open
+    basis: "inferred — the brief says an agent proposes an action for a user; it never says what lets an agent ask"
+    decided_by: governance owner
+
+  - ask: actor
+    about: judge agent action (authorization of the asking agent)
+    open: true
+    waits_on: governance owner
+
+  # ---------------------------------------------------------------- things
+  - ask: things
+    about: ai licensing
+    answer:
+      - thing: employee
+        relates: [has at most one training record, holds at most one active license]
+      - thing: training record
+        relates: [belongs to one employee]
+      - thing: license cap
+        relates: [one for the whole business, covers both tiers]
+      - thing: license
+        relates: [belongs to one employee, has many uses]
+      - thing: provisioning denial
+        relates: [names the employee asked for, carries the reason of the failed check]
+      - thing: license use
+        relates: [belongs to one license]
+    basis: "inferred — 'at most one training record' is inferred; the brief only says training is recorded as completed"
+    decided_by: licensing owner
+
+  - ask: things
+    about: agent governance
+    answer:
+      - thing: agent action
+        relates: [proposed for one user, names one tool, is registered only when authorized]
+    decided_by: governance owner
+
+  # ---------------------------------------------------------------- required (+ default)
+  - ask: required
+    about: employee
+    answer:
+      - {field: employee id, type: text, requirement: required}
+    decided_by: licensing owner
+
+  - ask: required
+    about: training record
+    answer:
+      - {field: employee id, type: text, requirement: required}
+    basis: "inferred — the brief names no training detail (course, date) beyond completion"
+    decided_by: licensing owner
+
+  - ask: required
+    about: license cap
+    answer:
+      - {field: number of licenses, type: whole number, requirement: required}
+    decided_by: licensing owner
+
+  - ask: required
+    about: license cap (lower bound of the number)
+    open: true
+    waits_on: licensing owner
+    note: Whether a cap of zero or a negative number is accepted is not decided.
+
+  - ask: required
+    about: provision license
+    answer:
+      - {field: employee id, type: text, requirement: required}
+      - {field: tier, type: named value, requirement: required}
+    basis: "inferred — the brief says the request names the tier; no default tier is given"
+    decided_by: licensing owner
+
+  - ask: required
+    about: record usage
+    answer:
+      - {field: license, type: reference, requirement: required}
+      - {field: employee id, type: text, requirement: required}
+    basis: "inferred — the brief records 'each use of a license' and refuses it for an unregistered employee, so both are named"
+    decided_by: licensing owner
+
+  - ask: required
+    about: reclaim license
+    answer:
+      - {field: license, type: reference, requirement: required}
+    basis: "inferred — the brief reclaims 'one license at a time'"
+    decided_by: licensing owner
+
+  - ask: required
+    about: agent action
+    answer:
+      - {field: user, type: reference, requirement: required}
+      - {field: tool, type: named value, requirement: required}
+      - {field: parameters, type: structure, requirement: required}
+    basis: "inferred — check 1 ('well formed') names no fields; these are the ones the later checks read"
+    decided_by: governance owner
+
+  # ---------------------------------------------------------------- identity
+  - ask: identity
+    about: employee
+    answer:
+      same_when: [employee id]
+      normalized: false
+      on_duplicate: refuse
+    basis: "inferred — normalization of the employee id is not stated"
+    decided_by: licensing owner
+
+  - ask: identity
+    about: license
+    answer:
+      same_when: [employee]
+      scope: active licenses only
+      normalized: false
+      on_duplicate: refuse
+    decided_by: licensing owner
+
+  - ask: identity
+    about: license after reclaim
+    open: true
+    waits_on: licensing owner
+    note: >
+      The license's identity is formed from the employee alone, so a license provisioned after a
+      reclaim would carry the same identity as the reclaimed one. Whether it reuses that identity,
+      takes a fresh one, or is refused is not decided.
+
+  - ask: identity
+    about: agent action
+    open: true
+    waits_on: governance owner
+    note: >
+      "The same action proposed again is registered once" needs a sameness rule. The brief does not
+      say whether sameness is user + tool + parameters, a caller-supplied request id, or something else.
+
+  # ---------------------------------------------------------------- derived_value
+  - ask: derived_value
+    about: license identity
+    answer:
+      source: [employee id]
+      rule: prefix "lic" joined to the employee
+      on_unreadable: refuse
+    basis: "inferred — the joining form and the answer to an unreadable employee id are not stated"
+    decided_by: licensing owner
+
+  - ask: derived_value
+    about: agent request identity
+    answer:
+      source: open
+      rule: prefix "AREQ"
+      on_unreadable: refuse
+    basis: "inferred — only the prefix is stated"
+    decided_by: governance owner
+
+  - ask: derived_value
+    about: agent action identity
+    answer:
+      source: open
+      rule: prefix "AGOV"
+      on_unreadable: refuse
+    basis: "inferred — only the prefix is stated"
+    decided_by: governance owner
+
+  - ask: derived_value
+    about: days a license has gone unused
+    answer:
+      source: [day of the license's last recorded use, or the day it was provisioned if never used]
+      rule: whole days from that day to the day the reclaim is asked
+      on_unreadable: refuse
+    basis: "inferred — the brief fixes the starting day; counting whole calendar days is inferred"
+    decided_by: licensing owner
+
+  # ---------------------------------------------------------------- allowed_values
+  - ask: allowed_values
+    about: license tier
+    answer:
+      values: [standard, enterprise]
+      may_be_created: false
+    decided_by: licensing owner
+
+  - ask: allowed_values
+    about: agent tool
+    answer:
+      values: [READ_RECORD, PROVISION_STANDARD_LICENSE, PROVISION_PREMIUM_LICENSE]
+      may_be_created: false
+    decided_by: governance owner
+
+  - ask: allowed_values
+    about: record type read by READ_RECORD
+    answer:
+      values: [license pool, user profile]
+      may_be_created: false
+    decided_by: governance owner
+
+  - ask: allowed_values
+    about: agent action denial reason
+    answer:
+      values: [malformed request, undeclared tool, unauthorized actor, unauthorized tool, parameter violation]
+      may_be_created: false
+    basis: "inferred — 'malformed request' names check 1; the brief does not name its denial reason"
+    decided_by: governance owner
+
+  - ask: allowed_values
+    about: tier named in a provisioning tool's parameters
+    open: true
+    waits_on: governance owner
+    note: >
+      PROVISION_PREMIUM_LICENSE requires tier "premium", but license tiers are standard and
+      enterprise. Whether "premium" is a third tier, another word for enterprise, or a value of the
+      tool's own is not decided.
+
+  # ---------------------------------------------------------------- states
+  - ask: states
+    about: license
+    answer:
+      states: [active, reclaimed]
+      moves:
+        - {by: provision license, to: active}
+        - {by: reclaim license, from: active, to: reclaimed, when: unused 30 days or more}
+    decided_by: licensing owner
+
+  - ask: states
+    about: agent action
+    answer:
+      states: [registered]
+      moves:
+        - {by: judge agent action, to: registered, when: authorized}
+    decided_by: governance owner
+
+  # ---------------------------------------------------------------- precondition
+  - ask: precondition
+    about: record training
+    answer: [the employee is registered]
+    decided_by: licensing owner
+
+  - ask: precondition
+    about: record usage
+    answer: [the employee is registered]
+    decided_by: licensing owner
+
+  - ask: precondition
+    about: record usage (the license itself)
+    open: true
+    waits_on: licensing owner
+    note: Whether usage of a license that does not exist, belongs to another employee, or was reclaimed is refused is not decided.
+
+  - ask: precondition
+    about: provision license
+    answer:
+      - the employee is registered
+      - the employee's training is recorded
+      - a license cap is set
+      - fewer active licenses are assigned than the cap allows, counting both tiers, not counting reclaimed ones
+      - the employee holds no active license
+    decided_by: licensing owner
+
+  - ask: precondition
+    about: reclaim license
+    answer: [the license exists and is active]
+    basis: "inferred — the brief does not say what a reclaim of an unknown or already-reclaimed license answers"
+    decided_by: licensing owner
+
+  - ask: precondition
+    about: judge agent action
+    answer:
+      - the user holds an active license granted by ai licensing
+    note: A failure here is the denial "unauthorized actor", not a refusal of the judgment; see outcome_classes.
+    decided_by: governance owner
+
+  # ---------------------------------------------------------------- required_when
+  - ask: required_when
+    about: tier
+    answer:
+      required_by: [provision license]
+      optional_in: []
+    decided_by: licensing owner
+
+  # ---------------------------------------------------------------- reads_other_part
+  - ask: reads_other_part
+    about: judge agent action
+    answer:
+      part: ai licensing
+      reads: [whether the user holds an active license, that license's tier]
+      writes: never
+    decided_by: governance owner
+
+  # ---------------------------------------------------------------- on_repeat
+  - ask: on_repeat
+    about: register employee
+    answer: {fails: true, records: nothing, announces: nothing}
+    decided_by: licensing owner
+
+  - ask: on_repeat
+    about: set license cap
+    answer: {fails: false, records: the new cap replaces the old, announces: license cap set}
+    basis: "inferred — the announcement on a replacing set is inferred from 'license cap set'"
+    decided_by: licensing owner
+
+  - ask: on_repeat
+    about: provision license
+    answer: {fails: true, records: a provisioning denial, announces: provision denied}
+    decided_by: licensing owner
+
+  - ask: on_repeat
+    about: judge agent action
+    answer:
+      fails: false
+      records: the judgment is audited again; the action stays registered once
+      announces: agent action authorized
+    basis: "inferred — the brief says every judgment is audited and the action is registered once; whether a repeat is announced again is inferred"
+    decided_by: governance owner
+
+  - ask: on_repeat
+    about: record training
+    open: true
+    waits_on: licensing owner
+    note: Whether recording training twice for one employee is refused or kept is not decided.
+
+  # ---------------------------------------------------------------- trail
+  - ask: trail
+    about: ai licensing
+    answer:
+      trail: the ai licensing audit trail
+      records: every act of the part, what it did, with when   # order, own_values
+    decided_by: business owner
+
+  - ask: trail
+    about: agent governance
+    answer:
+      trail: the agent governance audit trail
+      records: every judgment, authorized or denied
+    decided_by: governance owner
+
+  # ---------------------------------------------------------------- announces
+  - ask: announces
+    about: register employee
+    answer: {event: employee registered}
+    decided_by: business owner
+
+  - ask: announces
+    about: record training
+    answer: {event: training completed}
+    decided_by: business owner
+
+  - ask: announces
+    about: set license cap
+    answer: {event: license cap set}
+    decided_by: business owner
+
+  - ask: announces
+    about: provision license
+    answer:
+      - {event: license provisioned, on: success}
+      - {event: provision denied, on: refusal, carries: [employee, reason]}
+    basis: "inferred — what 'provision denied' carries is not stated; the reason is inferred from the denial record"
+    decided_by: business owner
+
+  - ask: announces
+    about: record usage
+    answer: {event: usage recorded}
+    decided_by: business owner
+
+  - ask: announces
+    about: reclaim license
+    answer:
+      - {event: license revoked, on: reclaimed}
+      - {event: none, on: still active}
+    decided_by: business owner
+
+  - ask: announces
+    about: judge agent action
+    answer:
+      - {event: agent action authorized, on: authorized, carries: [tool, user, user's tier, time]}
+      - {event: agent action denied, on: denied, carries: [tool, user, reason]}
+    decided_by: governance owner
+
+  # ---------------------------------------------------------------- public_acts
+  - ask: public_acts
+    about: the business
+    answer:
+      - {act: register employee, part: ai licensing}
+      - {act: record training, part: ai licensing}
+      - {act: set license cap, part: ai licensing}
+      - {act: provision license, part: ai licensing}
+      - {act: record usage, part: ai licensing}
+      - {act: reclaim license, part: ai licensing}
+      - {act: judge agent action, part: agent governance}
+    basis: "inferred — the brief does not say which acts are offered from outside"
+    decided_by: business owner
+
+  - ask: public_acts
+    about: public names
+    open: true
+    waits_on: business owner
+    note: The brief gives no public names for any act.
+
+  # ---------------------------------------------------------------- entrance_turns_away
+  - ask: entrance_turns_away
+    about: judge agent action
+    answer:
+      may_refuse: nothing
+      tells_caller: a malformed request is answered as a denial, not turned away
+    basis: "inferred — check 1 makes a malformed request a denied judgment that is audited and announced, so the entrance must let it through"
+    decided_by: governance owner
+
+  - ask: entrance_turns_away
+    about: ai licensing acts
+    open: true
+    waits_on: licensing owner
+
+  # ---------------------------------------------------------------- outcome_classes
+  - ask: outcome_classes
+    about: provision license
+    answer:
+      classes: [provisioned, refused with a recorded denial]
+      kept_apart: true
+    decided_by: licensing owner
+
+  - ask: outcome_classes
+    about: reclaim license
+    answer:
+      classes: [reclaimed, still active]
+      kept_apart: true
+      note: >
+        "still active" is a completed reclaim, not a refusal, both when the license was used too
+        recently and when the license registry refuses the removal.
+    decided_by: licensing owner
+
+  - ask: outcome_classes
+    about: reclaim license when the license registry refuses removal
+    open: true
+    waits_on: PGC doctrine owner
+    note: >
+      The brief ends this reclaim "still active" with the revocation unannounced. Doctrine
+      failed_record_ends ends an act refused when a needed write fails. The brief reads as an
+      override of that rule; whether an author may override it is not the business's to decide.
+
+  - ask: outcome_classes
+    about: judge agent action
+    answer:
+      classes: [authorized, denied]
+      kept_apart: true
+      denied_carries: reason
+    decided_by: governance owner
+
+  # ---------------------------------------------------------------- new question types
+  - ask: on_refusal
+    new_question: true
+    why_new: >
+      No catalog question lets a refused act still keep a record or announce. trail and announces
+      describe what an act does; order says a refused act changes nothing. This brief keeps a
+      denial and announces it when provisioning is refused.
+    about: provision license
+    answer:
+      records: a provisioning denial
+      reason_from: the check that failed
+      announces: provision denied
+      changes_nothing_else: true
+    decided_by: licensing owner
+
+  - ask: refusal_order
+    new_question: true
+    why_new: >
+      The format says the author can override doctrine order with an answer, but names no question
+      for it. The brief fixes its own order for agent judgments, and it differs from doctrine:
+      validation comes before the actor's standing, and the tool's own rules come last.
+    about: judge agent action
+    answer:
+      first_failure_decides: true
+      checks_in_order:
+        - {check: the request is well formed, reason: malformed request}
+        - {check: the tool is declared, reason: undeclared tool}
+        - {check: the user holds an active license, reason: unauthorized actor}
+        - {check: the user's tier allows the tool, reason: unauthorized tool}
+        - {check: the parameters satisfy the tool's rules, reason: parameter violation}
+    decided_by: governance owner
+
+  - ask: grants
+    new_question: true
+    why_new: >
+      One named set decides which values of another named set are allowed (tier -> tools).
+      allowed_values fixes one set; actor says who acts, not which of a value set a held value unlocks.
+    about: license tier
+    answer:
+      standard: [READ_RECORD, PROVISION_STANDARD_LICENSE]
+      enterprise: [READ_RECORD, PROVISION_STANDARD_LICENSE, PROVISION_PREMIUM_LICENSE]
+    decided_by: governance owner
+
+  - ask: value_rules
+    new_question: true
+    why_new: >
+      The rules on a request's parameters depend on the value of another field (the tool), not on
+      the operation; required_when keys on operations. No catalog shape states a numeric bound or a
+      field fixed to one value.
+    about: agent action parameters
+    answer:
+      - when: {tool: READ_RECORD}
+        rules:
+          - {field: record type, one_of: [license pool, user profile]}
+          - {field: id, required: true}
+      - when: {tool: PROVISION_STANDARD_LICENSE}
+        rules:
+          - {field: tier, equals: standard}
+          - {field: quantity, at_most: 100}
+      - when: {tool: PROVISION_PREMIUM_LICENSE}
+        rules:
+          - {field: tier, equals: premium}
+          - {field: quantity, at_most: 50}
+    decided_by: governance owner
+
+  - ask: value_rules
+    about: agent action parameters (quantity lower bound)
+    open: true
+    waits_on: governance owner
+    note: Whether a quantity of zero or less is a parameter violation is not decided.
+
+  - ask: outcome_condition
+    new_question: true
+    why_new: >
+      An operation ends in two non-refused outcomes chosen by a measured condition. outcome_classes
+      lists the outcomes but not what selects them; precondition only refuses.
+    about: reclaim license
+    answer:
+      - {outcome: reclaimed, when: days unused is 30 or more, then: [release the license, record its revocation, announce license revoked]}
+      - {outcome: still active, when: days unused is under 30, then: [leave the license assigned]}
+      - {outcome: still active, when: the license registry refuses the removal, then: [leave the license assigned, announce nothing]}
+    decided_by: licensing owner
+
+cases:
+  # employees
+  - when: register employee
+    given: {employee E1: not registered}
+    request: {employee: E1}
+    then: E1 is registered and "employee registered" is announced
+    because: a new employee id is registered
+  - when: register employee
+    given: {employee E1: registered}
+    request: {employee: E1}
+    then: refused, nothing changes
+    because: a second registration of the same employee is refused
+  - when: record training
+    given: {employee E9: not registered}
+    request: {employee: E9}
+    then: refused, nothing changes
+    because: training is not recorded for an employee nobody registered
+
+  # cap
+  - when: set license cap
+    given: {cap: 10}
+    request: {cap: 25}
+    then: the cap is 25 and "license cap set" is announced
+    because: setting the cap again replaces it
+
+  # provisioning
+  - when: provision license
+    given: {employee E1: registered, trained, no license, cap: none set}
+    request: {employee: E1, tier: standard}
+    then: refused, a denial is recorded with the reason the failed check gives, "provision denied" is announced
+    because: before any cap is set, no license can be provisioned
+  - when: provision license
+    given: {employee E1: registered, not trained, cap: 10, assigned: 0}
+    request: {employee: E1, tier: standard, says it is trained: yes}
+    then: refused, a denial is recorded, "provision denied" is announced
+    because: training must be recorded; what the request says about training does not count
+  - when: provision license
+    given: {employee E1: registered, trained, cap: 2, assigned: 2}
+    request: {employee: E1, tier: enterprise, says the cap is: 5}
+    then: refused, a denial is recorded, "provision denied" is announced
+    because: as many licenses are assigned as the cap allows; the request cannot change the cap or the count
+  - when: provision license
+    given: {employee E1: registered, trained, cap: 2, assigned: 1 standard}
+    request: {employee: E1, tier: enterprise}
+    then: E1 holds an active enterprise license whose identity begins "lic", "license provisioned" is announced
+    because: one cap covers both tiers and one place is free
+  - when: provision license
+    given: {employee E1: registered, trained, holds an active license, cap: 10}
+    request: {employee: E1, tier: standard}
+    then: refused, a denial is recorded, "provision denied" is announced
+    because: an employee holds at most one active license
+  - when: provision license
+    given: {employee E1: registered, trained, cap: 10}
+    request: {employee: E1, tier: platinum}
+    then: refused, a denial is recorded, "provision denied" is announced
+    because: only standard and enterprise tiers exist
+  - when: provision license
+    given: {employee E1: registered, trained, cap: 10}
+    request: {employee: E1, tier: standard, denial reason: "budget"}
+    then: provisioned; the stated reason is ignored
+    because: nobody records a denial with a reason of their own
+  - when: provision license
+    given: {employee E9: not registered, cap: 10}
+    request: {employee: E9, tier: standard}
+    then: refused, a denial is recorded, "provision denied" is announced
+    because: a license is refused for an employee nobody registered
+
+  # usage
+  - when: record usage
+    given: {employee E1: registered, active license L1}
+    request: {license: L1, day of use: last month}
+    then: a use of L1 is recorded on today's day, "usage recorded" is announced
+    because: the day of use is the day it is recorded, never a day the request names
+  - when: record usage
+    given: {employee E9: not registered}
+    request: {employee: E9}
+    then: refused, nothing changes
+    because: usage is not recorded for an employee nobody registered
+
+  # reclaim
+  - when: reclaim license
+    given: {license L1: active, last used 45 days ago}
+    request: {license: L1}
+    then: L1 is released, its revocation is recorded, "license revoked" is announced; it ends reclaimed
+    because: a license unused for 30 days or more is reclaimed
+  - when: reclaim license
+    given: {license L1: active, last used 30 days ago}
+    request: {license: L1}
+    then: L1 is reclaimed
+    because: 30 days unused is enough
+  - when: reclaim license
+    given: {license L1: active, last used 3 days ago}
+    request: {license: L1}
+    then: L1 stays assigned; the reclaim ends as still active, nothing is announced
+    because: a license used more recently is left assigned
+  - when: reclaim license
+    given: {license L1: active, provisioned 40 days ago, never used}
+    request: {license: L1}
+    then: L1 is reclaimed
+    because: a license never used counts from the day it was provisioned
+  - when: reclaim license
+    given: {license L1: active, unused: 60 days, license registry: refuses the removal}
+    request: {license: L1}
+    then: L1 stays assigned, the reclaim ends as still active, no revocation is announced
+    because: a reclaim whose removal is refused leaves the license in place
+  - when: provision license
+    given: {cap: 1, license L1 of E1: reclaimed, employee E2: registered, trained}
+    request: {employee: E2, tier: standard}
+    then: E2 is provisioned
+    because: a reclaimed license no longer counts against the cap
+
+  # agent actions
+  - when: judge agent action
+    given: {user U1: active standard license}
+    request: {user: U1, tool: READ_RECORD, record type: user profile, id: P7}
+    then: authorized, registered, audited; "agent action authorized" is announced with tool, user, tier and time
+    because: every check passes
+  - when: judge agent action
+    given: {user U1: active standard license}
+    request: {user: U1, tool: DELETE_RECORD}
+    then: denied as undeclared tool, audited, announced as denied with the reason
+    because: only three tools are declared
+  - when: judge agent action
+    given: {user U2: no license}
+    request: {user: U2, tool: DELETE_RECORD}
+    then: denied as undeclared tool
+    because: the tool check comes before the license check, and the first failure decides
+  - when: judge agent action
+    given: {user U2: no license}
+    request: {user: U2, tool: READ_RECORD, record type: user profile, id: P7}
+    then: denied as unauthorized actor, audited, announced as denied
+    because: the user holds no active license
+  - when: judge agent action
+    given: {user U3: license reclaimed}
+    request: {user: U3, tool: READ_RECORD, record type: license pool, id: X1}
+    then: denied as unauthorized actor
+    because: a reclaimed license no longer authorizes anything
+  - when: judge agent action
+    given: {user U1: active standard license}
+    request: {user: U1, tool: PROVISION_PREMIUM_LICENSE, tier: premium, quantity: 5}
+    then: denied as unauthorized tool
+    because: a standard license does not allow provisioning a premium license
+  - when: judge agent action
+    given: {user U4: active enterprise license}
+    request: {user: U4, tool: PROVISION_PREMIUM_LICENSE, tier: premium, quantity: 51}
+    then: denied as parameter violation
+    because: a premium provisioning is at most 50
+  - when: judge agent action
+    given: {user U4: active enterprise license}
+    request: {user: U4, tool: PROVISION_STANDARD_LICENSE, tier: enterprise, quantity: 10}
+    then: denied as parameter violation
+    because: a standard provisioning must name tier standard
+  - when: judge agent action
+    given: {user U1: active standard license}
+    request: {user: U1, tool: READ_RECORD, record type: billing}
+    then: denied as parameter violation
+    because: only a license pool or a user profile can be read, and an id must be given
+  - when: judge agent action
+    given: {user U1: active standard license}
+    request: {user: U1, tool: missing}
+    then: denied as malformed, audited, announced as denied
+    because: the request must be well formed first
+  - when: judge agent action
+    given: {user U1: active standard license, same action: already authorized}
+    request: {action: the same one again}
+    then: authorized and audited again; still registered once
+    because: the same action proposed again is registered once
