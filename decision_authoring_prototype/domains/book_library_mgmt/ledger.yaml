@@ -1,0 +1,118 @@
+# The library catalog ledger, whole domain, in closed shapes.
+# Normalized by hand from LEDGER_BRIEF_RUN_LIBRARY_CATALOG.yaml and
+# LEDGER_OWNER_ANSWERS_LIBRARY_CATALOG.yaml. `from` names the entry each value comes from.
+
+domain: book_library_mgmt
+subdomain: catalog
+
+actor:
+  name: library staff
+  role: staff
+  kind: human
+  authorized_when: [{field: staff_id, op: not_null}, {field: authorized, op: eq, value: true}]
+  from: "brief-run actor / all operations"
+
+things:
+  work:
+    plural: works
+    required: {title: string, author: string}
+    identity: {field: work_key, from: [title, author], normalized: true, on_duplicate: reuse}
+    from: "owner answers / required work, identity work; brief-run states / work (never retired)"
+  book:
+    plural: books
+    required: {title: string, author: string, publication_year: integer, subject: array}
+    non_empty: [subject]
+    identity: {field: identity_key, from: [title, author, publication_year], normalized: true, on_duplicate: refuse}
+    belongs_to: work
+    states: [registered, retired]
+    from: "brief-run required / book (amended: no description); identity / book; states / book"
+  physical copy:
+    plural: physical copies
+    identity: {field: barcode, on_duplicate: refuse}
+    belongs_to: book
+    states: [registered, retired]
+    from: "brief-run identity / copy; states / copy"
+
+operations:
+  register book:
+    kind: register_with_first_child
+    thing: book
+    child: physical copy
+    from: "brief-run precondition / register_book_with_first_copy"
+  register additional edition:
+    kind: register_into_existing_parent
+    thing: book
+    from: "brief-run precondition / register_further_edition"
+  register physical copy:
+    kind: create
+    thing: physical copy
+    precondition: {exists: book}
+    from: "brief-run precondition / register_copy"
+  update bibliographic information:
+    kind: update
+    thing: book
+    may_change: [title, author, publication_year, subject]
+    refuse_if: duplicate
+    keeps: [state]
+    on_identity_change: {work: follows, children: follow, old_identity: freed, history: kept}
+    seed: "cr_01 P0 §3: An update to bibliographic information may change the title, author or publication year. The update is refused when the changed title, author and publication year would match another registered book."
+    from: "owner, 2026-10-27: keep P0's rule (replaces the earlier answer that identity may not change); the edition moves to the work its new title and author name; the old identity is freed and its copies follow"
+  retire book record:
+    kind: transition
+    thing: book
+    from_state: registered
+    to_state: retired
+    from: "brief-run states / book; precondition / retire_book (owner: wrong-state transition refused)"
+  reinstate book record:
+    kind: transition
+    thing: book
+    from_state: retired
+    to_state: registered
+    from: "brief-run states / book; precondition / reinstate_book"
+  retire physical copy:
+    kind: transition
+    thing: physical copy
+    from_state: registered
+    to_state: retired
+    from: "brief-run states / copy; owner confirmed"
+  reinstate physical copy:
+    kind: transition
+    thing: physical copy
+    from_state: retired
+    to_state: registered
+    from: "brief-run states / copy"
+  retrieve book details:
+    kind: details
+    thing: book
+    with: [work, physical copy]
+    from: "brief-run query_returns / retrieve_book_details; owner answers / nothing_found retrieve"
+  search catalog:
+    kind: search
+    thing: book
+    always_exclude: {state: retired}
+    caller_may_override: false
+    group_by: work
+    nothing_found: empty
+    from: "brief-run query_returns / search; owner answers / search override, empty search"
+
+trail:
+  records: [operation, staff_id, subject]
+  subject: identity
+  reads: true
+  from: "owner answers / trail detail; baseline (reads trailed, not decided by the owner)"
+
+announces:
+  register book: [work registered, book registered, physical copy registered]
+  register additional edition: [book registered]
+  register physical copy: [physical copy registered]
+  update bibliographic information: [bibliographic information updated]
+  retire book record: [book retired]
+  reinstate book record: [book reinstated]
+  retire physical copy: [physical copy retired]
+  reinstate physical copy: [physical copy reinstated]
+  from: "owner answers / announces"
+
+events:
+  work registered: {carries: [work_key, title, author]}
+  book registered: {carries: [identity_key, title, author, publication_year, barcode, staff_id]}
+  from: "baseline event content (decision 34), kept"

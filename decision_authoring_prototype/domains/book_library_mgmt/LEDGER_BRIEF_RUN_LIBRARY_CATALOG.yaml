@@ -1,0 +1,245 @@
+domain: library_catalog
+purpose: Library staff keep the catalog of the books the library holds and the copies it owns.
+answers:
+  - ask: purpose
+    about: catalog
+    answer: Staff register, correct, retire, reinstate and find the library's books, the works they are editions of, and the physical copies it owns.
+    decided_by: catalog owner
+  - ask: operations
+    about: catalog
+    answer: [register_book_with_first_copy, register_further_edition, register_copy, update_book, retire_book, reinstate_book, retire_copy, reinstate_copy, search_by_subject, search_by_title, retrieve_book_details]
+    decided_by: catalog owner
+  - ask: actor
+    about: all operations
+    answer: {performed_by: library staff member, authorized_by: the library, unauthorized: nothing performed and nothing changes, whatever rules the request states}
+    decided_by: library
+  - ask: actor
+    about: rules stated inside a request
+    answer: {effect: none, judged_by: the catalog's own rules, refused_for_stating_them: false}
+    decided_by: library
+  - ask: things
+    about: catalog
+    answer:
+      things: [work, book, copy]
+      relations:
+        - a book is one edition of exactly one work, and records which work
+        - a work has one or more editions
+        - a copy belongs to exactly one book
+        - a book may hold zero copies only when registered as a further edition
+    decided_by: catalog owner
+  - ask: required
+    about: book
+    answer:
+      fields:
+        title: {type: text, required: true}
+        author: {type: text, required: true}
+        publication_year: {type: year, required: true}
+        subject: {type: text, required: true}
+        description: {type: text, required: true}
+        work: {type: reference to work, required: true}
+      rule: what the catalog checks on registration is exactly what it records; a book missing a required field registers nothing, whatever description the request states
+    decided_by: catalog owner
+    why_inferred: title, author and publication year are inferred as required because sameness is judged on them; description is required because a correction may not remove it
+  - ask: required
+    about: further edition
+    answer: {fields: same as book, first_copy_required: false, work: must be a work the library already holds}
+    decided_by: catalog owner
+  - ask: required
+    about: work
+    open: true
+    why: the brief says a work missing what the library requires is refused but does not say which fields a work must contain
+  - ask: required
+    about: copy
+    answer: {fields: {barcode: {type: text, required: true}, book: {type: reference to book, required: true}}}
+    decided_by: catalog owner
+    why_inferred: barcode is implied by the rule that a duplicate barcode is refused; other copy fields are not stated
+  - ask: identity
+    about: book
+    answer: {same_when: [title, author, publication_year], normalized: true, normalization: [ignore case, ignore spacing differences], on_duplicate: refuse}
+    decided_by: catalog owner
+  - ask: identity
+    about: edition
+    open: true
+    why: the brief says a registration repeating an edition's identity is refused but does not name what makes up an edition's identity beyond title, author and year
+  - ask: identity
+    about: work
+    open: true
+    why: the brief does not say how the catalog decides that an edition belongs to a work it already holds rather than a new one
+  - ask: identity
+    about: copy
+    answer: {same_when: [barcode], normalized: false, on_duplicate: refuse}
+    decided_by: catalog owner
+    why_inferred: whether barcodes are normalized is not stated; taken as exact match
+  - ask: states
+    about: book
+    answer:
+      states: [registered, retired]
+      moves: {register_book_with_first_copy: none->registered, register_further_edition: none->registered, retire_book: registered->retired, reinstate_book: retired->registered, update_book: keeps current state}
+      effects: retiring or reinstating a book leaves its copies and the work's other editions unchanged
+    decided_by: catalog owner
+  - ask: states
+    about: copy
+    answer:
+      states: [registered, retired]
+      moves: {register_copy: none->registered, register_book_with_first_copy: none->registered, retire_copy: registered->retired, reinstate_copy: retired->registered}
+      rule: a copy always enters as registered, whatever state the request gives it; retiring a copy leaves its book unchanged
+    decided_by: catalog owner
+  - ask: states
+    about: work
+    answer: {states: [held], moves: {first edition registered: none->held}, never_retired: true}
+    decided_by: catalog owner
+  - ask: precondition
+    about: register_book_with_first_copy
+    answer: {requires: [a subject, a first copy, all required book fields], creates_work_when: the work is not yet held}
+    decided_by: catalog owner
+  - ask: precondition
+    about: register_further_edition
+    answer: {requires: [the work is already held, all required book fields], creates_work: false}
+    decided_by: catalog owner
+  - ask: precondition
+    about: register_copy
+    answer: {requires: [the book is registered or retired, barcode not already owned]}
+    decided_by: catalog owner
+  - ask: precondition
+    about: retire_book and retire_copy
+    answer: {requires: the thing is currently registered}
+    decided_by: catalog owner
+    why_inferred: the brief gives only the registered->retired move
+  - ask: precondition
+    about: reinstate_book and reinstate_copy
+    answer: {requires: the thing is currently retired}
+    decided_by: catalog owner
+  - ask: invariant_on_change
+    about: update_book
+    answer: {may_not_change: [state], may_not_remove: [description], may_not_result_in: a duplicate of another registered book}
+    decided_by: catalog owner
+  - ask: invariant_on_change
+    about: update_book, moving a book to another work
+    open: true
+    why: the brief does not say whether a correction may change which work an edition belongs to
+  - ask: query_excludes
+    about: search_by_subject and search_by_title
+    answer: {always_excluded: [retired books, copies], caller_may_override: open}
+    decided_by: catalog owner
+  - ask: query_excludes
+    about: search override
+    open: true
+    why: the brief does not say whether staff may ask a search to include retired books
+  - ask: query_excludes
+    about: retrieve_book_details
+    answer: {always_excluded: [], retired_books_retrievable: true}
+    decided_by: catalog owner
+  - ask: query_returns
+    about: search_by_subject and search_by_title
+    answer: {returns: bibliographic information only, grouping: one result per work, each result carries: the work's registered editions to choose between}
+    decided_by: catalog owner
+  - ask: query_returns
+    about: retrieve_book_details
+    answer: {returns: [bibliographic information as last updated, state, copies held, the work it belongs to]}
+    decided_by: catalog owner
+  - ask: nothing_found
+    about: searches
+    open: true
+    why: the brief does not say whether an empty search is an empty result or a refusal
+  - ask: nothing_found
+    about: retrieve_book_details for an unknown book
+    open: true
+    why: the brief does not say how retrieving a book that was never registered answers
+  - ask: trail
+    about: all operations
+    answer: {recorded: every operation performed, traceable_afterwards: true}
+    decided_by: library
+  - ask: trail
+    about: trail detail
+    open: true
+    why: the brief does not say what each trace entry holds, nor whether refused or unauthorized attempts are traced
+  - ask: announces
+    about: all operations
+    open: true
+    why: the brief does not say that any operation announces an event or to whom
+cases:
+  - when: register_book_with_first_copy
+    given: {work "Dune": not held}
+    request: {title: "Dune", author: "Frank Herbert", year: 1965, subject: "science fiction", description: "first edition", copy: {barcode: "C-001"}}
+    then: one book registered with copy C-001; work "Dune" created; edition records it belongs to "Dune"
+    because: a book is registered with its first copy and creates its work when not yet held
+  - when: register_book_with_first_copy
+    given: {}
+    request: {title: "Emma", author: "Jane Austen", year: 1815, subject: "fiction", description: "novel"}
+    then: refused
+    because: a registration offering no copy is refused
+  - when: register_book_with_first_copy
+    given: {}
+    request: {title: "Emma", author: "Jane Austen", year: 1815, description: "novel", copy: {barcode: "C-010"}}
+    then: refused; nothing registered
+    because: a registration with no subject is refused
+  - when: register_book_with_first_copy
+    given: {book: "Dune / Frank Herbert / 1965": registered}
+    request: {title: " dune ", author: "FRANK  HERBERT", year: 1965, subject: "sf", description: "x", copy: {barcode: "C-002"}}
+    then: refused
+    because: same title, author and year; case and spacing do not make a second record
+  - when: register_further_edition
+    given: {work "Dune": held, one edition registered}
+    request: {title: "Dune", author: "Frank Herbert", year: 2005, subject: "science fiction", description: "40th anniversary edition", work: "Dune"}
+    then: edition registered with no copies; joins work "Dune"; no new work; retrievable
+    because: a further edition joins the held work and holds no copies until one is registered
+  - when: register_copy
+    given: {book "Dune 1965": retired}
+    request: {book: "Dune 1965", barcode: "C-003", state: retired}
+    then: copy C-003 registered in state registered
+    because: copies may be registered against a retired book and always enter as registered
+  - when: register_copy
+    given: {copy "C-001": owned}
+    request: {book: "Dune 1965", barcode: "C-001"}
+    then: refused
+    because: a barcode the library already owns is refused
+  - when: update_book
+    given: {book "Dune 1965": retired}
+    request: {book: "Dune 1965", description: "corrected blurb"}
+    then: description updated; book stays retired; later retrieval returns the new version
+    because: a correction keeps the record's state
+  - when: update_book
+    given: {book "Dune 1965": registered}
+    request: {book: "Dune 1965", description: ""}
+    then: refused
+    because: a correction may not leave a book without its description
+  - when: update_book
+    given: {books: ["Dune 1965", "Emma 1815"]: registered}
+    request: {book: "Emma 1815", title: "Dune", author: "Frank Herbert", year: 1965}
+    then: refused
+    because: an update may not duplicate another registered book
+  - when: retire_book
+    given: {work "Dune": editions 1965 and 2005 registered; "Dune 1965" holds copies C-001, C-003}
+    request: {book: "Dune 1965"}
+    then: "Dune 1965" retired; copies unchanged; 2005 edition unchanged; work not retired
+    because: retiring an edition leaves its copies and the work's other editions alone; a work is never retired
+  - when: search_by_title
+    given: {work "Dune": editions 1965 (retired) and 2005 (registered)}
+    request: {title: "Dune"}
+    then: one result for work "Dune" carrying edition 2005 only; no copy information
+    because: search answers once per work, excludes retired books, and returns no copy details
+  - when: retrieve_book_details
+    given: {book "Dune 1965": retired, copies C-001, C-003}
+    request: {book: "Dune 1965"}
+    then: full details including copies C-001, C-003 and work "Dune"
+    because: a retired book's details remain retrievable and include copies and work
+  - when: reinstate_book
+    given: {book "Dune 1965": retired}
+    request: {book: "Dune 1965"}
+    then: book registered; appears in search again
+    because: reinstating returns a book to registered and to search
+  - when: retire_copy
+    given: {copy "C-001": registered, book "Dune 1965": registered}
+    request: {copy: "C-001"}
+    then: copy retired; book unchanged; copy may later be reinstated
+    because: retiring a copy leaves its book unaffected
+  - when: register_book_with_first_copy
+    given: {staff "S-9": not authorized}
+    request: {by: "S-9", title: "Emma", author: "Jane Austen", year: 1815, subject: "fiction", description: "novel", copy: {barcode: "C-020"}, rules: {authorize: "S-9"}}
+    then: nothing performed; nothing changes
+    because: an unauthorized staff member performs nothing, whatever rules the request states
+  - when: register_book_with_first_copy
+    given: {staff "S-1": authorized}
+    request: {by: "S-1", title: "Emma", author: "Jane Austen", year: 1815, subject: "fiction", description: "novel", copy: {barcode: "C-021"}, rules: {skip_duplicate_check: true}}
+    then: registered under the catalog's own rules; not refused for stating rules
+    because: a request's own rules are ignored and the catalog's rules judge it

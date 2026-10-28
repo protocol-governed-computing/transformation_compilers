@@ -1,0 +1,54 @@
+# The copy family of the library catalog ledger, in closed shapes.
+# Normalized by hand from LEDGER_BRIEF_RUN_LIBRARY_CATALOG.yaml and
+# LEDGER_OWNER_ANSWERS_LIBRARY_CATALOG.yaml. `from` names the entry each value comes from.
+
+domain: book_library_mgmt
+subdomain: catalog
+
+actor:
+  name: library staff
+  role: staff
+  authorized_when: [{field: staff_id, op: not_null}, {field: authorized, op: eq, value: true}]
+  from: brief-run actor / all operations
+
+things:
+  book:
+    plural: books
+    identity: {field: identity_key}
+    from: brief-run identity / book (referenced, not authored here)
+  physical copy:
+    plural: physical copies
+    identity: {field: barcode, on_duplicate: refuse}
+    belongs_to: book
+    states: [registered, retired]
+    from: brief-run identity / copy; states / copy
+
+operations:
+  register physical copy:
+    kind: create
+    thing: physical copy
+    precondition: {exists: book}
+    from: brief-run precondition / register_copy
+  retire physical copy:
+    kind: transition
+    thing: physical copy
+    from_state: registered
+    to_state: retired
+    from: brief-run states / copy; precondition / retire_copy (inferred; confirmed by the owner)
+  reinstate physical copy:
+    kind: transition
+    thing: physical copy
+    from_state: retired
+    to_state: registered
+    from: brief-run states / copy; precondition / reinstate_copy
+
+trail:
+  records: [operation, staff_id, subject]
+  subject: identity
+  from: owner answers / trail detail
+
+announces:
+  register physical copy: physical copy registered
+  retire physical copy: physical copy retired
+  reinstate physical copy: physical copy reinstated
+  from: owner answers / announces

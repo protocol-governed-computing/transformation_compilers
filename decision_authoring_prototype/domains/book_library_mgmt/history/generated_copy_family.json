@@ -1,0 +1,1288 @@
+{
+ "new_artifacts": [
+  {
+   "family": "CC",
+   "code": "book_library_mgmt::CC_CLAIM_COPY_BARCODE_V0",
+   "summary": "Claim a copy's barcode so a second copy carrying it is refused",
+   "owner_subdomain": "catalog",
+   "status": "NEW",
+   "_from": "ledger:things/physical copy/identity"
+  },
+  {
+   "family": "WF",
+   "code": "book_library_mgmt::WF_REGISTER_PHYSICAL_COPY_V0",
+   "summary": "Register a physical copy",
+   "owner_subdomain": "catalog",
+   "status": "NEW",
+   "_from": "ledger:operations/register physical copy"
+  },
+  {
+   "family": "IN",
+   "code": "book_library_mgmt::IN_REGISTER_PHYSICAL_COPY_V0",
+   "summary": "A request to register physical copy",
+   "owner_subdomain": "catalog",
+   "status": "NEW",
+   "_from": "ledger:operations/register physical copy"
+  },
+  {
+   "family": "CC",
+   "code": "book_library_mgmt::CC_REGISTER_PHYSICAL_COPY_V0",
+   "summary": "Register a physical copy",
+   "owner_subdomain": "catalog",
+   "status": "NEW",
+   "_from": "ledger:operations/register physical copy"
+  },
+  {
+   "family": "EV",
+   "code": "book_library_mgmt::EV_PHYSICAL_COPY_REGISTERED_V0",
+   "summary": "A physical copy registered",
+   "owner_subdomain": "catalog",
+   "status": "NEW",
+   "_from": "ledger:announces"
+  },
+  {
+   "family": "WF",
+   "code": "book_library_mgmt::WF_RETIRE_PHYSICAL_COPY_V0",
+   "summary": "Retire a physical copy",
+   "owner_subdomain": "catalog",
+   "status": "NEW",
+   "_from": "ledger:operations/retire physical copy"
+  },
+  {
+   "family": "IN",
+   "code": "book_library_mgmt::IN_RETIRE_PHYSICAL_COPY_V0",
+   "summary": "A request to retire physical copy",
+   "owner_subdomain": "catalog",
+   "status": "NEW",
+   "_from": "ledger:operations/retire physical copy"
+  },
+  {
+   "family": "CC",
+   "code": "book_library_mgmt::CC_RETIRE_PHYSICAL_COPY_V0",
+   "summary": "Retire a physical copy",
+   "owner_subdomain": "catalog",
+   "status": "NEW",
+   "_from": "ledger:operations/retire physical copy"
+  },
+  {
+   "family": "EV",
+   "code": "book_library_mgmt::EV_PHYSICAL_COPY_RETIRED_V0",
+   "summary": "A physical copy retired",
+   "owner_subdomain": "catalog",
+   "status": "NEW",
+   "_from": "ledger:announces"
+  },
+  {
+   "family": "WF",
+   "code": "book_library_mgmt::WF_REINSTATE_PHYSICAL_COPY_V0",
+   "summary": "Reinstate a physical copy",
+   "owner_subdomain": "catalog",
+   "status": "NEW",
+   "_from": "ledger:operations/reinstate physical copy"
+  },
+  {
+   "family": "IN",
+   "code": "book_library_mgmt::IN_REINSTATE_PHYSICAL_COPY_V0",
+   "summary": "A request to reinstate physical copy",
+   "owner_subdomain": "catalog",
+   "status": "NEW",
+   "_from": "ledger:operations/reinstate physical copy"
+  },
+  {
+   "family": "CC",
+   "code": "book_library_mgmt::CC_REINSTATE_PHYSICAL_COPY_V0",
+   "summary": "Reinstate a physical copy",
+   "owner_subdomain": "catalog",
+   "status": "NEW",
+   "_from": "ledger:operations/reinstate physical copy"
+  },
+  {
+   "family": "EV",
+   "code": "book_library_mgmt::EV_PHYSICAL_COPY_REINSTATED_V0",
+   "summary": "A physical copy reinstated",
+   "owner_subdomain": "catalog",
+   "status": "NEW",
+   "_from": "ledger:announces"
+  }
+ ],
+ "rb_declarations": [
+  {
+   "rb_code": "book_library_mgmt::RB_CATALOG_BINDINGS_V0",
+   "binds_wf": "book_library_mgmt::WF_REGISTER_PHYSICAL_COPY_V0",
+   "cs_bindings": [
+    "capability_side_effects::CS_MUTABLE_JSON_V0",
+    "capability_side_effects::CS_REGISTRY_V0",
+    "capability_side_effects::CS_APPENDONLY_JSONL_V0"
+   ],
+   "storage_structure": "book_library_mgmt::STRUCTURE_CATALOG_STORAGE_V0",
+   "_from": "doctrine:binding"
+  },
+  {
+   "rb_code": "book_library_mgmt::RB_CATALOG_BINDINGS_V0",
+   "binds_wf": "book_library_mgmt::WF_RETIRE_PHYSICAL_COPY_V0",
+   "cs_bindings": [
+    "capability_side_effects::CS_MUTABLE_JSON_V0",
+    "capability_side_effects::CS_REGISTRY_V0",
+    "capability_side_effects::CS_APPENDONLY_JSONL_V0"
+   ],
+   "storage_structure": "book_library_mgmt::STRUCTURE_CATALOG_STORAGE_V0",
+   "_from": "doctrine:binding"
+  },
+  {
+   "rb_code": "book_library_mgmt::RB_CATALOG_BINDINGS_V0",
+   "binds_wf": "book_library_mgmt::WF_REINSTATE_PHYSICAL_COPY_V0",
+   "cs_bindings": [
+    "capability_side_effects::CS_MUTABLE_JSON_V0",
+    "capability_side_effects::CS_REGISTRY_V0",
+    "capability_side_effects::CS_APPENDONLY_JSONL_V0"
+   ],
+   "storage_structure": "book_library_mgmt::STRUCTURE_CATALOG_STORAGE_V0",
+   "_from": "doctrine:binding"
+  }
+ ],
+ "execution_topology": [
+  {
+   "workflow": "book_library_mgmt::WF_REGISTER_PHYSICAL_COPY_V0",
+   "node": "IN_REGISTER_PHYSICAL_COPY_V0",
+   "node_type": "IN",
+   "routing": {
+    "ACK": "CC_CONFIRM_STAFF_AUTHORIZED_V0",
+    "NACK": "EXIT_REJECTED"
+   },
+   "_from": "doctrine:order"
+  },
+  {
+   "workflow": "book_library_mgmt::WF_REGISTER_PHYSICAL_COPY_V0",
+   "node": "CC_CONFIRM_STAFF_AUTHORIZED_V0",
+   "node_type": "CC",
+   "routing": {
+    "SUCCESS": "CC_RESOLVE_BOOK_IDENTITY_V0",
+    "VIOLATION": "EXIT_REJECTED"
+   },
+   "_from": "doctrine:order"
+  },
+  {
+   "workflow": "book_library_mgmt::WF_REGISTER_PHYSICAL_COPY_V0",
+   "node": "CC_RESOLVE_BOOK_IDENTITY_V0",
+   "node_type": "CC",
+   "routing": {
+    "SUCCESS": "CC_CLAIM_COPY_BARCODE_V0",
+    "NOT_FOUND": "EXIT_REJECTED",
+    "VIOLATION": "EXIT_REJECTED",
+    "BACKEND_ERROR": "EXIT_REJECTED"
+   },
+   "_from": "doctrine:order"
+  },
+  {
+   "workflow": "book_library_mgmt::WF_REGISTER_PHYSICAL_COPY_V0",
+   "node": "CC_CLAIM_COPY_BARCODE_V0",
+   "node_type": "CC",
+   "routing": {
+    "SUCCESS": "CC_REGISTER_PHYSICAL_COPY_V0",
+    "ALREADY_EXISTS": "EXIT_REJECTED",
+    "VIOLATION": "EXIT_REJECTED",
+    "BACKEND_ERROR": "EXIT_REJECTED"
+   },
+   "_from": "doctrine:order"
+  },
+  {
+   "workflow": "book_library_mgmt::WF_REGISTER_PHYSICAL_COPY_V0",
+   "node": "CC_REGISTER_PHYSICAL_COPY_V0",
+   "node_type": "CC",
+   "routing": {
+    "SUCCESS": "CC_APPEND_CATALOG_OPERATION_V0",
+    "BACKEND_ERROR": "EXIT_REJECTED",
+    "NOT_FOUND": "EXIT_REJECTED",
+    "VIOLATION": "EXIT_REJECTED"
+   },
+   "_from": "doctrine:order"
+  },
+  {
+   "workflow": "book_library_mgmt::WF_REGISTER_PHYSICAL_COPY_V0",
+   "node": "CC_APPEND_CATALOG_OPERATION_V0",
+   "node_type": "CC",
+   "routing": {
+    "SUCCESS": "EXIT_COMPLETED",
+    "VIOLATION": "EXIT_REJECTED",
+    "BACKEND_ERROR": "EXIT_REJECTED"
+   },
+   "_from": "doctrine:order"
+  },
+  {
+   "workflow": "book_library_mgmt::WF_REGISTER_PHYSICAL_COPY_V0",
+   "node": "EXIT_COMPLETED",
+   "node_type": "EXIT",
+   "routing": null,
+   "_from": "doctrine:order"
+  },
+  {
+   "workflow": "book_library_mgmt::WF_REGISTER_PHYSICAL_COPY_V0",
+   "node": "EXIT_REJECTED",
+   "node_type": "EXIT",
+   "routing": null,
+   "_from": "doctrine:order"
+  },
+  {
+   "workflow": "book_library_mgmt::WF_RETIRE_PHYSICAL_COPY_V0",
+   "node": "IN_RETIRE_PHYSICAL_COPY_V0",
+   "node_type": "IN",
+   "routing": {
+    "ACK": "CC_CONFIRM_STAFF_AUTHORIZED_V0",
+    "NACK": "EXIT_REJECTED"
+   },
+   "_from": "doctrine:order"
+  },
+  {
+   "workflow": "book_library_mgmt::WF_RETIRE_PHYSICAL_COPY_V0",
+   "node": "CC_CONFIRM_STAFF_AUTHORIZED_V0",
+   "node_type": "CC",
+   "routing": {
+    "SUCCESS": "CC_RETIRE_PHYSICAL_COPY_V0",
+    "VIOLATION": "EXIT_REJECTED"
+   },
+   "_from": "doctrine:order"
+  },
+  {
+   "workflow": "book_library_mgmt::WF_RETIRE_PHYSICAL_COPY_V0",
+   "node": "CC_RETIRE_PHYSICAL_COPY_V0",
+   "node_type": "CC",
+   "routing": {
+    "SUCCESS": "CC_APPEND_CATALOG_OPERATION_V0",
+    "BACKEND_ERROR": "EXIT_REJECTED",
+    "VIOLATION": "EXIT_REJECTED"
+   },
+   "_from": "doctrine:order"
+  },
+  {
+   "workflow": "book_library_mgmt::WF_RETIRE_PHYSICAL_COPY_V0",
+   "node": "CC_APPEND_CATALOG_OPERATION_V0",
+   "node_type": "CC",
+   "routing": {
+    "SUCCESS": "EXIT_COMPLETED",
+    "VIOLATION": "EXIT_REJECTED",
+    "BACKEND_ERROR": "EXIT_REJECTED"
+   },
+   "_from": "doctrine:order"
+  },
+  {
+   "workflow": "book_library_mgmt::WF_RETIRE_PHYSICAL_COPY_V0",
+   "node": "EXIT_COMPLETED",
+   "node_type": "EXIT",
+   "routing": null,
+   "_from": "doctrine:order"
+  },
+  {
+   "workflow": "book_library_mgmt::WF_RETIRE_PHYSICAL_COPY_V0",
+   "node": "EXIT_REJECTED",
+   "node_type": "EXIT",
+   "routing": null,
+   "_from": "doctrine:order"
+  },
+  {
+   "workflow": "book_library_mgmt::WF_REINSTATE_PHYSICAL_COPY_V0",
+   "node": "IN_REINSTATE_PHYSICAL_COPY_V0",
+   "node_type": "IN",
+   "routing": {
+    "ACK": "CC_CONFIRM_STAFF_AUTHORIZED_V0",
+    "NACK": "EXIT_REJECTED"
+   },
+   "_from": "doctrine:order"
+  },
+  {
+   "workflow": "book_library_mgmt::WF_REINSTATE_PHYSICAL_COPY_V0",
+   "node": "CC_CONFIRM_STAFF_AUTHORIZED_V0",
+   "node_type": "CC",
+   "routing": {
+    "SUCCESS": "CC_REINSTATE_PHYSICAL_COPY_V0",
+    "VIOLATION": "EXIT_REJECTED"
+   },
+   "_from": "doctrine:order"
+  },
+  {
+   "workflow": "book_library_mgmt::WF_REINSTATE_PHYSICAL_COPY_V0",
+   "node": "CC_REINSTATE_PHYSICAL_COPY_V0",
+   "node_type": "CC",
+   "routing": {
+    "SUCCESS": "CC_APPEND_CATALOG_OPERATION_V0",
+    "BACKEND_ERROR": "EXIT_REJECTED",
+    "VIOLATION": "EXIT_REJECTED"
+   },
+   "_from": "doctrine:order"
+  },
+  {
+   "workflow": "book_library_mgmt::WF_REINSTATE_PHYSICAL_COPY_V0",
+   "node": "CC_APPEND_CATALOG_OPERATION_V0",
+   "node_type": "CC",
+   "routing": {
+    "SUCCESS": "EXIT_COMPLETED",
+    "VIOLATION": "EXIT_REJECTED",
+    "BACKEND_ERROR": "EXIT_REJECTED"
+   },
+   "_from": "doctrine:order"
+  },
+  {
+   "workflow": "book_library_mgmt::WF_REINSTATE_PHYSICAL_COPY_V0",
+   "node": "EXIT_COMPLETED",
+   "node_type": "EXIT",
+   "routing": null,
+   "_from": "doctrine:order"
+  },
+  {
+   "workflow": "book_library_mgmt::WF_REINSTATE_PHYSICAL_COPY_V0",
+   "node": "EXIT_REJECTED",
+   "node_type": "EXIT",
+   "routing": null,
+   "_from": "doctrine:order"
+  }
+ ],
+ "cc_composition": [
+  {
+   "cc_code": "book_library_mgmt::CC_CLAIM_COPY_BARCODE_V0",
+   "step": "1",
+   "step_name": "claim_barcode",
+   "capability": "capability_side_effects::CS_REGISTRY_V0",
+   "kind": "CS",
+   "operation": "REGISTER",
+   "store": "COPY_BARCODE_REGISTRY",
+   "consumes": [
+    "key",
+    "target_cs",
+    "target_ref"
+   ],
+   "produces": [
+    "address",
+    "result_status"
+   ],
+   "routing": {
+    "SUCCESS": "exit",
+    "ALREADY_EXISTS": "exit",
+    "VIOLATION": "exit",
+    "BACKEND_ERROR": "exit"
+   },
+   "interpreted_by": null,
+   "semantic_status": "SUCCESS",
+   "interface": {
+    "in": {
+     "key": "key",
+     "target_cs": "target_cs",
+     "target_ref": "target_ref"
+    },
+    "out": {
+     "address": "address",
+     "result_status": "result_status"
+    }
+   },
+   "_from": "ledger:things/physical copy/identity"
+  },
+  {
+   "cc_code": "book_library_mgmt::CC_REGISTER_PHYSICAL_COPY_V0",
+   "step": "1",
+   "step_name": "read_book_record",
+   "capability": "capability_side_effects::CS_MUTABLE_JSON_V0",
+   "kind": "CS",
+   "operation": "READ",
+   "store": "BOOKS",
+   "consumes": [
+    "key"
+   ],
+   "produces": [
+    "book_record",
+    "result_status"
+   ],
+   "routing": {
+    "SUCCESS": "continue",
+    "NOT_FOUND": "exit",
+    "VIOLATION": "exit",
+    "BACKEND_ERROR": "exit"
+   },
+   "interpreted_by": null,
+   "semantic_status": "SUCCESS",
+   "interface": {
+    "in": {
+     "key": "key"
+    },
+    "out": {
+     "book_record": "book_record",
+     "result_status": "result_status"
+    }
+   },
+   "_from": "ledger:operations/register physical copy"
+  },
+  {
+   "cc_code": "book_library_mgmt::CC_REGISTER_PHYSICAL_COPY_V0",
+   "step": "2",
+   "step_name": "assemble_copy_record",
+   "capability": "capability_transforms::CT_PURE_ASSEMBLE_RECORD_V0",
+   "kind": "CT",
+   "operation": null,
+   "store": null,
+   "consumes": [
+    "fields"
+   ],
+   "produces": [
+    "copy_record"
+   ],
+   "routing": {
+    "SUCCESS": "continue",
+    "VIOLATION": "exit"
+   },
+   "interpreted_by": null,
+   "semantic_status": "SUCCESS",
+   "interface": {
+    "in": {
+     "fields": "fields"
+    },
+    "out": {
+     "copy_record": "copy_record"
+    }
+   },
+   "_from": "ledger:things/physical copy/states"
+  },
+  {
+   "cc_code": "book_library_mgmt::CC_REGISTER_PHYSICAL_COPY_V0",
+   "step": "3",
+   "step_name": "write_copy_record",
+   "capability": "capability_side_effects::CS_MUTABLE_JSON_V0",
+   "kind": "CS",
+   "operation": "WRITE",
+   "store": "PHYSICAL_COPIES",
+   "consumes": [
+    "key",
+    "value"
+   ],
+   "produces": [
+    "result_status"
+   ],
+   "routing": {
+    "SUCCESS": "exit",
+    "VIOLATION": "exit",
+    "BACKEND_ERROR": "exit"
+   },
+   "interpreted_by": null,
+   "semantic_status": "SUCCESS",
+   "interface": {
+    "in": {
+     "key": "key",
+     "value": "value"
+    },
+    "out": {
+     "result_status": "result_status"
+    }
+   },
+   "_from": "ledger:operations/register physical copy"
+  },
+  {
+   "cc_code": "book_library_mgmt::CC_RETIRE_PHYSICAL_COPY_V0",
+   "step": "1",
+   "step_name": "set_record_state",
+   "capability": "capability_side_effects::CS_MUTABLE_JSON_V0",
+   "kind": "CS",
+   "operation": "UPDATE_WHERE",
+   "store": "PHYSICAL_COPIES",
+   "consumes": [
+    "filter",
+    "updates"
+   ],
+   "produces": [
+    "matched_keys",
+    "updated_count",
+    "result_status"
+   ],
+   "routing": {
+    "SUCCESS": "exit",
+    "VIOLATION": "exit",
+    "BACKEND_ERROR": "exit"
+   },
+   "interpreted_by": null,
+   "semantic_status": "SUCCESS",
+   "interface": {
+    "in": {
+     "filter": "filter",
+     "updates": "updates"
+    },
+    "out": {
+     "matched_keys": "matched_keys",
+     "updated_count": "updated_count",
+     "result_status": "result_status"
+    }
+   },
+   "_from": "ledger:operations/retire physical copy"
+  },
+  {
+   "cc_code": "book_library_mgmt::CC_REINSTATE_PHYSICAL_COPY_V0",
+   "step": "1",
+   "step_name": "set_record_state",
+   "capability": "capability_side_effects::CS_MUTABLE_JSON_V0",
+   "kind": "CS",
+   "operation": "UPDATE_WHERE",
+   "store": "PHYSICAL_COPIES",
+   "consumes": [
+    "filter",
+    "updates"
+   ],
+   "produces": [
+    "matched_keys",
+    "updated_count",
+    "result_status"
+   ],
+   "routing": {
+    "SUCCESS": "exit",
+    "VIOLATION": "exit",
+    "BACKEND_ERROR": "exit"
+   },
+   "interpreted_by": null,
+   "semantic_status": "SUCCESS",
+   "interface": {
+    "in": {
+     "filter": "filter",
+     "updates": "updates"
+    },
+    "out": {
+     "matched_keys": "matched_keys",
+     "updated_count": "updated_count",
+     "result_status": "result_status"
+    }
+   },
+   "_from": "ledger:operations/reinstate physical copy"
+  }
+ ],
+ "step_bindings": [
+  {
+   "owner": "book_library_mgmt::CC_CLAIM_COPY_BARCODE_V0",
+   "step": "claim_barcode",
+   "direction": "INPUT",
+   "field": "key",
+   "bound_to": "inputs.barcode",
+   "_from": "ledger:things/physical copy/identity"
+  },
+  {
+   "owner": "book_library_mgmt::CC_CLAIM_COPY_BARCODE_V0",
+   "step": "claim_barcode",
+   "direction": "INPUT",
+   "field": "target_cs",
+   "bound_to": {
+    "literal": "capability_side_effects::CS_MUTABLE_JSON_V0"
+   },
+   "_from": "ledger:things/physical copy/identity"
+  },
+  {
+   "owner": "book_library_mgmt::CC_CLAIM_COPY_BARCODE_V0",
+   "step": "claim_barcode",
+   "direction": "INPUT",
+   "field": "target_ref",
+   "bound_to": {
+    "literal": "PHYSICAL_COPIES"
+   },
+   "_from": "ledger:things/physical copy/identity"
+  },
+  {
+   "owner": "book_library_mgmt::CC_CLAIM_COPY_BARCODE_V0",
+   "step": "claim_barcode",
+   "direction": "OUTPUT",
+   "field": "address",
+   "bound_to": "capability_result.address",
+   "_from": "ledger:things/physical copy/identity"
+  },
+  {
+   "owner": "book_library_mgmt::CC_CLAIM_COPY_BARCODE_V0",
+   "step": "claim_barcode",
+   "direction": "OUTPUT",
+   "field": "result_status",
+   "bound_to": "result_status",
+   "_from": "ledger:things/physical copy/identity"
+  },
+  {
+   "owner": "book_library_mgmt::CC_REGISTER_PHYSICAL_COPY_V0",
+   "step": "read_book_record",
+   "direction": "INPUT",
+   "field": "key",
+   "bound_to": "inputs.identity_key",
+   "_from": "ledger:operations/register physical copy"
+  },
+  {
+   "owner": "book_library_mgmt::CC_REGISTER_PHYSICAL_COPY_V0",
+   "step": "read_book_record",
+   "direction": "OUTPUT",
+   "field": "book_record",
+   "bound_to": "capability_result.value",
+   "_from": "ledger:operations/register physical copy"
+  },
+  {
+   "owner": "book_library_mgmt::CC_REGISTER_PHYSICAL_COPY_V0",
+   "step": "read_book_record",
+   "direction": "OUTPUT",
+   "field": "result_status",
+   "bound_to": "result_status",
+   "_from": "ledger:operations/register physical copy"
+  },
+  {
+   "owner": "book_library_mgmt::CC_REGISTER_PHYSICAL_COPY_V0",
+   "step": "assemble_copy_record",
+   "direction": "INPUT",
+   "field": "fields",
+   "bound_to": {
+    "literal": {
+     "identity_key": "$.inputs.identity_key",
+     "barcode": "$.inputs.barcode",
+     "state": "REGISTERED"
+    }
+   },
+   "_from": "ledger:things/physical copy/states"
+  },
+  {
+   "owner": "book_library_mgmt::CC_REGISTER_PHYSICAL_COPY_V0",
+   "step": "assemble_copy_record",
+   "direction": "OUTPUT",
+   "field": "copy_record",
+   "bound_to": "capability_result.record",
+   "_from": "ledger:things/physical copy/states"
+  },
+  {
+   "owner": "book_library_mgmt::CC_REGISTER_PHYSICAL_COPY_V0",
+   "step": "write_copy_record",
+   "direction": "INPUT",
+   "field": "key",
+   "bound_to": "inputs.barcode",
+   "_from": "ledger:operations/register physical copy"
+  },
+  {
+   "owner": "book_library_mgmt::CC_REGISTER_PHYSICAL_COPY_V0",
+   "step": "write_copy_record",
+   "direction": "INPUT",
+   "field": "value",
+   "bound_to": "results.assemble_copy_record.copy_record",
+   "_from": "ledger:operations/register physical copy"
+  },
+  {
+   "owner": "book_library_mgmt::CC_REGISTER_PHYSICAL_COPY_V0",
+   "step": "write_copy_record",
+   "direction": "OUTPUT",
+   "field": "result_status",
+   "bound_to": "result_status",
+   "_from": "ledger:operations/register physical copy"
+  },
+  {
+   "owner": "book_library_mgmt::WF_REGISTER_PHYSICAL_COPY_V0",
+   "step": "CC_CONFIRM_STAFF_AUTHORIZED_V0",
+   "direction": "INPUT",
+   "field": "staff_credentials",
+   "bound_to": "payload.staff_credentials",
+   "_from": "ledger:actor"
+  },
+  {
+   "owner": "book_library_mgmt::WF_REGISTER_PHYSICAL_COPY_V0",
+   "step": "CC_RESOLVE_BOOK_IDENTITY_V0",
+   "direction": "INPUT",
+   "field": "identity_key",
+   "bound_to": "payload.identity_key",
+   "_from": "ledger:operations/register physical copy/precondition"
+  },
+  {
+   "owner": "book_library_mgmt::WF_REGISTER_PHYSICAL_COPY_V0",
+   "step": "CC_CLAIM_COPY_BARCODE_V0",
+   "direction": "INPUT",
+   "field": "barcode",
+   "bound_to": "payload.barcode",
+   "_from": "ledger:things/physical copy/identity"
+  },
+  {
+   "owner": "book_library_mgmt::WF_REGISTER_PHYSICAL_COPY_V0",
+   "step": "CC_REGISTER_PHYSICAL_COPY_V0",
+   "direction": "INPUT",
+   "field": "identity_key",
+   "bound_to": "payload.identity_key",
+   "_from": "ledger:operations/register physical copy"
+  },
+  {
+   "owner": "book_library_mgmt::WF_REGISTER_PHYSICAL_COPY_V0",
+   "step": "CC_REGISTER_PHYSICAL_COPY_V0",
+   "direction": "INPUT",
+   "field": "barcode",
+   "bound_to": "payload.barcode",
+   "_from": "ledger:operations/register physical copy"
+  },
+  {
+   "owner": "book_library_mgmt::WF_REGISTER_PHYSICAL_COPY_V0",
+   "step": "CC_APPEND_CATALOG_OPERATION_V0",
+   "direction": "INPUT",
+   "field": "staff_id",
+   "bound_to": "payload.staff_id",
+   "_from": "ledger:trail"
+  },
+  {
+   "owner": "book_library_mgmt::WF_REGISTER_PHYSICAL_COPY_V0",
+   "step": "CC_APPEND_CATALOG_OPERATION_V0",
+   "direction": "INPUT",
+   "field": "operation",
+   "bound_to": {
+    "literal": "REGISTER_PHYSICAL_COPY"
+   },
+   "_from": "ledger:trail"
+  },
+  {
+   "owner": "book_library_mgmt::WF_REGISTER_PHYSICAL_COPY_V0",
+   "step": "CC_APPEND_CATALOG_OPERATION_V0",
+   "direction": "INPUT",
+   "field": "record",
+   "bound_to": {
+    "literal": {
+     "operation": "REGISTER_PHYSICAL_COPY",
+     "staff_id": "$.payload.staff_id",
+     "subject": "$.payload.barcode"
+    }
+   },
+   "_from": "ledger:trail"
+  },
+  {
+   "owner": "book_library_mgmt::CC_RETIRE_PHYSICAL_COPY_V0",
+   "step": "set_record_state",
+   "direction": "INPUT",
+   "field": "filter",
+   "bound_to": {
+    "literal": {
+     "barcode": "$.inputs.barcode",
+     "state": "REGISTERED"
+    }
+   },
+   "_from": "ledger:operations/retire physical copy"
+  },
+  {
+   "owner": "book_library_mgmt::CC_RETIRE_PHYSICAL_COPY_V0",
+   "step": "set_record_state",
+   "direction": "INPUT",
+   "field": "updates",
+   "bound_to": {
+    "literal": {
+     "state": "RETIRED"
+    }
+   },
+   "_from": "ledger:operations/retire physical copy"
+  },
+  {
+   "owner": "book_library_mgmt::CC_RETIRE_PHYSICAL_COPY_V0",
+   "step": "set_record_state",
+   "direction": "OUTPUT",
+   "field": "matched_keys",
+   "bound_to": "capability_result.matched_keys",
+   "_from": "ledger:operations/retire physical copy"
+  },
+  {
+   "owner": "book_library_mgmt::CC_RETIRE_PHYSICAL_COPY_V0",
+   "step": "set_record_state",
+   "direction": "OUTPUT",
+   "field": "updated_count",
+   "bound_to": "capability_result.updated_count",
+   "_from": "ledger:operations/retire physical copy"
+  },
+  {
+   "owner": "book_library_mgmt::CC_RETIRE_PHYSICAL_COPY_V0",
+   "step": "set_record_state",
+   "direction": "OUTPUT",
+   "field": "result_status",
+   "bound_to": "result_status",
+   "_from": "ledger:operations/retire physical copy"
+  },
+  {
+   "owner": "book_library_mgmt::WF_RETIRE_PHYSICAL_COPY_V0",
+   "step": "CC_CONFIRM_STAFF_AUTHORIZED_V0",
+   "direction": "INPUT",
+   "field": "staff_credentials",
+   "bound_to": "payload.staff_credentials",
+   "_from": "ledger:actor"
+  },
+  {
+   "owner": "book_library_mgmt::WF_RETIRE_PHYSICAL_COPY_V0",
+   "step": "CC_RETIRE_PHYSICAL_COPY_V0",
+   "direction": "INPUT",
+   "field": "barcode",
+   "bound_to": "payload.barcode",
+   "_from": "ledger:operations/retire physical copy"
+  },
+  {
+   "owner": "book_library_mgmt::WF_RETIRE_PHYSICAL_COPY_V0",
+   "step": "CC_APPEND_CATALOG_OPERATION_V0",
+   "direction": "INPUT",
+   "field": "staff_id",
+   "bound_to": "payload.staff_id",
+   "_from": "ledger:trail"
+  },
+  {
+   "owner": "book_library_mgmt::WF_RETIRE_PHYSICAL_COPY_V0",
+   "step": "CC_APPEND_CATALOG_OPERATION_V0",
+   "direction": "INPUT",
+   "field": "operation",
+   "bound_to": {
+    "literal": "RETIRE_PHYSICAL_COPY"
+   },
+   "_from": "ledger:trail"
+  },
+  {
+   "owner": "book_library_mgmt::WF_RETIRE_PHYSICAL_COPY_V0",
+   "step": "CC_APPEND_CATALOG_OPERATION_V0",
+   "direction": "INPUT",
+   "field": "record",
+   "bound_to": {
+    "literal": {
+     "operation": "RETIRE_PHYSICAL_COPY",
+     "staff_id": "$.payload.staff_id",
+     "subject": "$.payload.barcode"
+    }
+   },
+   "_from": "ledger:trail"
+  },
+  {
+   "owner": "book_library_mgmt::CC_REINSTATE_PHYSICAL_COPY_V0",
+   "step": "set_record_state",
+   "direction": "INPUT",
+   "field": "filter",
+   "bound_to": {
+    "literal": {
+     "barcode": "$.inputs.barcode",
+     "state": "RETIRED"
+    }
+   },
+   "_from": "ledger:operations/reinstate physical copy"
+  },
+  {
+   "owner": "book_library_mgmt::CC_REINSTATE_PHYSICAL_COPY_V0",
+   "step": "set_record_state",
+   "direction": "INPUT",
+   "field": "updates",
+   "bound_to": {
+    "literal": {
+     "state": "REGISTERED"
+    }
+   },
+   "_from": "ledger:operations/reinstate physical copy"
+  },
+  {
+   "owner": "book_library_mgmt::CC_REINSTATE_PHYSICAL_COPY_V0",
+   "step": "set_record_state",
+   "direction": "OUTPUT",
+   "field": "matched_keys",
+   "bound_to": "capability_result.matched_keys",
+   "_from": "ledger:operations/reinstate physical copy"
+  },
+  {
+   "owner": "book_library_mgmt::CC_REINSTATE_PHYSICAL_COPY_V0",
+   "step": "set_record_state",
+   "direction": "OUTPUT",
+   "field": "updated_count",
+   "bound_to": "capability_result.updated_count",
+   "_from": "ledger:operations/reinstate physical copy"
+  },
+  {
+   "owner": "book_library_mgmt::CC_REINSTATE_PHYSICAL_COPY_V0",
+   "step": "set_record_state",
+   "direction": "OUTPUT",
+   "field": "result_status",
+   "bound_to": "result_status",
+   "_from": "ledger:operations/reinstate physical copy"
+  },
+  {
+   "owner": "book_library_mgmt::WF_REINSTATE_PHYSICAL_COPY_V0",
+   "step": "CC_CONFIRM_STAFF_AUTHORIZED_V0",
+   "direction": "INPUT",
+   "field": "staff_credentials",
+   "bound_to": "payload.staff_credentials",
+   "_from": "ledger:actor"
+  },
+  {
+   "owner": "book_library_mgmt::WF_REINSTATE_PHYSICAL_COPY_V0",
+   "step": "CC_REINSTATE_PHYSICAL_COPY_V0",
+   "direction": "INPUT",
+   "field": "barcode",
+   "bound_to": "payload.barcode",
+   "_from": "ledger:operations/reinstate physical copy"
+  },
+  {
+   "owner": "book_library_mgmt::WF_REINSTATE_PHYSICAL_COPY_V0",
+   "step": "CC_APPEND_CATALOG_OPERATION_V0",
+   "direction": "INPUT",
+   "field": "staff_id",
+   "bound_to": "payload.staff_id",
+   "_from": "ledger:trail"
+  },
+  {
+   "owner": "book_library_mgmt::WF_REINSTATE_PHYSICAL_COPY_V0",
+   "step": "CC_APPEND_CATALOG_OPERATION_V0",
+   "direction": "INPUT",
+   "field": "operation",
+   "bound_to": {
+    "literal": "REINSTATE_PHYSICAL_COPY"
+   },
+   "_from": "ledger:trail"
+  },
+  {
+   "owner": "book_library_mgmt::WF_REINSTATE_PHYSICAL_COPY_V0",
+   "step": "CC_APPEND_CATALOG_OPERATION_V0",
+   "direction": "INPUT",
+   "field": "record",
+   "bound_to": {
+    "literal": {
+     "operation": "REINSTATE_PHYSICAL_COPY",
+     "staff_id": "$.payload.staff_id",
+     "subject": "$.payload.barcode"
+    }
+   },
+   "_from": "ledger:trail"
+  }
+ ],
+ "interface_fields": [
+  {
+   "artifact": "book_library_mgmt::CC_CLAIM_COPY_BARCODE_V0",
+   "direction": "INPUT",
+   "field": "barcode",
+   "type": "string",
+   "required": "YES",
+   "default": null,
+   "meaning": "barcode",
+   "_from": "ledger:things/physical copy/identity"
+  },
+  {
+   "artifact": "book_library_mgmt::CC_CLAIM_COPY_BARCODE_V0",
+   "direction": "OUTPUT",
+   "field": "address",
+   "type": "string",
+   "required": "YES",
+   "default": null,
+   "meaning": "address",
+   "_from": "doctrine:interface"
+  },
+  {
+   "artifact": "book_library_mgmt::CC_REGISTER_PHYSICAL_COPY_V0",
+   "direction": "INPUT",
+   "field": "identity_key",
+   "type": "string",
+   "required": "YES",
+   "default": null,
+   "meaning": "identity key",
+   "_from": "ledger:operations/register physical copy"
+  },
+  {
+   "artifact": "book_library_mgmt::CC_REGISTER_PHYSICAL_COPY_V0",
+   "direction": "INPUT",
+   "field": "barcode",
+   "type": "string",
+   "required": "YES",
+   "default": null,
+   "meaning": "barcode",
+   "_from": "ledger:operations/register physical copy"
+  },
+  {
+   "artifact": "book_library_mgmt::CC_REGISTER_PHYSICAL_COPY_V0",
+   "direction": "OUTPUT",
+   "field": "book_record",
+   "type": "object",
+   "required": "YES",
+   "default": null,
+   "meaning": "book record",
+   "_from": "doctrine:interface"
+  },
+  {
+   "artifact": "book_library_mgmt::IN_REGISTER_PHYSICAL_COPY_V0",
+   "direction": "INPUT",
+   "field": "staff_credentials",
+   "type": "object",
+   "required": "YES",
+   "default": null,
+   "meaning": "staff credentials",
+   "_from": "ledger:actor"
+  },
+  {
+   "artifact": "book_library_mgmt::IN_REGISTER_PHYSICAL_COPY_V0",
+   "direction": "INPUT",
+   "field": "identity_key",
+   "type": "string",
+   "required": "YES",
+   "default": null,
+   "meaning": "identity key",
+   "_from": "ledger:operations/register physical copy"
+  },
+  {
+   "artifact": "book_library_mgmt::IN_REGISTER_PHYSICAL_COPY_V0",
+   "direction": "INPUT",
+   "field": "barcode",
+   "type": "string",
+   "required": "YES",
+   "default": null,
+   "meaning": "barcode",
+   "_from": "ledger:operations/register physical copy"
+  },
+  {
+   "artifact": "book_library_mgmt::IN_REGISTER_PHYSICAL_COPY_V0",
+   "direction": "INPUT",
+   "field": "staff_id",
+   "type": "string",
+   "required": "YES",
+   "default": null,
+   "meaning": "staff id",
+   "_from": "ledger:actor"
+  },
+  {
+   "artifact": "book_library_mgmt::EV_PHYSICAL_COPY_REGISTERED_V0",
+   "direction": "OUTPUT",
+   "field": "identity_key",
+   "type": "string",
+   "required": "YES",
+   "default": null,
+   "meaning": "identity key",
+   "_from": "doctrine:interface"
+  },
+  {
+   "artifact": "book_library_mgmt::EV_PHYSICAL_COPY_REGISTERED_V0",
+   "direction": "OUTPUT",
+   "field": "barcode",
+   "type": "string",
+   "required": "YES",
+   "default": null,
+   "meaning": "barcode",
+   "_from": "doctrine:interface"
+  },
+  {
+   "artifact": "book_library_mgmt::EV_PHYSICAL_COPY_REGISTERED_V0",
+   "direction": "OUTPUT",
+   "field": "staff_id",
+   "type": "string",
+   "required": "YES",
+   "default": null,
+   "meaning": "staff id",
+   "_from": "doctrine:interface"
+  },
+  {
+   "artifact": "book_library_mgmt::EV_PHYSICAL_COPY_REGISTERED_V0",
+   "direction": "OUTPUT",
+   "field": "timestamp",
+   "type": "string",
+   "required": "YES",
+   "default": null,
+   "meaning": "When the moment occurred",
+   "format": "date-time",
+   "_from": "doctrine:interface"
+  },
+  {
+   "artifact": "book_library_mgmt::CC_RETIRE_PHYSICAL_COPY_V0",
+   "direction": "INPUT",
+   "field": "barcode",
+   "type": "string",
+   "required": "YES",
+   "default": null,
+   "meaning": "barcode",
+   "_from": "ledger:operations/retire physical copy"
+  },
+  {
+   "artifact": "book_library_mgmt::CC_RETIRE_PHYSICAL_COPY_V0",
+   "direction": "OUTPUT",
+   "field": "updated_count",
+   "type": "integer",
+   "required": "YES",
+   "default": null,
+   "meaning": "updated count",
+   "_from": "doctrine:interface"
+  },
+  {
+   "artifact": "book_library_mgmt::IN_RETIRE_PHYSICAL_COPY_V0",
+   "direction": "INPUT",
+   "field": "staff_credentials",
+   "type": "object",
+   "required": "YES",
+   "default": null,
+   "meaning": "staff credentials",
+   "_from": "ledger:actor"
+  },
+  {
+   "artifact": "book_library_mgmt::IN_RETIRE_PHYSICAL_COPY_V0",
+   "direction": "INPUT",
+   "field": "barcode",
+   "type": "string",
+   "required": "YES",
+   "default": null,
+   "meaning": "barcode",
+   "_from": "ledger:operations/retire physical copy"
+  },
+  {
+   "artifact": "book_library_mgmt::IN_RETIRE_PHYSICAL_COPY_V0",
+   "direction": "INPUT",
+   "field": "staff_id",
+   "type": "string",
+   "required": "YES",
+   "default": null,
+   "meaning": "staff id",
+   "_from": "ledger:actor"
+  },
+  {
+   "artifact": "book_library_mgmt::EV_PHYSICAL_COPY_RETIRED_V0",
+   "direction": "OUTPUT",
+   "field": "barcode",
+   "type": "string",
+   "required": "YES",
+   "default": null,
+   "meaning": "barcode",
+   "_from": "doctrine:interface"
+  },
+  {
+   "artifact": "book_library_mgmt::EV_PHYSICAL_COPY_RETIRED_V0",
+   "direction": "OUTPUT",
+   "field": "staff_id",
+   "type": "string",
+   "required": "YES",
+   "default": null,
+   "meaning": "staff id",
+   "_from": "doctrine:interface"
+  },
+  {
+   "artifact": "book_library_mgmt::EV_PHYSICAL_COPY_RETIRED_V0",
+   "direction": "OUTPUT",
+   "field": "timestamp",
+   "type": "string",
+   "required": "YES",
+   "default": null,
+   "meaning": "When the moment occurred",
+   "format": "date-time",
+   "_from": "doctrine:interface"
+  },
+  {
+   "artifact": "book_library_mgmt::CC_REINSTATE_PHYSICAL_COPY_V0",
+   "direction": "INPUT",
+   "field": "barcode",
+   "type": "string",
+   "required": "YES",
+   "default": null,
+   "meaning": "barcode",
+   "_from": "ledger:operations/reinstate physical copy"
+  },
+  {
+   "artifact": "book_library_mgmt::CC_REINSTATE_PHYSICAL_COPY_V0",
+   "direction": "OUTPUT",
+   "field": "updated_count",
+   "type": "integer",
+   "required": "YES",
+   "default": null,
+   "meaning": "updated count",
+   "_from": "doctrine:interface"
+  },
+  {
+   "artifact": "book_library_mgmt::IN_REINSTATE_PHYSICAL_COPY_V0",
+   "direction": "INPUT",
+   "field": "staff_credentials",
+   "type": "object",
+   "required": "YES",
+   "default": null,
+   "meaning": "staff credentials",
+   "_from": "ledger:actor"
+  },
+  {
+   "artifact": "book_library_mgmt::IN_REINSTATE_PHYSICAL_COPY_V0",
+   "direction": "INPUT",
+   "field": "barcode",
+   "type": "string",
+   "required": "YES",
+   "default": null,
+   "meaning": "barcode",
+   "_from": "ledger:operations/reinstate physical copy"
+  },
+  {
+   "artifact": "book_library_mgmt::IN_REINSTATE_PHYSICAL_COPY_V0",
+   "direction": "INPUT",
+   "field": "staff_id",
+   "type": "string",
+   "required": "YES",
+   "default": null,
+   "meaning": "staff id",
+   "_from": "ledger:actor"
+  },
+  {
+   "artifact": "book_library_mgmt::EV_PHYSICAL_COPY_REINSTATED_V0",
+   "direction": "OUTPUT",
+   "field": "barcode",
+   "type": "string",
+   "required": "YES",
+   "default": null,
+   "meaning": "barcode",
+   "_from": "doctrine:interface"
+  },
+  {
+   "artifact": "book_library_mgmt::EV_PHYSICAL_COPY_REINSTATED_V0",
+   "direction": "OUTPUT",
+   "field": "staff_id",
+   "type": "string",
+   "required": "YES",
+   "default": null,
+   "meaning": "staff id",
+   "_from": "doctrine:interface"
+  },
+  {
+   "artifact": "book_library_mgmt::EV_PHYSICAL_COPY_REINSTATED_V0",
+   "direction": "OUTPUT",
+   "field": "timestamp",
+   "type": "string",
+   "required": "YES",
+   "default": null,
+   "meaning": "When the moment occurred",
+   "format": "date-time",
+   "_from": "doctrine:interface"
+  }
+ ],
+ "artifact_properties": [
+  {
+   "artifact": "book_library_mgmt::WF_REGISTER_PHYSICAL_COPY_V0",
+   "property": "actor_context",
+   "value": "book_library_mgmt::AC_LIBRARY_STAFF_V0",
+   "_from": "ledger:actor"
+  },
+  {
+   "artifact": "book_library_mgmt::WF_REGISTER_PHYSICAL_COPY_V0",
+   "property": "emit.EXIT_COMPLETED",
+   "value": [
+    "book_library_mgmt::EV_PHYSICAL_COPY_REGISTERED_V0"
+   ],
+   "_from": "ledger:announces"
+  },
+  {
+   "artifact": "book_library_mgmt::WF_RETIRE_PHYSICAL_COPY_V0",
+   "property": "actor_context",
+   "value": "book_library_mgmt::AC_LIBRARY_STAFF_V0",
+   "_from": "ledger:actor"
+  },
+  {
+   "artifact": "book_library_mgmt::WF_RETIRE_PHYSICAL_COPY_V0",
+   "property": "emit.EXIT_COMPLETED",
+   "value": [
+    "book_library_mgmt::EV_PHYSICAL_COPY_RETIRED_V0"
+   ],
+   "_from": "ledger:announces"
+  },
+  {
+   "artifact": "book_library_mgmt::WF_REINSTATE_PHYSICAL_COPY_V0",
+   "property": "actor_context",
+   "value": "book_library_mgmt::AC_LIBRARY_STAFF_V0",
+   "_from": "ledger:actor"
+  },
+  {
+   "artifact": "book_library_mgmt::WF_REINSTATE_PHYSICAL_COPY_V0",
+   "property": "emit.EXIT_COMPLETED",
+   "value": [
+    "book_library_mgmt::EV_PHYSICAL_COPY_REINSTATED_V0"
+   ],
+   "_from": "ledger:announces"
+  }
+ ],
+ "structure_stores": [
+  {
+   "store_name": "PHYSICAL_COPIES",
+   "storage_type": "CS_MUTABLE_JSON_V0",
+   "proposed_path": "book_library_mgmt/catalog/physical_copies.json",
+   "used_by": "book_library_mgmt::CC_REGISTER_PHYSICAL_COPY_V0, book_library_mgmt::CC_REINSTATE_PHYSICAL_COPY_V0, book_library_mgmt::CC_RETIRE_PHYSICAL_COPY_V0",
+   "structure": "book_library_mgmt::STRUCTURE_CATALOG_STORAGE_V0",
+   "_from": "ledger:things/physical copy/states + doctrine:storage"
+  },
+  {
+   "store_name": "COPY_BARCODE_REGISTRY",
+   "storage_type": "CS_REGISTRY_V0",
+   "proposed_path": "book_library_mgmt/catalog/copy_barcode_registry.jsonl",
+   "used_by": "book_library_mgmt::CC_CLAIM_COPY_BARCODE_V0",
+   "structure": "book_library_mgmt::STRUCTURE_CATALOG_STORAGE_V0",
+   "_from": "ledger:things/physical copy/identity + doctrine:storage"
+  }
+ ]
+}

@@ -1,0 +1,83 @@
+# The domain owner's answers to the open questions in LEDGER_BRIEF_RUN_LIBRARY_CATALOG.yaml.
+# Together with that file, these complete the ledger for step 4.
+# `baseline` records whether the answer matches the current P7.
+
+answers:
+  - ask: required
+    about: work
+    answer: {fields: {title: {type: text, required: true}, author: {type: text, required: true}}}
+    decided_by: domain owner
+    baseline: same
+
+  - ask: identity
+    about: work
+    answer: {same_when: [title, author], normalized: true, on_duplicate: reuse}
+    decided_by: domain owner
+    baseline: same
+
+  - ask: identity
+    about: edition
+    answer: {same_as: book, same_when: [title, author, publication_year], normalized: true, on_duplicate: refuse}
+    decided_by: domain owner
+    baseline: same
+
+  - ask: invariant_on_change
+    about: update_book, moving a book to another work
+    answer: {may_not_change: [work]}
+    decided_by: domain owner
+    baseline: same
+
+  - ask: query_excludes
+    about: search override
+    answer: {always_excluded: [retired books], caller_may_override: false}
+    decided_by: domain owner
+    baseline: differs   # the caller supplies the filter today (parked search gap)
+
+  - ask: nothing_found
+    about: searches
+    answer: {result: empty}
+    decided_by: domain owner
+    baseline: differs   # an empty search is refused today
+
+  - ask: nothing_found
+    about: retrieve_book_details for an unknown book
+    answer: {result: refused, reason: no such book}
+    decided_by: domain owner
+    baseline: same
+
+  - ask: trail
+    about: trail detail
+    answer: {records: [operation, staff member, identity key or barcode], consistent_for_every_operation: true}
+    decided_by: domain owner
+    baseline: differs   # register_book records the title today
+
+  - ask: announces
+    about: all operations
+    answer:
+      register_book_with_first_copy: [work registered (when new), book registered]
+      register_further_edition: [book registered]
+      register_copy: [copy registered]
+      update_book: [bibliographic information updated]
+      retire_book: [book retired]
+      retire_copy: [copy retired]
+      reinstate_book: [book reinstated]
+      reinstate_copy: [copy reinstated]
+    decided_by: domain owner
+    baseline: differs   # reinstatement announces nothing today
+
+amendments:
+  - entry: required / book
+    change: drop `description`; the brief's "description" means the subject list
+    decided_by: domain owner
+    baseline: same
+
+  - entry: invariant_on_change / update_book
+    change: may change title, author and publication year; refused only when the result duplicates another registered book
+    seed: "cr_01 P0 §3: An update to bibliographic information may change the title, author or publication year. The update is refused when the changed title, author and publication year would match another registered book."
+    decided_by: domain owner
+    baseline: differs   # P7 refuses any identity change; P0 to P5 never said so. Supersedes the owner's first answer.
+
+  - entry: on_identity_change / update_book
+    change: "the edition moves to the work its new title and author name (created if new); the old identity is freed for reuse; its copies follow; the trail and past events keep the old identity"
+    decided_by: domain owner
+    baseline: differs   # replaces the earlier answer that a correction never moves an edition to another work
