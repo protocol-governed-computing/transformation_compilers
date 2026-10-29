@@ -66,6 +66,12 @@ for f in "$S"/dossier/p[78]_*.md; do
   b="$(basename "$f")"; cp "$f" "$CR/${b/_baseline.md/_$CR_NAME.md}"
 done
 
+echo "== callers outside the domain"
+# A caller of what the change retires has no successor to follow, and another domain's declaration is
+# that domain's change: either refuses the delivery here, before anything is written.
+python "$REPO/scripts/repoint_callers.py" check "$W" "$NAME" "$S/generated.json" \
+  || { echo "  not delivered: a caller outside the domain cannot follow this change"; exit 1; }
+
 echo "== phase documents"
 tc phase derive project "$LEDGER" "$BASELINE" --design "$S/generated.json" --snapshot snapshot \
   --cr "$CR_NAME" --out "$CR" >/dev/null
@@ -154,6 +160,8 @@ print(f"  callers repointed to successors: {len(touched)} file(s)")
 for p in named:
     print(f"  STILL NAMES A RETIRED IDENTITY: {p}")
 PY
+
+python "$REPO/scripts/repoint_callers.py" apply "$W" "$NAME" "$S/generated.json"
 
 echo "== compile, assemble, design of record"
 rm -rf "$DOMAIN/snapshot/compiled"   # what the domain compiled before, including what it no longer has

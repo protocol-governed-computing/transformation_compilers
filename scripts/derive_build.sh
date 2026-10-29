@@ -28,6 +28,9 @@ tc phase derive splice "$DOMAIN/design" "$S/generated.json" "$S/identity" >/dev/
 tc phase derive identities "$S/identity" "$S/generated.json" --snapshot snapshot --root "$DOMAIN" \
   --release pgc_release/snapshot --retired .github/process/retired_identities.yaml
 tc phase derive splice "$DOMAIN/design" "$S/generated.json" "$S/dossier"
+# A caller outside the domain that delivery could not repoint refuses the delivery; say so here first.
+python "$REPO/scripts/repoint_callers.py" check "$W" "$NAME" "$S/generated.json" \
+  || echo "  delivery would refuse: a caller outside the domain cannot follow this design"
 
 # The phase documents between the ledger and the design, each judged by the rule set that governs
 # an authored one, against the documents it cites. P2 to P4 restate what the derivation observed,

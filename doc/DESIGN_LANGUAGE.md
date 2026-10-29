@@ -564,6 +564,13 @@ client to successors, compiles, assembles and regenerates the design of record.
   (`criteria_after.txt`). `scripts/criteria_run.py` dispatches each act the suite names to the
   version of it the composition holds. `scripts/criteria_before.sh` runs a delivered domain's
   criteria against the domain at an earlier revision.
+- **Callers outside the domain follow the change.** Platform tests, test corpora and the workspace
+  process name a domain's artifacts too. Delivery repoints every caller of a superseded or replaced
+  artifact to its successor (`scripts/repoint_callers.py`).
+  - It refuses, before writing anything, when a caller names an artifact the change retires with no
+    successor, or another domain's declaration names a changed one.
+  - History is never rewritten: documents, dossiers, designs of record and the retirement ledger.
+  - A short name is followed only in a file that names the domain.
 - **One decision, one change.** A ledger that adopts the derived design keeps the behavior the
   design of record has, where the ledger can state it. Each later owner decision is its own change,
   a delta to the previous change's ledger.
