@@ -28,6 +28,26 @@ tc phase derive identities "$S/identity" "$S/generated.json" --snapshot snapshot
   --release pgc_release/snapshot --retired .github/process/retired_identities.yaml
 tc phase derive splice "$DOMAIN/design" "$S/generated.json" "$S/dossier"
 
+# The phase documents between the ledger and the design, each judged by the rule set that governs
+# an authored one, against the documents it cites. P2 to P4 restate what the derivation observed,
+# so they are projected once identities are decided.
+echo "== phase documents"
+rm -rf "$S/phases"
+tc phase derive project "$HERE/ledger.yaml" "$BASELINE" --design "$S/generated.json" --snapshot snapshot \
+  --out "$S/phases" >/dev/null
+doc() { ls "$S"/phases/"$1"_*.md; }
+admitted=0
+for spec in "p0" "p1 --prior p0=$(doc p0)" "p2 --prior p1=$(doc p1)" "p3 --prior p2=$(doc p2)" \
+            "p4 --prior p3=$(doc p3)" "p5 --prior p0=$(doc p0)" "p6 --prior p5=$(doc p5) --prior p0=$(doc p0)"; do
+  set -- $spec; phase=$1; shift
+  if tc phase check "$(doc "$phase")" --phase "$phase" --snapshot snapshot "$@" >"$S/phases/$phase.verdict"; then
+    admitted=$((admitted + 1))
+  else
+    sed -n '1,6p' "$S/phases/$phase.verdict"
+  fi
+done
+echo "  phase documents: $admitted/7 admissible (p0 to p6)"
+
 echo "== construction check"
 tc construction check "$S/dossier" --snapshot snapshot --root "$DOMAIN" | grep -v '^  OK'
 

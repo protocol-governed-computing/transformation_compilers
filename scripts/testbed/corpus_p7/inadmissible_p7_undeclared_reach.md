@@ -814,7 +814,7 @@ registers:
       VIOLATION: EXIT_REJECTED
     source_finding: {phase: p7, register: new_artifacts, key: CC_CONFIRM_STAFF_AUTHORIZED_V0}
   - workflow: book_library_mgmt::WF_SEARCH_CATALOG_V0
-    node: ai_governance::CC_APPEND_AUDIT_EVENT_V0
+    node: ai_governance::CC_MOVE_LICENSE_FROM_ACTIVE_V0
     node_type: CC
     routing:
       SUCCESS: book_library_mgmt::CC_SEARCH_CATALOG_V0
@@ -3504,7 +3504,7 @@ registers:
   declared_reach:
   - act: book_library_mgmt::WF_SEARCH_CATALOG_V0
     consults:
-    - ai_governance::RB_AGENT_GOVERNANCE_BINDINGS_V0
+    - ai_governance::RB_AGENT_GOVERNANCE_BINDINGS_V1
     source_finding: {phase: p6, register: storage_governance, key: A durable record of every book the library catalogs}
   refusal_discharge:
   - operation: Register a book

@@ -256,6 +256,8 @@ class Domain:
         streams = [r["bound_to"] for r in binds if r["field"] == "stream_id" and r["owner"].split("::")[-1].startswith("WF_")
                    and any(c["node"] == short(cc) for c in self.base["execution_topology"]
                            if c["workflow"] == r["owner"])]
+        # A derived design binds the stream inside its recorder, from the recorder's own input.
+        streams += [r["bound_to"] for r in binds if r["owner"] == cc and r["field"] == "stream_id"]
         if streams and not any(isinstance(b, dict) for b in streams):
             spec["stream"] = "subject"
         return spec
@@ -504,13 +506,52 @@ class Domain:
 DOCTRINE = seal.load("doctrine")["rules"]
 
 
-def check_doctrine(reg):
-    """Refuse a row citing a doctrine rule doctrine.yaml does not state."""
-    cited = {m for rows in reg.values() if isinstance(rows, list) for r in rows if isinstance(r, dict)
-             for m in re.findall(r"doctrine:(\w+)", str(r.get("_from", "")))}
-    unknown = sorted(cited - set(DOCTRINE))
-    if unknown:
-        raise ValueError(f"cited doctrine not stated in the doctrine: {unknown}")
+CARRIED = {"surface", "realization"}
+LEDGER_SECTIONS = {"actor", "things", "operations", "trail", "announces", "events", "tables",
+                   "reads_other_part", "public_acts"}
+
+
+class Untraced(ValueError):
+    """A derived row names no source, or a source that holds nothing it could come from."""
+
+
+def check_provenance(reg, ledger):
+    """Refuse a derived row that does not trace to what it comes from.
+
+    Every row carries `_from`: one or more sources joined by `+`. A source is a ledger answer
+    (`ledger:<section>/<name>/…`, whose thing or operation the ledger holds), a doctrine rule
+    (`doctrine:<rule>`, which the sealed doctrine states) or the carried surface
+    (`carried:surface` or `carried:realization`).
+    """
+    parts = parts_of(ledger)
+    named = {"things": {n for p in parts.values() for n in p.get("things", {})},
+             "operations": {n for p in parts.values() for n in p.get("operations", {}) if n != "from"}}
+    problems = []
+    for register, rows in reg.items():
+        if not isinstance(rows, list):
+            continue
+        for i, row in enumerate(rows):
+            if not isinstance(row, dict):
+                continue
+            src = row.get("_from")
+            if not src:
+                problems.append(f"{register}[{i}] names no source")
+                continue
+            for part in (p.strip() for p in str(src).split("+")):
+                kind, _, rest = part.partition(":")
+                path = rest.split("/")
+                if kind == "doctrine" and rest in DOCTRINE:
+                    continue
+                if kind == "carried" and rest in CARRIED:
+                    continue
+                if kind == "ledger" and path[0] in LEDGER_SECTIONS:
+                    if path[0] in named and len(path) > 1 and path[1] not in named[path[0]]:
+                        problems.append(f"{register}[{i}] cites {part}, which the ledger does not hold")
+                    continue
+                problems.append(f"{register}[{i}] cites {part!r}, which is no ledger answer, doctrine rule "
+                                f"or carried surface")
+    if problems:
+        raise Untraced("derived rows that do not trace:\n  " + "\n  ".join(problems[:20]))
     return reg
 
 

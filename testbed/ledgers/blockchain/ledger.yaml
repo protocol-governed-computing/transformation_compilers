@@ -9,6 +9,20 @@
 
 domain: blockchain
 
+purpose:
+  says: "The blockchain domain governs identity and wallets. Identity says who an actor is and whether the business trusts them. Wallet says where a person the business has accepted holds value."
+  from: "blockchain brief (git 3859bec, LEDGER_BRIEF_BLOCKCHAIN.md) introduction"
+out_of_scope:
+  - item: "Authenticating callers"
+    reason: "No caller needs an account or a login."
+    from: "blockchain brief (git 3859bec, LEDGER_BRIEF_BLOCKCHAIN.md) / The public entrance"
+  - item: "Wallets of any classification but default"
+    reason: "The business names four classifications, and only default wallets are created."
+    from: "blockchain brief (git 3859bec, LEDGER_BRIEF_BLOCKCHAIN.md) / Wallets"
+  - item: "Moving value between wallets"
+    reason: "A wallet holds a balance; no act the business asks for moves it."
+    from: "blockchain brief (git 3859bec, LEDGER_BRIEF_BLOCKCHAIN.md) / Wallets"
+
 actor:
   name: participant
   kind: human
@@ -23,9 +37,15 @@ actor:
 
 parts:
   identity:
+    purpose:
+      says: "Identity says who an actor is and whether the business trusts them. A person registers and is admitted unverified, and an authority accepts or rejects them once."
+      from: "blockchain brief (git 3859bec, LEDGER_BRIEF_BLOCKCHAIN.md) introduction, Registering, Deciding"
     from: "brief-run parts / identity"
     things:
       actor:
+        why:
+          says: "The business must know who registered, by their contact address, and whether it trusts them, keeping what they registered with."
+          from: "blockchain brief (git 3859bec, LEDGER_BRIEF_BLOCKCHAIN.md) / Registering, Deciding"
         plural: actors
         required: {name: string, contact_address: string}
         defaults: {currency_preference: BACHI, language: en}
@@ -85,9 +105,15 @@ parts:
       from: "owner / announces; brief-run announces / register (repeat carries the submitted details)"
 
   wallet:
+    purpose:
+      says: "Wallet says where a person the business has accepted holds value. An accepted person is given exactly one wallet, formed from the public key they supply. Wallet reads identity's records and never writes them."
+      from: "blockchain brief (git 3859bec, LEDGER_BRIEF_BLOCKCHAIN.md) introduction, Wallets"
     from: "brief-run parts / wallet"
     things:
       wallet:
+        why:
+          says: "The business must know where a person it has accepted holds value, one wallet to each such person."
+          from: "blockchain brief (git 3859bec, LEDGER_BRIEF_BLOCKCHAIN.md) / Wallets"
         plural: wallets
         identity: {field: wallet_id, from: holder, prefix: wal, on_duplicate: refuse}
         held_by: {thing: actor, field: holder, requires_state: accepted}

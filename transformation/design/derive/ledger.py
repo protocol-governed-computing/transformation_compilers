@@ -135,7 +135,7 @@ def references(ledger):
                 if reason not in checked:
                     errs.append(f"{where}/on_refusal: gives a reason for '{reason}', which is not a check")
             for k in ("on_refusal", "on_repeat"):
-                if k in o:
+                if o.get(k, {}).get("announces"):
                     announced.add(o[k]["announces"])
         for event in named(p.get("events")):
             if event not in announced:
@@ -238,5 +238,8 @@ def selftest(book_path, ai_path):
             cases=[{"when": "lend book", "then": "refused", "because": "not offered"}])),
         "a case that gives no reason": bad(book, lambda x: x.update(
             cases=[{"when": "search catalog", "then": "returns nothing"}])),
+        "an answer that cites no authority": bad(book, lambda x: x["operations"]["register book"].pop("from")),
+        "a ledger that does not say what it is for": bad(book, lambda x: x.pop("purpose")),
+        "a thing kept for no stated reason": bad(book, lambda x: x["things"]["book"].pop("why")),
     }
     return [(name, refusals(ledger)) for name, ledger in cases.items()]

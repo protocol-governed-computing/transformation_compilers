@@ -61,7 +61,7 @@ def derive_derive(ledger: Path, baseline: Path, out: Path) -> None:
     """Derive a domain's P7 rows from its ledger, against its design of record."""
     try:
         reg = derive_design(ledger, baseline)
-    except (Refused, seal.Unsealed, ValueError) as exc:
+    except (Refused, seal.Unsealed, ValueError) as exc:  # Untraced is a ValueError
         raise click.ClickException(str(exc))
     out.write_text(json.dumps(reg, indent=1) + "\n", encoding="utf-8")
     judged = reg["_judged_by"]
@@ -101,6 +101,11 @@ def derive_identities(dossier: Path, generated: Path, snapshot_root: Path, domai
     decided = identity.decide(dossier, snapshot_root, domain_root, design, release, retired,
                               reg.get("_replaces"))
     reg = identity.renumber(reg, decided["superseded"])
+    # A successor names one predecessor: the version it supersedes now, not the one its predecessor did.
+    successors = set(decided["superseded"].values())
+    reg["artifact_properties"] = [r for r in reg.get("artifact_properties") or []
+                                  if not (r.get("property") == "supersedes" and r["artifact"] in successors
+                                          and r.get("_from") == "carried:surface")]
     reg["_identity"] = decided
     generated.write_text(json.dumps(reg, indent=1) + "\n", encoding="utf-8")
     click.echo(f"  kept {len(decided['kept'])}, superseded {len(decided['superseded'])}, "
@@ -149,3 +154,53 @@ def derive_revise(document: str, change: str) -> None:
     except seal.Unsealed as exc:
         raise click.ClickException(str(exc))
     click.echo(f"  {seal.load(document)['$id']} revision {r['revision']}  {r['digest']}")
+
+
+@derive.command("project")
+@click.argument("ledger", type=click.Path(exists=True, dir_okay=False, path_type=Path))
+@click.argument("baseline", type=click.Path(exists=True, dir_okay=False, path_type=Path))
+@click.option("--out", "out_dir", type=click.Path(file_okay=False, path_type=Path), required=True,
+              help="The directory the phase documents are written to.")
+@click.option("--design", "design_path", type=click.Path(exists=True, dir_okay=False, path_type=Path),
+              help="The derived design, with its identities decided (`tc phase derive identities`). "
+                   "With --snapshot, P2 to P4 are projected from what it observed.")
+@click.option("--snapshot", "snapshot_root", type=click.Path(exists=True, file_okay=False, path_type=Path),
+              help="The composition the identities were decided against.")
+@click.option("--cr", "cr_name", help="The change request the documents belong to, as `cr_NN_<subject>`. "
+                                       "Without it, they are named for the ledger.")
+def derive_project(ledger: Path, baseline: Path, out_dir: Path, design_path: Path | None,
+                   snapshot_root: Path | None, cr_name: str | None) -> None:
+    """Project the phase documents P0 to P6 from a ledger.
+
+    P0 restates the ledger, P1 is P0's own projection, P5 cites P0 and P6 cites P5. Given the derived
+    design and its snapshot, P2 to P4 restate what the derivation observed, each citing the phase
+    before it. Judge each with `tc phase check`, by the rule set that governs an authored one.
+    Exit 1 on a refused ledger.
+    """
+    from transformation.design.derive.project import project
+    from transformation.design.project import project_p1
+    from transformation.design.read import read_seed
+
+    data = yaml.safe_load(ledger.read_text(encoding="utf-8"))
+    errs = refusals(data)
+    if errs:
+        for e in errs:
+            click.echo(f"  {e}")
+        raise SystemExit(1)
+    if (design_path is None) != (snapshot_root is None):
+        raise click.ClickException("--design and --snapshot are given together")
+    derived = json.loads(design_path.read_text(encoding="utf-8")) if design_path else None
+    if derived is not None and "_identity" not in derived:
+        raise click.ClickException(f"{design_path} has no identities decided — run `tc phase derive identities` first")
+    docs = project(data, load_p7(baseline), derived, snapshot_root, cr_name)
+    out_dir.mkdir(parents=True, exist_ok=True)
+    stem = f"{data['domain']}_{cr_name or 'ledger'}"
+    names = {"p0": f"p0_seed_{stem}.md", "p1": f"p1_change_request_{stem}.md", "p2": f"p2_domain_model_{stem}.md",
+             "p3": f"p3_analysis_loop_{stem}.md", "p4": f"p4_business_model_{stem}.md",
+             "p5": f"p5_business_intent_{stem}.md", "p6": f"p6_governance_intent_{stem}.md"}
+    (out_dir / names["p0"]).write_text(docs["p0"], encoding="utf-8")
+    docs["p1"] = project_p1(read_seed(out_dir / names["p0"]))
+    for phase in sorted(docs):
+        (out_dir / names[phase]).write_text(docs[phase], encoding="utf-8")
+    for phase in sorted(docs):
+        click.echo(f"  projected {phase}  ->  {out_dir / names[phase]}")

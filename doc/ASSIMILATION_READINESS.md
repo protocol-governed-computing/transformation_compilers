@@ -28,12 +28,12 @@ prototype's findings, briefs, owner answers and analysis are in git history at `
 
 | # | Criterion | Today |
 |---|---|---|
-| 3.1 | Every derived row traces to a ledger answer, a doctrine rule, or the carried surface, and an untraced row is refused | every row carries `_from`; nothing refuses an untraced one |
-| 3.2 | Every ledger answer cites a seed or names the owner as its authority | book and blockchain cite seeds; ai_governance names the owner |
-| 3.3 | The lifecycle states where the ledger sits: P1–P3 stay dialog for discovery changes; P4–P7 are derived; Gate 1 approves the ledger | decided in `ANALYSIS_LEDGER_VS_PHASES.md` (git history); not in the standard |
-| 3.4 | Derived P1–P6 pass the phase rules, or the rules they replace are named | the derived design is judged by construction only |
-| 3.5 | The carried-surface rule is in the standard: names fixed by data and callers are carried, and changing one is a migration the ledger states | prototype rule. Store, binding (RB) and entrance (IN) names are carried; store matching is heuristic |
-| 3.6 | A doctrine or block change runs as its own dossier, and re-derives every domain's design of record | stated in `ARCHITECTURE_IMPACT.md` (git history); no dossier yet |
+| 3.1 | Every derived row traces to a ledger answer, a doctrine rule, or the carried surface, and an untraced row is refused | **holds**: `check_provenance` refuses a row with no `_from`, or one naming a ledger entry, doctrine rule or carried surface that does not exist; DESIGN_LANGUAGE §9.3 |
+| 3.2 | Every ledger answer cites a seed or names the owner as its authority | **holds**: the schema requires `from` on the actor, every thing, operation and trail, and every named map; the self-test refuses an answer without one. Whether a citation is true stays a human check at the gate |
+| 3.3 | The lifecycle states where the ledger sits: P1–P3 stay dialog for discovery changes; P4–P7 are derived; Gate 1 approves the ledger | **holds**: DESIGN_LANGUAGE §9.1. The P7 gate approves the ledger with the derived design and its trace |
+| 3.4 | Derived P1–P6 pass the phase rules, or the rules they replace are named | **holds**: DESIGN_LANGUAGE §9.6. P0 to P6 are projected from each ledger (P2–P4 from what the derivation observed), and `tc phase check` admits all seven for book, blockchain and ai_governance by the sealed rules, with no rule relaxed. A changed projection is refused, and projection is deterministic. `derive_build.sh` judges them on every build |
+| 3.5 | The carried-surface rule is in the standard: names fixed by data and callers are carried, and changing one is a migration the ledger states | **holds**: DESIGN_LANGUAGE §9.4. Stores, bindings, entrances, request shapes, trail keys and read outputs are carried; `replaces` is the one answer that changes a carried name; store matching is stated as it is (name, registry words, the one trail) |
+| 3.6 | A doctrine or block change runs as its own dossier, and re-derives every domain's design of record | **partial**: DESIGN_LANGUAGE §9.5; a sealed revision is enforced, and regression re-derives every ledger. Nothing refuses a route change made outside a dossier |
 
 ## 4. It is proven on every build
 
@@ -49,7 +49,7 @@ prototype's findings, briefs, owner answers and analysis are in git history at `
 | # | Criterion | Today |
 |---|---|---|
 | 5.1 | The platform gaps it found are resolved, or each is a declared refusal at admission | **resolved**: the count was never a platform gap (`CS_REGISTRY_V0` has declared COUNT since v1.0.0) — the composer lacked it, and now counts where the registry's entries are exactly the records counted; an empty answer resolved (`capability_transforms::CT_PURE_SELECT_RECORDS_V0`, used for any `nothing_found: empty`); retirement without a successor resolved (RETIRE) |
-| 5.2 | Behavior the owners decided reaches the domains as numbered change requests, not as a derived design swapped in | none delivered; book's update rule and blockchain's listing, repeat registration and shared address wait |
+| 5.2 | Behavior the owners decided reaches the domains as numbered change requests, not as a derived design swapped in | **holds**: DESIGN_LANGUAGE §9.7. book is delivered as cr_06 (the derived design, with three named corrections) and cr_07 to cr_09; blockchain as cr_08 (with one named correction: a unique wallet address) and cr_09 to cr_11, its client repointed; ai_governance as cr_04 alone, because every owner answer follows from one ruling the ledger cannot state otherwise: the business holds its own facts. Each domain's last ledger equals its test ledger, re-deriving keeps every artifact (57, 44 and 59), and each domain's owner-decisions suite holds (8/8, 9/9, 21/21) |
 | 5.3 | Defects found in today's designs are fixed or parked by name | parked in the handoff |
 
 ## The order to work in
@@ -59,4 +59,5 @@ prototype's findings, briefs, owner answers and analysis are in git history at `
    Close the catalog and the ledger shape (1.3, 1.4). Done.
 3. Then do the engineering in sections 2 and 4. Done. 2.5 needed a retirement without a successor,
    which the design language now states (RETIRE); 2.4 needed six lifecycle invariants, now authored.
-4. Write the standard text last (3.3–3.6). It describes a design proven to hold.
+4. Write the standard text last (3.3–3.6). Done: DESIGN_LANGUAGE §9. Open: 3.6's dossier,
+   which only process enforces.

@@ -20,9 +20,10 @@ import re
 import yaml
 
 from transformation.design.derive import seal
+from transformation.design.derive.identity import renumber
 from transformation.design.derive.ledger import refuse
 from transformation.design.derive.base import (APPENDONLY, CLOCK, CT, MUTABLE, REGISTRY, Component, Domain, Step,
-                             check_doctrine, head, load_p7, noun, short, up)
+                             check_provenance, head, load_p7, noun, short, up)
 
 RULES = CT + "CT_PURE_VALIDATE_PARAMETER_RULES_V0"
 MEMBER = CT + "CT_PURE_VALIDATE_SET_MEMBERSHIP_V0"
@@ -159,9 +160,10 @@ def record(store, fields, timed, stream, actor, src):
 class Composer(Domain):
     """Selects blocks from each operation's answers and groups them into components."""
 
-    def __init__(self, ledger, baseline):
+    def __init__(self, ledger, baseline, delivered=None):
         super().__init__(ledger, baseline)
         self.authorized = ledger["actor"].get("authorization") != "none"
+        self.delivered = delivered or {}
 
     # -- small helpers ---------------------------------------------------------------------------
 
@@ -271,6 +273,14 @@ class Composer(Domain):
         """Whether the request carries a field, where its callers already send it."""
         shape = self.request_shape(op_name, {})
         return f in shape or self.path(op_name, f) != "payload." + f or bool(self.nested(op_name, f))
+
+    def trail_values(self, op_name, chain, values, also=()):
+        """What an act's trail records: each field its request carries, then what the act derived. A new
+        act's request is what its chain binds from it, so a field counts as carried either way, and the
+        trail is the same before the act exists and after."""
+        sent = set(re.findall(r"\bpayload\.(\w+)", json.dumps([entry[1] for entry in chain])))
+        return {**{f: self.at(op_name, f) for f in self.l["trail"]["records"]
+                   if self.carries(op_name, f) or f in sent or f in also}, **values}
 
     def resolver(self, name, by_attributes=False):
         """resolve, and read the record: the precondition that a thing exists."""
@@ -592,17 +602,15 @@ class Composer(Domain):
                             else values.get(f) or self.at(op_name, f))
             chain.append((w, binds, {}, src))
         subject = values.get(self.key_of(first)) or self.at(op_name, self.key_of(first))
-        trail_values = {**{f: self.at(op_name, f) for f in self.l["trail"]["records"]
-                           if self.carries(op_name, f) or f in self.fields_of(first)},
-                        **values}
+        trail_values = self.trail_values(op_name, chain, values, self.fields_of(first))
         chain.append((self.recorder(), self.moment_binds(op_name, subject, trail_values),
                       {"SUCCESS": "EXIT_COMPLETED"} if repeat or denials else {}, "ledger:trail"))
         chain += self.denied(op_name, op, denials, trail_values)
         if repeat:
             rp = op["on_repeat"]
-            again = self.recorder(extra=rp["records"])
+            again = self.recorder(extra=rp.get("records", []))
             binds = self.moment_binds(op_name, subject, trail_values)
-            binds.update({f: self.at(op_name, f) for f in rp["records"]})
+            binds.update({f: self.at(op_name, f) for f in rp.get("records", [])})
             chain.append((again, binds, {"SUCCESS": "EXIT_REPEATED"}, f"{src}/on_repeat"))
             chain = [(c, b, {k: (short(again) if v == "REPEAT" else v) for k, v in o.items()}, s)
                      for c, b, o, s in chain]
@@ -779,7 +787,7 @@ class Composer(Domain):
             if self.by_attributes(op_name, name):
                 keyref = f"results.{short(r)}.{head(name)}_record.{key}"
         if "from_state" not in op:
-            return chain + self.setter(op_name, op, name, keyref)
+            return chain + self.setter(op_name, op, name, keyref, chain)
         if op.get("when"):
             chain.append(self.condition(op_name, op, name, f"results.{short(r)}.{head(name)}_record"))
         if op.get("releases") == "identity":
@@ -796,11 +804,11 @@ class Composer(Domain):
         values = {f: self.at(op_name, f) for f in [key] + decided}
         values[key] = keyref
         chain.append((mover, {"to_state": {"literal": up(op["to_state"])}, **values}, {}, src))
-        trail = {**{f: self.at(op_name, f) for f in self.l["trail"]["records"] if self.carries(op_name, f)}, **values}
+        trail = self.trail_values(op_name, chain, values)
         chain.append((self.recorder(), self.moment_binds(op_name, keyref, trail), {}, "ledger:trail"))
         return chain
 
-    def setter(self, op_name, op, name, keyref):
+    def setter(self, op_name, op, name, keyref, chain):
         """change: set what the operation names on the one record, while it holds what it must."""
         src, key = f"ledger:operations/{op_name}", self.key_of(name)
         steps = now("doctrine:own_values") if "clock" in op["sets"].values() else []
@@ -811,7 +819,7 @@ class Composer(Domain):
         c = self.add(Component(self.code("CC", op_name), f"Set what {op_name} records on the {name}",
                                steps, {key: "string"}, {"updated_count": "integer"}, src))
         values = {key: keyref}
-        trail = {**{f: self.at(op_name, f) for f in self.l["trail"]["records"] if self.carries(op_name, f)}, **values}
+        trail = self.trail_values(op_name, chain, values)
         return [(c, values, {}, src),
                 (self.recorder(), self.moment_binds(op_name, keyref, trail), {}, "ledger:trail")]
 
@@ -1056,7 +1064,12 @@ class Composer(Domain):
         """The workflows and entrances an operation takes the place of, as the composition names them."""
         held = {r["code"] for r in self.base["new_artifacts"]}
         out = {}
-        for old in op.get("replaces", []):
+        named = op.get("replaces", [])
+        if named and self.delivered.get(self.code("WF", named[0])) == self.code("WF", op_name):
+            # Delivered: the design of record holds this operation's workflow as the successor of the
+            # first one named, and the change that made it so retired the rest.
+            return out
+        for old in named:
             wf = self.code("WF", old)
             if wf not in held:
                 raise ValueError(f"{op_name} replaces '{old}', which the composition does not hold as {wf}")
@@ -1089,10 +1102,62 @@ class Composer(Domain):
         return reg
 
 
+def live_versions(baseline):
+    """{stem V0: live code}: the version of each artifact the design of record holds, where that is
+    not V0. A delivered change leaves `X_V1` live and no `X_V0`."""
+    codes = {r["code"] for r in baseline.get("new_artifacts") or []}
+    live = {}
+    for code in codes:
+        m = re.match(r"^(.+)_V(\d+)$", code)
+        if m and int(m[2]) > 0 and f"{m[1]}_V0" not in codes:
+            v0 = f"{m[1]}_V0"
+            if v0 not in live or int(m[2]) > int(live[v0].rsplit("_V", 1)[1]):
+                live[v0] = code
+    return live
+
+
+def as_v0(baseline, live):
+    """The design of record with every live version named at V0, as the composer names it. Lineage
+    (`supersedes`) is set aside: it is restored on the derived rows by `live_names`."""
+    plain = {**baseline, "artifact_properties": [r for r in baseline.get("artifact_properties") or []
+                                                 if r.get("property") != "supersedes"]}
+    return renumber(plain, {code: v0 for v0, code in live.items()})
+
+
+def delivered(baseline, live):
+    """{predecessor: successor at V0}: the replacements the design of record states as made, read
+    from its lineage (`supersedes`)."""
+    v0 = {code: stem for stem, code in live.items()}
+    out = {}
+    for r in baseline.get("artifact_properties") or []:
+        if r.get("property") == "supersedes":
+            for old in r["value"] if isinstance(r["value"], list) else [r["value"]]:
+                out[old] = v0.get(r["artifact"], r["artifact"])
+    return out
+
+
+def live_names(reg, baseline, live):
+    """Each derived artifact under the version the composition holds of it (carried:surface), with
+    the lineage that version states. A stem the design of record holds only at V0 keeps V0."""
+    derived = {r["code"] for r in reg.get("new_artifacts") or []}
+    aliases = {v0: code for v0, code in live.items() if v0 in derived}
+    if aliases:
+        reg = renumber(reg, aliases)
+    named = {r["code"] for r in reg.get("new_artifacts") or []}
+    lineage = [r for r in baseline.get("artifact_properties") or []
+               if r.get("property") == "supersedes" and r["artifact"] in named]
+    held = {(r["artifact"], r.get("property")) for r in reg.get("artifact_properties") or []}
+    reg["artifact_properties"] = (reg.get("artifact_properties") or []) + [
+        {**r, "_from": "carried:surface"} for r in lineage if (r["artifact"], "supersedes") not in held]
+    return reg
+
+
 def derive(ledger_path, baseline_path):
     """The P7 rows a ledger derives, judged by the sealed doctrine, schema and catalog."""
     judged = seal.judged_by()
     ledger = yaml.safe_load(open(ledger_path))
     refuse(ledger)
-    reg = check_doctrine(Composer(ledger, load_p7(baseline_path)).run())
-    return {"_judged_by": judged, **reg}
+    baseline = load_p7(baseline_path)
+    live = live_versions(baseline)
+    reg = check_provenance(Composer(ledger, as_v0(baseline, live), delivered(baseline, live)).run(), ledger)
+    return {"_judged_by": judged, **live_names(reg, baseline, live)}

@@ -355,7 +355,7 @@ registers:
     fit: EXACT
     cannot_do: It appends what it is handed; it does not decide which operations must be recorded.
   - capability: Audit composition
-    fqdn: ai_governance::CC_APPEND_AUDIT_EVENT_V0
+    fqdn: ai_governance::CC_RECORD_AI_LICENSING_MOMENT_V0
     what_it_does: Composes the recording of a performed action into an append-only store.
     fit: PARTIAL
     cannot_do: It carries agent-governance semantics and appends to another subdomain's store; a subdomain owns its stores exclusively.
@@ -380,32 +380,32 @@ registers:
     fit: EXACT
     cannot_do: It carries no catalog rule of its own.
   - capability: Business actor
-    fqdn: ai_governance::AC_EMPLOYEE_V0
+    fqdn: ai_governance::AC_EMPLOYEE_V1
     what_it_does: Declares a business actor whose identity an operation binds.
     fit: PARTIAL
     cannot_do: It names an employee of another subdomain and asserts no authorization to perform catalog operations.
   - capability: Business entry point
-    fqdn: ai_governance::IN_PROVISION_AI_LICENSE_V0
+    fqdn: ai_governance::IN_PROVISION_LICENSE_V0
     what_it_does: Declares the governed entry point through which a business operation is requested.
     fit: EXACT
     cannot_do: It admits a licensing request, not a catalog operation.
   - capability: Governed operation pipeline
-    fqdn: ai_governance::CC_PROVISION_LICENSE_V0
+    fqdn: ai_governance::CC_WRITE_LICENSE_V0
     what_it_does: Composes one business operation as an ordered pipeline of governed steps.
     fit: EXACT
     cannot_do: It carries licensing semantics; the catalog's operations must be authored.
   - capability: Subdomain storage declaration
-    fqdn: ai_governance::STRUCTURE_AI_LICENSING_STORAGE_V0
+    fqdn: ai_governance::STRUCTURE_AI_LICENSING_STORAGE_V1
     what_it_does: Declares the stores a business subdomain owns and the paths they occupy.
     fit: EXACT
     cannot_do: It declares another subdomain's stores.
   - capability: Runtime binding declaration
-    fqdn: ai_governance::RB_LICENSE_BINDINGS_V0
+    fqdn: ai_governance::RB_LICENSE_BINDINGS_V1
     what_it_does: Binds a subdomain's workflows to the stores and policies they use.
     fit: EXACT
     cannot_do: It binds another subdomain's surface.
   - capability: Business moment
-    fqdn: ai_governance::EV_LICENSE_PROVISIONED_V0
+    fqdn: ai_governance::EV_LICENSE_PROVISIONED_V1
     what_it_does: Declares a business moment the domain recognises when an operation completes.
     fit: EXACT
     cannot_do: It names a licensing moment, not a catalog one.
@@ -452,7 +452,7 @@ registers:
     source_finding: {phase: p1, register: authority_deferrals, row: 1}
   architectural_observations:
   - observation: A business subdomain in this composition declares its own stores and binds its own workflows to them, so a new subdomain has a worked precedent for owning its records.
-    evidence: catalog::STRUCTURE_AI_LICENSING_STORAGE_V0 · ai_governance::RB_LICENSE_BINDINGS_V0
+    evidence: catalog::STRUCTURE_AI_LICENSING_STORAGE_V0 · ai_governance::RB_LICENSE_BINDINGS_V1
     evidence_status: OBSERVED
     source_finding: {phase: p2, register: belief_verification, row: 1}
   - observation: Durable records that are written, read, listed and updated in place are available as a declared side effect, as is an append-only trail.
@@ -472,7 +472,7 @@ registers:
     evidence_status: OBSERVED
     source_finding: {phase: p2, register: belief_verification, row: 2}
   - observation: Recording a performed action into an append-only trail is already composed as a governed step, within another subdomain.
-    evidence: ai_governance::CC_APPEND_AUDIT_EVENT_V0
+    evidence: ai_governance::CC_RECORD_AI_LICENSING_MOMENT_V0
     evidence_status: OBSERVED
     source_finding: {phase: p1, register: business_invariants, key: traceable and auditable}
   - observation: 'The composition carries no business vocabulary for a library: no identity claims book, library, copy, subject, title or barcode.'
@@ -481,7 +481,7 @@ registers:
     source_finding: {phase: p2, register: belief_verification, row: 2}
   discovery_concerns:
   - concern: The only composed audit step belongs to another subdomain, so satisfying traceability by reusing it would cross a subdomain's ownership of its own stores.
-    evidence: ai_governance::CC_APPEND_AUDIT_EVENT_V0 · ai_governance::STRUCTURE_AI_LICENSING_STORAGE_V0
+    evidence: ai_governance::CC_RECORD_AI_LICENSING_MOMENT_V0 · ai_governance::STRUCTURE_AI_LICENSING_STORAGE_V1
     severity: MAJOR
     evidence_status: OBSERVED
     source_finding: {phase: p1, register: business_invariants, key: traceable and auditable}
@@ -501,7 +501,7 @@ registers:
     evidence_status: INFERRED
     source_finding: {phase: p1, register: known_facts, key: a retired book is excluded from search results}
   - concern: The one business actor available names an employee of another subdomain and asserts no authorization, so authorization has nothing to bind to until the staff function exists.
-    evidence: ai_governance::AC_EMPLOYEE_V0
+    evidence: ai_governance::AC_EMPLOYEE_V1
     severity: MINOR
     evidence_status: OBSERVED
     source_finding: {phase: p1, register: authority_deferrals, row: 1}

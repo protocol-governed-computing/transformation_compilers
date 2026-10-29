@@ -4,7 +4,8 @@ A derived design names every artifact of its domain. Compared with what the comp
 - an artifact the composition holds, rendered with the same meaning, keeps its identity. The
   design amends it (EXTEND);
 - one rendered with a changed meaning takes the next version never used, in the composition, the
-  published release or the retirement ledger. It names its predecessor in `supersedes`, and the
+  published release or the retirement ledger. So does one that names it: the successor's name is
+  part of its meaning. It names its predecessor in `supersedes`, and the
   predecessor is replaced (REPLACE);
 - one the composition does not hold is new;
 - one the composition holds that an operation `replaces`, by the ledger's answer, is replaced by
@@ -115,11 +116,30 @@ def decide(dossier: Path, snapshot: Path, domain_root: Path, baseline: list[str]
             changed[code] = places
         else:
             kept.append(code)
+    # A kept artifact that names a superseded one is compared again with the successors' names in
+    # place, as construction compares it: a reference that follows its successor is the same
+    # reference, and a name that is a place (a workflow's node key) is not. Repeat until none moves.
     taken = used(snapshot, release, ledger) | set(kept) | set(new)
     successor = {}
-    for code in sorted(changed):
-        successor[code] = next_version(code, taken)
-        taken.add(successor[code])
+    by_code = {code_of(a): a for a in rendered}
+    while True:
+        for code in sorted(c for c in changed if c not in successor):
+            successor[code] = next_version(code, taken)
+            taken.add(successor[code])
+        moved = {short(c): short(n) for c, n in successor.items()}
+        follows = {**successor, **moved}
+        cascade = {}
+        for c in kept:
+            renamed = renumber({"m": by_code[c]["machine"]}, moved)["m"]
+            if renamed != by_code[c]["machine"]:
+                places = sameness.differences(was[c], renamed, decl, follows)
+                if places:
+                    cascade[c] = places
+        if not cascade:
+            break
+        for c, places in cascade.items():
+            kept.remove(c)
+            changed[c] = places
     derived = set(kept) | set(changed) | set(new)
     # An artifact supersedes one predecessor. Where an operation takes the place of several, the
     # first it names is its predecessor and the others are retired with no successor.

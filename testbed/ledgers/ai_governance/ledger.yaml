@@ -7,11 +7,26 @@
 
 domain: ai_governance
 
+purpose:
+  says: "The business governs its AI licensing and the AI agents acting for its people. AI licensing grants employees licenses for AI tools and takes back the ones nobody uses. Agent governance judges every action an AI agent proposes on a person's behalf, before any tool runs."
+  from: "ai_governance brief (git 3859bec, LEDGER_BRIEF_AI_GOVERNANCE.md) introduction"
+out_of_scope:
+  - item: "Running the tool an agent proposes"
+    reason: "Agent governance judges an action before any tool runs; running it is not the business's act here."
+    from: "ai_governance brief (git 3859bec, LEDGER_BRIEF_AI_GOVERNANCE.md) introduction"
+  - item: "Reclaiming several licenses in one request"
+    reason: "The system asks to reclaim one license at a time."
+    from: "ai_governance brief (git 3859bec, LEDGER_BRIEF_AI_GOVERNANCE.md) / Usage and reclaim"
+  - item: "Recording a denial with a reason of the caller's own"
+    reason: "A denial carries the reason the failed check gives, and nobody else's."
+    from: "ai_governance brief (git 3859bec, LEDGER_BRIEF_AI_GOVERNANCE.md) / Licenses"
+
 actor:
   name: system
   authorization: none
   kind: system
   attributes: {role: string}
+  from: "owner / the system acts for the business; enterprise runtime dropped"
 
 actors:
   employee:
@@ -33,19 +48,31 @@ actors:
 
 parts:
   ai_licensing:
+    purpose:
+      says: "AI licensing grants employees licenses for AI tools within the cap the business sets, and takes back the ones nobody uses."
+      from: "ai_governance brief (git 3859bec, LEDGER_BRIEF_AI_GOVERNANCE.md) introduction, The cap, Usage and reclaim"
     from: "brief-run parts / ai licensing"
     things:
       employee:
+        why:
+          says: "Licenses go only to employees the business has registered, and only once their training is recorded."
+          from: "ai_governance brief (git 3859bec, LEDGER_BRIEF_AI_GOVERNANCE.md) / Employees, Training"
         plural: employees
         identity: {field: employee_id, on_duplicate: refuse}
         fixed: {training_completed: false}
         from: "owner / employees; brief-run identity / employee"
       license cap:
+        why:
+          says: "The business limits how many licenses may be assigned at once, across both tiers."
+          from: "ai_governance brief (git 3859bec, LEDGER_BRIEF_AI_GOVERNANCE.md) / The cap"
         plural: license caps
         identity: {field: cap_key, fixed: current}
         required: {cap: integer}
         from: "owner / cap set by an act; setting it again replaces it"
       license:
+        why:
+          says: "The business keeps which employee holds which tier of license, when it was last used, and whether it was taken back."
+          from: "ai_governance brief (git 3859bec, LEDGER_BRIEF_AI_GOVERNANCE.md) / Licenses, Usage and reclaim"
         plural: licenses
         identity: {field: license_id, from: employee_id, prefix: lic, on_duplicate: refuse}
         required: {employee_id: string, tier: string}
@@ -127,6 +154,9 @@ parts:
       from: "brief-run announces"
 
   agent_governance:
+    purpose:
+      says: "Agent governance judges every action an AI agent proposes on a person's behalf, before any tool runs, and audits every judgment."
+      from: "ai_governance brief (git 3859bec, LEDGER_BRIEF_AI_GOVERNANCE.md) introduction, Agent actions"
     from: "brief-run parts / agent governance"
     tables:
       tier tools:
@@ -139,6 +169,9 @@ parts:
       from: "owner / agent governance tables kept as today"
     things:
       action:
+        why:
+          says: "The business keeps each action an agent was authorized to take, registered once however often it is proposed."
+          from: "ai_governance brief (git 3859bec, LEDGER_BRIEF_AI_GOVERNANCE.md) / Agent actions"
         plural: actions
         identity: {field: action_id, from: [tool_name, requesting_user_id, domain_context], prefix: AGOV, on_duplicate: reuse}
         required: {tool_name: string, requesting_user_id: string}

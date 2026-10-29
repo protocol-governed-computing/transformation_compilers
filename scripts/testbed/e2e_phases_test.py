@@ -529,8 +529,7 @@ CASES = [
          "CROSS_SUBDOMAIN_WRITE",
          "DECLARED_REACH_UNUSED",
          # Routing a catalog workflow into another subdomain's contract also hands that contract
-         # nothing: three of its declared inputs arrive unbound. One edit, two boundaries crossed.
-         "NODE_INPUT_UNBOUND",
+         # nothing: both of its declared inputs arrive unbound. One edit, two boundaries crossed.
          "NODE_INPUT_UNBOUND",
          "NODE_INPUT_UNBOUND",
          "TOPOLOGY_NODE_UNDECLARED",

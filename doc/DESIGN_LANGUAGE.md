@@ -418,3 +418,156 @@ A document is `ADMISSIBLE` when no rule finds anything, and `INADMISSIBLE` other
   reported as an unchecked handoff. The second is the upstream author's defect.
 - **The composition is observed, never read directly.** Every fact about the pinned composition
   arrives through the inspection interface, as the observations the schema declares.
+
+---
+
+## 9. The derive route
+
+The derive route derives a P7 design intent from a decision ledger. It is the Design Compiler's
+second route to a design. The phases judge a design that a person writes. The derive route composes
+a design from typed business answers. `tc phase derive` runs it, and `transformation/design/derive/`
+holds it.
+
+### 9.1 Where the ledger sits
+
+The ledger replaces the authored P4 to P7. It leaves P0 and the discovery phases in human hands.
+
+| Phase | With the ledger |
+|---|---|
+| P0 | Authored, unchanged. The seed is the brief the owner answers from. The route also projects a seed from the ledger (§9.6). |
+| P1 to P3 | Discovery, in dialog. It ends in ledger answers, and in a new question type when the catalog lacks one. |
+| P4 to P6 | Held by the ledger's closed shapes: the consolidation, the WHAT and the WHERE. |
+| P7 | Derived. |
+| P8 | Unchanged. The route splices the derived design into the mandate. |
+
+A person approves the ledger at the P7 gate. The gate sees the ledger, the derived design and the
+trace from one to the other. The gate approves decisions, not the rows derived from them.
+
+A change that needs a question the catalog lacks is a discovery change. It runs P1 to P3 and adds
+the question type to the catalog. Any other change is a ledger delta.
+
+The route projects every phase document from P0 to P6 (§9.6).
+
+### 9.2 The ledger
+
+A ledger holds answers in closed shapes (`ledger_schema.yaml`). Each shape names the catalog
+question it answers (`catalog.yaml`). The route refuses an answer outside its shape. It never
+interprets one.
+
+- **Every answer cites its authority.** Its `from` names a seed, the brief or the owner.
+- **An open question holds back what depends on it.** An `open` entry names a catalog question, the
+  operation it is about and who it waits on. The route derives nothing for that operation, and
+  admission refuses it.
+- **A case states an outcome in domain words.** The route checks that it names an operation. It
+  derives nothing from it.
+
+### 9.3 Derivation
+
+The route composes each operation from twelve building blocks, in the order the doctrine sets
+(`doctrine.yaml`).
+
+- **The doctrine is sealed.** The doctrine, the ledger schema and the catalog each carry an `$id`,
+  revisions and a digest. The route refuses to derive while any of them differs from its last
+  revision. Every derived design names all three as its `judged_by`.
+- **Each doctrine rule realises an invariant.** Its `realizes` names a `lifecycle::` invariant that
+  `CONSTITUTION_CHANGE_MGMT_V0` puts in force. `tc phase derive meta` checks that each resolves.
+- **Every derived row traces.** A row's `_from` names a ledger answer, a doctrine rule or the
+  carried surface. The route refuses a row that names no source, or a source that holds nothing.
+- **Meaning decides identity.** The route compares each derived artifact with the one the composition
+  holds, by `sameness`. An artifact with the same meaning keeps its identity (EXTEND). One with a
+  changed meaning takes the next version never used, and supersedes its predecessor. An operation's
+  `replaces` answer names the operation it takes the place of. An artifact the ledger no longer
+  derives is retired (RETIRE).
+
+### 9.4 The carried surface
+
+A derived design keeps the names its callers and its data already use. The route carries:
+
+- store names and paths;
+- binding (RB) names;
+- entrance (IN) names and request shapes;
+- trail record keys;
+- the output names a read returns.
+
+The route matches a store by its exact name, by the words a registry holds, or as the part's one
+trail.
+
+A ledger changes a carried name only through an answer that states the change. Today one answer
+does: `replaces`, for an operation. A ledger cannot yet rename a store or a field. Such a change is a
+migration, and it runs as an authored dossier.
+
+### 9.5 Changing the route
+
+A change to the doctrine, the ledger schema, the catalog or a building block changes every derived
+design at once.
+
+- **It records a sealed revision.** `tc phase derive revise` records it, with the digest it produced.
+- **It runs as its own dossier,** in `dossiers/<subject>/` of this repository.
+- **It re-derives every ledger** in `testbed/ledgers/`. The workspace regression builds each one and
+  compares the result with its expected outcome.
+
+Nothing yet refuses a route change made outside a dossier. The dossier requirement is process.
+
+### 9.6 The phase documents
+
+`tc phase derive project <ledger> <baseline> --design <generated.json> --snapshot <dir> --out <dir>`
+writes the phase documents between the ledger and the design. `tc phase check` judges each one by the rule set that governs an authored
+document of its phase. No rule is relaxed for a projection. A projection that fails a rule is a
+fault in the projector.
+
+| Document | Projected from | Each row cites |
+|---|---|---|
+| P0 seed | the ledger | nothing: the seed is where the owner's answers enter |
+| P1 change request | P0, by the existing P1 projection | the P0 row it restates |
+| P2 domain model | P1, the baseline design, the derived design and the snapshot | the P1 row it models |
+| P3 analysis loop | P2, and the identity decisions | the P2 row it resolves |
+| P4 business model | P3 | the P3 row it consolidates |
+| P5 business intent | P0 | the P0 row it restates |
+| P6 governance intent | P5, and the baseline design for an existing binding | the P5 row it places |
+
+- **The owner's words are carried, never rewritten.** The ledger states the domain's purpose, each
+  part's purpose, why each thing is kept (`why`) and what is out of scope. The projection carries
+  each one word for word.
+- **Everything else is said from structure.** Identity, states, refusals, events and the trail
+  become sentences. A sentence states only what its answer states.
+- **A projected document proves the projection.** P5 cannot fail to carry P0's purpose, because it
+  was built from it. The rules that catch a hand-made P5 still run, and changing a projected
+  document makes them fire.
+- **Discovery restates what the derivation observed.** P2 to P4 are projected after identities are
+  decided. They name what the baseline holds, what is kept, changed, new or retired, and what each
+  reused platform artifact is for and how far a change to it reaches, as the inspector reads it.
+  `tc phase check` grounds every name against the snapshot. Business columns name artifacts in
+  words; the codes go in the evidence.
+- **An open question holds back its operation** in every document as in the design. The seed lists
+  the operation as out of scope, with the question it waits on.
+
+### 9.7 Delivering a change
+
+`scripts/derive_deliver.sh <domain> <cr dir>` delivers a change the route designed. The change is a
+dossier, `<domain>/cr_dossiers/cr_NN_<subject>/`, whose `ledger.yaml` is the decision. The script
+pins `baseline.json`, derives P7 and P8, projects P0 to P6 and refuses to go on unless all seven are
+admissible. It then checks construction, emits, deletes what the design superseded, replaced or
+retired, records each deletion in `retired_identities.yaml`, repoints the domain's testbed and
+client to successors, compiles, assembles and regenerates the design of record.
+
+- **One decision, one change.** A ledger that adopts the derived design keeps the behavior the
+  design of record has, where the ledger can state it. Each later owner decision is its own change,
+  a delta to the previous change's ledger.
+- **What the ledger cannot state in its earlier form is named.** Adopting the route can correct
+  behavior no ledger shape reproduces. The first change names each such correction.
+- **A delivered domain is a fixed point.** The composer names artifacts at V0 and maps each to the
+  version the design of record holds, with that version's lineage. It reads the trail's form from
+  the design it wrote as well as from a hand-authored one. Re-deriving the last change's ledger
+  keeps every artifact. Three rules keep this true:
+  - A `replaces` answer is spent once delivered. The design of record then holds the operation's
+    workflow as the successor of the first one named.
+  - A new act's trail records the request fields its own chain binds, as it will once the act
+    exists.
+  - A suite dispatches the successors the derivation, the design's lineage and the retirement
+    ledger declare, followed to the last version.
+- **A domain may need only one change.** ai_governance's owner answers all follow from one ruling,
+  that the business holds its own facts. The ledger cannot state the earlier design otherwise, so
+  cr_04 delivers them together, and its delivery record names each difference.
+- **Identity follows references as construction does.** A kept artifact is compared again with its
+  successors' names in place. A reference that follows its successor keeps its meaning; a renamed
+  place, such as a workflow node, does not.

@@ -1,7 +1,8 @@
 # The question catalog. Every answer a ledger holds answers one of these questions, and
 # ledger_schema.json names the question each answer's shape belongs to (`x-question`).
 # check_ledger.py refuses a schema that names a question this file does not hold.
-# `added_by` names the domain whose run first needed the question. `carried: true` marks a question
+# `added_by` names the domain whose run first needed the question, or `projection` when projecting the
+# phase documents (`tc phase derive project`) needed it. `carried: true` marks a question
 # the carried surface answers today: its answer keeps what callers already meet, so the ledger has
 # no shape for it. Every other question has a shape in the schema.
 
@@ -9,7 +10,11 @@ $id: transformation.design.derive.CATALOG_V0
 
 questions:
   purpose:             {asked_when: always, added_by: book_library_mgmt,
-                        shape: the domain, in one sentence and one name}
+                        shape: the domain and each part, in one name and a paragraph saying what it governs and why it exists}
+  why:                 {asked_when: per thing, added_by: projection,
+                        shape: what the business keeps the thing for, in its own words}
+  out_of_scope:        {asked_when: always, added_by: projection,
+                        shape: what the domain does not do, and why}
   operations:          {asked_when: always, added_by: book_library_mgmt,
                         shape: named operations, each saying what it does (create, change, read, query)}
   actor:               {asked_when: per operation, added_by: book_library_mgmt,
@@ -96,3 +101,7 @@ x-revisions:
   change: Moved into the Design Compiler as its derive route; open questions and cases are entries, not
     questions.
   digest: sha256:2a376225206b6053119285881985b50fdae6c23d1c4217a63f48d5195557cd43
+- revision: 5
+  change: Purpose names each part as well as the domain; why and out_of_scope are asked, for projecting
+    the phase documents.
+  digest: sha256:1bac5510c3d768fcc394e21a832acc53788041a0f5cb65cbfa2fe1eb626c8486

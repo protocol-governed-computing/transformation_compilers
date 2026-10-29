@@ -7,6 +7,23 @@
 domain: book_library_mgmt
 subdomain: catalog
 
+purpose:
+  says: "The catalog governs the library's single authoritative record for each work, each edition it holds and each physical copy it owns. It exists because a community library holding thousands of books maintains its catalog records manually, which produces inconsistent descriptions, duplicate entries and difficulty locating materials. It owns the description of what the library holds and the operations that maintain that description, and it governs none of the nine remaining functions of the library project."
+  from: "cr_01 P0 (fixtures/catalog/cr_01_catalog) §0 Subdomain Purpose; works and editions from cr_02 P0 (fixtures/catalog/cr_02_catalog) §2"
+out_of_scope:
+  - item: "Circulation, patrons, staff, reservations, acquisitions, inventory, notifications, policy and reporting"
+    reason: "The nine remaining functions of the library project; this domain is the catalog only."
+    from: "cr_01 P0 (fixtures/catalog/cr_01_catalog) §12 Out of Scope"
+  - item: "Deciding which staff are authorized"
+    reason: "That belongs to the staff function; the catalog reads authorization and never grants it."
+    from: "cr_01 P0 (fixtures/catalog/cr_01_catalog) §12 Out of Scope (Staff)"
+  - item: "Retirement of a work"
+    reason: "A work is not retired; a work whose editions are all retired is simply that."
+    from: "cr_02 P0 (fixtures/catalog/cr_02_catalog) §12 Out of Scope"
+  - item: "Import of the records staff maintain manually today"
+    reason: "The catalog starts empty."
+    from: "cr_01 P0 (fixtures/catalog/cr_01_catalog) §12 Out of Scope"
+
 actor:
   name: library staff
   role: staff
@@ -16,11 +33,17 @@ actor:
 
 things:
   work:
+    why:
+      says: "A published work, recognizable as one thing across the editions in which it is published, so staff find every edition of it together."
+      from: "cr_02 P0 (fixtures/catalog/cr_02_catalog) §2 Business Vocabulary (Work)"
     plural: works
     required: {title: string, author: string}
     identity: {field: work_key, from: [title, author], normalized: true, on_duplicate: reuse}
     from: "owner answers / required work, identity work; brief-run states / work (never retired)"
   book:
+    why:
+      says: "An edition the library catalogs: the single authoritative description of one publication of a work, so the catalog describes what the library holds as it actually is."
+      from: "cr_02 P0 (fixtures/catalog/cr_02_catalog) §2 Business Vocabulary (Edition, Bibliographic Accuracy)"
     plural: books
     required: {title: string, author: string, publication_year: integer, subject: array}
     non_empty: [subject]
@@ -29,6 +52,9 @@ things:
     states: [registered, retired]
     from: "brief-run required / book (amended: no description); identity / book; states / book"
   physical copy:
+    why:
+      says: "An individual copy the library owns, belonging to exactly one edition and told apart from every other copy by its barcode."
+      from: "cr_01 P0 (fixtures/catalog/cr_01_catalog) §2 Business Vocabulary (Physical Copy, Barcode)"
     plural: physical copies
     identity: {field: barcode, on_duplicate: refuse}
     belongs_to: book

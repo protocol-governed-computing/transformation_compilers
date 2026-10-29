@@ -44,6 +44,7 @@ pins each form.
 | `governed_by` | every | stated_by_design | constant per family (`design.families`); a transform's by its kind and purity |
 | `authority` | every | stated_by_design | constant `pgc.platform` |
 | `concern` | every | stated_by_design | the subdomain `new_artifacts.Owner Subdomain` places it in |
+| `supersedes` | ACTOR, CAPABILITY_CONTRACT, EVENT, INTENT, RUNTIME_BINDING, STRUCTURE, VOCABULARY, WORKFLOW | stated_by_design | `artifact_properties.supersedes`, stated on the successor; a kind is listed once a design of record supersedes one of its kind |
 | `subdomain` | WORKFLOW | stated_by_design | the owning subdomain |
 | `core.summary` | ACTOR, CAPABILITY_CONTRACT, CAPABILITY_TRANSFORM, EVENT, INTENT, RUNTIME_BINDING, STRUCTURE, TRANSPORT_EGRESS, TRANSPORT_INGRESS, WORKFLOW | stated_by_design | `new_artifacts.Summary`; an intent falls back to `new_intents.Purpose` |
 
@@ -64,8 +65,6 @@ pins each form.
 
 | Field | Class | Governed by | Source |
 |---|---|---|---|
-| `core.inputs.<name>.default` | stated_by_design |  | `interface_fields` rows for the artifact, direction `INPUT`: `Default` |
-| `core.inputs.<name>.format` | stated_by_design |  | `interface_fields` rows for the artifact, direction `INPUT`: `Format` |
 | `core.inputs.<name>.required` | stated_by_design |  | `interface_fields` rows for the artifact, direction `INPUT`: `Required` `YES` |
 | `core.inputs.<name>.type` | stated_by_design |  | `interface_fields` rows for the artifact, direction `INPUT`: `Type` |
 | `core.outputs.<name>.required` | stated_by_design |  | `interface_fields` rows for the artifact, direction `OUTPUT`: `Required` `YES` |
@@ -133,7 +132,6 @@ pins each form.
 
 | Field | Class | Governed by | Source |
 |---|---|---|---|
-| `core.inputs.<name>.default` | stated_by_design |  | `interface_fields` rows for the artifact, direction `INPUT`: `Default` |
 | `core.inputs.<name>.required` | stated_by_design |  | `interface_fields` rows for the artifact, direction `INPUT`: `Required` `YES` |
 | `core.inputs.<name>.type` | stated_by_design |  | `interface_fields` rows for the artifact, direction `INPUT`: `Type` |
 | `core.outcomes.<name>.description` | stated_by_design |  | constant: the `ACK`/`NACK` surface every intent has |

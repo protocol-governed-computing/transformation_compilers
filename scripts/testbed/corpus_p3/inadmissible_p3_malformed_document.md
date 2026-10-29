@@ -16,7 +16,7 @@ registers:
     evidence_status: OBSERVED
     confidence: HIGH
     resolution_status: CLOSED
-    evidence: ai_governance::CC_APPEND_AUDIT_EVENT_V0 binds capability_side_effects::CS_APPENDONLY_JSONL_V0 and writes through ai_governance::STRUCTURE_AI_LICENSING_STORAGE_V0; si.artifact.refs reports 7 direct references, all ai_governance. Decided by the business owner.
+    evidence: ai_governance::CC_RECORD_AI_LICENSING_MOMENT_V0 binds capability_side_effects::CS_APPENDONLY_JSONL_V0 and writes through ai_governance::STRUCTURE_AI_LICENSING_STORAGE_V1; si.artifact.refs reports 7 direct references, all ai_governance. Decided by the business owner.
   - question_id: 'S2 discovery_concerns #2'
     finding: The available uniqueness mechanism keys on a single value while a book is identified by title, author and publication year together. The registry is reused with a key formed from the three attributes; forming that key is a catalog business rule, not a change to the registry.
     impact: Duplicate prevention keeps an atomic register-if-absent guarantee; no side effect is modified, so nothing that depends on the registry is disturbed.
@@ -44,7 +44,7 @@ registers:
     evidence_status: OBSERVED
     confidence: HIGH
     resolution_status: CLOSED
-    evidence: ai_governance::AC_EMPLOYEE_V0 exists and carries no authorization assertion; si.topology.impact reports 0 impacted artifacts.
+    evidence: ai_governance::AC_EMPLOYEE_V1 exists and carries no authorization assertion; si.topology.impact reports 0 impacted artifacts.
   - question_id: 'S2 gaps #7'
     finding: Subject is free text, so no value-set validation applies and search by kind is only as consistent as what staff type.
     impact: One fewer reuse candidate; nothing further to author.
@@ -92,10 +92,10 @@ registers:
   - artifact: capability_transforms::CT_PURE_VALIDATE_PARAMETER_RULES_V0
     impact_scope: ai_governance
     evidence: '7'
-  - artifact: ai_governance::CC_APPEND_AUDIT_EVENT_V0
+  - artifact: ai_governance::CC_RECORD_AI_LICENSING_MOMENT_V0
     impact_scope: ai_governance
     evidence: '9'
-  - artifact: ai_governance::AC_EMPLOYEE_V0
+  - artifact: ai_governance::AC_EMPLOYEE_V1
     impact_scope: none
     evidence: '0'
   authoring_decisions:
@@ -147,62 +147,62 @@ registers:
   - capability: Record a performed catalog operation in the catalog's audit trail
     decision: AUTHOR_NEW
     rationale: The catalog owns its traceability, so that library auditing does not depend on another subdomain's semantics or write into a store that subdomain owns. The mechanism beneath it is reused.
-    alternatives_checked: 'ai_governance::CC_APPEND_AUDIT_EVENT_V0 was examined and rejected: it writes through ai_governance::STRUCTURE_AI_LICENSING_STORAGE_V0, and a subdomain owns its stores exclusively. Extending it was rejected as making a licensing artifact depend on library meaning. Decided by the business owner.'
+    alternatives_checked: 'ai_governance::CC_RECORD_AI_LICENSING_MOMENT_V0 was examined and rejected: it writes through ai_governance::STRUCTURE_AI_LICENSING_STORAGE_V1, and a subdomain owns its stores exclusively. Extending it was rejected as making a licensing artifact depend on library meaning. Decided by the business owner.'
     source_finding: {phase: p3, register: analysis_findings, row: 1}
   - capability: Declare the stores the catalog owns
     decision: AUTHOR_NEW
     rationale: A subdomain declares its own stores; the catalog needs a book store, a copy store and an audit trail of its own.
-    alternatives_checked: ai_governance::STRUCTURE_AI_LICENSING_STORAGE_V0 was examined as the worked form and rejected as another subdomain's declaration.
+    alternatives_checked: ai_governance::STRUCTURE_AI_LICENSING_STORAGE_V1 was examined as the worked form and rejected as another subdomain's declaration.
     source_finding: {phase: p2, register: architectural_observations, row: 1}
   - capability: Bind the catalog's operations to the stores and mechanisms they use
     decision: AUTHOR_NEW
     rationale: Bindings name one subdomain's surface and cannot be shared across subdomains.
-    alternatives_checked: ai_governance::RB_LICENSE_BINDINGS_V0 was examined as the worked form and rejected as another subdomain's bindings.
+    alternatives_checked: ai_governance::RB_LICENSE_BINDINGS_V1 was examined as the worked form and rejected as another subdomain's bindings.
     source_finding: {phase: p2, register: architectural_observations, row: 1}
   - capability: A library staff actor whose authorization a catalog operation binds
     decision: AUTHOR_NEW
     rationale: Every operation is refused unless the staff member is authorized, and nothing existing asserts that authorization.
-    alternatives_checked: 'ai_governance::AC_EMPLOYEE_V0 was examined and rejected: it names another subdomain''s employee and asserts no authorization.'
+    alternatives_checked: 'ai_governance::AC_EMPLOYEE_V1 was examined and rejected: it names another subdomain''s employee and asserts no authorization.'
     source_finding: {phase: p3, register: analysis_findings, row: 5}
   - capability: Confirm the staff member performing an operation is authorized
     decision: AUTHOR_NEW
     rationale: The catalog reads authorization on every operation; deciding who is authorized stays deferred to the staff function.
-    alternatives_checked: ai_governance::CC_VALIDATE_ELIGIBILITY_V0 was examined and rejected as a licensing eligibility rule, not an authorization read.
+    alternatives_checked: ai_governance::CC_REQUIRE_TRAINING_COMPLETED_V0 was examined and rejected as a licensing eligibility rule, not an authorization read.
     source_finding: {phase: p3, register: analysis_findings, row: 5}
   - capability: Register a book together with its first physical copy
     decision: AUTHOR_NEW
     rationale: No capability in the composition registers a book; the operation carries the catalog's own refusals and identity rule.
-    alternatives_checked: ai_governance::CC_PROVISION_LICENSE_V0 was examined as the worked form of a governed operation pipeline and rejected as licensing semantics.
+    alternatives_checked: ai_governance::CC_WRITE_LICENSE_V0 was examined as the worked form of a governed operation pipeline and rejected as licensing semantics.
     source_finding: {phase: p2, register: belief_verification, row: 2}
   - capability: Register a further physical copy against a registered book
     decision: AUTHOR_NEW
     rationale: Nothing existing records a copy against a book, and the operation carries the barcode uniqueness and existence refusals.
-    alternatives_checked: ai_governance::CC_PROVISION_LICENSE_V0 was examined as the worked form and rejected as licensing semantics.
+    alternatives_checked: ai_governance::CC_WRITE_LICENSE_V0 was examined as the worked form and rejected as licensing semantics.
     source_finding: {phase: p2, register: belief_verification, row: 2}
   - capability: Update a book's bibliographic information
     decision: AUTHOR_NEW
     rationale: Nothing existing updates a catalog record, and the operation carries the refusal that an update must not make one book a duplicate of another.
-    alternatives_checked: ai_governance::CC_BIND_LICENSE_TO_TOOL_SURFACE_V0 was examined as an in-place update of a governed record and rejected as licensing semantics.
+    alternatives_checked: ai_governance::CC_REQUIRE_TIER_GRANTS_TOOL_V0 was examined as an in-place update of a governed record and rejected as licensing semantics.
     source_finding: {phase: p2, register: belief_verification, row: 2}
   - capability: Retire a book record
     decision: AUTHOR_NEW
     rationale: Nothing existing retires a catalog record, and retirement must leave the book's copies untouched.
-    alternatives_checked: ai_governance::CC_RECLAIM_UNUSED_LICENSE_V0 was examined as the worked form of withdrawing a governed record and rejected as licensing semantics.
+    alternatives_checked: ai_governance::CC_MOVE_LICENSE_FROM_ACTIVE_V0 was examined as the worked form of withdrawing a governed record and rejected as licensing semantics.
     source_finding: {phase: p2, register: belief_verification, row: 2}
   - capability: Retire a physical copy
     decision: AUTHOR_NEW
     rationale: Nothing existing retires a copy, and retirement must leave the book record untouched even when it was the last copy.
-    alternatives_checked: ai_governance::CC_RECLAIM_UNUSED_LICENSE_V0 was examined as the worked form and rejected as licensing semantics.
+    alternatives_checked: ai_governance::CC_MOVE_LICENSE_FROM_ACTIVE_V0 was examined as the worked form and rejected as licensing semantics.
     source_finding: {phase: p2, register: belief_verification, row: 2}
   - capability: Return a retired book record to the registered state
     decision: AUTHOR_NEW
     rationale: Reinstatement is a business transition the composition has no counterpart for, and it must leave the book's copies untouched.
-    alternatives_checked: ai_governance::CC_PROVISION_LICENSE_V0 was examined as the worked form of restoring a governed record and rejected as licensing semantics.
+    alternatives_checked: ai_governance::CC_WRITE_LICENSE_V0 was examined as the worked form of restoring a governed record and rejected as licensing semantics.
     source_finding: {phase: p1, register: lifecycle_transitions, row: 3}
   - capability: Return a retired physical copy to the registered state
     decision: AUTHOR_NEW
     rationale: The same transition for a copy, leaving the book record untouched.
-    alternatives_checked: ai_governance::CC_PROVISION_LICENSE_V0 was examined as the worked form and rejected as licensing semantics.
+    alternatives_checked: ai_governance::CC_WRITE_LICENSE_V0 was examined as the worked form and rejected as licensing semantics.
     source_finding: {phase: p1, register: lifecycle_transitions, row: 6}
   - capability: Read every book record so that a search can select among them by content
     decision: EXTEND
@@ -217,17 +217,17 @@ registers:
   - capability: Retrieve a book's complete details with the copies the library holds
     decision: AUTHOR_NEW
     rationale: Nothing existing reads a book with its copies, and retrieval must serve retired books as well as registered ones.
-    alternatives_checked: ai_governance::CC_RESOLVE_LICENSE_TIER_V0 was examined as the worked form of a governed read and rejected as licensing semantics.
+    alternatives_checked: ai_governance::CC_RESOLVE_LICENSE_V0 was examined as the worked form of a governed read and rejected as licensing semantics.
     source_finding: {phase: p2, register: belief_verification, row: 2}
   - capability: A governed entry point for each catalog operation
     decision: AUTHOR_NEW
     rationale: Each operation is requested through its own governed entry point, and none exists for any catalog operation.
-    alternatives_checked: ai_governance::IN_PROVISION_AI_LICENSE_V0 was examined as the worked form and rejected as a licensing request.
+    alternatives_checked: ai_governance::IN_PROVISION_LICENSE_V0 was examined as the worked form and rejected as a licensing request.
     source_finding: {phase: p2, register: pps_baseline_fqdns, key: Business entry point}
   - capability: A business moment for each of the five catalog events
     decision: AUTHOR_NEW
     rationale: Five business moments are declared and none is recognised anywhere in the composition.
-    alternatives_checked: ai_governance::EV_LICENSE_PROVISIONED_V0 was examined as the worked form and rejected as a licensing moment.
+    alternatives_checked: ai_governance::EV_LICENSE_PROVISIONED_V1 was examined as the worked form and rejected as a licensing moment.
     source_finding: {phase: p1, register: business_events, key: Book Registered}
   placement_decision:
   - decision: NEW_SUBDOMAIN

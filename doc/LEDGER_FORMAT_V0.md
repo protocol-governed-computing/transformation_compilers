@@ -62,7 +62,7 @@ never sees it.
 
 | Question | Asked when | Answer shape | Derives |
 |---|---|---|---|
-| `purpose` | always | one sentence | domain, subdomain |
+| `purpose` | always | a name, and a paragraph per domain and part | domain, subdomain; the seed's purpose |
 | `operations` | always | list of named operations | WF, IN, entry topology |
 | `actor` | per operation | who, and what authorizes them | AC, authorization step, rule literal |
 | `things` | always | named things and how they relate | stores, structure, references |
@@ -116,7 +116,7 @@ meaning added `replaces`.
 | `outcome_condition` | per change that waits on a measured condition | `when` the condition holds, `otherwise` where the operation ends | a carried transform, a second exit |
 | `values` | per thing | `fixed` values a new record takes, and `clock` values that are the time of the act | fields of the written record, a clock step |
 | `sets` | per operation recording a fact | the fields set on an existing record, to a value or to the time | a conditional update |
-| `replaces` | per operation that takes the place of one the composition holds | the operations it replaces, as the business names them today | `supersedes` on the operation's workflow and entrance |
+| `replaces` | per operation that takes the place of one the composition holds | the operations it replaces, as the business names them today; once delivered, the answer stays and is spent | `supersedes` on the operation's workflow and entrance |
 
 `grants` and `value_rules` share one shape: a named table in the part, read by a `look_up` check.
 The blind author's `value_rules` named rules in words (`one_of`, `at_most`). The ledger writes them
@@ -131,14 +131,18 @@ frees what the thing claimed.
 The author's file above is the format the blind runs wrote. The ledger each domain derives from is
 `testbed/ledgers/<name>/ledger.yaml`, in closed shape. Three files hold the shape:
 
-- `transformation/design/derive/catalog.yaml` is the question catalog as data, 31 questions;
+- `transformation/design/derive/catalog.yaml` is the question catalog as data, 33 questions;
 - `transformation/design/derive/ledger_schema.yaml` is the shape, as JSON Schema. Every object is closed, and every answer
   names the question it answers (`x-question`);
 - `transformation/design/derive/ledger.py` applies the schema and the references between answers that a schema
   cannot state: a named thing, state, operation, actor, check, table or event must exist.
 
-The composer refuses a ledger before it derives anything. `tc phase derive selftest` shows sixteen
+The composer refuses a ledger before it derives anything. `tc phase derive selftest` shows 23
 answers outside their shapes, each refused.
+
+Projecting the phase documents (DESIGN_LANGUAGE §9.6) added two questions. `why` asks, per thing,
+what the business keeps it for. `out_of_scope` asks what the domain does not do, and why. Both are
+prose the owner states once. The projection carries them into the seed word for word.
 
 ## Doctrine, not questions
 

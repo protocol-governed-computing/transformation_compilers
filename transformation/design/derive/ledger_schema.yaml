@@ -1,5 +1,6 @@
 # The closed shape of a decision ledger, as JSON Schema (draft 2020-12). Every object is closed:
-# an answer outside its shape is refused, never interpreted. Every answer names the catalog
+# an answer outside its shape is refused, never interpreted. Every answer cites where it comes from
+# (`from`: a seed, the brief or the owner), so no answer stands without an authority. Every answer names the catalog
 # question it answers (`x-question`, catalog.yaml); `from` and `seed` are citations.
 # check_ledger.py applies it, and the references between answers that a schema cannot state.
 
@@ -7,17 +8,31 @@ $schema: https://json-schema.org/draft/2020-12/schema
 $id: transformation.design.derive.LEDGER_SCHEMA_V0
 type: object
 additionalProperties: false
-required: [domain, actor]
+required: [domain, actor, purpose, out_of_scope]
 anyOf:
   - required: [parts]
   - required: [things, operations, trail]
 properties:
   domain: {type: string, pattern: "^[a-z][a-z0-9_]*$", x-question: purpose}
+  purpose: {$ref: "#/$defs/statement", x-question: purpose}
+  out_of_scope:
+    type: array
+    x-question: out_of_scope
+    minItems: 1
+    items:
+      type: object
+      additionalProperties: false
+      required: [item, reason, from]
+      properties:
+        item: {type: string, minLength: 1}
+        reason: {type: string, minLength: 1}
+        from: {$ref: "#/$defs/citation"}
   subdomain: {type: string, pattern: "^[a-z][a-z0-9_]*$", x-question: parts}
   actor: {$ref: "#/$defs/actor"}
   actors:
     type: object
     x-question: actor
+    required: [from]
     properties: {from: {$ref: "#/$defs/citation"}}
     additionalProperties: {$ref: "#/$defs/named_actor"}
   parts:
@@ -34,6 +49,7 @@ properties:
   reads_other_part:
     type: object
     x-question: reads_other_part
+    required: [from]
     properties: {from: {$ref: "#/$defs/citation"}}
     additionalProperties:
       type: object
@@ -72,12 +88,18 @@ properties:
   public_acts:
     type: object
     x-question: public_acts
+    required: [from]
     properties: {from: {$ref: "#/$defs/citation"}}
     additionalProperties: {type: string, pattern: "^[a-z_]+\\.[a-z_]+$"}
   from: {$ref: "#/$defs/citation"}
 
 $defs:
   citation: {type: string, minLength: 1, x-question: citation}
+  statement:
+    type: object
+    additionalProperties: false
+    required: [says, from]
+    properties: {says: {type: string, minLength: 1}, from: {$ref: "#/$defs/citation"}}
   name: {type: string, pattern: "^[a-z][a-z0-9 ]*$"}
   field: {type: string, pattern: "^[a-z][a-z0-9_]*$"}
   names: {type: array, items: {$ref: "#/$defs/name"}, minItems: 1, uniqueItems: true}
@@ -103,7 +125,7 @@ $defs:
     type: object
     x-question: actor
     additionalProperties: false
-    required: [name, kind]
+    required: [name, kind, from]
     properties:
       name: {$ref: "#/$defs/name"}
       role: {$ref: "#/$defs/name"}
@@ -145,8 +167,9 @@ $defs:
   part:
     type: object
     additionalProperties: false
-    required: [things, operations, trail]
+    required: [purpose, things, operations, trail]
     properties:
+      purpose: {$ref: "#/$defs/statement", x-question: purpose}
       things: {$ref: "#/$defs/things"}
       operations: {$ref: "#/$defs/operations"}
       trail: {$ref: "#/$defs/trail"}
@@ -164,8 +187,9 @@ $defs:
   thing:
     type: object
     additionalProperties: false
-    required: [plural, identity]
+    required: [plural, why, identity, from]
     properties:
+      why: {$ref: "#/$defs/statement", x-question: why}
       plural: {$ref: "#/$defs/name", x-question: things}
       required:
         type: object
@@ -245,7 +269,7 @@ $defs:
   operation:
     type: object
     additionalProperties: false
-    required: [does]
+    required: [does, from]
     properties:
       does: {enum: [create, change, read, query], x-question: operations}
       creates: {$ref: "#/$defs/names", x-question: operations}
@@ -303,7 +327,6 @@ $defs:
         type: object
         x-question: on_repeat
         additionalProperties: false
-        required: [records, announces]
         properties:
           records: {$ref: "#/$defs/fields"}
           announces: {$ref: "#/$defs/name"}
@@ -397,7 +420,7 @@ $defs:
     type: object
     x-question: trail
     additionalProperties: false
-    required: [records, subject, moment]
+    required: [records, subject, moment, from]
     properties:
       records: {$ref: "#/$defs/fields"}
       subject: {$ref: "#/$defs/field"}
@@ -407,11 +430,13 @@ $defs:
   announces:
     type: object
     x-question: announces
+    required: [from]
     properties: {from: {$ref: "#/$defs/citation"}}
     additionalProperties: {$ref: "#/$defs/names"}
   events:
     type: object
     x-question: announces
+    required: [from]
     properties: {from: {$ref: "#/$defs/citation"}}
     additionalProperties:
       type: object
@@ -421,6 +446,7 @@ $defs:
   tables:
     type: object
     x-question: [grants, value_rules]
+    required: [from]
     properties: {from: {$ref: "#/$defs/citation"}}
     propertyNames: {$ref: "#/$defs/name"}
     additionalProperties:
@@ -443,3 +469,15 @@ x-revisions:
 - revision: 3
   change: Moved into the Design Compiler as its derive route; a ledger may hold open questions and cases.
   digest: sha256:1d24004dced74c16d304c03cf6873d5918f73f122f8c007a87c1c4f9a964d67d
+- revision: 4
+  change: 'Every answer cites its authority: from is required on the actor, each thing, operation and
+    trail, and each named map.'
+  digest: sha256:76344a6a009841a4684923c0933ce888dd53807f4bb3b0c20ad1b39b385fbe5f
+- revision: 5
+  change: A ledger states its purpose and each part's, why it keeps each thing, and what is out of scope,
+    so the phase documents can be projected from it.
+  digest: sha256:d11df993449e2926c41e8b945369b894e843813b5ca7da112af8b62cdbf8810a
+- revision: 6
+  change: 'A repeat may record and announce nothing of its own: on_repeat''s records and announces are
+    each optional.'
+  digest: sha256:5275bcfe8e22a619b6ed502e1734ab92af0c9b910eaa84083dfd93641ba8c4b6
