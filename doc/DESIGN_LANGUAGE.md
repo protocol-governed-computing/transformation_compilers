@@ -501,12 +501,19 @@ migration, and it runs as an authored dossier.
 A change to the doctrine, the ledger schema, the catalog or a building block changes every derived
 design at once.
 
-- **It records a sealed revision.** `tc phase derive revise` records it, with the digest it produced.
-- **It runs as its own dossier,** in `dossiers/<subject>/` of this repository.
-- **It re-derives every ledger** in `testbed/ledgers/`. The workspace regression builds each one and
-  compares the result with its expected outcome.
-
-Nothing yet refuses a route change made outside a dossier. The dossier requirement is process.
+- **A sealed document records a revision.** `tc phase derive revise` records it, with the digest it
+  produced.
+- **It runs as its own dossier,** `dossiers/<subject>/` of this repository, whose `change.md` says what
+  changed and why.
+- **The route is sealed whole.** `tc phase derive seal <dossier>` takes the digest of every module of
+  `transformation/design/derive/` and every sealed document. It re-derives every ledger in
+  `testbed/ledgers/` against its domain's design of record, and records both in the package's
+  `route_seals.yaml` under the dossier's name.
+  - Each re-derivation's outcome is recorded. An unchanged design of record keeps every artifact;
+    a changed one is delivered as a change request.
+- **A route no seal records derives nothing.** A derivation is refused, and `judged_by` names the seal
+  it ran under. `tc phase derive meta` also refuses a seal whose dossier has no `change.md`.
+- **The workspace regression builds each ledger** and compares the result with its expected outcome.
 
 ### 9.6 The phase documents
 
@@ -550,6 +557,13 @@ admissible. It then checks construction, emits, deletes what the design supersed
 retired, records each deletion in `retired_identities.yaml`, repoints the domain's testbed and
 client to successors, compiles, assembles and regenerates the design of record.
 
+- **The criteria come first.** The change's `criteria.yaml` names the suites that hold its acceptance
+  criteria. Delivery runs them against the composition the change is designed against, before it
+  derives (`criteria_before.txt`), and refuses unless one fails there: criteria the composition
+  already meets do not tell the change apart. After delivery every criterion must hold
+  (`criteria_after.txt`). `scripts/criteria_run.py` dispatches each act the suite names to the
+  version of it the composition holds. `scripts/criteria_before.sh` runs a delivered domain's
+  criteria against the domain at an earlier revision.
 - **One decision, one change.** A ledger that adopts the derived design keeps the behavior the
   design of record has, where the ledger can state it. Each later owner decision is its own change,
   a delta to the previous change's ledger.

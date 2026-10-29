@@ -33,7 +33,7 @@ prototype's findings, briefs, owner answers and analysis are in git history at `
 | 3.3 | The lifecycle states where the ledger sits: P1–P3 stay dialog for discovery changes; P4–P7 are derived; Gate 1 approves the ledger | **holds**: DESIGN_LANGUAGE §9.1. The P7 gate approves the ledger with the derived design and its trace |
 | 3.4 | Derived P1–P6 pass the phase rules, or the rules they replace are named | **holds**: DESIGN_LANGUAGE §9.6. P0 to P6 are projected from each ledger (P2–P4 from what the derivation observed), and `tc phase check` admits all seven for book, blockchain and ai_governance by the sealed rules, with no rule relaxed. A changed projection is refused, and projection is deterministic. `derive_build.sh` judges them on every build |
 | 3.5 | The carried-surface rule is in the standard: names fixed by data and callers are carried, and changing one is a migration the ledger states | **holds**: DESIGN_LANGUAGE §9.4. Stores, bindings, entrances, request shapes, trail keys and read outputs are carried; `replaces` is the one answer that changes a carried name; store matching is stated as it is (name, registry words, the one trail) |
-| 3.6 | A doctrine or block change runs as its own dossier, and re-derives every domain's design of record | **partial**: DESIGN_LANGUAGE §9.5; a sealed revision is enforced, and regression re-derives every ledger. Nothing refuses a route change made outside a dossier |
+| 3.6 | A doctrine or block change runs as its own dossier, and re-derives every domain's design of record | **holds**: DESIGN_LANGUAGE §9.5. The route is sealed whole, every module and sealed document, in `route_seals.yaml`, by `tc phase derive seal <dossier>`, which re-derives every ledger and records each outcome. A derivation under a route no seal records is refused, as is a seal whose dossier says nothing (`route_seal_test.py`, `derive_meta`). The first seal is `dossiers/derive_route_sealed`: all three designs of record unchanged |
 
 ## 4. It is proven on every build
 
@@ -42,7 +42,7 @@ prototype's findings, briefs, owner answers and analysis are in git history at `
 | 4.1 | Derivation is deterministic | book, blockchain and ai_governance each generate identical output twice |
 | 4.2 | `regression.sh` runs the derive-and-build pipeline for each derived domain | **holds**: `--all` runs `derive_ledgers`, `derive_meta`, `derive_selftest` and `derive_<domain>` for the three domains, with their expected results in `expectations.yaml` |
 | 4.3 | Construction completeness is 100% for every derived domain | book, blockchain and ai_governance at 100% |
-| 4.4 | Each derived domain's criteria are written before its design | blockchain and ai_governance checks were; book's suites predate the method. That is history and stays a stated limit |
+| 4.4 | Each derived domain's criteria are written before its design | **holds**: delivery refuses a change whose `criteria.yaml` names no suite, or whose criteria all hold before it derives, and requires every one after (DESIGN_LANGUAGE §9.7). The three delivered domains' owner-decision criteria fail against the domain before the route designed it, book 0/8, blockchain 2/9, ai_governance 4/21, where each that holds is behavior the owner kept. They hold after: 8/8, 9/9, 21/21. Book's criteria were written while it was delivered, not before its first design; book's registration and works suites predate the method and stay as regression |
 
 ## 5. What it leaves behind is clean
 
@@ -59,5 +59,7 @@ prototype's findings, briefs, owner answers and analysis are in git history at `
    Close the catalog and the ledger shape (1.3, 1.4). Done.
 3. Then do the engineering in sections 2 and 4. Done. 2.5 needed a retirement without a successor,
    which the design language now states (RETIRE); 2.4 needed six lifecycle invariants, now authored.
-4. Write the standard text last (3.3–3.6). Done: DESIGN_LANGUAGE §9. Open: 3.6's dossier,
-   which only process enforces.
+4. Write the standard text last (3.3–3.6). Done: DESIGN_LANGUAGE §9. The route is sealed whole,
+   and a derivation under an unsealed route is refused (3.6).
+5. Deliver the derived designs to the domains as change requests (5.2), with each change's criteria
+   run before and after it (4.4). Done.

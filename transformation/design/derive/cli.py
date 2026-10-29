@@ -132,6 +132,7 @@ def reg_codes(domain_root: Path) -> list[str]:
 def derive_meta(snapshot_root: Path) -> None:
     """Check the sealed documents: each is its last revision, and every doctrine citation resolves."""
     problems = [why for name in seal.SEALED if (why := seal.unrecorded(name))]
+    problems += [why for why in [seal.route_unsealed()] if why] + seal.unsealed_dossiers()
     problems += seal.doctrine_closure(snapshot_root)
     rules = seal.load("doctrine")["rules"]
     unstated = sorted(n for n, r in rules.items() if r.get("realizes") == "none")
@@ -141,7 +142,52 @@ def derive_meta(snapshot_root: Path) -> None:
                + (f"; realizing none: {', '.join(unstated)}" if unstated else ""))
     if problems:
         raise SystemExit(1)
+    click.echo(f"  route: sealed by dossiers/{seal.route_in_force()['revision']} "
+               f"({len(seal.seals())} seal(s))")
     click.echo("  DERIVE META PASSED")
+
+
+@derive.command("seal")
+@click.argument("dossier", type=click.Path(exists=True, file_okay=False, path_type=Path))
+@click.option("--snapshot", "snapshot_root", required=True,
+              type=click.Path(exists=True, file_okay=False, path_type=Path),
+              help="The composition each ledger is re-derived against.")
+@click.option("--change", required=True, help="What the route change is, in one sentence.")
+def derive_seal(dossier: Path, snapshot_root: Path, change: str) -> None:
+    """Seal a route change: re-derive every ledger under the route as it stands, and record both."""
+    dossier = dossier.resolve()
+    if dossier.parent != seal.DOSSIERS.resolve():
+        raise click.ClickException(f"a route change runs as its own dossier, under {seal.DOSSIERS}")
+    if not (dossier / seal.CHANGE_FILE).is_file():
+        raise click.ClickException(f"{dossier.name} has no {seal.CHANGE_FILE}: the dossier says what changed")
+    for name in seal.SEALED:
+        if why := seal.unrecorded(name):
+            raise click.ClickException(why)
+    seal.SEALING = True
+    rederived = {}
+    for ledger in sorted((seal.DOSSIERS.parent / "testbed" / "ledgers").glob("*/ledger.yaml")):
+        name = ledger.parent.name
+        summary = rederive(ledger, seal.DOSSIERS.parents[1] / "business_domains" / name, snapshot_root)
+        rederived[name] = summary
+        click.echo(f"  {name}: {summary['identities']}  — design of record {summary['design_of_record']}")
+    entry = seal.record_seal(dossier.name, change, rederived)
+    click.echo(f"  sealed by dossiers/{entry['dossier']}: {len(entry['route'])} file(s)")
+
+
+def rederive(ledger: Path, domain_root: Path, snapshot_root: Path) -> dict:
+    """What one ledger derives against its domain's design of record, by identity."""
+    import tempfile
+    workspace = seal.DOSSIERS.parents[1]
+    reg = derive_design(ledger, next((domain_root / "design").glob("p7_*.md")))
+    with tempfile.TemporaryDirectory() as tmp:
+        splice(domain_root / "design", reg, Path(tmp))
+        d = identity.decide(Path(tmp), snapshot_root, domain_root, reg_codes(domain_root),
+                            workspace / "pgc_release" / "snapshot",
+                            workspace / ".github" / "process" / "retired_identities.yaml", reg.get("_replaces"))
+    moved = len(d["superseded"]) + len(d["new"]) + len(d["replaced"]) + len(d["retired"])
+    return {"identities": f"kept {len(d['kept'])}, superseded {len(d['superseded'])}, new {len(d['new'])}, "
+                          f"replaced {len(d['replaced'])}, retired {len(d['retired'])}",
+            "design_of_record": "unchanged" if not moved else "changes: deliver it as a change request"}
 
 
 @derive.command("revise")

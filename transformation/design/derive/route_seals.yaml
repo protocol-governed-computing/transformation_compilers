@@ -1,0 +1,31 @@
+# Seals of the derive route, oldest first. Written by `tc phase derive seal`; never edited.
+# Each records a route change's dossier, the digest of every file of the route as the change
+# left it, and what re-deriving each ledger gave. A derivation is refused unless one matches.
+seals:
+- dossier: derive_route_sealed
+  change: 'The derive route is sealed whole: every module and sealed document, recorded with the dossier
+    that changed it, and a derivation refused under any other route.'
+  route:
+    __init__.py: sha256:44e3864ecf1a88194a9b4a92cddbd043fd2bd785dd8ae23e1939713a9fbd04ec
+    base.py: sha256:fe06f52deaa538647c48c7735fb43a4f8bbc1f0fe3f1a4a8c5a30cc0400051d7
+    catalog.yaml: sha256:ec2afc1fc5733a6466159ff973be6a920a00cb26534c109dec1170001a078230
+    cli.py: sha256:fb6e72a8c7811aadc33eb72f58271f2ce592394dec21bbca347444762e7ad7f1
+    compose.py: sha256:80aaca1118be2f93f679f4115515e85551707314a717324360c1d30e16adaa9f
+    discover.py: sha256:117f3ee1fda092c818387f69b7d1d2708eaabaacbe51a7f0c16e321cfd235892
+    doctrine.yaml: sha256:6567f56112bcf47d0e4a5dec5c3833357b8b058e6c9ec59f5a973a295c26c9fc
+    identity.py: sha256:b26123d145f5f11dc1905659191f3ef0d1bee97f795af99e3773f7fa3457bac5
+    ledger.py: sha256:0c1667a7776bcc3a6c202e7e2518ae489d160400366c71bcc276129f172024ab
+    ledger_schema.yaml: sha256:93db0abd799b0ad62a85fdfa8dadf7f6c9379eee4273f3091bea3604f2bcb8dc
+    project.py: sha256:4f4505313df00efd3621abbd02df89a02b3b68b361cdb687a232633afbf3d5b1
+    seal.py: sha256:dbffc90c4cea89699afc8daabbc45ad54a83a12babc4d0529de8ae824dce2ef6
+    splice.py: sha256:b04ac70211b20cb14a953b441e7c2236fee2d1c82816e42cee87ce798d590bff
+  rederived:
+    ai_governance:
+      identities: kept 59, superseded 0, new 0, replaced 0, retired 0
+      design_of_record: unchanged
+    blockchain:
+      identities: kept 44, superseded 0, new 0, replaced 0, retired 0
+      design_of_record: unchanged
+    book_library_mgmt:
+      identities: kept 57, superseded 0, new 0, replaced 0, retired 0
+      design_of_record: unchanged

@@ -24,8 +24,15 @@ SEALED = {"doctrine": HERE / "doctrine.yaml", "ledger_schema": HERE / "ledger_sc
 REVISIONS = re.compile(r"^x-revisions:.*\Z", re.MULTILINE | re.DOTALL)
 
 
+DOSSIERS = HERE.parents[2] / "dossiers"
+ROUTE_SEALS = HERE / "route_seals.yaml"
+CHANGE_FILE = "change.md"
+SEALING = False   # set only while `tc phase derive seal` re-derives the ledgers under a new seal
+
+
 class Unsealed(ValueError):
-    """A sealed document's content is not the content its last revision records."""
+    """A sealed document's content is not the content its last revision records, or the route is not
+    one a dossier sealed."""
 
 
 def load(name: str) -> dict[str, Any]:
@@ -51,6 +58,82 @@ def unrecorded(name: str) -> str | None:
     return None
 
 
+# -- the route, sealed whole ---------------------------------------------------------------------
+#
+# The sealed documents decide part of a derived design; the building blocks, which are code, decide
+# the rest. A route change, to either, runs as its own dossier, `dossiers/<subject>/`, whose
+# `change.md` says what changed and why. `tc phase derive seal` records the change in
+# `route_seals.yaml`: the digest of every file of the route as the change left it, and what
+# re-deriving each ledger gave. A derivation is refused while the route is not one a seal records.
+
+def route_files() -> list[Path]:
+    """Every file that decides a derived design: the package's modules and its sealed documents."""
+    return sorted([*HERE.glob("*.py"), *SEALED.values()])
+
+
+def file_digest(path: Path) -> str:
+    return "sha256:" + hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def route_now() -> dict[str, str]:
+    return {p.name: file_digest(p) for p in route_files()}
+
+
+def seals() -> list[dict[str, Any]]:
+    """Every recorded seal of the route, oldest first."""
+    if not ROUTE_SEALS.is_file():
+        return []
+    return (yaml.safe_load(ROUTE_SEALS.read_text(encoding="utf-8")) or {}).get("seals") or []
+
+
+def route_unsealed() -> str | None:
+    """Why the route as it stands is not one a seal records, or None when one does."""
+    now, sealed = route_now(), seals()
+    if any(s.get("route") == now for s in sealed):
+        return None
+    if not sealed:
+        return "no seal records the derive route — a route change runs as its own dossier (`tc phase derive seal`)"
+    last = sealed[-1]
+    differs = sorted(f for f in set(now) | set(last["route"]) if now.get(f) != last["route"].get(f))
+    return (f"the derive route was changed outside a dossier: {', '.join(differs)} "
+            f"{'differs' if len(differs) == 1 else 'differ'} from the route "
+            f"dossiers/{last['dossier']} sealed — a route change runs as its own dossier (`tc phase derive seal`)")
+
+
+def route_in_force() -> dict[str, Any]:
+    """The seal the route is. Refused when none is, unless a seal is being made."""
+    why = route_unsealed()
+    if why and not SEALING:
+        raise Unsealed(why)
+    now = route_now()
+    dossier = next((s["dossier"] for s in seals() if s.get("route") == now), "being sealed")
+    whole = hashlib.sha256(json.dumps(now, sort_keys=True).encode("utf-8")).hexdigest()
+    return {"id": "the derive route", "revision": dossier, "digest": "sha256:" + whole}
+
+
+def unsealed_dossiers() -> list[str]:
+    """Seals whose dossier is not in the repository, or does not say what changed."""
+    if not DOSSIERS.parent.joinpath("pyproject.toml").is_file():
+        return []   # an installed package carries its seals, not the repository's dossiers
+    return [f"seal of dossiers/{s['dossier']}: the dossier has no {CHANGE_FILE}"
+            for s in seals() if not (DOSSIERS / s["dossier"] / CHANGE_FILE).is_file()]
+
+
+def record_seal(dossier: str, change: str, rederived: dict[str, Any]) -> dict[str, Any]:
+    """Append a seal of the route as it stands. Refused when a seal already records it."""
+    now = route_now()
+    sealed = seals()
+    if any(s.get("route") == now for s in sealed):
+        raise Unsealed(f"a seal already records this route (dossiers/{next(s['dossier'] for s in sealed if s['route'] == now)})")
+    entry = {"dossier": dossier, "change": change, "route": now, "rederived": rederived}
+    head = ("# Seals of the derive route, oldest first. Written by `tc phase derive seal`; never edited.\n"
+            "# Each records a route change's dossier, the digest of every file of the route as the change\n"
+            "# left it, and what re-deriving each ledger gave. A derivation is refused unless one matches.\n")
+    ROUTE_SEALS.write_text(head + yaml.safe_dump({"seals": sealed + [entry]}, sort_keys=False, allow_unicode=True,
+                                                 width=100), encoding="utf-8")
+    return entry
+
+
 def judged_by() -> dict[str, dict[str, Any]]:
     """The sealed documents a derivation applies. Refused when any is not its last revision."""
     out = {}
@@ -60,6 +143,7 @@ def judged_by() -> dict[str, dict[str, Any]]:
             raise Unsealed(why)
         doc = load(name)
         out[name] = {"id": doc["$id"], "revision": doc["x-revisions"][-1]["revision"], "digest": digest(doc)}
+    out["route"] = route_in_force()
     return out
 
 

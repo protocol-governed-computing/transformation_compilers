@@ -6,7 +6,14 @@
 # Usage: derive_deliver.sh <domain> <cr dir>
 #   <domain>  a folder under business_domains/
 #   <cr dir>  business_domains/<domain>/cr_dossiers/cr_NN_<subject>/, holding the change's
-#             ledger.yaml. The dossier is written beside it: baseline.json, P0 to P8.
+#             ledger.yaml and its criteria.yaml. The dossier is written beside them: baseline.json,
+#             criteria_before.txt, P0 to P8, criteria_after.txt.
+#
+# The change's acceptance criteria come before its design. criteria.yaml names the suites, under the
+# domain, that hold them (`suites: [testbed/<part>/execution_validation_<subject>.py]`). Delivery runs
+# them against the composition the change is designed against, and refuses unless one fails there:
+# criteria that the composition already meets do not tell the change apart. After delivery, every
+# criterion must hold.
 #
 # The ledger is the decision; everything else here is derived from it and the composition it is
 # designed against. Nothing is committed. Run the domain's suites and the regression afterwards.
@@ -29,6 +36,24 @@ cd "$W"
 # output).
 echo "== pin"
 tc baseline show --snapshot snapshot > "$CR/baseline.json"
+
+criteria() {   # <phase> <out file>: run the change's suites; exit status 0 when every criterion holds
+  local rc=0 suite
+  : > "$2"
+  for suite in $(python -c "import sys, yaml; print(' '.join((yaml.safe_load(open(sys.argv[1])) or {}).get('suites') or []))" "$CR/criteria.yaml"); do
+    [[ -f "$DOMAIN/$suite" ]] || { echo "  criteria.yaml names $suite, which the domain does not hold"; exit 1; }
+    echo "# $suite, $1" >> "$2"
+    python "$REPO/scripts/criteria_run.py" "$DOMAIN/$suite" snapshot >> "$2" 2>&1 || rc=1
+  done
+  grep -E 'criteria hold' "$2" | sed 's/^/  /'
+  return $rc
+}
+
+echo "== criteria, before the design"
+[[ -f "$CR/criteria.yaml" ]] || { echo "  no criteria.yaml: a change's acceptance criteria come before its design"; exit 1; }
+if criteria "before the design" "$CR/criteria_before.txt"; then
+  echo "  not delivered: every criterion already holds, so none tells this change apart"; exit 1
+fi
 
 echo "== derive"
 tc phase derive design "$LEDGER" "$BASELINE" --out "$S/generated.json"
@@ -140,3 +165,6 @@ for t in "$DOMAIN"/testbed/*/execution_validation*.py; do
   echo "  ${t#$DOMAIN/testbed/}"
   python "$t" 2>&1 | grep -E 'FAIL|criteria hold|Error' | sed 's/^/  /' || true
 done
+
+echo "== criteria, after delivery"
+criteria "after delivery" "$CR/criteria_after.txt" || { echo "  a criterion of this change does not hold"; exit 1; }
