@@ -795,7 +795,13 @@ class Composer(Domain):
                 f"{self.ns}CC_RELEASE_{up(name)}_IDENTITY_V0", f"Release a {name}'s identity",
                 release("release_identity", self.registry(name), f"inputs.{key}", src + "/releases"),
                 {key: "string"}, {"result_status": "string"}, src + "/releases"))
-            chain.append((rel, {key: keyref}, {}, src + "/releases + doctrine:failed_record_ends"))
+            if op.get("release_refused") == "otherwise":
+                # The registry's refusal is an answer: the operation ends where the owner says, before
+                # anything is written. A store that cannot be written still ends it refused.
+                chain.append((rel, {key: keyref}, {"VIOLATION": "EXIT_" + up(op["otherwise"])},
+                              src + "/release_refused + doctrine:failed_record_ends"))
+            else:
+                chain.append((rel, {key: keyref}, {}, src + "/releases + doctrine:failed_record_ends"))
         siblings = [o for o in self.l["operations"].values() if isinstance(o, dict) and o.get("does") == "change"
                     and o.get("thing") == name and o.get("from_state") == op["from_state"]]
         decided = [f for f in op.get("may_change", []) if f != "state"]
@@ -1065,7 +1071,7 @@ class Composer(Domain):
         held = {r["code"] for r in self.base["new_artifacts"]}
         out = {}
         named = op.get("replaces", [])
-        if named and self.delivered.get(self.code("WF", named[0])) == self.code("WF", op_name):
+        if named and self.code("WF", op_name) in self.delivered.get(self.code("WF", named[0]), ()):
             # Delivered: the design of record holds this operation's workflow as the successor of the
             # first one named, and the change that made it so retired the rest.
             return out
@@ -1124,15 +1130,24 @@ def as_v0(baseline, live):
     return renumber(plain, {code: v0 for v0, code in live.items()})
 
 
-def delivered(baseline, live):
-    """{predecessor: successor at V0}: the replacements the design of record states as made, read
-    from its lineage (`supersedes`)."""
+def delivered(baseline, live, recorded=()):
+    """{predecessor: every successor after it, at V0 and live}: the replacements made, read from the
+    retirement ledger's record and the design of record's lineage (`supersedes`), followed to the
+    last version. The design of record names one predecessor per artifact, so a replacement two
+    versions back is in the record only."""
     v0 = {code: stem for stem, code in live.items()}
-    out = {}
+    succ = {e["identity"]: e["superseded_by"] for e in recorded if e.get("superseded_by")}
     for r in baseline.get("artifact_properties") or []:
         if r.get("property") == "supersedes":
             for old in r["value"] if isinstance(r["value"], list) else [r["value"]]:
-                out[old] = v0.get(r["artifact"], r["artifact"])
+                succ[old] = r["artifact"]
+    out = {}
+    for old in succ:
+        chain, x = [], old
+        while x in succ and succ[x] not in chain:
+            x = succ[x]
+            chain.append(x)
+        out[old] = set(chain) | {v0.get(c, c) for c in chain}
     return out
 
 
@@ -1152,12 +1167,15 @@ def live_names(reg, baseline, live):
     return reg
 
 
-def derive(ledger_path, baseline_path):
-    """The P7 rows a ledger derives, judged by the sealed doctrine, schema and catalog."""
+def derive(ledger_path, baseline_path, retired_path=None):
+    """The P7 rows a ledger derives, judged by the sealed doctrine, schema and catalog. The retirement
+    ledger, when given, is read for the replacements already made."""
     judged = seal.judged_by()
     ledger = yaml.safe_load(open(ledger_path))
     refuse(ledger)
     baseline = load_p7(baseline_path)
     live = live_versions(baseline)
-    reg = check_provenance(Composer(ledger, as_v0(baseline, live), delivered(baseline, live)).run(), ledger)
+    recorded = (yaml.safe_load(open(retired_path)) or {}).get("retired") or [] if retired_path else []
+    reg = check_provenance(Composer(ledger, as_v0(baseline, live), delivered(baseline, live, recorded)).run(),
+                           ledger)
     return {"_judged_by": judged, **live_names(reg, baseline, live)}

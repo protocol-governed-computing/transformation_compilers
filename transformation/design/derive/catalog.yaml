@@ -77,6 +77,8 @@ questions:
                         shape: the operations it takes the place of, as the business names them today; the first is its predecessor and the others are retired}
   outcome_condition:   {asked_when: per change that waits on a measured condition, added_by: ai_governance,
                         shape: the condition, and where the operation ends when it does not hold}
+  release_refused:     {asked_when: per change that releases an identity and has another ending, added_by: ai_governance,
+                        shape: where the operation ends when the identity's registry refuses the release}
 
 # Not questions. A citation says where an answer came from; it is carried, never derived from.
 citations: [from, seed]
@@ -105,3 +107,7 @@ x-revisions:
   change: Purpose names each part as well as the domain; why and out_of_scope are asked, for projecting
     the phase documents.
   digest: sha256:1bac5510c3d768fcc394e21a832acc53788041a0f5cb65cbfa2fe1eb626c8486
+- revision: 6
+  change: 'The question release_refused: where a change that releases an identity ends when the registry
+    refuses the release.'
+  digest: sha256:e4b19e0d8c6d08b8b0c3bee0f4d0dc663116c042ee54c3466ed0346d3c1aba96

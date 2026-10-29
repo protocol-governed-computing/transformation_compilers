@@ -18,7 +18,8 @@ cd "$W"
 
 echo "== derive"
 rm -rf "$S/dossier" "$S/identity" "$S/domain" "$S/snapshot" && mkdir -p "$S"
-tc phase derive design "$HERE/ledger.yaml" "$BASELINE" --out "$S/generated.json"
+tc phase derive design "$HERE/ledger.yaml" "$BASELINE" --out "$S/generated.json" \
+  --retired .github/process/retired_identities.yaml
 
 # Each artifact's identity is decided by meaning, against the composition the design is pinned to:
 # the working snapshot, which holds the domain as its design of record describes it.

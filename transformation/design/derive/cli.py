@@ -57,10 +57,12 @@ def derive_selftest(book: Path, ai_governance: Path) -> None:
 @click.argument("baseline", type=click.Path(exists=True, dir_okay=False, path_type=Path))
 @click.option("--out", type=click.Path(dir_okay=False, path_type=Path), required=True,
               help="Where the derived rows are written, as JSON.")
-def derive_derive(ledger: Path, baseline: Path, out: Path) -> None:
+@click.option("--retired", type=click.Path(exists=True, dir_okay=False, path_type=Path), default=None,
+              help="The retirement ledger: the replacements already made, which a spent `replaces` names.")
+def derive_derive(ledger: Path, baseline: Path, out: Path, retired: Path | None) -> None:
     """Derive a domain's P7 rows from its ledger, against its design of record."""
     try:
-        reg = derive_design(ledger, baseline)
+        reg = derive_design(ledger, baseline, retired)
     except (Refused, seal.Unsealed, ValueError) as exc:  # Untraced is a ValueError
         raise click.ClickException(str(exc))
     out.write_text(json.dumps(reg, indent=1) + "\n", encoding="utf-8")
@@ -178,12 +180,14 @@ def rederive(ledger: Path, domain_root: Path, snapshot_root: Path) -> dict:
     """What one ledger derives against its domain's design of record, by identity."""
     import tempfile
     workspace = seal.DOSSIERS.parents[1]
-    reg = derive_design(ledger, next((domain_root / "design").glob("p7_*.md")))
+    retired = workspace / ".github" / "process" / "retired_identities.yaml"
+    reg = derive_design(ledger, next((domain_root / "design").glob("p7_*.md")),
+                        retired if retired.is_file() else None)
     with tempfile.TemporaryDirectory() as tmp:
         splice(domain_root / "design", reg, Path(tmp))
         d = identity.decide(Path(tmp), snapshot_root, domain_root, reg_codes(domain_root),
                             workspace / "pgc_release" / "snapshot",
-                            workspace / ".github" / "process" / "retired_identities.yaml", reg.get("_replaces"))
+                            retired, reg.get("_replaces"))
     moved = len(d["superseded"]) + len(d["new"]) + len(d["replaced"]) + len(d["retired"])
     return {"identities": f"kept {len(d['kept'])}, superseded {len(d['superseded'])}, new {len(d['new'])}, "
                           f"replaced {len(d['replaced'])}, retired {len(d['retired'])}",

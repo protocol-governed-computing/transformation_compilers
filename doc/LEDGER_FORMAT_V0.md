@@ -117,6 +117,7 @@ meaning added `replaces`.
 | `values` | per thing | `fixed` values a new record takes, and `clock` values that are the time of the act | fields of the written record, a clock step |
 | `sets` | per operation recording a fact | the fields set on an existing record, to a value or to the time | a conditional update |
 | `replaces` | per operation that takes the place of one the composition holds | the operations it replaces, as the business names them today; once delivered, the answer stays and is spent | `supersedes` on the operation's workflow and entrance |
+| `release_refused` | per change that releases an identity and has an `otherwise` ending | `otherwise`: a release the registry refuses ends there, before anything is written; without it, the change ends rejected | the release step's `VIOLATION` routes to the `otherwise` ending; a store that cannot be written still ends it rejected |
 
 `grants` and `value_rules` share one shape: a named table in the part, read by a `look_up` check.
 The blind author's `value_rules` named rules in words (`one_of`, `at_most`). The ledger writes them

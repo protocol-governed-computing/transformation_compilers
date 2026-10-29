@@ -128,8 +128,9 @@ parts:
         when: {unused_for_days: 30, since: last_used_at}
         otherwise: still active
         releases: identity
+        release_refused: otherwise
         replaces: [auto reclaim]
-        from: "owner / 30 days fixed, one license at a time, by the system; cr_02 refused removal"
+        from: "owner / 30 days fixed, one license at a time, by the system; cr_02: a reclaim the registry refuses ends as still active"
     trail:
       records: [employee_id, license_id, tier, reason]
       subject: employee_id

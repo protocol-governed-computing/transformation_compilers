@@ -311,6 +311,7 @@ $defs:
           since: {$ref: "#/$defs/field"}
       otherwise: {$ref: "#/$defs/name", x-question: outcome_condition}
       releases: {const: identity, x-question: identity}
+      release_refused: {const: otherwise, x-question: release_refused}
       replaces: {$ref: "#/$defs/names", x-question: replaces}
       checks: {type: array, items: {$ref: "#/$defs/check"}, minItems: 1, x-question: refusal_order}
       on_refusal:
@@ -348,7 +349,8 @@ $defs:
           required: [thing]
           not: {anyOf: [{required: [creates]}, {required: [criteria]}, {required: [checks]}]}
           dependentRequired: {from_state: [to_state], to_state: [from_state], when: [otherwise, from_state],
-                              otherwise: [when], releases: [from_state]}
+                              otherwise: [when], releases: [from_state],
+                              release_refused: [releases, otherwise]}
           anyOf: [{required: [from_state]}, {required: [sets]}, {required: [may_change]}]
       - if: {properties: {does: {const: read}}}
         then:
@@ -481,3 +483,7 @@ x-revisions:
   change: 'A repeat may record and announce nothing of its own: on_repeat''s records and announces are
     each optional.'
   digest: sha256:5275bcfe8e22a619b6ed502e1734ab92af0c9b910eaa84083dfd93641ba8c4b6
+- revision: 7
+  change: 'A change that releases an identity may say where it ends when the registry refuses the release:
+    release_refused: otherwise.'
+  digest: sha256:d206e0e854cb3966dbd017f1e16b95f014d4b1ed40282c99e78ad133b29b0e96

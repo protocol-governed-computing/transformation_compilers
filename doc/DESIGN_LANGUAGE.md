@@ -573,8 +573,9 @@ client to successors, compiles, assembles and regenerates the design of record.
   version the design of record holds, with that version's lineage. It reads the trail's form from
   the design it wrote as well as from a hand-authored one. Re-deriving the last change's ledger
   keeps every artifact. Three rules keep this true:
-  - A `replaces` answer is spent once delivered. The design of record then holds the operation's
-    workflow as the successor of the first one named.
+  - A `replaces` answer is spent once delivered: the operation's workflow is on the chain of
+    successors of the first workflow it names. The chain is read from the retirement ledger and the
+    design's lineage, because a design of record names only each artifact's latest predecessor.
   - A new act's trail records the request fields its own chain binds, as it will once the act
     exists.
   - A suite dispatches the successors the derivation, the design's lineage and the retirement

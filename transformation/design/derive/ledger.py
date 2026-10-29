@@ -226,6 +226,12 @@ def selftest(book_path, ai_path):
         "a look-up in a table nobody declared": bad(ai, lambda x: x["parts"]["agent_governance"]["operations"]["govern agent action"]
                                                    ["checks"][2]["look_up"].update(table="tier budgets")),
         "a condition without its other ending": bad(ai, lambda x: x["parts"]["ai_licensing"]["operations"]["reclaim license"].pop("otherwise")),
+        "a refused release routed by a change that releases nothing": bad(ai, lambda x: x["parts"]["ai_licensing"]["operations"]
+                                                                          ["reclaim license"].update(release_refused="otherwise")
+                                                                          or x["parts"]["ai_licensing"]["operations"]
+                                                                          ["reclaim license"].pop("releases")),
+        "a refused release routed anywhere but the other ending": bad(ai, lambda x: x["parts"]["ai_licensing"]["operations"]
+                                                                       ["reclaim license"].update(release_refused="rejected")),
         "a fact set to the time that is not a clock value": bad(ai, lambda x: x["parts"]["ai_licensing"]["operations"]
                                                                ["record training completed"]["sets"].update(training_completed="clock")),
         "an operation by an actor nobody declared": bad(ai, lambda x: x["parts"]["ai_licensing"]["operations"]["set license cap"]

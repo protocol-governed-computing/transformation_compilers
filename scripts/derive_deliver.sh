@@ -56,7 +56,8 @@ if criteria "before the design" "$CR/criteria_before.txt"; then
 fi
 
 echo "== derive"
-tc phase derive design "$LEDGER" "$BASELINE" --out "$S/generated.json"
+tc phase derive design "$LEDGER" "$BASELINE" --out "$S/generated.json" \
+  --retired .github/process/retired_identities.yaml
 tc phase derive splice "$DOMAIN/design" "$S/generated.json" "$S/identity" >/dev/null
 tc phase derive identities "$S/identity" "$S/generated.json" --snapshot snapshot --root "$DOMAIN" \
   --release pgc_release/snapshot --retired .github/process/retired_identities.yaml
