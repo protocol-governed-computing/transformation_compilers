@@ -231,29 +231,28 @@ def test_a_replacement_names_every_referrer_it_leaves_unaccounted():
 
 
 def test_a_route_to_a_place_is_not_a_referrer():
-    # The action's identity claim routes to the place that writes the action, so inspection reports
-    # it as a referrer by NODE_NEXT; its declaration does not name the writing contract.
-    target = "ai_governance::CC_WRITE_ACTION_V0"
+    # The termination check routes to the place that stores the results, so inspection reports it as
+    # a referrer by NODE_NEXT; its declaration does not name the storing contract.
+    target = "workload::CC_STORE_RESULTS_V0"
     p7 = _p7((target, "REPLACE"))
     refusals = _meaning_refusals(p7, {}, SNAPSHOT, Context(p7=p7, p8={}, snapshot_root=SNAPSHOT))
-    assert refusals == [f"{target} is replaced and ai_governance::WF_GOVERN_AGENT_ACTION_V1 still "
+    assert refusals == [f"{target} is replaced and workload::WF_COLLATZ_CONJECTURE_V0 still "
                         f"names it — REPLACE, RETIRE, EXTEND or REPOINT "
-                        f"ai_governance::WF_GOVERN_AGENT_ACTION_V1 in this design"], refusals
+                        f"workload::WF_COLLATZ_CONJECTURE_V0 in this design"], refusals
 
 
 def test_a_retirement_names_every_referrer_it_leaves_unaccounted():
-    target = "ai_governance::CC_WRITE_ACTION_V0"
+    target = "workload::CC_STORE_RESULTS_V0"
     p7 = _p7((target, "RETIRE"))
     refusals = _meaning_refusals(p7, {}, SNAPSHOT, Context(p7=p7, p8={}, snapshot_root=SNAPSHOT))
-    assert refusals == [f"{target} is retired and ai_governance::WF_GOVERN_AGENT_ACTION_V1 still "
+    assert refusals == [f"{target} is retired and workload::WF_COLLATZ_CONJECTURE_V0 still "
                         f"names it — REPLACE, RETIRE, EXTEND or REPOINT "
-                        f"ai_governance::WF_GOVERN_AGENT_ACTION_V1 in this design"], refusals
+                        f"workload::WF_COLLATZ_CONJECTURE_V0 in this design"], refusals
 
 
 def test_a_retired_referrer_is_accounted_for():
     # A replaced transform, named by a contract the same design retires: the retirement accounts for it.
-    transform, contract = ("ai_governance::CT_PURE_EVALUATE_INACTIVITY_V0",
-                           "ai_governance::CC_REQUIRE_LICENSE_UNUSED_FOR_DAYS_V0")
+    transform, contract = "workload::CT_PURE_COLLATZ_STEP_V0", "workload::CC_COMPUTE_SEQUENCES_V0"
     replaced_only = _p7((transform, "REPLACE"))
     before = _meaning_refusals(replaced_only, {}, SNAPSHOT,
                                Context(p7=replaced_only, p8={}, snapshot_root=SNAPSHOT))
@@ -264,16 +263,16 @@ def test_a_retired_referrer_is_accounted_for():
 
 
 def test_a_retired_transform_takes_its_test_data_with_it():
-    target = "ai_governance::CT_PURE_EVALUATE_INACTIVITY_V0"
+    target = "workload::CT_PURE_COLLATZ_STEP_V0"
     p7 = _p7((target, "RETIRE"))
     refusals = _meaning_refusals(p7, {}, SNAPSHOT, Context(p7=p7, p8={}, snapshot_root=SNAPSHOT))
-    assert not any("TEST_DATA_CT_PURE_EVALUATE_INACTIVITY_V0" in r for r in refusals), refusals
+    assert not any("TEST_DATA_CT_PURE_COLLATZ_STEP_V0" in r for r in refusals), refusals
 
 
 def test_a_retirement_of_what_the_composition_does_not_hold_is_refused():
-    p7 = _p7(("ai_governance::CC_NEVER_HELD_V0", "RETIRE"))
+    p7 = _p7(("workload::CC_NEVER_HELD_V0", "RETIRE"))
     refusals = _meaning_refusals(p7, {}, SNAPSHOT, Context(p7=p7, p8={}, snapshot_root=SNAPSHOT))
-    assert refusals == ["ai_governance::CC_NEVER_HELD_V0 is retired and the composition does not "
+    assert refusals == ["workload::CC_NEVER_HELD_V0 is retired and the composition does not "
                         "hold it"], refusals
 
 

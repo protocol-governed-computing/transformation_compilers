@@ -285,7 +285,7 @@ Grounding relates the document to the pinned composition.
 |---|---|
 | `exists` | each identity the column claims exists in the composition |
 | `absent` | each identity the column declares new does not |
-| `reuse_eligible` | each reuse candidate comes from a domain that permits reuse |
+| `reuse_eligible` | each reuse candidate comes from a domain that permits reuse; with `own_domain`, the change's own domain always does |
 
 ---
 
@@ -503,16 +503,25 @@ design at once.
 
 - **A sealed document records a revision.** `tc phase derive revise` records it, with the digest it
   produced.
-- **It runs as its own dossier,** `dossiers/<subject>/` of this repository, whose `change.md` says what
-  changed and why.
+- **It runs as its own dossier,** `dossiers/<subject>/` of this repository, judged by the phases from
+  the seed to governance intent. A route change authors code and sealed documents, which construction
+  does not render, so its dossier is complete at P6 (THE_SHAPE_OF_A_CHANGE §5).
+  - The dossier pins the composition it is designed against (`baseline.json`).
+  - It holds P0 to P6, each admissible against its priors by the rule sets sealed in that composition.
+  - Its classification is `MODIFY`, because it authors no artifact into the subdomain.
 - **The route is sealed whole.** `tc phase derive seal <dossier>` takes the digest of every module of
   `transformation/design/derive/` and every sealed document. It re-derives every ledger in
   `testbed/ledgers/` against its domain's design of record, and records both in the package's
   `route_seals.yaml` under the dossier's name.
   - Each re-derivation's outcome is recorded. An unchanged design of record keeps every artifact;
     a changed one is delivered as a change request.
+- **The seal judges the dossier.** `tc phase derive seal` judges P0 to P6 and refuses unless all seven
+  are admissible. It records each verdict, with the rule set that gave it, and the pin.
 - **A route no seal records derives nothing.** A derivation is refused, and `judged_by` names the seal
-  it ran under. `tc phase derive meta` also refuses a seal whose dossier has no `change.md`.
+  it ran under.
+- **`tc phase derive meta` checks the seals.** Once a seal carries phase verdicts, it refuses any later
+  seal without them, and any judged seal whose dossier lacks a phase document. The three seals made
+  before the rule carry a `change.md` and no verdicts. They stay as history.
 - **The workspace regression builds each ledger** and compares the result with its expected outcome.
 
 ### 9.6 The phase documents

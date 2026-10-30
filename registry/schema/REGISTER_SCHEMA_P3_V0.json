@@ -8,6 +8,12 @@
       "retroactive": false,
       "change": "The rule set as rebuilt: declared in this schema, each rule named by its identity, the header stated under document.",
       "digest": "sha256:a1a8c89228c338c3dbe45829da4550e9f01077cd8d0076dd2ee3e285646a0809"
+    },
+    {
+      "revision": 2,
+      "retroactive": false,
+      "change": "A reuse candidate from the change's own domain is eligible whatever plane that domain serves (own_domain): its artifacts are its own to change, so reusing one couples the change to no other owner's surface. This widens what P3 admits and refuses nothing it admitted.",
+      "digest": "sha256:45ec70b74cd2b1a8a5f7dd2bc987c8192bef158c9958e4043047870202ba2d2e"
     }
   ],
   "type": "object",
@@ -486,7 +492,8 @@
           "eligible": [
             "substrate",
             "business"
-          ]
+          ],
+          "own_domain": true
         }
       }
     },

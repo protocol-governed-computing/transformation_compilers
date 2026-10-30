@@ -183,7 +183,8 @@ def uncovered() -> list[Path]:
     """Designs of record that `DOMAINS` does not read."""
     covered = {(root / "design").resolve() for root, _ in DOMAINS}
     return [p.parent for p in sorted(WORKSPACE.glob("**/design/p7_*_baseline.md"))
-            if p.parent.resolve() not in covered and ".venv" not in p.parts]
+            if p.parent.resolve() not in covered and ".venv" not in p.parts
+            and p.relative_to(WORKSPACE).parts[0] not in ("data", "traces")]   # run output, never source
 
 
 def main() -> int:

@@ -529,7 +529,8 @@ CASES = [
          "CROSS_SUBDOMAIN_WRITE",
          "DECLARED_REACH_UNUSED",
          # Routing a catalog workflow into another subdomain's contract also hands that contract
-         # nothing: both of its declared inputs arrive unbound. One edit, two boundaries crossed.
+         # nothing: three of its declared inputs arrive unbound. One edit, two boundaries crossed.
+         "NODE_INPUT_UNBOUND",
          "NODE_INPUT_UNBOUND",
          "NODE_INPUT_UNBOUND",
          "TOPOLOGY_NODE_UNDECLARED",
@@ -789,13 +790,45 @@ def merit_of(surface: dict, payload: dict, phase: str, policy: dict) -> Merit:
 # reproduction never outlives the compiled domains it was assembled from.
 DESIGN_BASELINE = WORKSPACE / "traces" / "design_baseline"
 
+# The business domain CR-1 cites as its neighbour, frozen at the revision CR-1 was designed against.
+# The corpus cites that domain's artifacts as they were then; read from the live domain, every
+# delivery to it would reach into these fixtures. It is built once from git, beside the baseline.
+FROZEN_DOMAIN, FROZEN_REVISION = "ai_governance", "36bc62a"
+FROZEN = WORKSPACE / "traces" / "design_baseline_sources" / f"{FROZEN_DOMAIN}_{FROZEN_REVISION}"
+
 DESIGN_BASELINE_ROOTS = [
     WORKSPACE / "software_governance",
     WORKSPACE / "conformance_workloads" / "workloads" / "collatz",
-    WORKSPACE / "business_domains" / "ai_governance",
+    FROZEN / FROZEN_DOMAIN,
     WORKSPACE / "snapshot_inspector",
     REPO,
 ]
+
+
+def _frozen_domain() -> None:
+    """Build the frozen neighbour from git, once: its source at the revision, compiled against the
+    platform with its own transforms ahead of the working tree's."""
+    import os
+    import shutil
+    import subprocess
+
+    if (FROZEN / FROZEN_DOMAIN / "snapshot" / "compiled").is_dir():
+        return
+    shutil.rmtree(FROZEN, ignore_errors=True)
+    FROZEN.mkdir(parents=True)
+    archive = subprocess.run(["git", "-C", str(WORKSPACE / "business_domains"), "archive", FROZEN_REVISION,
+                              FROZEN_DOMAIN], capture_output=True, check=True).stdout
+    subprocess.run(["tar", "-x", "-C", str(FROZEN)], input=archive, check=True)
+    shutil.rmtree(FROZEN / FROZEN_DOMAIN / "snapshot" / "compiled", ignore_errors=True)
+    env = {**os.environ, "PGC_IMPL_ROOTS": ":".join(
+        str(r) for r in (FROZEN, WORKSPACE / "software_governance", WORKSPACE / "conformance_workloads",
+                         WORKSPACE / "business_domains"))}
+    done = subprocess.run([str(WORKSPACE / "protocol_compiler" / "compile_domain.sh"), str(FROZEN / FROZEN_DOMAIN)],
+                          env=env, capture_output=True, text=True)
+    if done.returncode:
+        shutil.rmtree(FROZEN, ignore_errors=True)
+        raise SystemExit(f"design baseline: {FROZEN_DOMAIN} at {FROZEN_REVISION} did not compile\n"
+                         + "\n".join((done.stdout + done.stderr).splitlines()[-20:]))
 
 
 def _baseline_is_stale() -> bool:
@@ -805,6 +838,7 @@ def _baseline_is_stale() -> bool:
     alone answers "was this ever built", which is a different question and the one that let a stale
     composition judge a freshly compiled rule set.
     """
+    _frozen_domain()
     manifest = DESIGN_BASELINE / "manifest.json"
     if not manifest.is_file():
         return True

@@ -150,9 +150,15 @@ def _reuse_candidate_eligible(doc: ParsedDocument, rule) -> list[tuple[Locator, 
     The second is a hard failure rather than a permissive default. Nothing yet stops a domain from
     compiling without the declaration, so absence would otherwise mean "search everything" — the
     inference the declaration exists to prevent, arriving silently through the back door.
+
+    One domain is always eligible when the rule declares `own_domain`: the domain the change is to.
+    Its artifacts are its own to change, so reusing one couples the change to no other owner's
+    surface. A change to a platform domain may then reuse that domain's own artifacts, whatever
+    plane the domain serves.
     """
     observation = rule.params["observation"]
     eligible = set(rule.params["eligible"])
+    own = doc.header.get("domain") if rule.params.get("own_domain") else None
     pattern = re.compile(rule.params["pattern"])
 
     # The observation is scope → visibility. Scope, not domain: substrate layers declare a
@@ -172,6 +178,8 @@ def _reuse_candidate_eligible(doc: ParsedDocument, rule) -> list[tuple[Locator, 
             domain = namespace if namespace in declared else _owning_domain(doc, rule, identity)
             if domain is None:
                 continue                          # not in the baseline: proposed-new, not a reuse
+            if domain == own:
+                continue                          # the change's own domain: its artifacts are its own
             visibility = declared.get(domain)
             if visibility is None:
                 out.append((

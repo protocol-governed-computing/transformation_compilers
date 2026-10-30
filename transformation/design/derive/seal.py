@@ -27,6 +27,13 @@ REVISIONS = re.compile(r"^x-revisions:.*\Z", re.MULTILINE | re.DOTALL)
 DOSSIERS = HERE.parents[2] / "dossiers"
 ROUTE_SEALS = HERE / "route_seals.yaml"
 CHANGE_FILE = "change.md"
+PIN_FILE = "baseline.json"
+# A route change authors code and sealed documents, which construction does not render, so its
+# dossier is complete at P6 (THE_SHAPE_OF_A_CHANGE §5). Each phase's document, by its file prefix,
+# and the phases it is judged against: the register schemas' `x-priors`.
+PHASES = {"p0": "p0_seed_", "p1": "p1_change_request_", "p2": "p2_domain_model_", "p3": "p3_analysis_loop_",
+          "p4": "p4_business_model_", "p5": "p5_business_intent_", "p6": "p6_governance_intent_"}
+PRIORS = {"p0": [], "p1": ["p0"], "p2": ["p1"], "p3": ["p2"], "p4": ["p3"], "p5": ["p0"], "p6": ["p5", "p0"]}
 SEALING = False   # set only while `tc phase derive seal` re-derives the ledgers under a new seal
 
 
@@ -111,21 +118,46 @@ def route_in_force() -> dict[str, Any]:
     return {"id": "the derive route", "revision": dossier, "digest": "sha256:" + whole}
 
 
+def phase_documents(dossier: Path) -> dict[str, Path | None]:
+    """The dossier's document for each phase P0 to P6, or None where it has none."""
+    return {ph: next(iter(sorted(dossier.glob(f"{prefix}*.md"))), None) for ph, prefix in PHASES.items()}
+
+
 def unsealed_dossiers() -> list[str]:
-    """Seals whose dossier is not in the repository, or does not say what changed."""
+    """Seals whose dossier is missing from the repository or says nothing, and seals that skip the
+    phases once a seal has been judged by them."""
+    out = []
+    judged = False
+    for s in seals():
+        judged = judged or bool(s.get("phases"))
+        if judged and not s.get("phases"):
+            out.append(f"seal of dossiers/{s['dossier']}: no phase verdicts, after a seal judged by the phases")
+        if judged and any(v.get("verdict") != "ADMISSIBLE" for v in (s.get("phases") or {}).values()):
+            out.append(f"seal of dossiers/{s['dossier']}: a phase document was not admissible")
     if not DOSSIERS.parent.joinpath("pyproject.toml").is_file():
-        return []   # an installed package carries its seals, not the repository's dossiers
-    return [f"seal of dossiers/{s['dossier']}: the dossier has no {CHANGE_FILE}"
-            for s in seals() if not (DOSSIERS / s["dossier"] / CHANGE_FILE).is_file()]
+        return out   # an installed package carries its seals, not the repository's dossiers
+    for s in seals():
+        d = DOSSIERS / s["dossier"]
+        if s.get("phases"):
+            missing = [ph for ph, doc in phase_documents(d).items() if doc is None]
+            if missing:
+                out.append(f"seal of dossiers/{s['dossier']}: the dossier has no {', '.join(missing)} document")
+        elif not (d / CHANGE_FILE).is_file():
+            out.append(f"seal of dossiers/{s['dossier']}: the dossier has no {CHANGE_FILE}")
+    return out
 
 
-def record_seal(dossier: str, change: str, rederived: dict[str, Any]) -> dict[str, Any]:
+def record_seal(dossier: str, change: str, rederived: dict[str, Any],
+                phases: dict[str, Any] | None = None, pinned: str | None = None) -> dict[str, Any]:
     """Append a seal of the route as it stands. Refused when a seal already records it."""
     now = route_now()
     sealed = seals()
     if any(s.get("route") == now for s in sealed):
         raise Unsealed(f"a seal already records this route (dossiers/{next(s['dossier'] for s in sealed if s['route'] == now)})")
     entry = {"dossier": dossier, "change": change, "route": now, "rederived": rederived}
+    if phases is not None:
+        entry = {"dossier": dossier, "change": change, "pinned": pinned, "phases": phases, "route": now,
+                 "rederived": rederived}
     head = ("# Seals of the derive route, oldest first. Written by `tc phase derive seal`; never edited.\n"
             "# Each records a route change's dossier, the digest of every file of the route as the change\n"
             "# left it, and what re-deriving each ledger gave. A derivation is refused unless one matches.\n")

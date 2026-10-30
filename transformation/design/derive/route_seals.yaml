@@ -83,3 +83,60 @@ seals:
     book_library_mgmt:
       identities: kept 57, superseded 0, new 0, replaced 0, retired 0
       design_of_record: unchanged
+- dossier: route_change_judged_by_phases
+  change: A route change is sealed only when its dossier is admissible from the seed to governance intent,
+    and the seal records each phase verdict.
+  pinned: 14a968ceebcc7e9bc6f23e3e2e6a63ae9140e972d3fbd14b240d8828db6940c0
+  phases:
+    p0:
+      document: p0_seed_transformation_design_v0.md
+      verdict: ADMISSIBLE
+      judged_by: transformation.schemas.REGISTER_SCHEMA_P0_V0 revision 1
+    p1:
+      document: p1_change_request_transformation_design_v0.md
+      verdict: ADMISSIBLE
+      judged_by: transformation.schemas.REGISTER_SCHEMA_P1_V0 revision 1
+    p2:
+      document: p2_domain_model_transformation_design_v0.md
+      verdict: ADMISSIBLE
+      judged_by: transformation.schemas.REGISTER_SCHEMA_P2_V0 revision 1
+    p3:
+      document: p3_analysis_loop_transformation_design_v0.md
+      verdict: ADMISSIBLE
+      judged_by: transformation.schemas.REGISTER_SCHEMA_P3_V0 revision 1
+    p4:
+      document: p4_business_model_transformation_design_v0.md
+      verdict: ADMISSIBLE
+      judged_by: transformation.schemas.REGISTER_SCHEMA_P4_V0 revision 1
+    p5:
+      document: p5_business_intent_transformation_design_v0.md
+      verdict: ADMISSIBLE
+      judged_by: transformation.schemas.REGISTER_SCHEMA_P5_V0 revision 1
+    p6:
+      document: p6_governance_intent_transformation_design_v0.md
+      verdict: ADMISSIBLE
+      judged_by: transformation.schemas.REGISTER_SCHEMA_P6_V0 revision 1
+  route:
+    __init__.py: sha256:44e3864ecf1a88194a9b4a92cddbd043fd2bd785dd8ae23e1939713a9fbd04ec
+    base.py: sha256:fe06f52deaa538647c48c7735fb43a4f8bbc1f0fe3f1a4a8c5a30cc0400051d7
+    catalog.yaml: sha256:05e96609dcc56bfebccc84306e5acd503cb83f582ff9596a0d4683050aabde4b
+    cli.py: sha256:3ca6fac40ec17c42dcf46d5a1a1da93ff8c97f3d3b0f95d485c592bd9c447e65
+    compose.py: sha256:ab90b53c8f43af23a02191d75a2b35a25f97f303bcda4215e81151a97814a73e
+    discover.py: sha256:117f3ee1fda092c818387f69b7d1d2708eaabaacbe51a7f0c16e321cfd235892
+    doctrine.yaml: sha256:6567f56112bcf47d0e4a5dec5c3833357b8b058e6c9ec59f5a973a295c26c9fc
+    identity.py: sha256:b26123d145f5f11dc1905659191f3ef0d1bee97f795af99e3773f7fa3457bac5
+    ledger.py: sha256:ad0f4b344318fd13e32f535d7e4b8e4c9d4fe3ec916a76f65a88a515bca6bd45
+    ledger_schema.yaml: sha256:63c779e88a7249d35e89513e08537711baaf9fa53a453b56d493009bb42a1c71
+    project.py: sha256:4f4505313df00efd3621abbd02df89a02b3b68b361cdb687a232633afbf3d5b1
+    seal.py: sha256:155b4be28d5abed1da6b0d74196491d33add1153749a5a4ca6b6910a5857b2ea
+    splice.py: sha256:b04ac70211b20cb14a953b441e7c2236fee2d1c82816e42cee87ce798d590bff
+  rederived:
+    ai_governance:
+      identities: kept 59, superseded 0, new 0, replaced 0, retired 0
+      design_of_record: unchanged
+    blockchain:
+      identities: kept 44, superseded 0, new 0, replaced 0, retired 0
+      design_of_record: unchanged
+    book_library_mgmt:
+      identities: kept 57, superseded 0, new 0, replaced 0, retired 0
+      design_of_record: unchanged

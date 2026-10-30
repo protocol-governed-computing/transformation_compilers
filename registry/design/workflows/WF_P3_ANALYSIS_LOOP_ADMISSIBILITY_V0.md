@@ -675,6 +675,7 @@ core:
             eligible:
             - substrate
             - business
+            own_domain: true
           intent: a change request may only be offered candidates from a domain that permits reuse
         - id: DECISION_WITHOUT_ALTERNATIVES
           identity: transformation.schemas.REGISTER_SCHEMA_P3_V0#/allOf/1

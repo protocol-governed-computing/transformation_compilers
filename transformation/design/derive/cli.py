@@ -160,11 +160,10 @@ def derive_seal(dossier: Path, snapshot_root: Path, change: str) -> None:
     dossier = dossier.resolve()
     if dossier.parent != seal.DOSSIERS.resolve():
         raise click.ClickException(f"a route change runs as its own dossier, under {seal.DOSSIERS}")
-    if not (dossier / seal.CHANGE_FILE).is_file():
-        raise click.ClickException(f"{dossier.name} has no {seal.CHANGE_FILE}: the dossier says what changed")
     for name in seal.SEALED:
         if why := seal.unrecorded(name):
             raise click.ClickException(why)
+    pinned, phases = judge_dossier(dossier, snapshot_root)
     seal.SEALING = True
     rederived = {}
     for ledger in sorted((seal.DOSSIERS.parent / "testbed" / "ledgers").glob("*/ledger.yaml")):
@@ -172,8 +171,47 @@ def derive_seal(dossier: Path, snapshot_root: Path, change: str) -> None:
         summary = rederive(ledger, seal.DOSSIERS.parents[1] / "business_domains" / name, snapshot_root)
         rederived[name] = summary
         click.echo(f"  {name}: {summary['identities']}  — design of record {summary['design_of_record']}")
-    entry = seal.record_seal(dossier.name, change, rederived)
-    click.echo(f"  sealed by dossiers/{entry['dossier']}: {len(entry['route'])} file(s)")
+    entry = seal.record_seal(dossier.name, change, rederived, phases, pinned)
+    click.echo(f"  sealed by dossiers/{entry['dossier']}: {len(entry['route'])} file(s), "
+               f"phases {len(phases)}/{len(seal.PHASES)} admissible")
+
+
+def judge_dossier(dossier: Path, snapshot_root: Path) -> tuple[str, dict]:
+    """Judge a route change's P0 to P6, each against its priors, by the rule sets sealed in the
+    composition its pin names. Refused unless the pin is that composition and every one is admissible."""
+    import subprocess
+    import sys
+    pin = dossier / seal.PIN_FILE
+    if not pin.is_file():
+        raise click.ClickException(f"{dossier.name} has no {seal.PIN_FILE}: a dossier pins the composition it is "
+                                   "designed against (`tc baseline show`)")
+    pinned = json.loads(pin.read_text(encoding="utf-8"))["snapshot_id"]
+    tc = [sys.executable, "-c", "from transformation.cli import main; main()"]
+    shown = subprocess.run(tc + ["baseline", "show", "--snapshot", str(snapshot_root)],
+                           capture_output=True, text=True, check=True).stdout
+    if json.loads(shown)["snapshot_id"] != pinned:
+        raise click.ClickException(f"{dossier.name} is pinned to {pinned[:12]}…, not the composition at "
+                                   f"{snapshot_root}: judge a dossier against the composition it pins")
+    docs = seal.phase_documents(dossier)
+    missing = [ph for ph, doc in docs.items() if doc is None]
+    if missing:
+        raise click.ClickException(f"{dossier.name} has no {', '.join(missing)} document: a route change is "
+                                   "judged by the phases, P0 to P6")
+    phases, refused = {}, []
+    for ph, doc in docs.items():
+        argv = tc + ["phase", "check", str(doc), "--phase", ph, "--snapshot", str(snapshot_root), "--json"]
+        for prior in seal.PRIORS[ph]:
+            argv += ["--prior", f"{prior}={docs[prior]}"]
+        verdict = json.loads(subprocess.run(argv, capture_output=True, text=True).stdout)
+        phases[ph] = {"document": doc.name, "verdict": verdict["verdict"],
+                      "judged_by": f"{verdict['judged_by']['schema']} revision {verdict['judged_by']['revision']}"}
+        click.echo(f"  {ph}  {verdict['verdict']:<13} {doc.name}")
+        if verdict["verdict"] != "ADMISSIBLE":
+            refused += [f"{ph}: {f.get('code')} at {f.get('locator')}: {f.get('detail', '')}"[:240]
+                        for f in verdict.get("findings") or []]
+    if refused:
+        raise click.ClickException("a phase document is not admissible:\n  " + "\n  ".join(refused[:20]))
+    return pinned, phases
 
 
 def rederive(ledger: Path, domain_root: Path, snapshot_root: Path) -> dict:
