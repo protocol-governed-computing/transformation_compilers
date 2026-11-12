@@ -1,0 +1,610 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "transformation.schemas.SCHEMA_REGISTER_SCHEMA_V0",
+  "title": "Register schema",
+  "description": "What a phase's register schema may declare. The surface is closed: a keyword the evaluator does not implement is refused here, so a schema never says more than is enforced.",
+  "type": "object",
+  "required": [
+    "$schema",
+    "$id",
+    "type",
+    "required",
+    "properties"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "const": "https://json-schema.org/draft/2020-12/schema"
+    },
+    "$id": {
+      "type": "string",
+      "pattern": "^transformation\\.schemas\\.REGISTER_SCHEMA_P[0-8]_V[0-9]+$"
+    },
+    "$comment": {
+      "type": "string"
+    },
+    "type": {
+      "const": "object"
+    },
+    "required": {
+      "const": [
+        "document",
+        "registers"
+      ]
+    },
+    "x-consumes": {
+      "$ref": "#/$defs/handoff"
+    },
+    "x-emits": {
+      "$ref": "#/$defs/handoff"
+    },
+    "properties": {
+      "type": "object",
+      "required": [
+        "document",
+        "registers"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "document": {
+          "$ref": "#/$defs/document"
+        },
+        "registers": {
+          "type": "object",
+          "required": [
+            "type",
+            "required",
+            "properties"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "type": {
+              "const": "object"
+            },
+            "required": {
+              "$ref": "#/$defs/names"
+            },
+            "properties": {
+              "type": "object",
+              "minProperties": 1,
+              "propertyNames": {
+                "pattern": "^[a-z][a-z0-9_]*$"
+              },
+              "additionalProperties": {
+                "$ref": "#/$defs/register"
+              }
+            }
+          }
+        }
+      }
+    },
+    "allOf": {
+      "type": "array",
+      "description": "The rules the phase declares beyond its shape, in declaration order: a sealed rule set is an ordered list.",
+      "items": {
+        "$ref": "#/$defs/entry"
+      }
+    },
+    "x-priors": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^p[0-8]$"
+      },
+      "uniqueItems": true
+    },
+    "x-observations": {
+      "type": "object",
+      "description": "The composition facts a phase grounds against: inspection operation (optionally #field) to the key its result is read under.",
+      "propertyNames": {
+        "pattern": "^si\\.[a-z_.]+(#[a-z_]+)?$"
+      },
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^[a-z_]+$"
+      }
+    },
+    "$defs": {
+      "type": "object",
+      "description": "Value types several columns share, each declared once and named by a column's `$ref`.",
+      "propertyNames": {
+        "pattern": "^[a-z][a-z0-9_]*$"
+      },
+      "additionalProperties": {
+        "type": "object"
+      }
+    },
+    "x-revisions": {
+      "type": "array",
+      "minItems": 1,
+      "description": "The rule set's history under this `$id`, oldest first. Each revision records a change that alters no prior document's admissibility; one that can takes a new `$id`. The last revision's digest is the digest of the rule set the schema expands into.",
+      "items": {
+        "$ref": "#/$defs/revision"
+      }
+    }
+  },
+  "$defs": {
+    "names": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9_]*$"
+      },
+      "uniqueItems": true
+    },
+    "section": {
+      "type": "object",
+      "required": [
+        "number",
+        "title"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "number": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "title": {
+          "type": "string"
+        }
+      }
+    },
+    "register": {
+      "oneOf": [
+        {
+          "type": "object",
+          "description": "A text-only register: the context no row could carry.",
+          "required": [
+            "type",
+            "minLength",
+            "x-section"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "type": {
+              "const": "string"
+            },
+            "minLength": {
+              "const": 1
+            },
+            "x-section": {
+              "$ref": "#/$defs/section"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "description": "A table register: a list of rows, each a mapping from column key to value.",
+          "required": [
+            "type",
+            "items",
+            "x-section"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "type": {
+              "const": "array"
+            },
+            "minItems": {
+              "const": 1
+            },
+            "x-section": {
+              "$ref": "#/$defs/section"
+            },
+            "x-business-language": {
+              "oneOf": [
+                {
+                  "const": true
+                },
+                {
+                  "$ref": "#/$defs/names"
+                }
+              ]
+            },
+            "items": {
+              "type": "object",
+              "required": [
+                "type",
+                "properties",
+                "required"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "type": {
+                  "const": "object"
+                },
+                "required": {
+                  "$ref": "#/$defs/names"
+                },
+                "properties": {
+                  "type": "object",
+                  "minProperties": 1,
+                  "propertyNames": {
+                    "pattern": "^[a-z][a-z0-9_]*$"
+                  },
+                  "additionalProperties": {
+                    "$ref": "#/$defs/column"
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "column": {
+      "type": "object",
+      "required": [
+        "title"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "x-vocab": {
+          "type": "object",
+          "required": [
+            "artifact",
+            "group"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "artifact": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9_.]*::VOCAB_[A-Z0-9_]+_V[0-9]+$"
+            },
+            "group": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9_]*$"
+            }
+          }
+        },
+        "type": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          ]
+        },
+        "items": {
+          "type": "object"
+        },
+        "additionalProperties": {},
+        "properties": {
+          "type": "object"
+        },
+        "oneOf": {
+          "type": "array"
+        },
+        "$ref": {
+          "type": "string",
+          "pattern": "^#/\\$defs/[a-z][a-z0-9_]*$"
+        }
+      },
+      "description": "A column: its display name, its vocabulary if it draws on one, and the type of its value, stated or named by `$ref` from the schema's `$defs`. Text, or null when it says nothing, unless the column carries structure."
+    },
+    "handoff": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "finding": {
+      "type": "object",
+      "required": [
+        "code",
+        "intent"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "type": "string",
+          "pattern": "^[A-Z][A-Z0-9_]*$"
+        },
+        "intent": {
+          "type": "string"
+        },
+        "detail": {
+          "type": "string"
+        }
+      }
+    },
+    "value_test": {
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "properties": {
+        "minLength": {
+          "const": 1
+        },
+        "pattern": {
+          "type": "string"
+        },
+        "const": {},
+        "enum": {
+          "type": "array",
+          "minItems": 1
+        },
+        "not": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "pattern"
+          ],
+          "properties": {
+            "pattern": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "row_test": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "properties": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/value_test"
+          }
+        },
+        "required": {
+          "$ref": "#/$defs/names"
+        },
+        "not": {
+          "$ref": "#/$defs/row_test"
+        },
+        "if": {
+          "$ref": "#/$defs/row_test"
+        },
+        "then": {
+          "$ref": "#/$defs/row_test"
+        }
+      }
+    },
+    "annotation": {
+      "type": "object",
+      "required": [
+        "mode",
+        "params"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "mode": {
+          "type": "string",
+          "pattern": "^[a-z_]+$"
+        },
+        "params": {
+          "type": "object"
+        }
+      }
+    },
+    "entry": {
+      "type": "object",
+      "description": "One declared rule. It names the register it governs, unless it is about the whole document, states one constraint, annotation or procedure, and names what it realises.",
+      "required": [
+        "x-finding"
+      ],
+      "additionalProperties": false,
+      "minProperties": 2,
+      "maxProperties": 5,
+      "properties": {
+        "x-register": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]*$"
+        },
+        "x-finding": {
+          "$ref": "#/$defs/finding"
+        },
+        "x-realises": {
+          "type": "string",
+          "description": "What the rule realises: a lifecycle invariant, or for a procedure specified by a statement, its anchor in DESIGN_LANGUAGE.md.",
+          "pattern": "^(?:lifecycle::INVARIANT_[A-Z0-9_]+_V[0-9]+|DESIGN_LANGUAGE\\.md#[a-z0-9_]+)$"
+        },
+        "x-columns": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "items": {
+          "$ref": "#/$defs/row_test"
+        },
+        "minItems": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "maxItems": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "x-key": {
+          "$ref": "#/$defs/annotation"
+        },
+        "x-reference": {
+          "$ref": "#/$defs/annotation"
+        },
+        "x-carriage": {
+          "$ref": "#/$defs/annotation"
+        },
+        "x-grounding": {
+          "$ref": "#/$defs/annotation"
+        },
+        "x-procedure": {
+          "type": "object",
+          "required": [
+            "name",
+            "params"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string",
+              "pattern": "^[A-Z][A-Z0-9_]*$"
+            },
+            "params": {
+              "type": "object"
+            }
+          }
+        }
+      }
+    },
+    "document": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "required",
+        "properties"
+      ],
+      "description": "The header a phase document carries under `document`: what it is, and the rule set it was authored under. Each field's declaration expands into a header rule.",
+      "properties": {
+        "type": {
+          "const": "object"
+        },
+        "required": {
+          "const": [
+            "phase",
+            "domain",
+            "subdomain",
+            "cr",
+            "rule_set"
+          ]
+        },
+        "properties": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "phase",
+            "domain",
+            "subdomain",
+            "cr",
+            "rule_set"
+          ],
+          "properties": {
+            "phase": {
+              "type": "object",
+              "required": [
+                "const"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "const": {
+                  "type": "string",
+                  "pattern": "^p[0-8]$"
+                }
+              }
+            },
+            "domain": {
+              "$ref": "#/$defs/header_field"
+            },
+            "subdomain": {
+              "$ref": "#/$defs/header_field"
+            },
+            "cr": {
+              "$ref": "#/$defs/header_field"
+            },
+            "rule_set": {
+              "type": "object",
+              "required": [
+                "type",
+                "pattern"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "type": {
+                  "const": "string"
+                },
+                "pattern": {
+                  "type": "string"
+                }
+              }
+            },
+            "approval": {
+              "type": "object",
+              "required": [
+                "$ref"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "$ref": {
+                  "const": "#/$defs/approval"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "header_field": {
+      "type": "object",
+      "description": "A header field's type, as JSON Schema.",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          ]
+        },
+        "items": {
+          "type": "object"
+        },
+        "minLength": {
+          "type": "integer"
+        },
+        "minItems": {
+          "type": "integer"
+        }
+      }
+    },
+    "revision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "revision",
+        "retroactive",
+        "change",
+        "digest"
+      ],
+      "properties": {
+        "revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "retroactive": {
+          "const": false,
+          "description": "A retroactive change takes a new `$id`, so a revision recorded here never is. The field states the effectivity the change declared."
+        },
+        "change": {
+          "type": "string",
+          "minLength": 1
+        },
+        "digest": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        }
+      }
+    }
+  }
+}
